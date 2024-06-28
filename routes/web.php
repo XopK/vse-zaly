@@ -33,4 +33,8 @@ Route::get('/rent', function () {
     return view('rent');
 });
 
+Route::get('/hall', function () {
+    return view('hall');
+});
+
 
