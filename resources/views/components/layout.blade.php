@@ -49,7 +49,6 @@
                         <nav class="main-menu navbar-expand-md navbar-light">
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-
                                     <li class="dropdown"><a href="/">Главная</a></li>
 
                                     <li class="dropdown"><a href="/profile">Личный профиль</a></li>
@@ -65,10 +64,10 @@
                                             <li><a href="#">Что то 3</a></li>
                                         </ul>
                                     </li>
+
                                     <li><a href="/rent">Долгосрочная аренда</a></li>
-                                    <li><a href="/">Авторизация</a></li>
-                                    
-                                   
+
+                                    <li><a data-toggle="modal" data-target="#logModal">Авторизация</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -77,9 +76,9 @@
                     <div class="other-links clearfix">
                         <div class="info">
                             <ul class="clearfix">
-                                <li><button type="button" data-toggle="modal" data-target="#logModal"><span
+                                <li><a data-toggle="modal" data-target="#logModal"><span
                                             class="icon flaticon-padlock"></span><span
-                                            class="txt">Авторизация</span></button></li>
+                                            class="txt">Авторизация</span></a></li>
                             </ul>
                         </div>
                     </div>

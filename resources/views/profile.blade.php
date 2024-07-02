@@ -1,7 +1,7 @@
 <x-layout>
     <style>
         .detail-clearfix {
-            
+
             border-radius: 4px;
             overflow: hidden;
             padding: 10px;
@@ -76,7 +76,7 @@
                         <div class="header clearfix">
                             <h2>Emma Connor</h2>
                             <h4>Creative Director</h4>
-                            <img src="assets/img/avatar/avatar-2.png" alt="avatar" class="img-fluid profile-img">
+                            <img src="https://placehold.co/340x340" alt="avatar" class="img-fluid profile-img">
                         </div>
                         <!-- Detail -->
                         <div class="detail-clearfix">
