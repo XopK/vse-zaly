@@ -52,7 +52,7 @@
 
                                     <li class="dropdown"><a href="/">Главная</a></li>
 
-                                    <li class="dropdown"><a href="#">Личный профиль</a></li>
+                                    <li class="dropdown"><a href="/profile">Личный профиль</a></li>
 
                                     <li><a href="/about">О нас</a></li>
 
@@ -66,7 +66,9 @@
                                         </ul>
                                     </li>
                                     <li><a href="/rent">Долгосрочная аренда</a></li>
-
+                                    <li><a href="/">Авторизация</a></li>
+                                    
+                                   
                                 </ul>
                             </div>
                         </nav>

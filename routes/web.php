@@ -37,4 +37,6 @@ Route::get('/hall', function () {
     return view('hall');
 });
 
-
+Route::get('/profile', function () {
+    return view('profile');
+});
