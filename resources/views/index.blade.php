@@ -63,7 +63,7 @@
         <span class="tri-pattern tri-pattern-1"></span>
         <div class="auto-container">
             <!--Filters Section-->
-            <div class="filters-section">
+            {{-- <div class="filters-section">
                 <div class="form-box default-form filter-form wow fadeInUp" data-wow-delay="0ms"
                     data-wow-duration="1500ms">
                     <form method="post" action="room-single.html">
@@ -141,21 +141,21 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> --}}
             <div class="row clearfix">
                 <!--Text Column-->
                 <div class="text-column col-lg-6 col-md-12 col-sm-12">
                     <div class="inner">
                         <div class="sec-title">
-                            <h2>Quality <br>Holidays With Us</h2>
+                            <h2>Стильные и комфортные <br> танцевальные залы в аренду в центре Уфы!</h2>
                         </div>
-                        <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                        <div class="link-box">
+                        <div class="text">Разово и на постоянные занятия; <br>
+                            групповые и индивидуальные/самостоятельные тренировки, <br>
+                            фото и видео-съемки, вечеринки, мероприятия. </div>
+                        {{-- <div class="link-box">
                             <a href="about.html" class="theme-btn btn-style-one"><span class="btn-title">Read
                                     More</span></a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <!--Image Column-->
@@ -174,7 +174,7 @@
     </section>
 
     <!--Facts Section-->
-    <section class="facts-section">
+    {{-- <section class="facts-section">
         <span class="dotted-pattern dotted-pattern-3"></span>
         <div class="left-bottom-image"><img src="images/resource/chair-umbrella.png" alt="" title="">
         </div>
@@ -184,10 +184,8 @@
                 <div class="title-column col-xl-7 col-lg-6 col-md-12 col-sm-12">
                     <div class="inner">
                         <div class="sec-title">
-                            <h2>Always Ready <br>to Take Challange</h2>
-                            <div class="lower-text">Lorem ipsum dolor sit consectetur adipisicing elit sed do eiusmod
-                                tempor incididunt ut labore dolore magna aliqua. enim ad minim veniam quis nostrud
-                                exercitation.</div>
+                            <h2>В каждом зале:</h2>
+                            <div class="lower-text">Дополнительно в аренду можно взять свет для ваших съемок (оплачивается отдельно) и стулья (бесплатно).</div>
                         </div>
 
                     </div>
@@ -203,7 +201,7 @@
                                         <div class="count-box"><span class="count-text" data-stop="25"
                                                 data-speed="2000">0</span>+</div>
                                     </div>
-                                    <h4>Years Exp.</h4>
+                                    <h4>Вентиляция</h4>
                                     <div class="text">Excepteur sint occaecat cupidatat proi dent in sunt.</div>
                                 </div>
                             </div>
@@ -214,7 +212,7 @@
                                         <div class="count-box"><span class="count-text" data-stop="712"
                                                 data-speed="5000">0</span></div>
                                     </div>
-                                    <h4>Project Done</h4>
+                                    <h4>Кондиционер</h4>
                                     <div class="text">Excepteur sint occaecat cupidatat proi dent in sunt.</div>
                                 </div>
                             </div>
@@ -225,7 +223,7 @@
                                         <div class="count-box"><span class="count-text" data-stop="310"
                                                 data-speed="4000">0</span></div>
                                     </div>
-                                    <h4>Awards Win</h4>
+                                    <h4>Светодиодные ленты</h4>
                                     <div class="text">Excepteur sint occaecat cupidatat proi dent in sunt.</div>
                                 </div>
                             </div>
@@ -235,7 +233,7 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
     <div class="dashed-separator">
         <div class="auto-container"><span></span></div>
@@ -246,10 +244,9 @@
         <div class="outer-container">
             <div class="auto-container">
                 <div class="sec-title centered">
-                    <h2>Room & Suites</h2>
-                    <div class="lower-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem.</div>
+                    <h2>Наши залы</h2>
+                    <div class="lower-text">Стоимость залов при бронировании на группу (в зале от 4х человек)
+                    </div>
                 </div>
             </div>
 
@@ -259,21 +256,21 @@
                         data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <div class="image-layer" style="background-image: url(images/gallery/1.jpg);"></div>
-                                <figure class="image"><img src="images/gallery/1.jpg" alt=""
+                                <div class="image-layer" style="background-image: url(img/IMG_9404.JPG);"></div>
+                                <figure class="image"><img src="img/IMG_9404.JPG" alt=""
                                         title=""></figure>
                             </div>
                             <div class="cap-box">
                                 <div class="cap-inner">
-                                    <div class="price">From <span>$50.00</span></div>
-                                    <h5>Balcony Room</h5>
+                                    <div class="price">Площадь <span>70м</span></div>
+                                    <h5>Зал Белый</h5>
                                 </div>
                             </div>
                             <div class="hover-box">
                                 <div class="hover-inner">
-                                    <h4>Balcony Room</h4>
+                                    <h4>Зал Белый</h4>
                                     <div class="pricing clearfix">
-                                        <div class="price">From <span>$50.00</span></div>
+                                        <div class="price">Площадь <span>70м</span></div>
                                         <div class="rating">
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
