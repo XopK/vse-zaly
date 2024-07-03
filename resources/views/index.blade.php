@@ -249,16 +249,15 @@
                     </div>
                 </div>
             </div>
-
             <div class="row clearfix">
                 <div class="column col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                    <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms"
-                        data-wow-duration="1500ms">
+                    <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <div class="image-layer" style="background-image: url(img/IMG_9404.JPG);"></div>
-                                <figure class="image"><img src="img/IMG_9404.JPG" alt=""
-                                        title=""></figure>
+                                <div class="image-layer" style="background-image: url(images/halls/IMG_7503.jpeg);">
+                                </div>
+                                <figure class="image"><img src="images/halls/IMG_7503.jpeg" alt="white_hall"
+                                        title="white_hall"></figure>
                             </div>
                             <div class="cap-box">
                                 <div class="cap-inner">
@@ -280,8 +279,102 @@
                                         </div>
                                     </div>
 
-                                    <div class="text">Excepteur sint occaecat cupidatat pro dent in sun in culpa qui
-                                        officia deserunt mollit anim.</div>
+                                    <div class="text">
+                                        <ul>
+                                            <li>700/час в будни до 19:00</li>
+                                            <li>1100/час в будни с 19:00</li>
+                                            <li>1000/час в выходные дни в любое время</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="link-box"><a href="room-single.html"
+                                            class="theme-btn btn-style-one"><span class="btn-title">Check
+                                                Availability</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                                </div>
+                                <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
+                                        title="small_hall">
+                                </figure>
+                            </div>
+                            <div class="cap-box">
+                                <div class="cap-inner">
+                                    <div class="price">Площадь <span>40м</span></div>
+                                    <h5>Зал Малый</h5>
+                                </div>
+                            </div>
+                            <div class="hover-box">
+                                <div class="hover-inner">
+                                    <h4>Зал Малый</h4>
+                                    <div class="pricing clearfix">
+                                        <div class="price">Площадь <span>40м</span></div>
+                                        <div class="rating">
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="text">
+                                        <ul>
+                                            <li>400/час в будни до 19:00</li>
+                                            <li>500/час будни с 19:00</li>
+                                            <li>450/час в выходные дни в любое время </li>
+                                        </ul>
+                                    </div>
+                                    <div class="link-box"><a href="room-single.html"
+                                            class="theme-btn btn-style-one"><span class="btn-title">Check
+                                                Availability</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms"
+                        data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <div class="image-layer" style="background-image: url(images/halls/IMG_7510.jpeg);">
+                                </div>
+                                <figure class="image"><img src="images/halls/IMG_7510.jpeg" alt="black_hall"
+                                        title="white_hall"></figure>
+                            </div>
+                            <div class="cap-box">
+                                <div class="cap-inner">
+                                    <div class="price">Площадь <span>60м</span></div>
+                                    <h5>Зал Черный</h5>
+                                </div>
+                            </div>
+                            <div class="hover-box">
+                                <div class="hover-inner">
+                                    <h4>Зал Черный</h4>
+                                    <div class="pricing clearfix">
+                                        <div class="price">Площадь <span>60м</span></div>
+                                        <div class="rating">
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="text">
+                                        <ul>
+                                            <li>600/час в будни до 19:00</li>
+                                            <li>900/час будни с 19:00</li>
+                                            <li>800/час в выходные дни в любое время </li>
+                                        </ul>
+                                    </div>
                                     <div class="link-box"><a href="room-single.html"
                                             class="theme-btn btn-style-one"><span class="btn-title">Check
                                                 Availability</span></a></div>
@@ -293,21 +386,22 @@
                         data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <div class="image-layer" style="background-image: url(images/gallery/2.jpg);"></div>
-                                <figure class="image"><img src="images/gallery/2.jpg" alt=""
+                                <div class="image-layer" style="background-image: url(images/halls/IMG_5450.jpeg);">
+                                </div>
+                                <figure class="image"><img src="images/halls/IMG_5450.jpeg" alt=""
                                         title=""></figure>
                             </div>
                             <div class="cap-box">
                                 <div class="cap-inner">
-                                    <div class="price">From <span>$50.00</span></div>
-                                    <h5>Sea View Room</h5>
+                                    <div class="price">Площадь <span>75м</span></div>
+                                    <h5>Зал Лед</h5>
                                 </div>
                             </div>
                             <div class="hover-box">
                                 <div class="hover-inner">
-                                    <h4>Sea View Room</h4>
+                                    <h4>Зал Лед</h4>
                                     <div class="pricing clearfix">
-                                        <div class="price">From <span>$50.00</span></div>
+                                        <div class="price">Площадь <span>75м</span></div>
                                         <div class="rating">
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
@@ -317,47 +411,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="text">Excepteur sint occaecat cupidatat pro dent in sun in culpa qui
-                                        officia deserunt mollit anim.</div>
-                                    <div class="link-box"><a href="room-single.html"
-                                            class="theme-btn btn-style-one"><span class="btn-title">Check
-                                                Availability</span></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                    <div class="room-block-one height-two wow fadeInUp" data-wow-delay="300ms"
-                        data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <div class="image-layer" style="background-image: url(images/gallery/3.jpg);"></div>
-                                <figure class="image"><img src="images/gallery/3.jpg" alt=""
-                                        title=""></figure>
-                            </div>
-                            <div class="cap-box">
-                                <div class="cap-inner">
-                                    <div class="price">From <span>$50.00</span></div>
-                                    <h5>Superior Room</h5>
-                                </div>
-                            </div>
-                            <div class="hover-box">
-                                <div class="hover-inner">
-                                    <h4>Superior Room</h4>
-                                    <div class="pricing clearfix">
-                                        <div class="price">From <span>$50.00</span></div>
-                                        <div class="rating">
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                        </div>
+                                    <div class="text">
+                                        <ul>
+                                            <li>700/час в будни до 19:00</li>
+                                            <li>1200/час будни с 19:00</li>
+                                            <li>1100/час в выходные дни в любое время </li>
+                                        </ul>
                                     </div>
-
-                                    <div class="text">Excepteur sint occaecat cupidatat pro dent in sun in culpa qui
-                                        officia deserunt mollit anim.</div>
                                     <div class="link-box"><a href="room-single.html"
                                             class="theme-btn btn-style-one"><span class="btn-title">Check
                                                 Availability</span></a></div>
@@ -371,21 +431,22 @@
                         data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <div class="image-layer" style="background-image: url(images/gallery/4.jpg);"></div>
-                                <figure class="image"><img src="images/gallery/4.jpg" alt=""
+                                <div class="image-layer" style="background-image: url(images/halls/IMG_5441.jpeg);">
+                                </div>
+                                <figure class="image"><img src="images/halls/IMG_5441.jpeg  " alt=""
                                         title=""></figure>
                             </div>
                             <div class="cap-box">
                                 <div class="cap-inner">
-                                    <div class="price">From <span>$50.00</span></div>
-                                    <h5>Deluxe Room</h5>
+                                    <div class="price">Площадь <span>75м</span></div>
+                                    <h5>Зал Ртуть</h5>
                                 </div>
                             </div>
                             <div class="hover-box">
                                 <div class="hover-inner">
-                                    <h4>Deluxe Room</h4>
+                                    <h4>Зал Ртуть</h4>
                                     <div class="pricing clearfix">
-                                        <div class="price">From <span>$50.00</span></div>
+                                        <div class="price">Площадь <span>75м</span></div>
                                         <div class="rating">
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
@@ -395,8 +456,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="text">Excepteur sint occaecat cupidatat pro dent in sun in culpa qui
-                                        officia deserunt mollit anim.</div>
+                                    <div class="text">
+                                        <ul>
+                                            <li>700/час в будни до 19:00</li>
+                                            <li>1200/час будни с 19:00</li>
+                                            <li>1100/час в выходные дни в любое время </li>
+                                        </ul>
+                                    </div>
                                     <div class="link-box"><a href="room-single.html"
                                             class="theme-btn btn-style-one"><span class="btn-title">Check
                                                 Availability</span></a></div>
@@ -408,21 +474,22 @@
                         data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <div class="image-layer" style="background-image: url(images/gallery/5.jpg);"></div>
-                                <figure class="image"><img src="images/gallery/5.jpg" alt=""
+                                <div class="image-layer" style="background-image: url(images/halls/IMG_5431.jpeg);">
+                                </div>
+                                <figure class="image"><img src="images/halls/IMG_5431.jpeg" alt=""
                                         title=""></figure>
                             </div>
                             <div class="cap-box">
                                 <div class="cap-inner">
-                                    <div class="price">From <span>$50.00</span></div>
-                                    <h5>Luxury Suite Room</h5>
+                                    <div class="price">Площадь <span>78м</span></div>
+                                    <h5>Зал Нефть</h5>
                                 </div>
                             </div>
                             <div class="hover-box">
                                 <div class="hover-inner">
-                                    <h4>Luxury Suite Room</h4>
+                                    <h4>Зал Нефть</h4>
                                     <div class="pricing clearfix">
-                                        <div class="price">From <span>$50.00</span></div>
+                                        <div class="price">Площадь <span>78м</span></div>
                                         <div class="rating">
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
@@ -432,8 +499,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="text">Excepteur sint occaecat cupidatat pro dent in sun in culpa qui
-                                        officia deserunt mollit anim.</div>
+                                    <div class="text">
+                                        <ul>
+                                            <li>700/час в будни до 19:00</li>
+                                            <li>1200/час будни с 19:00</li>
+                                            <li>1100/час в выходные дни в любое время </li>
+                                        </ul>
+                                    </div>
                                     <div class="link-box"><a href="room-single.html"
                                             class="theme-btn btn-style-one"><span class="btn-title">Check
                                                 Availability</span></a></div>
@@ -442,13 +514,59 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="featured-section-four about-page">
+        <span class="dotted-pattern dotted-pattern-11"></span>
+        <div class="circles-two">
+            <div class="c-1"></div>
+            <div class="c-2"></div>
+        </div>
+        <div class="auto-container">
+            <div class="row clearfix">
+                <!--Text Column-->
+                <div class="text-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner">
+                        <div class="sec-title">
+                            <h2>В каждом зале мы предоставляем</h2>
+                        </div>
+                        <ul class="features">
+                            <li>Вентиляция</li>
+                            <li>Кондиционер</li>
+                            <li>Светодиодные ленты</li>
+                            <li>Зеркала в пол</li>
+                            <li>Робот-пылесос для поддержания чистоты</li>
+                            <li>Музыкальная аппаратура </li>
+                        </ul>
+                        <div class="text">Дополнительно в аренду можно взять свет для ваших съемок (оплачивается
+                            отдельно) и стулья (бесплатно).</div>
+                    </div>
+                </div>
+                <!--Image Column-->
+                <div class="image-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner">
+                        <span class="dotted-pattern dotted-pattern-10"></span>
+                        <div class="image-box clearfix">
+                            <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img
+                                    src="images/resource/featured-image-12.jpg" alt="" title="">
+                            </figure>
+                            <figure class="image wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                <img src="images/resource/featured-image-13.jpg" alt="" title="">
+                            </figure>
+                            <figure class="image wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms">
+                                <img src="images/resource/featured-image-14.jpg" alt="" title="">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!--Offers Section-->
-    <section class="offers-section-one">
+    {{-- <section class="offers-section-one">
         <div class="auto-container">
 
             <div class="upper-box clearfix">
@@ -524,7 +642,7 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
     <!--Featured Section-->
     <section class="featured-section">

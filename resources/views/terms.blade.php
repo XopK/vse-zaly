@@ -13,7 +13,11 @@
         </div>
     </section>
     <!--End Banner Section -->
-
+    <style>
+        strong{
+            font-size: 18px
+        }
+    </style>
     <!--Wellness Spa Section-->
     <section class="wellness-spa">
         <span class="dotted-pattern dotted-pattern-3"></span>
@@ -25,44 +29,124 @@
                         <div class="c-1"></div>
                         <div class="c-2"></div>
                     </div>
-                    <h2>Spa & Clinical Treatment</h2>
-                    <div class="hours">Opening Hours: <span>09:00AM - 10:00PM</span></div>
+                    <h2 class="mb-4">Правила использования залов</h2>
                     <div class="text">
-                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                            anim id est laborum. Sed perspiciatis unde omnis iste natus error sitvou ptatem accusantium
-                            doloremque laudantium totam rem aperiam eaque ipsa quae illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo.</p>
-                        <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed
-                            quia non numquam eius modi tempora incidunt labore dolore sit magnam aliquam quaerat
-                            voluptatem.</p>
+                        <h4>Пожалуйста, внимательно ознакомьтесь с правилами и передайте их своим ученикам!</h4>
                         <ul>
-                            <li>Enim ad minim veniam quis nostrud.</li>
-                            <li>Minim veniam quis nostrud.</li>
-                            <li>Enim ad minim veniam quis nostrud.</li>
-                            <li>Minim veniam quis nostrud.</li>
-                        </ul>
-                    </div>
-                    <div class="link-box">
-                        <a href="#" class="theme-btn btn-style-one"><span class="btn-title">Download
-                                Brochure</span></a>
-                    </div>
-                </div>
-            </div>
+                            <strong>Бронирование и оплата</strong>
+                            <ul>
+                                <li>Место закрепляется только после предоплаты.</li>
+                                <li>Без предоплаты бронь держится 10 минут.</li>
+                            </ul>
 
-            <div class="lower-box">
-                <span class="dotted-pattern dotted-pattern-3"></span>
-                <div class="row clearfix">
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                        data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/resource/featured-image-46.jpg"
-                                class="lightbox-image"><img src="images/resource/featured-image-46.jpg" alt=""
-                                    title=""></a></figure>
-                    </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-                        data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/resource/featured-image-47.jpg"
-                                class="lightbox-image"><img src="images/resource/featured-image-47.jpg" alt=""
-                                    title=""></a></figure>
+                            <strong>Перенос и отмена</strong>
+                            <ul>
+                                <li>Бесплатная отмена/перенос строго за сутки до начала занятия.</li>
+                                <li>При отмене или переносе менее, чем за сутки, оплата возвращается только в случае,
+                                    если найдется замена (лично через администратора).</li>
+                            </ul>
+
+                            <strong>Зеркала</strong>
+                            <ul>
+                                <li>Не облокачивайтесь спинами к зеркалам, не держитесь, не опирайтесь на зеркало.</li>
+                                <li>Не разрешайте ученикам трогать и облокачиваться спинами к зеркалам.</li>
+                                <li>На швах образуются сколы и трещины, отходят контакты светодиодных лент.</li>
+                                <li>Если после вас остаются грязные зеркала, доплата за уборку 300р.</li>
+                            </ul>
+
+                            <strong>Сменная обувь</strong>
+                            <ul>
+                                <li>Вход в студию только в чистой сменной обуви.</li>
+                                <li>Сменная обувь должна быть обязательно чистой.</li>
+                                <li>Если после вас остается грязный пол, доплата за уборку 300р.</li>
+                                <li>Сменную обувь можно вымыть в туалете и насухо вытереть бумажными салфетками (есть на
+                                    ресепшене).</li>
+                            </ul>
+
+                            <strong>Черная подошва</strong>
+                            <ul>
+                                <li>Выбирайте для занятий обувь со светлой подошвой или заклеивайте боковую часть
+                                    цветной подошвы тейпом.</li>
+                                <li>Не все следы оттираются!</li>
+                                <li>Обязательно всегда заклеивайте цветную подошву тейпом (боковые части обязательно,
+                                    нижнюю часть можно не заклеивать, чтобы не скользило).</li>
+                                <li>На ресепшене можно взять тейп. Он незаметен на обуви и не оставляет следов.</li>
+                                <li>Если после вас остаются черные полосы или разводы, доплата за уборку 500р. Следы от
+                                    обуви пачкают ламинат и одежду следующих арендаторов, в том числе и в зале Нефть.
+                                </li>
+                            </ul>
+
+                            <strong>Дым</strong>
+                            <ul>
+                                <li>Предупреждайте, если планируются съемки с дымом (или паром).</li>
+                                <li>Бронирование зала на съемку с дымом только через администратора!</li>
+                                <li>Дым разрешен только в новых залах: Лед, Ртуть, Нефть. Доплата за использование дыма
+                                    300р.</li>
+                                <li>Зал необходимо подготовить для дыма и проветрить после использования дыма (зал
+                                    должен быть свободен 30 минут после вас).</li>
+                            </ul>
+
+                            <strong>Свечи и благовония</strong>
+                            <ul>
+                                <li>В студии запрещены свечи и благовония.</li>
+                                <li>Используйте только светодиодные свечи!</li>
+                                <li>В зале запрещено что-либо поджигать.</li>
+                            </ul>
+
+                            <strong>Арендное время</strong>
+                            <ul>
+                                <li>Вовремя освобождайте зал и не задерживайте следующих арендаторов.</li>
+                                <li>Время аренды с 00 минут до 59 минут каждого часа (или до 29 минут, если аренда,
+                                    например, на полтора часа).</li>
+                                <li>Если вы заходите в зал позже, освободить зал нужно будет все равно в установленное
+                                    время.</li>
+                                <li>Уборку нужно закончить также в установленное время.</li>
+                            </ul>
+
+                            <strong>Вода</strong>
+                            <ul>
+                                <li>Воду в залы можно заносить только в закрывающихся емкостях.</li>
+                                <li>Не заносите в залы и раздевалки воду в стаканчиках!</li>
+                                <li>Пролитую воду необходимо сразу вытереть, не оставляйте ламинат мокрым. Это приводит
+                                    к порче ламината и пылесосов!</li>
+                            </ul>
+
+                            <strong>Пылесосы</strong>
+                            <ul>
+                                <li>Чтобы отправить пылесос на станцию, просто нажмите Домик на нем.</li>
+                                <li>Ничего не ставьте сверху на пылесосы.</li>
+                                <li>Пожалуйста, оставляйте двери в залах закрытыми, чтобы во время уборки пылесосы не
+                                    выезжали из своих залов.</li>
+                                <li>Не выключайте зарядные станции пылесосов из розетки.</li>
+                                <li>Не оставляйте на полу провода, вещи, мусор и пролитую воду. Это может привести к
+                                    порче пылесоса.</li>
+                            </ul>
+
+                            <strong>Курение</strong>
+                            <ul>
+                                <li>В студии запрещено курение в любом виде, в том числе и электронные сигареты.</li>
+                            </ul>
+
+                            <strong>Кондиционеры</strong>
+                            <ul>
+                                <li>Выключайте кондиционеры после занятия.</li>
+                                <li>Следующий арендатор включит кондиционер, если будет нужно.</li>
+                            </ul>
+
+                            <strong>Контактные номера</strong>
+                            <ul>
+                                <li>Если в студии что-то не работает, и основной номер не отвечает, позвоните,
+                                    пожалуйста, сюда: <a href="tel:+79177532370">89177532370 Егор</a>.</li>
+                            </ul>
+
+                            <strong>Заключительное</strong>
+                            <ul>
+                                <li>Пожалуйста, бронируйте и оплачивайте только если вы ознакомились с правилами и
+                                    согласны с ними.</li>
+                                <li>Не забудьте ознакомить учеников с правилами студии.</li>
+                            </ul>
+
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -126,7 +126,7 @@ body {
 	background: #ffffff;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Play", sans-serif;
 }
 
 a {
@@ -159,7 +159,7 @@ h6 {
 	margin: 0px 0px 15px;
 	background: none;
 	line-height: 1.25em;
-	font-family: 'Yeseva One', cursive;
+	font-family: "Play", cursive;
 }
 
 h1 {
@@ -189,7 +189,7 @@ h6 {
 input,
 select,
 button {
-	font-family: 'Roboto', sans-serif;
+	font-family: "Play", sans-serif;
 }
 
 textarea {
@@ -672,7 +672,7 @@ img {
 .main-menu .navigation {
 	position: relative;
 	margin: 0px;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Play", sans-serif;
 }
 
 .main-menu .navigation>li {
@@ -1707,7 +1707,7 @@ img.lazy-image.loaded {
 	height: 62px;
 	padding: 15px 20px;
 	line-height: 30px;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Play", sans-serif;
 	color: #25283a;
 	border-radius: 0px;
 	background-color: #ffffff;
@@ -1742,7 +1742,7 @@ img.lazy-image.loaded {
 .ui-widget.ui-widget-content {
 	border: 1px solid #1b1c1e;
 	border-top: none;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Play", sans-serif;
 	border-radius: 0;
 	padding: 0;
 }
@@ -1789,7 +1789,7 @@ img.lazy-image.loaded {
 	height: 62px;
 	padding: 15px 20px;
 	line-height: 30px;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Play", sans-serif;
 	color: #25283a;
 	border-radius: 0px;
 	background-color: #ffffff;
