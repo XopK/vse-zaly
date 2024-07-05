@@ -530,7 +530,7 @@
                 <div class="text-column col-lg-6 col-md-12 col-sm-12">
                     <div class="inner">
                         <div class="sec-title">
-                            <h2>В каждом зале мы предоставляем</h2>
+                            <h2>В каждом зале есть</h2>
                         </div>
                         <ul class="features">
                             <li>Вентиляция</li>
@@ -655,7 +655,7 @@
                     <!--Text Column-->
                     <div class="text-column col-lg-6 col-md-12 col-sm-12">
                         <div class="inner wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <h3>Discover a New <br>Look of Luxury Hotel.</h3>
+                            <h3>Имеется просторные мужские и женские раздевалки</h3>
                             <div class="text">Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por
                                 incid dolore magna aliqu enim ad minim veniam quis nostrud exer cittion ullamco laboris
                                 nisi ut aliquip excepteur.</div>
@@ -682,7 +682,7 @@
                     <!--Text Column-->
                     <div class="text-column col-lg-6 col-md-12 col-sm-12">
                         <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <h3>Finest Beatch Resort <br>in Santorini.</h3>
+                            <h3>Красивое освещение во всех залах</h3>
                             <div class="text">Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por
                                 incid dolore magna aliqu enim ad minim veniam quis nostrud exer cittion ullamco laboris
                                 nisi ut aliquip excepteur.</div>
@@ -708,7 +708,7 @@
     </section>
 
     <!--Video Section-->
-    <section class="video-section">
+    {{-- <section class="video-section">
         <div class="image-layer" style="background-image: url(images/background/image-1.jpg);"></div>
         <div class="auto-container">
             <div class="content-box wow zoomIn" data-wow-delay="0ms" data-wow-duration="2000ms">
@@ -717,7 +717,7 @@
                         class="lightbox-image"><span class="icon flaticon-play-button-3"></span></a></div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!--Testimonials Section-->
     <section class="testimonials-section">
@@ -902,7 +902,7 @@
     </section>
 
     <!--News Section-->
-    <section class="news-section">
+    {{-- <section class="news-section">
         <div class="pattern-top"></div>
         <div class="auto-container">
             <div class="upper-box clearfix">
@@ -970,5 +970,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 </x-layout>

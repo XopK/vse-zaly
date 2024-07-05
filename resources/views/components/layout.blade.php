@@ -142,22 +142,21 @@
                                     <div class="row clearfix">
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="widget-title">
-                                                <h4>Services</h4>
+                                                <h4>Страницы</h4>
                                             </div>
                                             <ul class="links">
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="rooms-grid.html">Our Rooms</a></li>
-                                                <li><a href="restaurant.html">Restaurant</a></li>
-                                                <li><a href="about.html">About Hotera</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
+                                                <li><a href="/">Главная</a></li>
+                                                <li><a href="/about">О нас</a></li>
+                                                <li><a href="/terms">Правила залов</a></li>
+                                                <li><a href="/rent">Долгосрочная аренда</a></li>
                                             </ul>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="widget-title">
-                                                <h4>Contact</h4>
+                                                <h4>Контакты</h4>
                                             </div>
                                             <ul class="info">
-                                                <li class="address">Flat 20, Reynolds Neck, North Helenaville, FV77 8WS
+                                                <li class="address">Уфа, бульвар Ибрагимова, 88, 1 этаж
                                                 </li>
                                                 <li class="phone"><a href="tel:+2(305)587-3407">+2(305) 587-3407</a>
                                                 </li>
@@ -165,7 +164,7 @@
                                                         href="mailto:info@hotera.com">info@hotera.com</a></li>
                                                 <li class="social-links">
                                                     <a href="#"><span class="fab fa-facebook-f"></span></a>
-                                                    <a href="#"><span class="fab fa-twitter"></span></a>
+                                                    <a href="#"><span class="fab fa-vk"></span></a>
                                                     <a href="#"><span class="fab fa-vimeo-v"></span></a>
                                                 </li>
                                             </ul>

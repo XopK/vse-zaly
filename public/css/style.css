@@ -1817,7 +1817,7 @@ img.lazy-image.loaded {
 }
 
 .check-sel-box .check-sel-btn:before {
-	font-family: 'Flaticon';
+	font-family: "Play";
 	content: "\f106";
 	position: absolute;
 	right: 20px;
@@ -1924,7 +1924,7 @@ img.lazy-image.loaded {
 
 .check-sel-box .radio-block label:before {
 	content: '';
-	font-family: 'Font Awesome 5 Free';
+	font-family: "Play", sans-serif;
 	position: absolute;
 	left: 0;
 	top: 4px;
@@ -2855,7 +2855,7 @@ img.lazy-image.loaded {
 	padding: 0px 10px;
 	font-size: 30px;
 	line-height: 1.5em;
-	font-family: 'Yeseva One', cursive;
+	font-family: "Play", cursive;
 }
 
 /*** 
@@ -2958,7 +2958,7 @@ img.lazy-image.loaded {
 	color: #ffffff;
 	font-size: 40px;
 	line-height: 60px;
-	font-family: 'Yeseva One', cursive;
+	font-family: "Play", cursive;
 	border-radius: 45% 55% 70% 35% / 45% 45% 55% 45%;
 	box-shadow: 0px 30px 30px 0px rgba(0, 0, 0, 0.10);
 }
@@ -4345,7 +4345,7 @@ img.lazy-image.loaded {
 	padding: 0px 10px;
 	font-size: 30px;
 	line-height: 1.5em;
-	font-family: 'Yeseva One', cursive;
+	font-family: "Play", cursive;
 }
 
 .featured-section-two .dotted-pattern-2 {
@@ -5431,7 +5431,7 @@ img.lazy-image.loaded {
 	text-align: center;
 	font-size: 20px;
 	line-height: 1.5em;
-	font-family: 'Yeseva One', cursive;
+	font-family: "Play", cursive;
 	box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
 	z-index: 5;
 }
@@ -6632,7 +6632,7 @@ img.lazy-image.loaded {
 	color: #ffffff;
 	font-size: 40px;
 	line-height: 60px;
-	font-family: 'Yeseva One', cursive;
+	font-family: "Play", cursive;
 	border-radius: 45% 55% 70% 35% / 45% 45% 55% 45%;
 	box-shadow: 0px 30px 30px 0px rgba(0, 0, 0, 0.10);
 }
@@ -9987,7 +9987,7 @@ img.lazy-image.loaded {
 	font-weight: 400;
 	color: #1b1c1e;
 	text-transform: capitalize;
-	font-family: 'Yeseva One', cursive;
+	font-family: "Play", cursive;
 }
 
 .comments-area .comment-box .info .date {
