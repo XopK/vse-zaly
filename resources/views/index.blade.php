@@ -6,14 +6,13 @@
         <div class="banner-carousel owl-theme owl-carousel">
             <!-- Slide Item -->
             <div class="slide-item">
-                <div class="image-layer" style="background-image: url(images/main-slider/1.jpg);"></div>
+                <div class="image-layer" style="background-image: url(images/index_carousel1.jpg);"></div>
                 <div class="auto-container">
                     <div class="content-box">
                         <div class="content">
                             <div class="inner">
-                                <h1>Coolest Beach <br>Hotels in the USA</h1>
-                                <div class="text">Amet consectetur adipisicing elit sed do eiusmod tempor incididunt
-                                    adipisicing</div>
+                                <h1>Забронируй зал <br>В один клик!</h1>
+                                <div class="text">Предоставляем множество студий и их залы как для профессионалов так и для любителей</div>
                             </div>
                         </div>
                     </div>
@@ -22,14 +21,13 @@
 
             <!-- Slide Item -->
             <div class="slide-item">
-                <div class="image-layer" style="background-image: url(images/main-slider/2.jpg);"></div>
+                <div class="image-layer" style="background-image: url(images/index_carousel2.jpg);"></div>
                 <div class="auto-container">
                     <div class="content-box">
                         <div class="content">
                             <div class="inner">
-                                <h1>Coolest Beach <br>Hotels in the USA</h1>
-                                <div class="text">Amet consectetur adipisicing elit sed do eiusmod tempor incididunt
-                                    adipisicing</div>
+                                <h1>Сделай свой день ярче!</h1>
+                                <div class="text">Бронируя зал у нас, вы облегчаете жизнь себе и студии</div>
                             </div>
                         </div>
                     </div>
@@ -38,14 +36,13 @@
 
             <!-- Slide Item -->
             <div class="slide-item">
-                <div class="image-layer" style="background-image: url(images/main-slider/3.jpg);"></div>
+                <div class="image-layer" style="background-image: url(images/index_carousel3.jpg);"></div>
                 <div class="auto-container">
                     <div class="content-box">
                         <div class="content">
                             <div class="inner">
-                                <h1>Coolest Beach <br>Hotels in the USA</h1>
-                                <div class="text">Amet consectetur adipisicing elit sed do eiusmod tempor incididunt
-                                    adipisicing</div>
+                                <h1>Хочешь с нами сотрудничать?</h1>
+                                <div class="text">Зарегистрируйся в роли партнера и давай начнем работать вместе!</div>
                             </div>
                         </div>
                     </div>
@@ -147,11 +144,11 @@
                 <div class="text-column col-lg-6 col-md-12 col-sm-12">
                     <div class="inner">
                         <div class="sec-title">
-                            <h2>Стильные и комфортные <br> танцевальные залы в аренду в центре Уфы!</h2>
+                            <h1>Бронирование самых стильных и комфортных залов в Уфе!</h1>
                         </div>
-                        <div class="text">Разово и на постоянные занятия; <br>
-                            групповые и индивидуальные/самостоятельные тренировки, <br>
-                            фото и видео-съемки, вечеринки, мероприятия. </div>
+                        <div class="text">Найди зал который будет ближе всего к тебе и скорее бронируй! <br>
+                            На нашем сайте вы можете забронировать любой зал который подойдёт именно вам,
+                            а именно: танцевальные залы, фотостудии, репетиционные залы и т.д.</div>
                         {{-- <div class="link-box">
                             <a href="about.html" class="theme-btn btn-style-one"><span class="btn-title">Read
                                     More</span></a>
@@ -163,9 +160,8 @@
                     <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
                         <div class="image-box">
                             <span class="dotted-pattern dotted-pattern-2"></span>
-                            <figure class="image"><img src="images/resource/featured-image-0.jpg" alt=""
-                                    title=""></figure>
-                            <div class="cap"><span class="txt">25 <br>Years <br>of <br>Exp.</span></div>
+                            <figure class="image"><img src="images/index1.jpg" alt="" title=""></figure>
+                            <div class="cap"><span class="txt">Любые залы <br>под ваши вкусы<br><br></span></div>
                         </div>
                     </div>
                 </div>
@@ -244,9 +240,10 @@
         <div class="outer-container">
             <div class="auto-container">
                 <div class="sec-title centered">
-                    <h2>Наши залы</h2>
-                    <div class="lower-text">Стоимость залов при бронировании на группу (в зале от 4х человек)
-                    </div>
+                    <h2>Студии с которыми мы работаем</h2>
+                    {{-- <div class="lower-text">
+                        Стоимость залов при бронировании на группу (в зале от 4х человек)
+                    </div> --}}
                 </div>
             </div>
             <div class="row clearfix">
@@ -254,22 +251,22 @@
                     <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <div class="image-layer" style="background-image: url(images/halls/IMG_7503.jpeg);">
+                                <div class="image-layer" style="background-image: url(images/logo_maincdr.jpg);">
                                 </div>
-                                <figure class="image"><img src="images/halls/IMG_7503.jpeg" alt="white_hall"
+                                <figure class="image"><img src="images/logo_maincdr.jpg" alt="white_hall"
                                         title="white_hall"></figure>
                             </div>
                             <div class="cap-box">
                                 <div class="cap-inner">
-                                    <div class="price">Площадь <span>70м</span></div>
-                                    <h5>Зал Белый</h5>
+                                    {{-- <div class="price">Студия <span>MAIN</span></div> --}}
+                                    <h5>Студия MAIN</h5>
                                 </div>
                             </div>
                             <div class="hover-box">
                                 <div class="hover-inner">
-                                    <h4>Зал Белый</h4>
+                                    <h4>Студия MAIN</h4>
                                     <div class="pricing clearfix">
-                                        <div class="price">Площадь <span>70м</span></div>
+                                        <div class="price"><span>Оценка студии</span></div>
                                         <div class="rating">
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
@@ -288,8 +285,7 @@
                                     </div>
 
                                     <div class="link-box"><a href="room-single.html"
-                                            class="theme-btn btn-style-one"><span class="btn-title">Check
-                                                Availability</span></a></div>
+                                            class="theme-btn btn-style-one"><span class="btn-title">Просмотр залов</span></a></div>
                                 </div>
                             </div>
                         </div>
@@ -530,18 +526,17 @@
                 <div class="text-column col-lg-6 col-md-12 col-sm-12">
                     <div class="inner">
                         <div class="sec-title">
-                            <h2>В каждом зале есть</h2>
+                            <h2>Каждая студия предоставляет</h2>
                         </div>
                         <ul class="features">
                             <li>Вентиляция</li>
-                            <li>Кондиционер</li>
-                            <li>Светодиодные ленты</li>
-                            <li>Зеркала в пол</li>
+                            <li>Кондиционер и отопление</li>
+                            <li>Отличное освещение</li>
                             <li>Робот-пылесос для поддержания чистоты</li>
                             <li>Музыкальная аппаратура </li>
                         </ul>
-                        <div class="text">Дополнительно в аренду можно взять свет для ваших съемок (оплачивается
-                            отдельно) и стулья (бесплатно).</div>
+                        {{-- <div class="text">Дополнительно в аренду можно взять свет для ваших съемок (оплачивается
+                            отдельно) и стулья (бесплатно).</div> --}}
                     </div>
                 </div>
                 <!--Image Column-->
@@ -550,13 +545,13 @@
                         <span class="dotted-pattern dotted-pattern-10"></span>
                         <div class="image-box clearfix">
                             <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img
-                                    src="images/resource/featured-image-12.jpg" alt="" title="">
+                                    src="images/index2.jfif" alt="" title="">
                             </figure>
                             <figure class="image wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                <img src="images/resource/featured-image-13.jpg" alt="" title="">
+                                <img src="images/index3.png" alt="" title="">
                             </figure>
                             <figure class="image wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms">
-                                <img src="images/resource/featured-image-14.jpg" alt="" title="">
+                                <img src="images/index4.jpeg" alt="" title="">
                             </figure>
                         </div>
                     </div>
@@ -645,7 +640,7 @@
     </section> --}}
 
     <!--Featured Section-->
-    <section class="featured-section">
+    {{-- <section class="featured-section">
         <div class="pattern-top"></div>
         <span class="dotted-pattern dotted-pattern-3"></span>
         <span class="tri-pattern tri-pattern-3"></span>
@@ -705,7 +700,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!--Video Section-->
     {{-- <section class="video-section">
@@ -720,7 +715,7 @@
     </section> --}}
 
     <!--Testimonials Section-->
-    <section class="testimonials-section">
+    {{-- <section class="testimonials-section">
         <span class="dotted-pattern dotted-pattern-3"></span>
         <span class="tri-pattern tri-pattern-2"></span>
         <div class="auto-container">
@@ -899,7 +894,7 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
     <!--News Section-->
     {{-- <section class="news-section">
