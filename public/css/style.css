@@ -2098,14 +2098,14 @@ img.lazy-image.loaded {
 	font-weight: 400;
 	opacity: 0;
 	margin-bottom: 24px;
-	text-transform: capitalize;
+
 	letter-spacing: 0;
 	-webkit-transform: translateY(80px);
 	-moz-transform: translateY(80px);
 	-ms-transform: translateY(80px);
 	-o-transform: translateY(80px);
 	transform: translateY(80px);
-	text-transform: capitalize;
+
 }
 
 .banner-five .banner-carousel .content-box h1 {

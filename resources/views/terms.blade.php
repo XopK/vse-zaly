@@ -1,25 +1,11 @@
 <x-layout>
-    <!-- Banner Section -->
-    <section class="page-banner ext-banner">
-        <div class="image-layer" style="background-image:url(images/background/banner-image-7.jpg);"></div>
-        <div class="banner-bottom-pattern"></div>
-
-        <div class="banner-inner">
-            <div class="auto-container">
-                <div class="inner-container clearfix">
-
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--End Banner Section -->
     <style>
         strong{
             font-size: 18px
         }
     </style>
     <!--Wellness Spa Section-->
-    <section class="wellness-spa">
+    <section class="wellness-spa" style="margin-top: 280px">
         <span class="dotted-pattern dotted-pattern-3"></span>
         <span class="tri-pattern tri-pattern-3"></span>
         <div class="auto-container">

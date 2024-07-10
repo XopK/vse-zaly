@@ -40,3 +40,7 @@ Route::get('/hall', function () {
 Route::get('/profile', function () {
     return view('profile');
 });
+
+Route::get('/forgot_password', function () {
+    return view('forgotpass');
+});

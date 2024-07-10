@@ -1,6 +1,6 @@
 <x-layout>
      <!-- Banner Section -->
-     <section class="page-banner">
+     {{-- <section class="page-banner">
         <div class="image-layer" style="background-image:url(images/background/banner-image-2.jpg);"></div>
         <div class="banner-bottom-pattern"></div>
 
@@ -17,11 +17,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!--End Banner Section -->
 
     <!--Rooms Section-->
-    <section class="rooms-section">
+    <section class="rooms-section" style="margin-top: 40px">
         <div class="auto-container">
             <!--Filters Section-->
             <div class="filters-section filters-container">
@@ -29,24 +29,25 @@
                     <form method="post" action="room-single.html">
                         <div class="row clearfix">
                             <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                                <div class="field-label">Stay</div>
+                                <div class="field-label">Дата и время</div>
                                 <div class="field-inner">
                                     <input id="arrival-date" class="date-picker" type="text" name="field-name" value="Nov 02. 2019" placeholder="">
                                     <label for="arrival-date" class="icon flaticon-down-arrow"></label>
                                 </div>
                             </div>
                             <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                                <div class="field-label">Room type</div>
+                                <div class="field-label">Сфера студии</div>
                                 <div class="field-inner">
                                     <select class="custom-select-box">
-                                        <option>Balcony Room</option>
-                                        <option>Deluxe Room</option>
-                                        <option>Superior Room</option>
-                                        <option>Luxury Room</option>
+                                        <option>Музыкальная</option>
+                                        <option>Танцевальная</option>
+                                        <option>Репетиционная</option>
+                                        <option>Звукозапись</option>
+                                        <option>Фотостудии</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                            {{-- <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
                                 <div class="field-label">Guests</div>
                                 <div class="field-inner">
                                     <div class="check-sel-box">
@@ -76,11 +77,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-group col-xl-3 col-lg-6 col-md-6 col-sm-12">
                                 <div class="field-label e-label">&nbsp;</div>
                                 <div class="field-inner">
-                                    <button class="theme-btn btn-style-one"><span class="btn-title">Start  Filter</span></button>
+                                    <button class="theme-btn btn-style-one"><span class="btn-title">Поиск</span></button>
                                 </div>
                             </div>
                         </div>
@@ -88,16 +89,15 @@
                 </div>
             </div>
             <div class="row clearfix">
-                
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                     <div class="inner-box">
                         <div class="image-box">
-                            <figure class="image"><a href="/hall"><img src="images/resource/featured-image-21.jpg" alt="" title=""></a></figure>
+                            <figure class="image"><a href="/hall"><img src="images/halls/IMG_5431.jpeg" alt="" title=""></a></figure>
                         </div>
                         <div class="lower-box">
-                            <h4>Balcony Room</h4>
+                            <h4>Зал Нефть</h4>
                             <div class="pricing clearfix">
-                                <div class="price">From <span>$50.00</span></div>
+                                <div class="price">Площадь <span>78</span></div>
                                 <div class="rating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -107,8 +107,8 @@
                                 </div>
                             </div>
 
-                            <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia deserunt mollit anim id est.</div>
-                            <div class="link-box"><a href="/hall" class="theme-btn btn-style-three"><span class="btn-title">Check Availability</span></a></div>
+                            <div class="text">Самый популярный для видео-съемок, самый большой зал</div>
+                            <div class="link-box"><a href="/hall" class="theme-btn btn-style-three"><span class="btn-title">Просмотреть</span></a></div>
                         </div>
                     </div>
                 </div>

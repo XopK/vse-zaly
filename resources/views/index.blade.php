@@ -11,7 +11,7 @@
                     <div class="content-box">
                         <div class="content">
                             <div class="inner">
-                                <h1>Забронируй зал <br>В один клик!</h1>
+                                <h1>Забронируй зал <br>в один клик!</h1>
                                 <div class="text">Предоставляем множество студий и их залы как для профессионалов так и для любителей</div>
                             </div>
                         </div>
@@ -422,7 +422,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="column col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                <div class="column col-xl-4 col-lg-6 row-md-6 col-sm-12">
                     <div class="room-block-one height-one wow fadeInUp" data-wow-delay="600ms"
                         data-wow-duration="1500ms">
                         <div class="inner-box">

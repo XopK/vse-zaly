@@ -30,8 +30,7 @@
                                         <label><input type="checkbox" name="condition" id="condition">
                                             Запомнить меня</label>
                                     </div>
-                                    <div class="col text-right"> <a href="javascript:;" data-toggle="modal"
-                                            data-target="#forgotPass">Забыл пароль?</a> </div>
+                                    <div class="col text-right"> <a href="/forgot_password">Забыл пароль?</a> </div>
                                 </div>
                             </div>
                             <div class="form-group">

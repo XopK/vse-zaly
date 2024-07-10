@@ -1,7 +1,7 @@
 <x-layout>
     <!-- Banner Section -->
     <section class="page-banner ext-banner">
-        <div class="image-layer" style="background-image:url(images/background/banner-image-9.jpg);"></div>
+        <div class="image-layer" style="background-image:url(images/halls/IMG_5431.jpeg);"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">
@@ -25,9 +25,9 @@
         <div class="auto-container">
             <div class="upper-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="upper-inner">
-                    <h2>Luxury Suite Room</h2>
+                    <h2>Зал Нефть</h2>
                     <div class="pricing clearfix">
-                        <div class="price">Start From: <span>$50.00</span> / Per Night</div>
+                        <div class="price">Площадь <span>78</span></div>
                         <div class="rating">
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
@@ -37,32 +37,24 @@
                         </div>
                     </div>
                     <div class="text">
-                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                            anim id est laborum. Sed perspiciatis unde omnis iste natus error sitvou ptatem accusantium
-                            doloremque laudantium totam rem aperiam eaque ipsa quae illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo.</p>
-                        <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed
+                        <p>Самый популярный для видео-съемок, самый большой зал</p>
+                        {{-- <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed
                             quia non numquam eius modi tempora incidunt labore dolore sit magnam aliquam quaerat
-                            voluptatem.</p>
+                            voluptatem.</p> --}}
                     </div>
                 </div>
             </div>
 
             <div class="details-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="details-inner">
-                    <h3>Room Amenities</h3>
-                    <div class="text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sitvou
-                        ptatem accusantium doloremque laudantium.</div>
+                    <h3>Зал предоставляет:</h3>
+                    <div class="text">Короткое описание правил пользования данной студии*</div>
                     <ul class="info clearfix">
-                        <li><span class="icon flaticon-tv"></span> Telivision</li>
+                        {{-- <li><span class="icon flaticon-tv"></span> Telivision</li> --}}
                         <li><span class="icon flaticon-wifi"></span> Wi-Fi</li>
                         <li><span class="icon flaticon-coffee-cup"></span> Breakfast</li>
-                        <li><span class="icon flaticon-bathtub"></span> Bathtub</li>
-                        <li><span class="icon flaticon-stones"></span> Spa</li>
-                        <li><span class="icon flaticon-newspaper"></span> Newspaper</li>
                         <li><span class="icon flaticon-wine-glass"></span> Mini Bar</li>
-                        <li><span class="icon flaticon-dumbbell"></span> Gymnasium</li>
+                        {{-- <li><span class="icon flaticon-dumbbell"></span> Gymnasium</li> --}}
                     </ul>
                 </div>
             </div>
@@ -71,14 +63,26 @@
                 <div class="row clearfix">
                     <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
                         data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/resource/featured-image-54.jpg"
-                                class="lightbox-image"><img src="images/resource/featured-image-54.jpg" alt=""
+                        <figure class="image"><a href="images/halls/IMG_5432.jpeg"
+                                class="lightbox-image"><img src="images/halls/IMG_5432.jpeg" alt=""
                                     title=""></a></figure>
                     </div>
                     <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
                         data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/resource/featured-image-55.jpg"
-                                class="lightbox-image"><img src="images/resource/featured-image-55.jpg" alt=""
+                        <figure class="image"><a href="images/halls/IMG_5427.jpeg"
+                                class="lightbox-image"><img src="images/halls/IMG_5427.jpeg" alt=""
+                                    title=""></a></figure>
+                    </div>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+                        data-wow-duration="1500ms">
+                        <figure class="image"><a href="images/halls/IMG_5431.jpeg"
+                                class="lightbox-image"><img src="images/halls/IMG_5431.jpeg" alt=""
+                                    title=""></a></figure>
+                    </div>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
+                        data-wow-duration="1500ms">
+                        <figure class="image"><a href="images/halls/IMG_5424.jpeg"
+                                class="lightbox-image"><img src="images/halls/IMG_5424.jpeg" alt=""
                                     title=""></a></figure>
                     </div>
                 </div>
@@ -92,9 +96,9 @@
         <span class="tri-pattern tri-pattern-3"></span>
         <div class="auto-container">
             <div class="sec-title centered">
-                <h2>Room & Suites</h2>
-                <div class="lower-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+                <h2>Похожие залы</h2>
+                <div class="lower-text">Тут будут залы сперва залы которые предоставляет та же студия, 
+                    потом те которые подходят по той же сфере, в данном случае танцевальные*
                 </div>
             </div>
             <div class="row clearfix">
