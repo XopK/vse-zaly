@@ -46,13 +46,12 @@
         .border-bto2 {
             /* border-top: 1px solid #ddd; */
         }
-   
     </style>
     <!-- Sub banner start -->
     <div class="sub-banner">
         <div class="container">
             <div class="breadcrumb-area">
-               
+
             </div>
         </div>
     </div>
@@ -98,7 +97,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="index.html" class="border-bto2">
+                                    <a href="{{ route('logout') }}" class="border-bto2">
                                         <i class="flaticon-logout"></i>Выйти
                                     </a>
                                 </li>
@@ -147,7 +146,7 @@
                                 <div class="col-lg-12">
                                     <div class="send-btn">
                                         <button type="submit" class="theme-btn btn-style-one"><span
-                                            class="btn-title">Сохранить</span></button>
+                                                class="btn-title">Сохранить</span></button>
                                     </div>
                                 </div>
                             </div>

@@ -14,11 +14,12 @@
                 <div class="tab-pane fade show active" id="pills-signin" role="tabpanel"
                     aria-labelledby="pills-signin-tab">
                     <div class="col-sm-12 shadow rounded pt-2 pb-2">
-                        <form method="post" id="singninFrom">
+                        <form method="post" action="{{ route('signin') }}" id="singninFrom">
+                            @csrf
                             <div class="form-group">
                                 <label class="font-weight-bold">Номер телефона или почта <span
                                         class="text-danger">*</span></label>
-                                <input type="email" name="email" id="email" class="form-control" required>
+                                <input type="text" name="emailOrPhone" id="emailOrPhone" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-bold">Пароль <span class="text-danger">*</span></label>
@@ -27,7 +28,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
-                                        <label><input type="checkbox" name="condition" id="condition">
+                                        <label><input type="checkbox" name="remember" id="remember">
                                             Запомнить меня</label>
                                     </div>
                                     <div class="col text-right"> <a href="/forgot_password">Забыл пароль?</a> </div>
@@ -42,30 +43,73 @@
                 </div>
                 <div class="tab-pane fade" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
                     <div class="col-sm-12 shadow rounded pt-2 pb-2">
-                        <form method="post" id="singnupFrom">
+                        <form method="post" action="{{ route('signup') }}" id="singnupFrom">
+                            @csrf
                             <div class="form-group">
                                 <label class="font-weight-bold">Почта <span class="text-danger">*</span></label>
                                 <input type="email" name="signupemail" id="signupemail" class="form-control" required>
                             </div>
+                            @error('signupemail')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
                             <div class="form-group">
                                 <label class="font-weight-bold">Имя<span class="text-danger">*</span></label>
                                 <input type="text" name="signupusername" id="signupusername" class="form-control"
                                     required>
                             </div>
+                            @error('signupusername')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
                             <div class="form-group">
                                 <label class="font-weight-bold">Телефон</label>
-                                <input type="text" name="signupphone" id="signupphone" class="form-control">
+                                <input type="text" name="signupphone" id="signupphone"
+                                    placeholder="+7(___)-___-____" class="form-control">
                             </div>
+                            @error('signupphone')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
                             <div class="form-group">
                                 <label class="font-weight-bold">Пароль<span class="text-danger">*</span></label>
-                                <input type="password" name="signuppassword" id="signuppassword" class="form-control" required>
+                                <input type="password" name="signuppassword" id="signuppassword"
+                                    class="form-control" required>
                             </div>
+                            @error('signuppassword')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
                             <div class="form-group">
                                 <label class="font-weight-bold">Подтвердите пароль<span
                                         class="text-danger">*</span></label>
                                 <input type="password" name="signupcpassword" id="signupcpassword"
                                     class="form-control" required>
                             </div>
+                            @error('signupcpassword')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
                             <div class="form-group">
                                 <label><input type="checkbox" name="signupcondition" id="signupcondition" required> Я
                                     соглашаюсь с <a href="javascript:;">Условиями и
@@ -82,3 +126,22 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js"
+    type="text/javascript"></script>
+<script>
+    $("#signupphone").mask("+7(999)-999-9999");
+</script>
+@if (
+    $errors->has('signupemail') ||
+        $errors->has('signupusername') ||
+        $errors->has('signupphone') ||
+        $errors->has('signuppassword') ||
+        $errors->has('signupcpassword'))
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const modal = new bootstrap.Modal(document.getElementById('logModal'));
+            modal.show();
+            document.getElementById('pills-signup-tab').click();
+        });
+    </script>
+@endif

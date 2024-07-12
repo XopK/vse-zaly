@@ -66,23 +66,24 @@
                                     </li>
 
                                     <li><a href="/rent">Долгосрочная аренда</a></li>
-
-                                    <li><a data-toggle="modal" data-target="#logModal">Авторизация</a></li>
+                                    @guest
+                                        <li><a data-toggle="modal" data-target="#logModal">Авторизация</a></li>
+                                    @endguest
                                 </ul>
                             </div>
                         </nav>
                     </div>
-
-                    <div class="other-links clearfix">
-                        <div class="info">
-                            <ul class="clearfix">
-                                <li><a data-toggle="modal" data-target="#logModal"><span
-                                            class="icon flaticon-padlock"></span><span
-                                            class="txt">Авторизация</span></a></li>
-                            </ul>
+                    @guest
+                        <div class="other-links clearfix">
+                            <div class="info">
+                                <ul class="clearfix">
+                                    <li><a data-toggle="modal" data-target="#logModal"><span
+                                                class="icon flaticon-padlock"></span><span
+                                                class="txt">Авторизация</span></a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-
+                    @endguest
                 </div>
             </div>
             <!--End Header Upper-->
@@ -228,7 +229,6 @@
     <script src="js/appear.js"></script>
     <script src="js/wow.js"></script>
     <script src="js/custom-script.js"></script>
-
     <x-auth></x-auth>
 </body>
 
