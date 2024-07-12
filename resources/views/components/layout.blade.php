@@ -50,9 +50,9 @@
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li class="dropdown"><a href="/">Главная</a></li>
-
-                                    <li class="dropdown"><a href="/profile">Личный профиль</a></li>
-
+                                    @auth
+                                        <li class="dropdown"><a href="/profile">Личный профиль</a></li>
+                                    @endauth
                                     <li><a href="/about">О нас</a></li>
 
                                     <li class="dropdown"><a href="/terms">Правила залов</a></li>

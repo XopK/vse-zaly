@@ -16,15 +16,40 @@
                     <div class="col-sm-12 shadow rounded pt-2 pb-2">
                         <form method="post" action="{{ route('signin') }}" id="singninFrom">
                             @csrf
+                            @if (session('error_signin'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ session('error_signin') }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label class="font-weight-bold">Номер телефона или почта <span
                                         class="text-danger">*</span></label>
-                                <input type="text" name="emailOrPhone" id="emailOrPhone" class="form-control" required>
+                                <input type="text" name="emailOrPhone" id="emailOrPhone" class="form-control"
+                                    required>
                             </div>
+                            @error('emailOrPhone')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
                             <div class="form-group">
                                 <label class="font-weight-bold">Пароль <span class="text-danger">*</span></label>
                                 <input type="password" name="password" id="password" class="form-control" required>
                             </div>
+                            @error('password')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
@@ -142,6 +167,15 @@
             const modal = new bootstrap.Modal(document.getElementById('logModal'));
             modal.show();
             document.getElementById('pills-signup-tab').click();
+        });
+    </script>
+@endif
+
+@if ($errors->has('emailOrPhone') || $errors->has('password') || session('error_signin'))
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const modal = new bootstrap.Modal(document.getElementById('logModal'));
+            modal.show();
         });
     </script>
 @endif

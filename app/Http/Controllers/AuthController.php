@@ -12,6 +12,21 @@ use PDO;
 
 class AuthController extends Controller
 {
+
+    private function normalizePhoneNumber($phone)
+    {
+        $digits = preg_replace('/\D/', '', $phone);
+
+        if (substr($digits, 0, 1) == '8') {
+            $digits = '7' . substr($digits, 1);
+        } elseif (substr($digits, 0, 1) == '7') {
+            // Ничего не делаем, номер уже начинается с '7'
+        } else {
+            return null;
+        }
+        return '+7' . substr($digits, 1);
+    }
+
     public function sign_up(Request $request)
     {
         $validated = $request->validate([
@@ -36,7 +51,7 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => $request->signupusername,
-            'phone' => $request->signupphone,
+            'phone' => $this->normalizePhoneNumber($request->signupphone),
             'email' => $request->signupemail,
             'password' => Hash::make($request->signuppassword),
         ]);
@@ -67,10 +82,19 @@ class AuthController extends Controller
             'password.min' => 'Минимальная длина пароля - 6 символов.',
         ]);
 
-        if(Auth::attempt([
-            'emailOrPhone'
-        ])){
+        $field = filter_var($request->emailOrPhone, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
+        if ($field == 'phone') {
+            $normalizedPhone = $this->normalizePhoneNumber($request->emailOrPhone);
+        }
+
+        if (Auth::attempt([
+            $field => ($field == 'phone') ? $normalizedPhone : $request->emailOrPhone,
+            'password' => $request->password,
+        ], $request->has('remember'))) {
+            return redirect('/')->with('success', 'Авторизация прошла успешно!');
+        } else {
+            return redirect()->back()->with('error_signin', 'Проверьте введеные данные.');
         }
     }
 }
