@@ -65,7 +65,7 @@
                     <div class="user-profile-box mrb">
                         <!--header -->
                         <div class="header clearfix">
-                            <h2>Emma Connor</h2>
+                            <h3>{{ Auth::user()->name }}</h3>
                             <img src="https://placehold.co/340x340" alt="avatar" class="img-fluid profile-img">
                         </div>
                         <!-- Detail -->
@@ -109,38 +109,28 @@
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="my-address contact-2">
                         <h3 class="heading-3">Profile Details</h3>
-                        <form action="#" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('update_personal_data') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-12 ">
                                     <div class="form-group name">
-                                        <label>Your Name</label>
+                                        <label>Имя</label>
                                         <input type="text" name="name" class="form-control"
-                                            placeholder="John Deo">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group email">
-                                        <label>Your Title</label>
-                                        <input type="text" name="title" class="form-control"
-                                            placeholder="Your Title">
+                                            value="{{ Auth::user()->name }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group subject">
-                                        <label>Phone</label>
-                                        <input type="text" name="phone" class="form-control" placeholder="Phone">
+                                        <label>Телефон</label>
+                                        <input type="text" name="phone" class="form-control"
+                                            value="{{ Auth::user()->phone }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group number">
-                                        <label>Email</label>
-                                        <input type="email" name="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group message">
-                                        <label>Name</label>
-                                        <textarea class="form-control" name="message" placeholder="Write message"></textarea>
+                                        <label>Почта</label>
+                                        <input type="email" name="email" class="form-control"
+                                            value="{{ Auth::user()->email }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">

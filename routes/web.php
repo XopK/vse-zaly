@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,5 @@ Route::post('/sign_up', [AuthController::class, 'sign_up'])->name('signup');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/sign_in', [AuthController::class, 'sign_in'])->name('signin');
+
+Route::post('/update_personal', [UserController::class, 'update_data'])->name('update_personal_data');
