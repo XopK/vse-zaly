@@ -46,6 +46,10 @@
         .border-bto2 {
             /* border-top: 1px solid #ddd; */
         }
+
+        .send-btn{
+            margin-left: -15px;
+        }
     </style>
     <!-- Sub banner start -->
     <div class="sub-banner">
@@ -72,7 +76,7 @@
                         <div class="detail-clearfix">
                             <ul>
                                 <li>
-                                    <a href="/profile" class="active">
+                                    <a href="/profile">
                                         <i class="flaticon-user"></i>Профиль
                                     </a>
                                 </li>
@@ -87,7 +91,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/change_password">
+                                    <a href="/change_password"  class="active">
                                         <i class="flaticon-lock"></i>Изменить пароль
                                     </a>
                                 </li>
@@ -103,44 +107,28 @@
                 </div>
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="my-address contact-2">
-                        <h3 class="heading-3">Изменить данные</h3>
+                        <h3 class="heading-3">Изменить пароль</h3>
                         <form action="{{ route('update_personal_data') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12 ">
                                     <div class="form-group name">
-                                        <label>Имя</label>
-                                        <input type="text" name="name" class="form-control"
-                                            value="{{ Auth::user()->name }}">
+                                        <label>Старый пароль</label>
+                                        <input type="password" name="password" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group subject">
-                                        <label>Телефон</label>
-                                        <input id="userphone" type="text" name="phone" class="form-control"
-                                            value="{{ Auth::user()->phone }}">
+                                        <label>Новый пароль</label>
+                                        <input type="password" name="new_password" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group number">
-                                        <label>Почта</label>
-                                        <input type="email" name="email" class="form-control"
-                                            value="{{ Auth::user()->email }}">
+                                        <label>Подтвердите пароль</label>
+                                        <input type="password" name="new_password_confirm" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-lg-12 ">
-                                    <div class="form-group photo">
-                                        <label>Фото</label>
-                                        <div class="input-group mb-3">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="photo_user"
-                                                    accept="image/*" id="inputGroupFile01"
-                                                    aria-describedby="inputGroupFileAddon01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Выберите
-                                                    файл</label>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="send-btn">
@@ -150,33 +138,11 @@
                                 </div>
                             </div>
                         </form>
-
-                        @if (Auth::user()->email_verified_at == null)
-                            <a href="" style="text-decoration: none">
-                                <div class="alert alert-warning mt-4" role="alert">
-                                    <strong>Ваша учетная запись не подтверждена.</strong><br>
-                                    Для завершения процесса, пожалуйста, подтвердите
-                                    адрес электронной почты, нажав на это сообщение.
-                                </div>
-                            </a>
-                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- User page end -->
-    <script>
-        document.querySelector('.custom-file-input').addEventListener('change', function(event) {
-            var input = event.target;
-            var label = input.nextElementSibling;
-            var fileName = input.files.length > 0 ? input.files[0].name : 'Выбрать файл';
-            label.textContent = fileName;
-        });
-    </script>
+
 </x-layout>
-<script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js"
-    type="text/javascript"></script>
-<script>
-    $("#userphone").mask("+7(999)-999-9999");
-</script>

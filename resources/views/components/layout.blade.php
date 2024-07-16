@@ -65,6 +65,7 @@
                                     @endauth
                                     @guest
                                         <li class="dropdown"><a data-toggle="modal" data-target="#logModal">Авторизация</a></li>
+                                        <li class="dropdown"><a href="/become_partner">Стать партнёром</a></li>
                                     @endguest
                                 </ul>
                             </div>

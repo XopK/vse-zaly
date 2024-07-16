@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,10 @@ Route::get('/rent', function () {
     return view('rent');
 });
 
+Route::get('/become_partner', function () {
+    return view('become_partner');
+});
+
 Route::get('/hall', function () {
     return view('hall');
 });
@@ -53,7 +58,23 @@ Route::get('/profile', function () {
 });
 
 Route::get('/forgot_password', function () {
-    return view('forgotpass');
+    return view('forgot_password.forgot_pass');
+});
+
+Route::get('/email_confirmation', function () {
+    return view('email_verified');
+});
+
+Route::get('/my_booking', function () {
+    return view('my_booking');
+});
+
+Route::get('/favourite_properties', function () {
+    return view('favourite_properties');
+});
+
+Route::get('/change_password', function () {
+    return view('change_password');
 });
 
 Route::post('/sign_up', [AuthController::class, 'sign_up'])->name('signup');
@@ -63,3 +84,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/sign_in', [AuthController::class, 'sign_in'])->name('signin');
 
 Route::post('/update_personal', [UserController::class, 'update_data'])->name('update_personal_data');
+
+Route::post('/get_resetLink', [ForgotPasswordController::class, 'sendResetLink'])->name('resetPassword');
+
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm']);
+
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('reset_update_password');

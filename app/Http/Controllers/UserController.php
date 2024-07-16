@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    private function normalizePhoneNumber($phone)
+    {
+        $digits = preg_replace('/\D/', '', $phone);
+
+        if (substr($digits, 0, 1) == '8') {
+            $digits = '7' . substr($digits, 1);
+        } elseif (substr($digits, 0, 1) == '7') {
+            // Ничего не делаем, номер уже начинается с '7'
+        } else {
+            return null;
+        }
+        return '+7' . substr($digits, 1);
+    }
+
     public function update_data(Request $request)
     {
         $validated = $request->validate([
@@ -21,7 +35,7 @@ class UserController extends Controller
         $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'phone' => $this->normalizePhoneNumber($request->phone),
         ]);
 
         if ($user) {
