@@ -24,6 +24,10 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::get('/about_studio', function () {
+    return view('about_studio');
+});
+
 Route::get('/terms', function () {
     return view('terms');
 });
@@ -38,6 +42,10 @@ Route::get('/rent', function () {
 
 Route::get('/hall', function () {
     return view('hall');
+});
+
+Route::get('/studios', function () {
+    return view('studios');
 });
 
 Route::get('/profile', function () {

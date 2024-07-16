@@ -5,35 +5,22 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="text-center">
-                            <img src="https://usa.afsglobal.org/SSO/SelfPasswordRecovery/images/send_reset_password.svg?v=3"
+                            <img src="/images/icons/email.png"
                                 alt="car-key" border="0">
-                            <h2 class="text-center">Forgot Password?</h2>
-                            <p>You can reset your password here.</p>
+                            <h2 class="text-center">Забыли пароль?</h2>
                             <form id="register-form" role="form" autocomplete="off" class="form" method="post">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <select class="form-control" id="sel1">
-                                            <option selected="true" disabled="disabled">Please Select Security Question
-                                            </option>
-                                            <option>Which is your favorite movie?</option>
-                                            <option>What is your pet's name?</option>
-                                            <option>What is the name of your village?</option>
-                                        </select>
+                                        <input id="email" name="email" placeholder="Введите почту которую указывали при регистрации"
+                                            class="form-control" type="email">
                                     </div>
                                 </div>
+                                
                                 <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i
-                                                class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                        <input id="forgetAnswer" name="forgetAnswer" placeholder="Answer"
-                                            class="form-control" type="text">
-                                    </div>
+                                    <button type="submit" class="theme-btn btn-style-one btn-block  "><span
+                                            class="btn-title">Восстановить пароль</span></button>
                                 </div>
-                                <div class="form-group">
-                                    <input name="btnForget" class="btn btn-lg btn-primary btn-block btnForget"
-                                        value="Reset Password" type="submit">
-                                </div>
-
+                                <p>Перейдите на почту и нажми кнопку сброса пароля, потом зайдите на сайт и придумайте новый пароль</p>
                             </form>
                         </div>
                     </div>

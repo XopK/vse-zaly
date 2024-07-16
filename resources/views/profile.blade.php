@@ -78,22 +78,17 @@
                                 </li>
                                 <li>
                                     <a href="my-properties.html">
-                                        <i class="flaticon-house"></i>My Properties
+                                        <i class="flaticon-house"></i>Мои брони
                                     </a>
                                 </li>
                                 <li>
                                     <a href="favorited-properties.html">
-                                        <i class="flaticon-heart-shape-outline"></i>Favorited Properties
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="submit-property.html">
-                                        <i class="flaticon-add"></i>Submit New Property
+                                        <i class="flaticon-heart"></i>Избранные залы
                                     </a>
                                 </li>
                                 <li>
                                     <a href="change-password.html">
-                                        <i class="flaticon-locked-padlock"></i>Изменить пароль
+                                        <i class="flaticon-lock"></i>Изменить пароль
                                     </a>
                                 </li>
                                 <li>
@@ -108,7 +103,7 @@
                 </div>
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="my-address contact-2">
-                        <h3 class="heading-3">Profile Details</h3>
+                        <h3 class="heading-3">Изменить данные</h3>
                         <form action="{{ route('update_personal_data') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
@@ -131,6 +126,12 @@
                                         <label>Почта</label>
                                         <input type="email" name="email" class="form-control"
                                             value="{{ Auth::user()->email }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 ">
+                                    <div class="form-group photo">
+                                        <label>Фото</label>
+                                        <input type="file" name="photo" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">

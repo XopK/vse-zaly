@@ -57,33 +57,20 @@
 
                                     <li class="dropdown"><a href="/terms">Правила залов</a></li>
 
-                                    <li class="dropdown"><a href="/halls">Залы</a>
-                                        <ul>
-                                            <li><a href="#">Что то</a></li>
-                                            <li><a href="#">Что то 2</a></li>
-                                            <li><a href="#">Что то 3</a></li>
-                                        </ul>
-                                    </li>
+                                    <li class="dropdown"><a href="/halls">Залы</a></li>
 
+                                    <li class="dropdown"><a href="/studios">Студии</a></li>
+                                    @auth
                                     <li><a href="/rent">Долгосрочная аренда</a></li>
+                                    @endauth
                                     @guest
-                                        <li><a data-toggle="modal" data-target="#logModal">Авторизация</a></li>
+                                        <li class="dropdown"><a data-toggle="modal" data-target="#logModal">Авторизация</a></li>
                                     @endguest
                                 </ul>
                             </div>
                         </nav>
                     </div>
-                    @guest
-                        <div class="other-links clearfix">
-                            <div class="info">
-                                <ul class="clearfix">
-                                    <li><a data-toggle="modal" data-target="#logModal"><span
-                                                class="icon flaticon-padlock"></span><span
-                                                class="txt">Авторизация</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    @endguest
+                    
                 </div>
             </div>
             <!--End Header Upper-->
@@ -100,13 +87,13 @@
                     </div>
                 </nav>
                 <div class="nav-bottom">
-                    <div class="copyright">Hotera &copy; 2020 All Right Reserved</div>
+                    <div class="copyright">Все залы &copy; 2024 Все права защищены</div>
                     <!--Social Links-->
                     <div class="social-links">
                         <ul class="clearfix">
-                            <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                            <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                            <li><a href="#"><span class="fab fa-vimeo-v"></span></a></li>
+                            <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                            <li><a href="#"><span class="fab fa-telegram"></span></a></li>
+                            <li><a href="#"><span class="fab fa-vk"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -157,16 +144,16 @@
                                                 <h4>Контакты</h4>
                                             </div>
                                             <ul class="info">
-                                                <li class="address">Уфа, бульвар Ибрагимова, 88, 1 этаж
+                                                <li class="address">г. Уфа, ул. Бульвар Ибрагимова 88, 1 этаж
                                                 </li>
-                                                <li class="phone"><a href="tel:+2(305)587-3407">+2(305) 587-3407</a>
+                                                <li class="phone"><a href="tel:+7 917 753 2370">+7 917 753 2370</a>
                                                 </li>
                                                 <li class="email"><a
-                                                        href="mailto:info@hotera.com">info@hotera.com</a></li>
+                                                        href="mailto:vse-zaly@yandex.ru">vse-zaly@yandex.ru</a></li>
                                                 <li class="social-links">
-                                                    <a href="#"><span class="fab fa-facebook-f"></span></a>
+                                                    <a href="#"><span class="fab fa-instagram"></span></a>
+                                                    <a href="#"><span class="fab fa-telegram"></span></a>
                                                     <a href="#"><span class="fab fa-vk"></span></a>
-                                                    <a href="#"><span class="fab fa-vimeo-v"></span></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -180,9 +167,9 @@
                         <div class="column col-xl-4 col-lg-4 col-md-12 col-sm-12">
                             <div class="footer-widget newsletter-widget">
                                 <div class="widget-title">
-                                    <h4>Newsletter</h4>
+                                    <h4>Связаться с нами</h4>
                                 </div>
-                                <div class="text">Eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
+                                <div class="text">Есть вопросы или предложения как улучшить сайт? Напишите нам </div>
                                 <!--Newsletter-->
                                 <div class="newsletter-form">
                                     <form method="post" action="contact.html">
@@ -190,7 +177,7 @@
                                             <input type="email" name="email" value="" placeholder="Email"
                                                 required>
                                             <button type="submit" class="theme-btn btn-style-one"><span
-                                                    class="btn-title">Send Now</span></button>
+                                                    class="btn-title">Отправить</span></button>
                                         </div>
                                     </form>
                                 </div>
@@ -205,9 +192,9 @@
             <div class="footer-bottom">
                 <div class="auto-container">
                     <div class="inner clearfix">
-                        <div class="copyright">&copy; 2020 Hotera - All Right Reserved</div>
+                        <div class="copyright">&copy; 2024 Все залы - Все права защищены</div>
                         <div class="bottom-links">
-                            <a href="#">Terms of Service</a> &ensp;|&ensp; <a href="#">Privacy Policy</a>
+                            <a href="#">Пользовательское соглашение</a> &ensp;|&ensp; <a href="#">Политика конфиденциальности</a>
                         </div>
                     </div>
                 </div>
