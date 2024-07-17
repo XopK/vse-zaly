@@ -61,8 +61,11 @@
                                     @auth
                                         <li class="dropdown"><a href="/profile">Личный профиль</a></li>
                                         <li><a href="/rent">Долгосрочная аренда</a></li>
-                                        <li><a href="/my_studio">Моя студия</a></li>
-                                        <li><a href="/my_halls">Мои залы</a></li>
+                                        @if (Auth::user()->id_role == 2)
+                                            <li><a href="/my_studio">Моя студия</a></li>
+                                            <li><a href="/my_halls">Мои залы</a></li>
+                                        @endif
+
                                     @endauth
                                     @guest
                                         <li class="dropdown"><a data-toggle="modal" data-target="#logModal">Авторизация</a>
@@ -86,7 +89,7 @@
                             title=""></a></div>
                 <nav class="menu-box">
                     <div class="menu-outer">
-                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                       
                     </div>
                 </nav>
                 <div class="nav-bottom">

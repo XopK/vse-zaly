@@ -4,7 +4,6 @@
             padding-bottom: 20px;
             font-size: 24px
         }
-        
     </style>
     <!-- Banner Section -->
     <section class="page-banner">
@@ -31,13 +30,13 @@
 
 
                 <div class="col-sm-12 shadow rounded pt-2 pb-2">
-                    <form method="post" action="{{ route('signup') }}" id="singnupFrom">
+                    <form method="post" action="{{ route('request_partner') }}" id="singnupFrom">
                         @csrf
                         <div class="form-group">
                             <label class="font-weight-bold">Почта <span class="text-danger">*</span></label>
-                            <input type="email" name="signupemail" id="signupemail" class="form-control" required>
+                            <input type="email" name="emailReq" id="emailReq" class="form-control" required>
                         </div>
-                        @error('signupemail')
+                        @error('emailReq')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -47,10 +46,9 @@
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Имя<span class="text-danger">*</span></label>
-                            <input type="text" name="signupusername" id="signupusername" class="form-control"
-                                required>
+                            <input type="text" name="nameReq" id="nameReq" class="form-control" required>
                         </div>
-                        @error('signupusername')
+                        @error('nameReq')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -60,10 +58,9 @@
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Название студии<span class="text-danger">*</span></label>
-                            <input type="text" name="signupusername" id="signupusername" class="form-control"
-                                required>
+                            <input type="text" name="nameStudio" id="nameStudio" class="form-control" required>
                         </div>
-                        @error('signupusername')
+                        @error('nameStudio')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -73,10 +70,10 @@
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Телефон</label>
-                            <input type="text" name="signupphone" id="phonestudios" placeholder="+7(___)-___-____"
+                            <input type="text" name="phoneReq" id="phonestudios" placeholder="+7(___)-___-____"
                                 class="form-control">
                         </div>
-                        @error('signupphone')
+                        @error('phoneReq')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -86,10 +83,9 @@
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Пароль<span class="text-danger">*</span></label>
-                            <input type="password" name="signuppassword" id="signuppassword" class="form-control"
-                                required>
+                            <input type="password" name="passwordReq" id="passwordReq" class="form-control" required>
                         </div>
-                        @error('signuppassword')
+                        @error('passwordReq')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -99,10 +95,10 @@
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Подтвердите пароль<span class="text-danger">*</span></label>
-                            <input type="password" name="signupcpassword" id="signupcpassword" class="form-control"
-                                required>
+                            <input type="password" name="confirmPasswordReq" id="confirmPasswordReq"
+                                class="form-control" required>
                         </div>
-                        @error('signupcpassword')
+                        @error('confirmPasswordReq')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

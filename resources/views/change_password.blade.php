@@ -47,7 +47,7 @@
             /* border-top: 1px solid #ddd; */
         }
 
-        .send-btn{
+        .send-btn {
             margin-left: -15px;
         }
     </style>
@@ -70,7 +70,9 @@
                         <!--header -->
                         <div class="header clearfix">
                             <h3>{{ Auth::user()->name }}</h3>
-                            <img src="https://placehold.co/340x340" alt="avatar" class="img-fluid profile-img">
+                            <img src="/storage/users_profile/{{ Auth::user()->photo_profile }}" alt="avatar"
+                                style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px;"
+                                class="img-fluid profile-img border">
                         </div>
                         <!-- Detail -->
                         <div class="detail-clearfix">
@@ -91,7 +93,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/change_password"  class="active">
+                                    <a
+                                        href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
                                         <i class="flaticon-lock"></i>Изменить пароль
                                     </a>
                                 </li>
@@ -108,7 +111,7 @@
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="my-address contact-2">
                         <h3 class="heading-3">Изменить пароль</h3>
-                        <form action="{{ route('update_personal_data') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('update_password') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12 ">
@@ -129,19 +132,19 @@
                                         <input type="password" name="new_password_confirm" class="form-control">
                                     </div>
                                 </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="send-btn">
-                                        <button type="submit" class="theme-btn btn-style-one"><span
-                                                class="btn-title">Сохранить</span></button>
-                                    </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="send-btn">
+                                    <button type="submit" class="theme-btn btn-style-one"><span
+                                            class="btn-title">Сохранить</span></button>
                                 </div>
                             </div>
-                        </form>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!-- User page end -->
 

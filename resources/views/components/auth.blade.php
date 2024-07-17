@@ -72,7 +72,8 @@
                             @csrf
                             <div class="form-group">
                                 <label class="font-weight-bold">Почта <span class="text-danger">*</span></label>
-                                <input type="email" name="signupemail" id="signupemail" class="form-control" required>
+                                <input type="email" name="signupemail" value="{{ old('signupemail') }}"
+                                    id="signupemail" class="form-control" required>
                             </div>
                             @error('signupemail')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -83,9 +84,9 @@
                                 </div>
                             @enderror
                             <div class="form-group">
-                                <label class="font-weight-bold">Имя<span class="text-danger">*</span></label>
-                                <input type="text" name="signupusername" id="signupusername" class="form-control"
-                                    required>
+                                <label class="font-weight-bold">Имя <span class="text-danger">*</span></label>
+                                <input type="text" value="{{ old('signupusername') }}" name="signupusername"
+                                    id="signupusername" class="form-control" required>
                             </div>
                             @error('signupusername')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -96,9 +97,9 @@
                                 </div>
                             @enderror
                             <div class="form-group">
-                                <label class="font-weight-bold">Телефон</label>
-                                <input type="text" name="signupphone" id="signupphone"
-                                    placeholder="+7(___)-___-____" class="form-control">
+                                <label class="font-weight-bold">Телефон <span class="text-danger">*</span></label>
+                                <input type="text" name="signupphone" value="{{ old('signupphone') }}"
+                                    id="signupphone" placeholder="+7(___)-___-____" class="form-control">
                             </div>
                             @error('signupphone')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -109,7 +110,7 @@
                                 </div>
                             @enderror
                             <div class="form-group">
-                                <label class="font-weight-bold">Пароль<span class="text-danger">*</span></label>
+                                <label class="font-weight-bold">Пароль <span class="text-danger">*</span></label>
                                 <input type="password" name="signuppassword" id="signuppassword"
                                     class="form-control" required>
                             </div>
@@ -122,7 +123,7 @@
                                 </div>
                             @enderror
                             <div class="form-group">
-                                <label class="font-weight-bold">Подтвердите пароль<span
+                                <label class="font-weight-bold">Подтвердите пароль <span
                                         class="text-danger">*</span></label>
                                 <input type="password" name="signupcpassword" id="signupcpassword"
                                     class="form-control" required>

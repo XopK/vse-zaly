@@ -37,6 +37,7 @@
         .detail-clearfix a:hover {
             background-color: black;
             color: white;
+
         }
 
         .detail-clearfix i {
@@ -66,7 +67,9 @@
                         <!--header -->
                         <div class="header clearfix">
                             <h3>{{ Auth::user()->name }}</h3>
-                            <img src="https://placehold.co/340x340" alt="avatar" class="img-fluid profile-img">
+                            <img src="/storage/users_profile/{{ Auth::user()->photo_profile }}" alt="avatar"
+                                style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px;"
+                                class="img-fluid profile-img border">
                         </div>
                         <!-- Detail -->
                         <div class="detail-clearfix">
@@ -87,7 +90,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/change_password">
+                                    <a
+                                        href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
                                         <i class="flaticon-lock"></i>Изменить пароль
                                     </a>
                                 </li>
@@ -113,6 +117,14 @@
                                         <input type="text" name="name" class="form-control"
                                             value="{{ Auth::user()->name }}">
                                     </div>
+                                    @error('name')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group subject">
@@ -120,6 +132,14 @@
                                         <input id="userphone" type="text" name="phone" class="form-control"
                                             value="{{ Auth::user()->phone }}">
                                     </div>
+                                    @error('phone')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group number">
@@ -127,6 +147,14 @@
                                         <input type="email" name="email" class="form-control"
                                             value="{{ Auth::user()->email }}">
                                     </div>
+                                    @error('email')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group photo">
@@ -141,6 +169,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @error('photo_user')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="send-btn">
@@ -152,7 +188,7 @@
                         </form>
 
                         @if (Auth::user()->email_verified_at == null)
-                            <a href="" style="text-decoration: none">
+                            <a href="/email_confirm" style="text-decoration: none">
                                 <div class="alert alert-warning mt-4" role="alert">
                                     <strong>Ваша учетная запись не подтверждена.</strong><br>
                                     Для завершения процесса, пожалуйста, подтвердите

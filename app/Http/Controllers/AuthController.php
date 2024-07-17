@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,20 +13,7 @@ use PDO;
 
 class AuthController extends Controller
 {
-
-    private function normalizePhoneNumber($phone)
-    {
-        $digits = preg_replace('/\D/', '', $phone);
-
-        if (substr($digits, 0, 1) == '8') {
-            $digits = '7' . substr($digits, 1);
-        } elseif (substr($digits, 0, 1) == '7') {
-            // Ничего не делаем, номер уже начинается с '7'
-        } else {
-            return null;
-        }
-        return '+7' . substr($digits, 1);
-    }
+    use PhoneNormalizerTrait;
 
     public function sign_up(Request $request)
     {

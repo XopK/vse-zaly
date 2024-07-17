@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConfirmEmailController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\UserController;
+use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -73,7 +76,7 @@ Route::get('/forgot_password', function () {
     return view('forgot_password.forgot_pass');
 });
 
-Route::get('/email_confirmation', function () {
+Route::get('/email_confirm', function () {
     return view('email_verified');
 });
 
@@ -102,3 +105,11 @@ Route::post('/get_resetLink', [ForgotPasswordController::class, 'sendResetLink']
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm']);
 
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('reset_update_password');
+
+Route::post('/become_partner/request', [ApplicationController::class, 'create_application'])->name('request_partner');
+
+Route::get('/email_confirm/get_code', [ConfirmEmailController::class, 'get_code']);
+
+Route::post('/email_confirm/verify', [ConfirmEmailController::class, 'verifyEmail'])->name('verifyEmail');
+
+Route::post('/change_password/update', [UserController::class, 'update_password'])->name('update_password');
