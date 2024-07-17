@@ -29,12 +29,24 @@ Route::get('/about_studio', function () {
     return view('about_studio');
 });
 
+Route::get('/my_studio', function () {
+    return view('my_studio');
+});
+
 Route::get('/terms', function () {
     return view('terms');
 });
 
 Route::get('/halls', function () {
     return view('halls');
+});
+
+Route::get('/my_halls', function () {
+    return view('my_halls');
+});
+
+Route::get('/my_hall', function () {
+    return view('my_hall');
 });
 
 Route::get('/rent', function () {

@@ -1,4 +1,11 @@
 <x-layout>
+    <style>
+        .studio_halls{
+            width: 80%;
+            display: flex;
+            margin: 0 auto;
+        }
+    </style>
     <!-- Banner Section -->
     <section class="page-banner">
         <div class="image-layer" style="background-image:url(images/background/about_us.jpg);"></div>
@@ -7,7 +14,7 @@
         <div class="banner-inner">
             <div class="auto-container">
                 <div class="inner-container clearfix">
-                    <h1>О нас</h1>
+                    <h1>О (тут название студии)</h1>
                 </div>
             </div>
         </div>
@@ -27,13 +34,9 @@
                 <div class="text-column col-lg-6 col-md-12 col-sm-12">
                     <div class="inner">
                         <div class="sec-title">
-                            <h2>Сотрудничаем с ведущими студиями</h2>
+                            <h2>(название студии)</h2>
                         </div>
-                        <div class="text">С нами работают множество студий. Присоединяйтесь к нам сегодня и начните сотрудничество 
-                            с профессионалами, чтобы вывести ваш бизнес на новый уровень!</div>
-                        <a href="/become_partner" class="features">
-                           Стать партнером
-                        </a>
+                        <div class="text">(описание этой студии)</div>
                     </div>
                 </div>
                 <!--Image Column-->
@@ -43,10 +46,7 @@
                         <div class="image-box clearfix">
                             <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img
                                     src="images/logo_main.png" alt="" title=""></figure>
-                            <figure class="image wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms"><img
-                                    src="images/resource/featured-image-13.jpg" alt="" title=""></figure>
-                            <figure class="image wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms"><img
-                                    src="images/resource/featured-image-14.jpg" alt="" title=""></figure>
+                        
                         </div>
                     </div>
                 </div>
@@ -55,57 +55,79 @@
     </section>
 
     <!--Facts Section-->
-    <section class="facts-section-two alternate">
-        <div class="circles">
-            <div class="c-1"></div>
-            <div class="c-2"></div>
-        </div>
-        <div class="auto-container">
-            <div class="sec-title">
-                <h2>С нами бронирование залов станет ещё проще</h2>
-                <div class="lower-text">С нами бронирование залов станет ещё проще и удобнее. 
-                    Мы обеспечим вам легкость и комфорт на каждом этапе, от выбора зала до подтверждения брони, 
-                    чтобы вы могли сосредоточиться на других важных аспектах вашей деятельности</div>
-            </div>
-            <!--Facts Column-->
-            <div class="facts-box">
-                <div class="row clearfix">
-                    <div class="fact-block col-lg-4 col-md-6 col-sm-12">
-                        <div class="fact-inner">
-                            <div class="fact-count wow zoomInStable" data-wow-delay="0ms" data-wow-duration="2000ms">
-                                <div class="count-box counted"><span class="count-text" data-stop="25"
-                                        data-speed="2000">3</span>+</div>
-                            </div>
-                            <h4>Лет успешного сотрудничества</h4>
-                            <div class="text">Добились высокого качества услуг и доверия наших партнеров</div>
+    <div class="studio_halls">
+        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+            <div class="inner-box">
+                <div class="image-box">
+                    <figure class="image"><a href="/hall"><img src="images/halls/IMG_5431.jpeg" alt="" title=""></a></figure>
+                </div>
+                <div class="lower-box">
+                    <h4>Зал Нефть</h4>
+                    <div class="pricing clearfix">
+                        <div class="price">Площадь <span>78</span></div>
+                        <div class="rating">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
                         </div>
                     </div>
-                    <div class="fact-block col-lg-4 col-md-6 col-sm-12">
-                        <div class="fact-inner">
-                            <div class="fact-count wow zoomInStable" data-wow-delay="300ms" data-wow-duration="2000ms">
-                                <div class="count-box counted"><span class="count-text" data-stop="712"
-                                        data-speed="5000">14</span></div>
-                            </div>
-                            <h4>Студий уже с нами</h4>
-                            <div class="text">Расширяем свои горизонты</div>
-                        </div>
-                    </div>
-                    <div class="fact-block col-lg-4 col-md-6 col-sm-12">
-                        <div class="fact-inner">
-                            <div class="fact-count wow zoomInStable" data-wow-delay="600ms" data-wow-duration="2000ms">
-                                <div class="count-box counted"><span class="count-text" data-stop="310"
-                                        data-speed="4000">41</span></div>
-                            </div>
-                            <h4>Мероприятий</h4>
-                            <div class="text">Организовали множество мероприятий</div>
-                        </div>
-                    </div>
+
+                    <div class="text">Самый популярный для видео-съемок, самый большой зал</div>
+                    <div class="link-box"><a href="/hall" class="theme-btn btn-style-three"><span class="btn-title">Просмотреть</span></a></div>
                 </div>
             </div>
-
         </div>
-    </section>
 
+        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
+            <div class="inner-box">
+                <div class="image-box">
+                    <figure class="image"><a href="/hall"><img src="images/resource/featured-image-22.jpg" alt="" title=""></a></figure>
+                </div>
+                <div class="lower-box">
+                    <h4>Deluxe Room</h4>
+                    <div class="pricing clearfix">
+                        <div class="price">From <span>$50.00</span></div>
+                        <div class="rating">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                    </div>
+
+                    <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia deserunt mollit anim id est.</div>
+                    <div class="link-box"><a href="/hall" class="theme-btn btn-style-three"><span class="btn-title">Check Availability</span></a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms" data-wow-duration="1500ms">
+            <div class="inner-box">
+                <div class="image-box">
+                    <figure class="image"><a href="room-single.html"><img src="images/resource/featured-image-23.jpg" alt="" title=""></a></figure>
+                </div>
+                <div class="lower-box">
+                    <h4>Luxury Room</h4>
+                    <div class="pricing clearfix">
+                        <div class="price">From <span>$50.00</span></div>
+                        <div class="rating">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                    </div>
+
+                    <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia deserunt mollit anim id est.</div>
+                    <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span class="btn-title">Check Availability</span></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--Why Section-->
     {{-- <section class="history-section">
         <span class="dotted-pattern dotted-pattern-6"></span>

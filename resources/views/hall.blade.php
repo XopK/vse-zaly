@@ -52,8 +52,8 @@
                     <ul class="info clearfix">
                         {{-- <li><span class="icon flaticon-tv"></span> Telivision</li> --}}
                         <li><span class="icon flaticon-wifi"></span> Wi-Fi</li>
-                        <li><span class="icon flaticon-coffee-cup"></span> Breakfast</li>
-                        <li><span class="icon flaticon-wine-glass"></span> Mini Bar</li>
+                        <li><span class="icon flaticon-coffee-cup"></span> Кофе</li>
+                        <li><span class="icon flaticon-wine-glass"></span> Мини бар</li>
                         {{-- <li><span class="icon flaticon-dumbbell"></span> Gymnasium</li> --}}
                     </ul>
                 </div>

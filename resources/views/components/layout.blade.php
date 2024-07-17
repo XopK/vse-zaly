@@ -50,10 +50,8 @@
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li class="dropdown"><a href="/">Главная</a></li>
-                                    @auth
-                                        <li class="dropdown"><a href="/profile">Личный профиль</a></li>
-                                    @endauth
-                                    <li><a href="/about">О нас</a></li>
+
+                                    <li class="dropdown"><a href="/about">О нас</a></li>
 
                                     <li class="dropdown"><a href="/terms">Правила залов</a></li>
 
@@ -61,17 +59,21 @@
 
                                     <li class="dropdown"><a href="/studios">Студии</a></li>
                                     @auth
-                                    <li><a href="/rent">Долгосрочная аренда</a></li>
+                                        <li class="dropdown"><a href="/profile">Личный профиль</a></li>
+                                        <li><a href="/rent">Долгосрочная аренда</a></li>
+                                        <li><a href="/my_studio">Моя студия</a></li>
+                                        <li><a href="/my_halls">Мои залы</a></li>
                                     @endauth
                                     @guest
-                                        <li class="dropdown"><a data-toggle="modal" data-target="#logModal">Авторизация</a></li>
+                                        <li class="dropdown"><a data-toggle="modal" data-target="#logModal">Авторизация</a>
+                                        </li>
                                         <li class="dropdown"><a href="/become_partner">Стать партнёром</a></li>
                                     @endguest
                                 </ul>
                             </div>
                         </nav>
                     </div>
-                    
+
                 </div>
             </div>
             <!--End Header Upper-->
@@ -80,7 +82,7 @@
             <div class="mobile-menu">
                 <div class="close-btn"><span class="icon flaticon-targeting-cross"></span></div>
                 <div class="menu-backdrop"></div>
-                <div class="nav-logo"><a href="index.html"><img src="images/nav-logo.png" alt="logo"
+                <div class="nav-logo"><a href="/"><img src="images/nav-logo.png" alt="logo"
                             title=""></a></div>
                 <nav class="menu-box">
                     <div class="menu-outer">
@@ -135,9 +137,14 @@
                                             </div>
                                             <ul class="links">
                                                 <li><a href="/">Главная</a></li>
+
                                                 <li><a href="/about">О нас</a></li>
+
                                                 <li><a href="/terms">Правила залов</a></li>
-                                                <li><a href="/rent">Долгосрочная аренда</a></li>
+
+                                                <li><a href="/halls">Залы</a></li>
+
+                                                <li><a href="/studios">Студии</a></li>
                                             </ul>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -195,7 +202,8 @@
                     <div class="inner clearfix">
                         <div class="copyright">&copy; 2024 Все залы - Все права защищены</div>
                         <div class="bottom-links">
-                            <a href="#">Пользовательское соглашение</a> &ensp;|&ensp; <a href="#">Политика конфиденциальности</a>
+                            <a href="#">Пользовательское соглашение</a> &ensp;|&ensp; <a href="#">Политика
+                                конфиденциальности</a>
                         </div>
                     </div>
                 </div>

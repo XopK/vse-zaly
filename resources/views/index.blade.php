@@ -284,7 +284,7 @@
                                         </ul>
                                     </div>
 
-                                    <div class="link-box"><a href="room-single.html"
+                                    <div class="link-box"><a href="/about_studio"
                                             class="theme-btn btn-style-one"><span class="btn-title">Просмотр залов</span></a></div>
                                 </div>
                             </div>
