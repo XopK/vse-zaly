@@ -30,7 +30,7 @@
 
 
                 <div class="col-sm-12 shadow rounded pt-2 pb-2">
-                    <form method="post" action="{{ route('request_partner') }}" id="singnupFrom">
+                    <form method="post" action="{{ route('request_partner') }}" id="requestFrom">
                         @csrf
                         <div class="form-group">
                             <label class="font-weight-bold">Почта <span class="text-danger">*</span></label>
@@ -107,7 +107,7 @@
                             </div>
                         @enderror
                         <div class="form-group">
-                            <label><input type="checkbox" name="signupcondition" id="signupcondition" required> Я
+                            <label><input type="checkbox" name="signupcondition" id="requestcondition" required> Я
                                 соглашаюсь с <a href="javascript:;">Условиями и
                                     Положениями</a> для регистрации.</label>
                         </div>

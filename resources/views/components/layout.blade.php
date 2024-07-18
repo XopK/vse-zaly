@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <title>Аренда залов в Уфе</title>
     <!-- Stylesheets -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <!-- Responsive File -->
-    <link href="css/responsive.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon">
 
     <!-- Responsive Settings -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +37,7 @@
                     <!--Logo-->
                     <div class="logo-box">
                         <div class="logo"><a href="/" title="Hotera - Hotel and Restaurant HTML Template"><img
-                                    src="images/black-logo.png" alt="Hotera - Hotel and Restaurant HTML Template"
+                                    src="/images/black-logo.png" alt="Hotera - Hotel and Restaurant HTML Template"
                                     title="Hotera - Hotel and Restaurant HTML Template"></a></div>
                     </div>
                     <div class="nav-outer clearfix">
@@ -49,17 +49,17 @@
                         <nav class="main-menu navbar-expand-md navbar-light">
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li class="dropdown"><a href="/">Главная</a></li>
+                                    <li><a href="/">Главная</a></li>
 
-                                    <li class="dropdown"><a href="/about">О нас</a></li>
+                                    <li><a href="/about">О нас</a></li>
 
-                                    <li class="dropdown"><a href="/terms">Правила залов</a></li>
+                                    <li><a href="/terms">Правила залов</a></li>
 
-                                    <li class="dropdown"><a href="/halls">Залы</a></li>
+                                    <li><a href="/halls">Залы</a></li>
 
-                                    <li class="dropdown"><a href="/studios">Студии</a></li>
+                                    <li><a href="/studios">Студии</a></li>
                                     @auth
-                                        <li class="dropdown"><a href="/profile">Личный профиль</a></li>
+                                        <li><a href="/profile">Личный профиль</a></li>
                                         <li><a href="/rent">Долгосрочная аренда</a></li>
                                         @if (Auth::user()->id_role == 2)
                                             <li><a href="/my_studio">Моя студия</a></li>
@@ -68,9 +68,9 @@
 
                                     @endauth
                                     @guest
-                                        <li class="dropdown"><a data-toggle="modal" data-target="#logModal">Авторизация</a>
+                                        <li><a data-toggle="modal" data-target="#logModal">Авторизация</a>
                                         </li>
-                                        <li class="dropdown"><a href="/become_partner">Стать партнёром</a></li>
+                                        <li><a href="/become_partner">Стать партнёром</a></li>
                                     @endguest
                                 </ul>
                             </div>
@@ -85,11 +85,11 @@
             <div class="mobile-menu">
                 <div class="close-btn"><span class="icon flaticon-targeting-cross"></span></div>
                 <div class="menu-backdrop"></div>
-                <div class="nav-logo"><a href="/"><img src="images/nav-logo.png" alt="logo"
+                <div class="nav-logo"><a href="/"><img src="/images/nav-logo.png" alt="logo"
                             title=""></a></div>
                 <nav class="menu-box">
                     <div class="menu-outer">
-                       
+
                     </div>
                 </nav>
                 <div class="nav-bottom">
@@ -124,7 +124,7 @@
                         <div class="column col-xl-3 col-lg-12 col-md-12 col-sm-12">
                             <div class="footer-widget about-widget">
                                 <div class="logo">
-                                    <a href="#"><img src="images/footer-logo.png" alt=""></a>
+                                    <a href="#"><img src="/images/footer-logo.png" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -218,16 +218,16 @@
     <!--End pagewrapper--><!--Scroll to top-->
     <div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-up-arrow"></span></div>
 
-    <script src="js/jquery.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/jquery.fancybox.js"></script>
-    <script src="js/owl.js"></script>
-    <script src="js/scrollbar.js"></script>
-    <script src="js/appear.js"></script>
-    <script src="js/wow.js"></script>
-    <script src="js/custom-script.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/jquery.fancybox.js"></script>
+    <script src="/js/owl.js"></script>
+    <script src="/js/scrollbar.js"></script>
+    <script src="/js/appear.js"></script>
+    <script src="/js/wow.js"></script>
+    <script src="/js/custom-script.js"></script>
     <x-auth></x-auth>
 </body>
 

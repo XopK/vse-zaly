@@ -62,21 +62,49 @@
             }
         });
     }
-    document.getElementById('getCodeBtn').addEventListener('click', function() {
-        var btn = this;
-        btn.disabled = true;
-        sendRequest();
 
-        var countdown = 60;
+    function startCountdown(duration) {
+        var countdown = duration;
         var timer = setInterval(function() {
             countdown--;
             document.getElementById('countdown').textContent = ' (ожидание ' + countdown + ' секунд)';
 
             if (countdown <= 0) {
                 clearInterval(timer);
-                btn.disabled = false;
+                document.getElementById('getCodeBtn').disabled = false;
                 document.getElementById('countdown').textContent = '';
+                localStorage.removeItem('countdown');
+                localStorage.removeItem('countdownEndTime');
+            } else {
+                localStorage.setItem('countdown', countdown);
             }
         }, 1000);
+    }
+
+    document.getElementById('getCodeBtn').addEventListener('click', function() {
+        var btn = this;
+        btn.disabled = true;
+        sendRequest();
+
+        var countdownDuration = 60;
+        var countdownEndTime = Date.now() + countdownDuration * 1000;
+        localStorage.setItem('countdownEndTime', countdownEndTime);
+
+        startCountdown(countdownDuration);
     });
+
+    // Check localStorage for countdown
+    var storedCountdown = localStorage.getItem('countdown');
+    var countdownEndTime = localStorage.getItem('countdownEndTime');
+
+    if (storedCountdown && countdownEndTime) {
+        var remainingTime = Math.floor((countdownEndTime - Date.now()) / 1000);
+        if (remainingTime > 0) {
+            document.getElementById('getCodeBtn').disabled = true;
+            startCountdown(remainingTime);
+        } else {
+            localStorage.removeItem('countdown');
+            localStorage.removeItem('countdownEndTime');
+        }
+    }
 </script>

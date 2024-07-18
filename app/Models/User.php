@@ -48,4 +48,10 @@ class User extends Authenticatable
 
 
     protected $rememberTokenName = 'remember_token';
+
+
+    public function studio()
+    {
+        return $this->hasOne(Studio::class, 'id_user');
+    }
 }

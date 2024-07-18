@@ -113,3 +113,7 @@ Route::get('/email_confirm/get_code', [ConfirmEmailController::class, 'get_code'
 Route::post('/email_confirm/verify', [ConfirmEmailController::class, 'verifyEmail'])->name('verifyEmail');
 
 Route::post('/change_password/update', [UserController::class, 'update_password'])->name('update_password');
+
+Route::get('/profile/new_email_confirm', [UserController::class, 'new_email_view'])->name('view_email');
+
+Route::post('/profile/new_email_confirm/update', [UserController::class, 'newEmailChange'])->name('newEmailChange');

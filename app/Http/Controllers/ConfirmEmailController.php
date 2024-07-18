@@ -43,18 +43,21 @@ class ConfirmEmailController extends Controller
 
             if (now()->lt($expiration)) {
 
-                Session::forget('verification_code');
-                Session::forget('verification_code_expires_at');
-
                 $user = Auth::user();
                 $user->email_verified_at = now();
                 $user->save();
 
+                Session::forget('verification_code');
+                Session::forget('verification_code_expires_at');
                 return redirect('/profile')->with('succes_verify', 'Вы успешно подтвердили почту!');
             } else {
+                Session::forget('verification_code');
+                Session::forget('verification_code_expires_at');
                 return redirect()->back()->with('error_verify', 'Срок действия кода истек. Запросите новый код.');
             }
         } else {
+            Session::forget('verification_code');
+            Session::forget('verification_code_expires_at');
             return redirect()->back()->with('error_verify', 'Неверный код верификации!');
         }
     }
