@@ -17,10 +17,14 @@ class AuthController extends Controller
 
     public function sign_up(Request $request)
     {
+        $request->merge([
+            'signupphone' => $this->normalizePhoneNumber($request->signupphone)
+        ]);
+
         $validated = $request->validate([
             'signupemail' => 'required|email|unique:users,email',
             'signupusername' => 'required|regex:/^[а-яёА-ЯЁ\s]+$/u',
-            'signupphone' => 'required|regex:/^\+7\(\d{3}\)-\d{3}-\d{4}$/|unique:users,phone',
+            'signupphone' => 'required|unique:users,phone',
             'signuppassword' => 'required|min:6',
             'signupcpassword' => 'required|same:signuppassword',
         ], [
@@ -30,7 +34,6 @@ class AuthController extends Controller
             'signupusername.required' => 'Введите имя.',
             'signupusername.regex' => 'Только русские символы.',
             'signupphone.required' => 'Введите номер телефона.',
-            'signupphone.regex' => 'Номер телефона должен быть в формате +7(xxx)-xxx-xxxx.',
             'signupphone.unique' => 'Пользователь с таким номером телефона уже зарегистрирован',
             'signuppassword.required' => 'Введите пароль.',
             'signuppassword.min' => 'Минимальная длина пароля - 6 символов.',
