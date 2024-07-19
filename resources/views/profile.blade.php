@@ -180,7 +180,7 @@
                                     <div class="form-group subject">
                                         <label>Telegram</label>
                                         <input id="usertg" type="text" name="tg" class="form-control"
-                                            value="{{ Auth::user()->tg }}">
+                                            value="{{ Auth::user()->telegram }}">
                                     </div>
                                     @error('tg')
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -211,7 +211,7 @@
                                     <div class="form-group subject">
                                         <label>Instagram</label>
                                         <input id="userinst" type="text" name="inst" class="form-control"
-                                            value="{{ Auth::user()->inst }}">
+                                            value="{{ Auth::user()->instagram }}">
                                     </div>
                                     @error('inst')
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">

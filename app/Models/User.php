@@ -22,6 +22,9 @@ class User extends Authenticatable
         'phone',
         'photo_profile',
         'email',
+        'telegram',
+        'vk',
+        'instagram',
         'password',
         'id_role',
     ];

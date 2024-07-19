@@ -16,12 +16,50 @@ class UserController extends Controller
 {
     use PhoneNormalizerTrait;
 
+    protected function putSocialLink($social)
+    {
+        $baseLinks = [
+            'tg' => 'https://t.me/',
+            'vk' => 'https://vk.com/',
+            'inst' => 'https://www.instagram.com/'
+        ];
+
+        // Массив для обновления полей
+        $updatedFields = [];
+
+        foreach ($baseLinks as $key => $baseLink) {
+
+            $value = $social->$key;
+
+            if ($value === null || $value === '') {
+                // Если значение null
+            } else {
+
+                if (strpos($value, $baseLink) === 0) {
+                    // Значение уже начинается с базовой ссылки
+                } else {
+                    $value = $baseLink . ltrim($value, '/');
+                }
+            }
+            $updatedFields[$key] = $value;
+        }
+        foreach ($updatedFields as $key => $updatedValue) {
+
+            $social->$key = $updatedValue;
+        }
+        
+        return (object) $updatedFields; // Преобразуем массив в объект
+    }
+
     public function update_data(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|regex:/^[а-яёА-ЯЁ\s]+$/u|',
             'phone' => 'required|regex:/^\+7\(\d{3}\)-\d{3}-\d{4}$/|unique:users,phone,' . Auth::user()->id,
             'email' => 'required|email|unique:users,email,' . Auth::user()->id,
+            'tg' => 'nullable',
+            'vk' => 'nullable',
+            'inst' => 'nullable',
             'photo_user' => 'image|max:2048',
         ], [
             'name.required' => 'Имя должно быть заполенено.',
@@ -38,24 +76,32 @@ class UserController extends Controller
 
         $user = User::find(Auth::user()->id);
 
-        if ($request->file('photo_user')) {
-            if ($user->profile_img != 'default.png') {
-                Storage::delete('public/users_profile/' . $user->profile_img);
+        if ($request->file('photo_user') != null) {
+            if ($user->photo_profile != 'default.png') {
+                Storage::delete('public/users_profile/' . $user->photo_profile);
             }
             $hashPhoto = $request->file('photo_user')->hashName();
             $storePhoto = $request->file('photo_user')->store('public/users_profile');
         } else {
-            $hashPhoto = $user->profile_img;
+            $hashPhoto = $user->photo_profile;
         }
 
         if ($user->email != $request->email) {
             Session::put('new_email', $request->email);
             return redirect(route('view_email'));
         } else {
+
+            if ($request->tg || $request->vk || $request->inst) {
+                $socialLinks = $this->putSocialLink($request);
+            }
+
             $user->fill([
                 'name' => $request->name,
                 'phone' => $this->normalizePhoneNumber($request->phone),
                 'photo_profile' => $hashPhoto,
+                'telegram' => $socialLinks->tg ?? null,
+                'vk' => $socialLinks->vk ?? null,
+                'instagram' => $socialLinks->inst ?? null,
             ]);
 
             if ($user) {

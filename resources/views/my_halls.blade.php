@@ -9,72 +9,70 @@
 
         <div class="my-address contact-2">
             <h3 class="heading-3">Добавить новый зал</h3>
-            <form action="{{ route('update_personal_data') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('create_hall')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-lg-12 ">
                         <div class="form-group name">
                             <label>Название зала</label>
-                            <input type="text" name="name_hall" class="form-control" value="{{ Auth::user()->name }}">
+                            <input type="text" name="name_hall" class="form-control">
                         </div>
                         @error('name_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group number">
                             <label>Площадь зала</label>
-                            <input type="text" name="area_hall" class="form-control"
-                                value="{{ Auth::user()->email }}">
+                            <input type="text" name="area_hall" class="form-control">
                         </div>
                         @error('area_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group subject">
                             <label>Описание зала</label>
-                            <input id="description_hall" type="text" name="description_hall" class="form-control"
-                                value="{{ Auth::user()->phone }}">
+                            <textarea id="description_hall" name="description_hall" class="form-control"></textarea>
                         </div>
                         @error('description_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group photo">
-                            <label>Фото зала(чтобы несколько фото можно было выбрать)</label>
+                            <label>Фото зала (чтобы несколько фото можно было выбрать???)</label>
                             <div class="input-group mb-3">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" name="photo_hall" accept="image/*"
-                                        id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                           id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label" for="inputGroupFile01">Выберите
                                         файл/ы</label>
                                 </div>
                             </div>
                         </div>
                         @error('photo_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <h4 style="margin-left: 15px;">Что есть в зале</h4>
@@ -120,11 +118,11 @@
 
             <div class="row clearfix">
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                    data-wow-duration="1500ms">
+                     data-wow-duration="1500ms">
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image"><a href="/hall"><img src="images/halls/IMG_5431.jpeg"
-                                        alt="" title=""></a></figure>
+                                                                       alt="" title=""></a></figure>
                         </div>
                         <div class="lower-box">
                             <h4>Зал Нефть</h4>
@@ -147,11 +145,11 @@
                 </div>
 
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-                    data-wow-duration="1500ms">
+                     data-wow-duration="1500ms">
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image"><a href="/hall"><img src="images/resource/featured-image-22.jpg"
-                                        alt="" title=""></a></figure>
+                                                                       alt="" title=""></a></figure>
                         </div>
                         <div class="lower-box">
                             <h4>Deluxe Room</h4>
@@ -167,7 +165,8 @@
                             </div>
 
                             <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia
-                                deserunt mollit anim id est.</div>
+                                deserunt mollit anim id est.
+                            </div>
                             <div class="link-box"><a href="/hall" class="theme-btn btn-style-three"><span
                                         class="btn-title">Check Availability</span></a></div>
                         </div>
@@ -175,7 +174,7 @@
                 </div>
 
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms"
-                    data-wow-duration="1500ms">
+                     data-wow-duration="1500ms">
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image"><a href="room-single.html"><img
@@ -197,7 +196,8 @@
                             </div>
 
                             <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia
-                                deserunt mollit anim id est.</div>
+                                deserunt mollit anim id est.
+                            </div>
                             <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
                                         class="btn-title">Check Availability</span></a></div>
                         </div>

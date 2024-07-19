@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfirmEmailController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudioController;
+use App\Http\Controllers\HallController;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,10 +30,6 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/about_studio', function () {
-    return view('about_studio');
-});
-
 Route::get('/my_studio', function () {
     return view('my_studio');
 });
@@ -42,10 +40,6 @@ Route::get('/terms', function () {
 
 Route::get('/halls', function () {
     return view('halls');
-});
-
-Route::get('/my_halls', function () {
-    return view('my_halls');
 });
 
 Route::get('/my_hall', function () {
@@ -62,10 +56,6 @@ Route::get('/become_partner', function () {
 
 Route::get('/hall', function () {
     return view('hall');
-});
-
-Route::get('/studios', function () {
-    return view('studios');
 });
 
 Route::get('/profile', function () {
@@ -117,3 +107,13 @@ Route::post('/change_password/update', [UserController::class, 'update_password'
 Route::get('/profile/new_email_confirm', [UserController::class, 'new_email_view'])->name('view_email');
 
 Route::post('/profile/new_email_confirm/update', [UserController::class, 'newEmailChange'])->name('newEmailChange');
+
+Route::post('/my_studio/update', [StudioController::class, 'update_studio'])->name('update_studio');
+
+Route::get('/studios', [StudioController::class, 'studios_view']);
+
+Route::get('/about_studio/{studio}', [StudioController::class, 'about_studio']);
+
+Route::get('/my_halls', [HallController::class, 'my_halls']);
+
+Route::post('/my_halls/create', [HallController::class, 'create_halls'])->name('create_hall');

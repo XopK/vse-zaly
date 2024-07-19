@@ -32,79 +32,85 @@
         <div class="banner-inner">
             <div class="auto-container">
                 <div class="inner-container clearfix">
-                    <h1>Моя студии "{{ Auth::user()->studio->name_studio }}"</h1>
+                    <h1>Моя студия "{{ Auth::user()->studio->name_studio }}"</h1>
                 </div>
             </div>
         </div>
     </section>
     <!--End Banner Section -->
     <section class="studio_form">
-        <div class="tab-pane fade show active" id="pills-signin" role="tabpanel" aria-labelledby="pills-signin-tab">
-            <div class="col-sm-12 shadow rounded pt-2 pb-2">
-                <form method="post" action="{{ route('signin') }}" id="singninFrom">
-                    @csrf
-                    @if (session('error_signin'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ session('error_signin') }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-                    <div class="form-group">
-                        <label class="font-weight-bold">Название студии<span class="text-danger"></span></label>
-                        <input value="MAIN" type="text" name="studio_name" id="studio_name" class="form-control"
-                            required>
+        <div class="col-sm-12 shadow rounded pt-2 pb-2">
+            <form method="post" action="{{route('update_studio')}}" id="editStudio" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id_studio" value="{{Auth::user()->studio->id}}">
+                @if (session('error_studio'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ session('error_studio') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    @error('studio_name')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @enderror
-                    <div class="form-group">
-                        <label class="font-weight-bold">Описание студии <span class="text-danger"></span></label>
-                        <input value="desc" type="textarea" name="studio_description" id="studio_description"
-                            class="form-control" required>
+                @endif
+                @if (session('success_studio'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success_studio') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    @error('studio_description')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @enderror
-                    
-                        <div class="form-group photo">
-                            <label class="font-weight-bold">Фото студии</label>
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="studio_photo" accept="image/*"
-                                        id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="inputGroupFile01">Выберите
-                                        файл</label>
-                                </div>
-                            </div>
-                        </div>
-                        @error('studio_photo')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @enderror
-                  
+                @endif
+                <div class="form-group">
+                    <label class="font-weight-bold">Название студии<span class="text-danger"></span></label>
+                    <input value="{{ Auth::user()->studio->name_studio }}" type="text" name="studio_name"
+                           id="studio_name" class="form-control"
+                           required>
+                </div>
+                @error('studio_name')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
+                <div class="form-group">
+                    <label class="font-weight-bold">Описание студии <span class="text-danger"></span></label>
+                    <textarea class="form-control" name="studio_description" id="studio_description"
+                              required>{{ Auth::user()->studio->description_studio }}</textarea>
+                </div>
+                @error('studio_description')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
 
-                    <div class="form-group">
-                        <button type="submit" class="theme-btn btn-style-one btn-block"><span
-                                class="btn-title">Изменить</span></button>
+                <div class="form-group photo">
+                    <label class="font-weight-bold">Фото студии</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="studio_photo" accept="image/*"
+                                   id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="inputGroupFile01">Выберите
+                                файл</label>
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+                @error('studio_photo')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
+                <div class="form-group">
+                    <button type="submit" class="theme-btn btn-style-one btn-block"><span
+                            class="btn-title">Изменить</span></button>
+                </div>
+            </form>
         </div>
     </section>
 
@@ -132,7 +138,8 @@
                         <span class="dotted-pattern dotted-pattern-10"></span>
                         <div class="image-box clearfix">
                             <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img
-                                    src="images/logo_main.png" alt="" title=""></figure>
+                                    src="/storage/photo_studios/{{Auth::user()->studio->photo_studio}}" alt="" title="">
+                            </figure>
 
                         </div>
                     </div>
@@ -155,7 +162,7 @@
                         <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
                         </div>
                         <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
-                                title="small_hall">
+                                                   title="small_hall">
                         </figure>
                     </div>
                     <div class="cap-box">
@@ -182,7 +189,7 @@
                                 <ul>
                                     <li>400/час в будни до 19:00</li>
                                     <li>500/час будни с 19:00</li>
-                                    <li>450/час в выходные дни в любое время </li>
+                                    <li>450/час в выходные дни в любое время</li>
                                 </ul>
                             </div>
                             <div class="link-box"><a href="/hall" class="theme-btn btn-style-one"><span
@@ -197,7 +204,7 @@
                         <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
                         </div>
                         <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
-                                title="small_hall">
+                                                   title="small_hall">
                         </figure>
                     </div>
                     <div class="cap-box">
@@ -224,7 +231,7 @@
                                 <ul>
                                     <li>400/час в будни до 19:00</li>
                                     <li>500/час будни с 19:00</li>
-                                    <li>450/час в выходные дни в любое время </li>
+                                    <li>450/час в выходные дни в любое время</li>
                                 </ul>
                             </div>
                             <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
@@ -242,7 +249,7 @@
                         <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
                         </div>
                         <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
-                                title="small_hall">
+                                                   title="small_hall">
                         </figure>
                     </div>
                     <div class="cap-box">
@@ -269,7 +276,7 @@
                                 <ul>
                                     <li>400/час в будни до 19:00</li>
                                     <li>500/час будни с 19:00</li>
-                                    <li>450/час в выходные дни в любое время </li>
+                                    <li>450/час в выходные дни в любое время</li>
                                 </ul>
                             </div>
                             <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
@@ -285,7 +292,7 @@
                         <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
                         </div>
                         <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
-                                title="small_hall">
+                                                   title="small_hall">
                         </figure>
                     </div>
                     <div class="cap-box">
@@ -312,7 +319,7 @@
                                 <ul>
                                     <li>400/час в будни до 19:00</li>
                                     <li>500/час будни с 19:00</li>
-                                    <li>450/час в выходные дни в любое время </li>
+                                    <li>450/час в выходные дни в любое время</li>
                                 </ul>
                             </div>
                             <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
@@ -336,7 +343,8 @@
             <div class="sec-title centered">
                 <h2>Отзывы</h2>
                 <div class="lower-text">Нам важно что вы думаете о нас, мы за то - чтобы наш проект развивался вместе с
-                    вами.</div>
+                    вами.
+                </div>
             </div>
 
             <div class="carousel-box">
@@ -348,7 +356,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -367,7 +376,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -386,7 +396,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -405,7 +416,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -424,7 +436,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -443,7 +456,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -462,7 +476,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -481,7 +496,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -500,7 +516,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -516,4 +533,12 @@
             </div>
         </div>
     </section>
+    <script>
+        document.querySelector('.custom-file-input').addEventListener('change', function (event) {
+            var input = event.target;
+            var label = input.nextElementSibling;
+            var fileName = input.files.length > 0 ? input.files[0].name : 'Выбрать файл';
+            label.textContent = fileName;
+        });
+    </script>
 </x-layout>

@@ -29,18 +29,24 @@ class ForgotPasswordController extends Controller
         } else {
             $token = sha1(time() . $request->email);
         }
-        
-        DB::table('password_resets')->insert([
-            'email' => $request->email,
-            'token' => $token,
-            'created_at' => now(),
-        ]);
 
-        $resetLink = url("/reset-password/{$token}");
+        $existingUser = DB::table('users')->where('email', $request->email)->first();
 
-        Mail::to($request->email)->send(new ResetPassword($resetLink));
+        if ($existingUser) {
+            DB::table('password_resets')->insert([
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => now(),
+            ]);
 
-        return back()->with('message', 'Письмо с инструкциями по сбросу пароля отправлено на вашу почту.');
+            $resetLink = url("/reset-password/{$token}");
+
+            Mail::to($request->email)->send(new ResetPassword($resetLink));
+
+            return back()->with('message', 'Письмо с инструкциями по сбросу пароля отправлено на вашу почту.');
+        } else {
+            return back()->with('message_error', 'Пользователя с такой почтой не существует.');
+        }
     }
 
     public function showResetForm($token)
