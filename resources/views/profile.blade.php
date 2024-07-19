@@ -127,6 +127,21 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-12 ">
+                                    <div class="form-group number">
+                                        <label>Почта</label>
+                                        <input type="email" name="email" class="form-control"
+                                            value="{{ Auth::user()->email }}">
+                                    </div>
+                                    @error('email')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-12 ">
                                     <div class="form-group subject">
                                         <label>Телефон</label>
                                         <input id="userphone" type="text" name="phone" class="form-control"
@@ -142,12 +157,42 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-12 ">
-                                    <div class="form-group number">
-                                        <label>Почта</label>
-                                        <input type="email" name="email" class="form-control"
-                                            value="{{ Auth::user()->email }}">
+                                    <div class="form-group subject">
+                                        <label>Telegram</label>
+                                        <input id="usertg" type="text" name="tg" class="form-control"
+                                            value="{{ Auth::user()->tg }}">
                                     </div>
-                                    @error('email')
+                                    @error('tg')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-12 ">
+                                    <div class="form-group subject">
+                                        <label>VK</label>
+                                        <input id="uservk" type="text" name="vk" class="form-control"
+                                            value="{{ Auth::user()->vk }}">
+                                    </div>
+                                    @error('vk')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-12 ">
+                                    <div class="form-group subject">
+                                        <label>Instagram</label>
+                                        <input id="userinst" type="text" name="inst" class="form-control"
+                                            value="{{ Auth::user()->inst }}">
+                                    </div>
+                                    @error('inst')
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <strong>{{ $message }}</strong>
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

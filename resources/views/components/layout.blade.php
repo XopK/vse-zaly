@@ -60,7 +60,7 @@
                                     <li><a href="/studios">Студии</a></li>
                                     @auth
                                         <li><a href="/profile">Личный профиль</a></li>
-                                        <li><a href="/rent">Долгосрочная аренда</a></li>
+                                        {{-- <li><a href="/rent">Долгосрочная аренда</a></li> --}}
                                         @if (Auth::user()->id_role == 2)
                                             <li><a href="/my_studio">Моя студия</a></li>
                                             <li><a href="/my_halls">Мои залы</a></li>
