@@ -5,6 +5,24 @@
             display: flex;
             margin: 0 auto;
         }
+
+        .studio_form {
+            width: 30%;
+            margin: 50px auto;
+            /* border: 1px solid black; */
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .studio_form {
+                width: 80%;
+                margin: 50px auto;
+            }
+        }
+
+        .halls {
+            text-align: center;
+        }
     </style>
     <!-- Banner Section -->
     <section class="page-banner">
@@ -14,12 +32,81 @@
         <div class="banner-inner">
             <div class="auto-container">
                 <div class="inner-container clearfix">
-                    <h1>О студии "{{ Auth::user()->studio->name_studio }}"</h1>
+                    <h1>Моя студии "{{ Auth::user()->studio->name_studio }}"</h1>
                 </div>
             </div>
         </div>
     </section>
     <!--End Banner Section -->
+    <section class="studio_form">
+        <div class="tab-pane fade show active" id="pills-signin" role="tabpanel" aria-labelledby="pills-signin-tab">
+            <div class="col-sm-12 shadow rounded pt-2 pb-2">
+                <form method="post" action="{{ route('signin') }}" id="singninFrom">
+                    @csrf
+                    @if (session('error_signin'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ session('error_signin') }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    <div class="form-group">
+                        <label class="font-weight-bold">Название студии<span class="text-danger"></span></label>
+                        <input value="MAIN" type="text" name="studio_name" id="studio_name" class="form-control"
+                            required>
+                    </div>
+                    @error('studio_name')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @enderror
+                    <div class="form-group">
+                        <label class="font-weight-bold">Описание студии <span class="text-danger"></span></label>
+                        <input value="desc" type="textarea" name="studio_description" id="studio_description"
+                            class="form-control" required>
+                    </div>
+                    @error('studio_description')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @enderror
+                    
+                        <div class="form-group photo">
+                            <label class="font-weight-bold">Фото студии</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="studio_photo" accept="image/*"
+                                        id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Выберите
+                                        файл</label>
+                                </div>
+                            </div>
+                        </div>
+                        @error('studio_photo')
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @enderror
+                  
+
+                    <div class="form-group">
+                        <button type="submit" class="theme-btn btn-style-one btn-block"><span
+                                class="btn-title">Изменить</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <!--Featured Section-->
     <section class="featured-section-four about-page">
@@ -55,175 +142,189 @@
     </section>
 
     <!--Facts Section-->
-    <div class="studio_halls">
-        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-            data-wow-duration="1500ms">
-            <div class="inner-box">
-                <div class="image-box">
-                    <figure class="image"><a href="/hall"><img src="images/halls/IMG_5431.jpeg" alt=""
-                                title=""></a></figure>
-                </div>
-                <div class="lower-box">
-                    <h4>Зал Нефть</h4>
-                    <div class="pricing clearfix">
-                        <div class="price">Площадь <span>78</span></div>
-                        <div class="rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
-
-                    <div class="text">Самый популярный для видео-съемок, самый большой зал</div>
-                    <div class="link-box"><a href="/hall" class="theme-btn btn-style-three"><span
-                                class="btn-title">Просмотреть</span></a></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-            data-wow-duration="1500ms">
-            <div class="inner-box">
-                <div class="image-box">
-                    <figure class="image"><a href="/hall"><img src="images/resource/featured-image-22.jpg"
-                                alt="" title=""></a></figure>
-                </div>
-                <div class="lower-box">
-                    <h4>Deluxe Room</h4>
-                    <div class="pricing clearfix">
-                        <div class="price">From <span>$50.00</span></div>
-                        <div class="rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
-
-                    <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia deserunt
-                        mollit anim id est.</div>
-                    <div class="link-box"><a href="/hall" class="theme-btn btn-style-three"><span
-                                class="btn-title">Check Availability</span></a></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms"
-            data-wow-duration="1500ms">
-            <div class="inner-box">
-                <div class="image-box">
-                    <figure class="image"><a href="room-single.html"><img src="images/resource/featured-image-23.jpg"
-                                alt="" title=""></a></figure>
-                </div>
-                <div class="lower-box">
-                    <h4>Luxury Room</h4>
-                    <div class="pricing clearfix">
-                        <div class="price">From <span>$50.00</span></div>
-                        <div class="rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
-
-                    <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia deserunt
-                        mollit anim id est.</div>
-                    <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
-                                class="btn-title">Check Availability</span></a></div>
-                </div>
-            </div>
-        </div>
+    <div class="halls">
+        <h2 class="halls">Мои залы</h2>
     </div>
-    <!--Why Section-->
-    {{-- <section class="history-section">
-        <span class="dotted-pattern dotted-pattern-6"></span>
-        <span class="tri-pattern tri-pattern-5"></span>
-        <div class="circles">
-            <div class="c-1"></div>
-            <div class="c-2"></div>
-        </div>
-        <div class="auto-container">
-            <div class="sec-title centered">
-                <h2>Our History</h2>
-                <div class="lower-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt
-                    mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</div>
-            </div>
-            <div class="h-container">
-                <!--Block-->
-                <div class="history-block">
-                    <div class="row clearfix">
-                        <div class="content-col col-lg-6 col-md-6 col-sm-12">
-                            <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                <div class="image-box">
-                                    <div class="image"><img src="images/resource/featured-image-18.jpg"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div class="lower-box">
-                                    <h3>The Beginning</h3>
-                                    <div class="text">Sint occaecat cuidatat non proident sunt in culpa qui officia
-                                        mollit anim id est laborum perspiciatis.</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="empty-col col-lg-6 col-md-6 col-sm-12">
 
+    <div class="row clerfix">
+
+        <div class="column col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                <div class="inner-box">
+                    <div class="image-box">
+                        <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                        </div>
+                        <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
+                                title="small_hall">
+                        </figure>
+                    </div>
+                    <div class="cap-box">
+                        <div class="cap-inner">
+                            <div class="price">Площадь <span>40м</span></div>
+                            <h5>Зал Малый</h5>
                         </div>
                     </div>
-                </div>
-                <!--Block-->
-                <div class="history-block alternate">
-                    <div class="row clearfix">
-                        <div class="content-col col-lg-6 col-md-6 col-sm-12">
-                            <div class="inner wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                <div class="image-box">
-                                    <div class="image"><img src="images/resource/featured-image-19.jpg"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div class="lower-box">
-                                    <h3>2002 The Beginning</h3>
-                                    <div class="text">Sint occaecat cuidatat non proident sunt in culpa qui officia
-                                        mollit anim id est laborum perspiciatis.</div>
+                    <div class="hover-box">
+                        <div class="hover-inner">
+                            <h4>Зал Малый</h4>
+                            <div class="pricing clearfix">
+                                <div class="price">Площадь <span>40м</span></div>
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="empty-col col-lg-6 col-md-6 col-sm-12">
 
-                        </div>
-                    </div>
-                </div>
-                <!--Block-->
-                <div class="history-block">
-                    <div class="row clearfix">
-                        <div class="content-col col-lg-6 col-md-6 col-sm-12">
-                            <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                <div class="image-box">
-                                    <div class="image"><img src="images/resource/featured-image-20.jpg"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div class="lower-box">
-                                    <h3>2011 The Mid-Term</h3>
-                                    <div class="text">Sint occaecat cuidatat non proident sunt in culpa qui officia
-                                        mollit anim id est laborum perspiciatis.</div>
-                                </div>
+                            <div class="text">
+                                <ul>
+                                    <li>400/час в будни до 19:00</li>
+                                    <li>500/час будни с 19:00</li>
+                                    <li>450/час в выходные дни в любое время </li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="empty-col col-lg-6 col-md-6 col-sm-12">
-
+                            <div class="link-box"><a href="/hall" class="theme-btn btn-style-one"><span
+                                        class="btn-title">Просмотр зала</span></a></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                <div class="inner-box">
+                    <div class="image-box">
+                        <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                        </div>
+                        <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
+                                title="small_hall">
+                        </figure>
+                    </div>
+                    <div class="cap-box">
+                        <div class="cap-inner">
+                            <div class="price">Площадь <span>40м</span></div>
+                            <h5>Зал Малый</h5>
+                        </div>
+                    </div>
+                    <div class="hover-box">
+                        <div class="hover-inner">
+                            <h4>Зал Малый</h4>
+                            <div class="pricing clearfix">
+                                <div class="price">Площадь <span>40м</span></div>
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+
+                            <div class="text">
+                                <ul>
+                                    <li>400/час в будни до 19:00</li>
+                                    <li>500/час будни с 19:00</li>
+                                    <li>450/час в выходные дни в любое время </li>
+                                </ul>
+                            </div>
+                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
+                                        class="btn-title">Check
+                                        Availability</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section> --}}
+        <div class="column col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                <div class="inner-box">
+                    <div class="image-box">
+                        <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                        </div>
+                        <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
+                                title="small_hall">
+                        </figure>
+                    </div>
+                    <div class="cap-box">
+                        <div class="cap-inner">
+                            <div class="price">Площадь <span>40м</span></div>
+                            <h5>Зал Малый</h5>
+                        </div>
+                    </div>
+                    <div class="hover-box">
+                        <div class="hover-inner">
+                            <h4>Зал Малый</h4>
+                            <div class="pricing clearfix">
+                                <div class="price">Площадь <span>40м</span></div>
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+
+                            <div class="text">
+                                <ul>
+                                    <li>400/час в будни до 19:00</li>
+                                    <li>500/час будни с 19:00</li>
+                                    <li>450/час в выходные дни в любое время </li>
+                                </ul>
+                            </div>
+                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
+                                        class="btn-title">Check
+                                        Availability</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                <div class="inner-box">
+                    <div class="image-box">
+                        <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                        </div>
+                        <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
+                                title="small_hall">
+                        </figure>
+                    </div>
+                    <div class="cap-box">
+                        <div class="cap-inner">
+                            <div class="price">Площадь <span>40м</span></div>
+                            <h5>Зал Малый</h5>
+                        </div>
+                    </div>
+                    <div class="hover-box">
+                        <div class="hover-inner">
+                            <h4>Зал Малый</h4>
+                            <div class="pricing clearfix">
+                                <div class="price">Площадь <span>40м</span></div>
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+
+                            <div class="text">
+                                <ul>
+                                    <li>400/час в будни до 19:00</li>
+                                    <li>500/час будни с 19:00</li>
+                                    <li>450/час в выходные дни в любое время </li>
+                                </ul>
+                            </div>
+                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
+                                        class="btn-title">Check
+                                        Availability</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <!--Testimonials Section-->
     <section class="testimonials-section">

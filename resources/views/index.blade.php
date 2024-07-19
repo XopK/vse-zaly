@@ -1,4 +1,12 @@
 <x-layout>
+    <style>
+        /* @media (max-width: 768px) {
+            .hover-box {
+                width: 100%;
+                margin-left: -30px;
+            }
+        } */
+    </style>
     <!-- Banner Section -->
     <section class="banner-section banner-one">
         <div class="banner-bottom-pattern"></div>
@@ -12,7 +20,8 @@
                         <div class="content">
                             <div class="inner">
                                 <h1>Забронируй зал <br>в один клик!</h1>
-                                <div class="text">Предоставляем множество студий и их залы как для профессионалов так и для любителей</div>
+                                <div class="text">Предоставляем множество студий и их залы как для профессионалов так
+                                    и для любителей</div>
                             </div>
                         </div>
                     </div>
@@ -42,7 +51,8 @@
                         <div class="content">
                             <div class="inner">
                                 <h1>Хочешь с нами сотрудничать?</h1>
-                                <div class="text">Зарегистрируйся в роли партнера и давай начнем работать вместе!</div>
+                                <div class="text">Зарегистрируйся в роли партнера и давай начнем работать вместе!
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -284,8 +294,8 @@
                                         </ul>
                                     </div>
 
-                                    <div class="link-box"><a href="/about_studio"
-                                            class="theme-btn btn-style-one"><span class="btn-title">Просмотр залов</span></a></div>
+                                    <div class="link-box"><a href="/about_studio" class="theme-btn btn-style-one"><span
+                                                class="btn-title">Просмотр залов</span></a></div>
                                 </div>
                             </div>
                         </div>

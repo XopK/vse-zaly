@@ -74,32 +74,52 @@
                         <!-- Detail -->
                         <div class="detail-clearfix">
                             <ul>
-                                <li>
-                                    <a href="/profile" class="active">
-                                        <i class="flaticon-user"></i>Профиль
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/my_booking">
-                                        <i class="flaticon-house"></i>Мои брони
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/favourite_properties">
-                                        <i class="flaticon-heart"></i>Избранные залы
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
-                                        <i class="flaticon-lock"></i>Изменить пароль
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('logout') }}" class="border-bto2">
-                                        <i class="flaticon-logout"></i>Выйти
-                                    </a>
-                                </li>
+                                @if (Auth::user()->id_role == 1)
+                                    <li>
+                                        <a href="/profile" class="active">
+                                            <i class="flaticon-user"></i>Профиль
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/my_booking">
+                                            <i class="flaticon-house"></i>Мои брони
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/favourite_properties">
+                                            <i class="flaticon-heart"></i>Избранные залы
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
+                                            <i class="flaticon-lock"></i>Изменить пароль
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('logout') }}" class="border-bto2">
+                                            <i class="flaticon-logout"></i>Выйти
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->id_role == 2)
+                                    <li>
+                                        <a href="/profile" class="active">
+                                            <i class="flaticon-user"></i>Профиль
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
+                                            <i class="flaticon-lock"></i>Изменить пароль
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('logout') }}" class="border-bto2">
+                                            <i class="flaticon-logout"></i>Выйти
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
 
@@ -180,7 +200,8 @@
                                     @error('vk')
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -195,7 +216,8 @@
                                     @error('inst')
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -217,7 +239,8 @@
                                     @error('photo_user')
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
