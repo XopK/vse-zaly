@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,7 +15,9 @@ return new class extends Migration
             $table->string('name_hall')->index();
             $table->text('description_hall');
             $table->integer('area_hall');
-            $table->foreignId('id_studio')->references('id')->on('studios');
+            $table->foreignId('id_studio')
+                ->constrained('studios')
+                ->onDelete('cascade');
             $table->string('preview_hall');
             $table->timestamps();
         });
