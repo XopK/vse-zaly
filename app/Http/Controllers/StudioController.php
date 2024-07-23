@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hall;
 use App\Models\Studio;
+use App\Traits\putSocialLinksTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class StudioController extends Controller
 {
+
+    use putSocialLinksTrait;
+
     public function update_studio(Request $request)
     {
         $validated = $request->validate([
             'studio_name' => 'required|min:3',
             'studio_description' => 'required',
             'studio_photo' => 'image|max:2048',
+            'tg' => 'nullable',
+            'vk' => 'nullable',
+            'inst' => 'nullable',
         ], [
             'studio_name.required' => 'Введите название студии.',
             'studio_name.required' => 'Минимальная длина названии студии - 3 символа.',
@@ -33,10 +42,15 @@ class StudioController extends Controller
             $hashPhoto = $studio->photo_studio;
         }
 
+        $socialLinks = $this->putSocialLink($request);
+
         $studio->fill([
             'name_studio' => $request->studio_name,
             'description_studio' => $request->studio_description,
             'photo_studio' => $hashPhoto,
+            'telegram' => $socialLinks->tg ?? null,
+            'vk' => $socialLinks->vk ?? null,
+            'instagram' => $socialLinks->inst ?? null,
         ]);
 
         if ($studio) {
@@ -58,5 +72,16 @@ class StudioController extends Controller
     public function about_studio(Studio $studio)
     {
         return view('about_studio', ['studio_info' => $studio]);
+    }
+
+    public function my_studio_view()
+    {
+        $halls = Hall::where('id_studio', Auth::user()->studio->id)->get();
+        return view('my_studio', ['halls' => $halls]);
+    }
+
+    public function my_hall_view(Hall $hall)
+    {
+        return view('my_hall', ['hall' => $hall]);
     }
 }

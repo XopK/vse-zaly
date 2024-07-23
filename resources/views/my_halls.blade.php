@@ -118,31 +118,31 @@
                         </div>
                         @enderror
                     </div>
-                    <h4 style="margin-left: 15px;">Что есть в зале</h4>
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <input id="coffee_hall" type="checkbox" name="coffee_hall" value="1">
-                            <label>
-                                <li><span class="icon flaticon-coffee-cup"></span> Кофе</li>
-                            </label>
-                            <input id="bar_hall" type="checkbox" name="bar_hall" value="1">
-                            <label>
-                                <li><span class="icon flaticon-wine-glass"></span> Мини-бар</li>
-                            </label>
-                            <input id="wifi_hall" type="checkbox" name="wifi_hall" value="1">
-                            <label>
-                                <li><span class="icon flaticon-wifi"></span> Wi-Fi</li>
-                            </label>
-                            <input id="tv_hall" type="checkbox" name="tv_hall" value="1">
-                            <label>
-                                <li><span class="icon flaticon-tv"></span> Телевизор</li>
-                            </label>
-                            <input id="lamp_hall" type="checkbox" name="lamp_hall" value="1">
-                            <label>
-                                <li><span class="icon flaticon-light"></span> Свет</li>
-                            </label>
-                        </div>
-                    </div>
+{{--                    <h4 style="margin-left: 15px;">Что есть в зале</h4>--}}
+{{--                    <div class="col-lg-12 ">--}}
+{{--                        <div class="form-group subject">--}}
+{{--                            <input id="coffee_hall" type="checkbox" name="coffee_hall" value="1">--}}
+{{--                            <label>--}}
+{{--                                <li><span class="icon flaticon-coffee-cup"></span> Кофе</li>--}}
+{{--                            </label>--}}
+{{--                            <input id="bar_hall" type="checkbox" name="bar_hall" value="1">--}}
+{{--                            <label>--}}
+{{--                                <li><span class="icon flaticon-wine-glass"></span> Мини-бар</li>--}}
+{{--                            </label>--}}
+{{--                            <input id="wifi_hall" type="checkbox" name="wifi_hall" value="1">--}}
+{{--                            <label>--}}
+{{--                                <li><span class="icon flaticon-wifi"></span> Wi-Fi</li>--}}
+{{--                            </label>--}}
+{{--                            <input id="tv_hall" type="checkbox" name="tv_hall" value="1">--}}
+{{--                            <label>--}}
+{{--                                <li><span class="icon flaticon-tv"></span> Телевизор</li>--}}
+{{--                            </label>--}}
+{{--                            <input id="lamp_hall" type="checkbox" name="lamp_hall" value="1">--}}
+{{--                            <label>--}}
+{{--                                <li><span class="icon flaticon-light"></span> Свет</li>--}}
+{{--                            </label>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="col-lg-12">
                         <div class="send-btn">
                             <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Добавить</span></button>
@@ -155,9 +155,9 @@
     </div>
 
     <!--Rooms Section-->
-    <section class="rooms-section" style="margin-top: 40px">
+    <section class="rooms-section" style="margin-top: 20px">
         <div class="auto-container">
-
+            <h3>Ваши залы</h3>
             <div class="row clearfix">
                 @forelse($halls as $hall)
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">

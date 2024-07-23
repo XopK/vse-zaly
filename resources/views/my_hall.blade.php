@@ -30,7 +30,7 @@
     </style>
     <!-- Banner Section -->
     <section class="page-banner ext-banner">
-        <div class="image-layer" style="background-image:url(images/halls/IMG_5431.jpeg);"></div>
+        <div class="image-layer" style="background-image:url(/storage/photo_halls/{{$hall->preview_hall}});"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">
@@ -56,12 +56,12 @@
             <div class="upper-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="upper-inner">
                     <h2>
-                        Зал Нефть
+                        {{$hall->name_hall}}
                     </h2>
                     <div class="pricing clearfix">
                         <div class="price">Площадь
                             <span>
-                                78
+                                {{$hall->area_hall}}
                             </span>
                         </div>
                         <div class="rating">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="text">
-                        <p>Самый популярный для видео-съемок, самый большой зал</p>
+                        <p>{{$hall->description_hall}}</p>
                     </div>
                     <div class="text">
                         <p>Расположение зала*</p>
@@ -86,28 +86,30 @@
                     <h3>Редактирование зала</h3>
                     <section class="studio_form">
                         <div class="col-sm-12 shadow rounded pt-2 pb-2">
-                            <form method="post" action="{{route('update_studio')}}" id="editStudio" enctype="multipart/form-data">
+                            <form method="post" action="" id="editStudio"
+                                  enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id_studio" value="{{Auth::user()->studio->id}}">
                                 @if (session('error_studio'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ session('error_studio') }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ session('error_studio') }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                 @endif
                                 @if (session('success_studio'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>{{ session('success_studio') }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>{{ session('success_studio') }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                 @endif
                                 <div class="form-group">
-                                    <label class="font-weight-bold">Название зала<span class="text-danger"></span></label>
-                                    <input value="{{ Auth::user()->studio->name_studio }}" type="text" name="hall_name" id="hall_name" class="form-control" required>
+                                    <label class="font-weight-bold">Название зала<span
+                                            class="text-danger"></span></label>
+                                    <input value="{{ $hall->name_hall }}" type="text" name="hall_name"
+                                           id="hall_name" class="form-control" required>
                                 </div>
                                 @error('hall_name')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -118,8 +120,11 @@
                                 </div>
                                 @enderror
                                 <div class="form-group">
-                                    <label class="font-weight-bold">Площадь зала <span class="text-danger"></span></label>
-                                    <input type="number" class="form-control" name="hall_area" id="hall_area" required>{{ Auth::user()->studio->tg_studio }}</input>
+                                    <label class="font-weight-bold">Площадь зала <span
+                                            class="text-danger"></span></label>
+                                    <input type="number" class="form-control" name="hall_area"
+                                           value="{{ $hall->area_hall }}" id="hall_area"
+                                           required>
                                 </div>
                                 @error('hall_area')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -130,8 +135,10 @@
                                 </div>
                                 @enderror
                                 <div class="form-group">
-                                    <label class="font-weight-bold">Описание зала <span class="text-danger"></span></label>
-                                    <textarea class="form-control" name="hall_description" id="hall_description" required>{{ Auth::user()->studio->description_studio }}</textarea>
+                                    <label class="font-weight-bold">Описание зала <span
+                                            class="text-danger"></span></label>
+                                    <textarea class="form-control" name="hall_description" id="hall_description"
+                                              required>{{ $hall->description_hall }}</textarea>
                                 </div>
                                 @error('hall_description')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -142,8 +149,10 @@
                                 </div>
                                 @enderror
                                 <div class="form-group">
-                                    <label class="font-weight-bold">Правила зала <span class="text-danger"></span></label>
-                                    <textarea class="form-control" name="hall_terms" id="hall_terms">{{ Auth::user()->studio->vk_studio }}</textarea>
+                                    <label class="font-weight-bold">Правила зала <span
+                                            class="text-danger"></span></label>
+                                    <textarea class="form-control" name="hall_terms"
+                                              id="hall_terms">{{ Auth::user()->studio->vk_studio }}</textarea>
                                 </div>
                                 @error('hall_terms')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -157,7 +166,9 @@
                                     <label class="font-weight-bold">Фотографии зала</label>
                                     <div class="input-group mb-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="hall_photo" accept="image/*" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                            <input type="file" class="custom-file-input" name="hall_photo"
+                                                   accept="image/*" id="inputGroupFile01"
+                                                   aria-describedby="inputGroupFileAddon01">
                                             <label class="custom-file-label" for="inputGroupFile01">Выберите
                                                 файл</label>
                                         </div>
@@ -172,7 +183,8 @@
                                 </div>
                                 @enderror
                                 <div class="form-group">
-                                    <button type="submit" class="theme-btn btn-style-one btn-block"><span class="btn-title">Изменить</span></button>
+                                    <button type="submit" class="theme-btn btn-style-one btn-block"><span
+                                            class="btn-title">Изменить</span></button>
                                 </div>
                             </form>
                         </div>
@@ -196,17 +208,25 @@
 
             <div class="lower-box">
                 <div class="row clearfix">
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5432.jpeg" class="lightbox-image"><img src="images/halls/IMG_5432.jpeg" alt="" title=""></a></figure>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+                         data-wow-duration="1500ms">
+                        <figure class="image"><a href="images/halls/IMG_5432.jpeg" class="lightbox-image"><img
+                                    src="images/halls/IMG_5432.jpeg" alt="" title=""></a></figure>
                     </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5427.jpeg" class="lightbox-image"><img src="images/halls/IMG_5427.jpeg" alt="" title=""></a></figure>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
+                         data-wow-duration="1500ms">
+                        <figure class="image"><a href="images/halls/IMG_5427.jpeg" class="lightbox-image"><img
+                                    src="images/halls/IMG_5427.jpeg" alt="" title=""></a></figure>
                     </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5431.jpeg" class="lightbox-image"><img src="images/halls/IMG_5431.jpeg" alt="" title=""></a></figure>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+                         data-wow-duration="1500ms">
+                        <figure class="image"><a href="images/halls/IMG_5431.jpeg" class="lightbox-image"><img
+                                    src="images/halls/IMG_5431.jpeg" alt="" title=""></a></figure>
                     </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5424.jpeg" class="lightbox-image"><img src="images/halls/IMG_5424.jpeg" alt="" title=""></a></figure>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
+                         data-wow-duration="1500ms">
+                        <figure class="image"><a href="images/halls/IMG_5424.jpeg" class="lightbox-image"><img
+                                    src="images/halls/IMG_5424.jpeg" alt="" title=""></a></figure>
                     </div>
                 </div>
             </div>

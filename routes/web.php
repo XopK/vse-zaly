@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfirmEmailController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -22,19 +23,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [IndexController::class, 'index_view']);
+
 Route::get('/test', function () {
     return view('test');
 });
 
 Route::get('/about', function () {
     return view('about');
-});
-
-Route::get('/my_studio', function () {
-    return view('my_studio');
 });
 
 Route::get('/terms', function () {
@@ -45,20 +41,12 @@ Route::get('/halls', function () {
     return view('halls');
 });
 
-Route::get('/my_hall', function () {
-    return view('my_hall');
-});
-
 Route::get('/rent', function () {
     return view('rent');
 });
 
 Route::get('/become_partner', function () {
     return view('become_partner');
-});
-
-Route::get('/hall', function () {
-    return view('hall');
 });
 
 Route::get('/profile', function () {
@@ -120,3 +108,9 @@ Route::get('/about_studio/{studio}', [StudioController::class, 'about_studio']);
 Route::get('/my_halls', [HallController::class, 'my_halls']);
 
 Route::post('/my_halls/create', [HallController::class, 'create_halls'])->name('create_hall');
+
+Route::get('/hall/{hall}', [HallController::class, 'hall_view']);
+
+Route::get('/my_studio', [StudioController::class, 'my_studio_view']);
+
+Route::get('/my_hall/{hall}', [StudioController::class, 'my_hall_view']);

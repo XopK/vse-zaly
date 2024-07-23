@@ -13,4 +13,9 @@ class PhotoHall extends Model
         'id_hall',
         'photo_hall',
     ];
+
+    public function halls()
+    {
+        return $this->belongsTo(Hall::class, 'id_hall');
+    }
 }

@@ -2,7 +2,7 @@
 
     <!-- Banner Section -->
     <section class="page-banner">
-        <div class="image-layer" style="background-image:url(images/background/studios.jpg);"></div>
+        <div class="image-layer" style="background-image: url('/images/background/studios.jpg');"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">
@@ -38,9 +38,16 @@
                                 </figure>
                                 <div class="social">
                                     <ul>
-                                        <li><a href="#"><span class="fab fa-instagram"></span></a></li>
-                                        <li><a href="#"><span class="fab fa-vk"></span></a></li>
-                                        <li><a href="#"><span class="fab fa-telegram"></span></a></li>
+                                        @if($studio->instagram)
+                                            <li><a href="{{$studio->instagram}}"><span class="fab fa-instagram"></span></a></li>
+                                        @endif
+                                        @if($studio->vk)
+                                            <li><a href="{{$studio->vk}}"><span class="fab fa-vk"></span></a></li>
+                                        @endif
+                                        @if($studio->telegram)
+                                            <li><a href="{{$studio->telegram}}"><span class="fab fa-telegram"></span></a></li>
+                                        @endif
+
                                     </ul>
                                 </div>
                             </div>

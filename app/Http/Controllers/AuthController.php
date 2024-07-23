@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Traits\PhoneNormalizerTrait;
+use App\Traits\putSocialLinksTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +15,7 @@ use PDO;
 class AuthController extends Controller
 {
     use PhoneNormalizerTrait;
+    use putSocialLinksTrait;
 
     public function sign_up(Request $request)
     {
@@ -27,6 +29,9 @@ class AuthController extends Controller
             'signupphone' => 'required|unique:users,phone',
             'signuppassword' => 'required|min:6',
             'signupcpassword' => 'required|same:signuppassword',
+            'tg' => 'nullable',
+            'vk' => 'nullable',
+            'inst' => 'nullable',
         ], [
             'signupemail.required' => 'Введите адрес электронной почты.',
             'signupemail.email' => 'Введите корректный адрес электронной почты.',
@@ -41,11 +46,16 @@ class AuthController extends Controller
             'signupcpassword.same' => 'Пароли на совпадают.',
         ]);
 
+        $socialLinks = $this->putSocialLink($request);
+
         $user = User::create([
             'name' => $request->signupusername,
             'phone' => $this->normalizePhoneNumber($request->signupphone),
             'email' => $request->signupemail,
             'password' => Hash::make($request->signuppassword),
+            'telegram' => $socialLinks->tg ?? null,
+            'vk' => $socialLinks->vk ?? null,
+            'instagram' => $socialLinks->inst ?? null,
         ]);
 
         if ($user) {
