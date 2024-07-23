@@ -43,10 +43,6 @@
         .detail-clearfix i {
             margin-right: 10px;
         }
-
-        .border-bto2 {
-            /* border-top: 1px solid #ddd; */
-        }
     </style>
     <!-- Sub banner start -->
     <div class="sub-banner">
@@ -67,58 +63,54 @@
                         <!--header -->
                         <div class="header clearfix">
                             <h3>{{ Auth::user()->name }}</h3>
-                            <img src="/storage/users_profile/{{ Auth::user()->photo_profile }}" alt="avatar"
-                                style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px;"
-                                class="img-fluid profile-img border">
+                            <img src="/storage/users_profile/{{ Auth::user()->photo_profile }}" alt="avatar" style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px;" class="img-fluid profile-img border">
                         </div>
                         <!-- Detail -->
                         <div class="detail-clearfix">
                             <ul>
                                 @if (Auth::user()->id_role == 1)
-                                    <li>
-                                        <a href="/profile" class="active">
-                                            <i class="flaticon-user"></i>Профиль
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/my_booking">
-                                            <i class="flaticon-house"></i>Мои брони
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/favourite_properties">
-                                            <i class="flaticon-heart"></i>Избранные залы
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
-                                            <i class="flaticon-lock"></i>Изменить пароль
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('logout') }}" class="border-bto2">
-                                            <i class="flaticon-logout"></i>Выйти
-                                        </a>
-                                    </li>
+                                <li>
+                                    <a href="/profile" class="active">
+                                        <i class="flaticon-user"></i>Профиль
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/my_booking">
+                                        <i class="flaticon-house"></i>Мои брони
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/favourite_properties">
+                                        <i class="flaticon-heart"></i>Избранные залы
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
+                                        <i class="flaticon-lock"></i>Изменить пароль
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('logout') }}" class="border-bto2">
+                                        <i class="flaticon-logout"></i>Выйти
+                                    </a>
+                                </li>
                                 @endif
                                 @if (Auth::user()->id_role == 2)
-                                    <li>
-                                        <a href="/profile" class="active">
-                                            <i class="flaticon-user"></i>Профиль
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
-                                            <i class="flaticon-lock"></i>Изменить пароль
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('logout') }}" class="border-bto2">
-                                            <i class="flaticon-logout"></i>Выйти
-                                        </a>
-                                    </li>
+                                <li>
+                                    <a href="/profile" class="active">
+                                        <i class="flaticon-user"></i>Профиль
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
+                                        <i class="flaticon-lock"></i>Изменить пароль
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('logout') }}" class="border-bto2">
+                                        <i class="flaticon-logout"></i>Выйти
+                                    </a>
+                                </li>
                                 @endif
                             </ul>
                         </div>
@@ -134,135 +126,126 @@
                                 <div class="col-lg-12 ">
                                     <div class="form-group name">
                                         <label>Имя</label>
-                                        <input type="text" name="name" class="form-control"
-                                            value="{{ Auth::user()->name }}">
+                                        <input type="text" name="name" class="form-control" value="{{ Auth::user()->name }}">
                                     </div>
                                     @error('name')
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     @enderror
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group number">
                                         <label>Почта</label>
-                                        <input type="email" name="email" class="form-control"
-                                            value="{{ Auth::user()->email }}">
+                                        <input type="email" name="email" class="form-control" value="{{ Auth::user()->email }}">
                                     </div>
                                     @error('email')
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     @enderror
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group subject">
                                         <label>Телефон</label>
-                                        <input id="userphone" type="text" name="phone" class="form-control"
-                                            value="{{ Auth::user()->phone }}">
+                                        <input id="userphone" type="text" name="phone" class="form-control" value="{{ Auth::user()->phone }}">
                                     </div>
                                     @error('phone')
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     @enderror
                                 </div>
+                                @if (Auth::user()->id_role == 1)
                                 <div class="col-lg-12 ">
                                     <div class="form-group subject">
                                         <label>Telegram</label>
-                                        <input id="usertg" type="text" name="tg" class="form-control"
-                                            value="{{ Auth::user()->telegram }}">
+                                        <input id="usertg" type="text" name="tg" class="form-control" value="{{ Auth::user()->telegram }}">
                                     </div>
                                     @error('tg')
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     @enderror
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group subject">
                                         <label>VK</label>
-                                        <input id="uservk" type="text" name="vk" class="form-control"
-                                            value="{{ Auth::user()->vk }}">
+                                        <input id="uservk" type="text" name="vk" class="form-control" value="{{ Auth::user()->vk }}">
                                     </div>
                                     @error('vk')
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     @enderror
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="form-group subject">
                                         <label>Instagram</label>
-                                        <input id="userinst" type="text" name="inst" class="form-control"
-                                            value="{{ Auth::user()->instagram }}">
+                                        <input id="userinst" type="text" name="inst" class="form-control" value="{{ Auth::user()->instagram }}">
                                     </div>
                                     @error('inst')
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     @enderror
                                 </div>
+                                @endif
+
                                 <div class="col-lg-12 ">
                                     <div class="form-group photo">
                                         <label>Фото</label>
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="photo_user"
-                                                    accept="image/*" id="inputGroupFile01"
-                                                    aria-describedby="inputGroupFileAddon01">
+                                                <input type="file" class="custom-file-input" name="photo_user" accept="image/*" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                                                 <label class="custom-file-label" for="inputGroupFile01">Выберите
                                                     файл</label>
                                             </div>
                                         </div>
                                     </div>
                                     @error('photo_user')
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                            <button type="button" class="close" data-dismiss="alert"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     @enderror
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="send-btn">
-                                        <button type="submit" class="theme-btn btn-style-one"><span
-                                                class="btn-title">Сохранить</span></button>
+                                        <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Сохранить</span></button>
                                     </div>
                                 </div>
                             </div>
                         </form>
 
                         @if (Auth::user()->email_verified_at == null)
-                            <a href="/email_confirm" style="text-decoration: none">
-                                <div class="alert alert-warning mt-4" role="alert">
-                                    <strong>Ваша учетная запись не подтверждена.</strong><br>
-                                    Для завершения процесса, пожалуйста, подтвердите
-                                    адрес электронной почты, нажав на это сообщение.
-                                </div>
-                            </a>
+                        <a href="/email_confirm" style="text-decoration: none">
+                            <div class="alert alert-warning mt-4" role="alert">
+                                <strong>Ваша учетная запись не подтверждена.</strong><br>
+                                Для завершения процесса, пожалуйста, подтвердите
+                                адрес электронной почты, нажав на это сообщение.
+                            </div>
+                        </a>
                         @endif
                     </div>
                 </div>
@@ -279,8 +262,7 @@
         });
     </script>
 </x-layout>
-<script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js"
-    type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js" type="text/javascript"></script>
 <script>
     $("#userphone").mask("+7(999)-999-9999");
 </script>

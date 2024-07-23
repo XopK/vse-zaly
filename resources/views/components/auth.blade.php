@@ -110,6 +110,45 @@
                                 </div>
                             @enderror
                             <div class="form-group">
+                                <label class="font-weight-bold">Telegram</label>
+                                <input type="text" name="signuptg" value="{{ old('signuptg') }}"
+                                    id="signuptg" class="form-control">
+                            </div>
+                            @error('signuptg')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
+                            <div class="form-group">
+                                <label class="font-weight-bold">VK</label>
+                                <input type="text" name="signupvk" value="{{ old('signupvk') }}"
+                                    id="signupvk" class="form-control">
+                            </div>
+                            @error('signupvk')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
+                            <div class="form-group">
+                                <label class="font-weight-bold">Instagam</label>
+                                <input type="text" name="signupinst" value="{{ old('signupinst') }}"
+                                    id="signupinst" class="form-control">
+                            </div>
+                            @error('signupinst')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @enderror
+                            <div class="form-group">
                                 <label class="font-weight-bold">Пароль <span class="text-danger">*</span></label>
                                 <input type="password" name="signuppassword" id="signuppassword"
                                     class="form-control" required>

@@ -12,20 +12,20 @@
             <form action="{{route('create_hall')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if (session('error_create'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>{{ session('error_create') }}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ session('error_create') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 @endif
                 @if (session('success_create'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{ session('success_create') }}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success_create') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 @endif
                 <div class="row">
                     <div class="col-lg-12 ">
@@ -57,6 +57,20 @@
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
+                        <div class="form-group number">
+                            <label>Расположение зала</label>
+                            <input type="text" name="location_hall" class="form-control" placeholder="г.Уфа ул.Коммунистическая 46/1" required>
+                        </div>
+                        @error('location_hall')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="col-lg-12 ">
                         <div class="form-group subject">
                             <label>Описание зала</label>
                             <textarea id="description_hall" name="description_hall" class="form-control"></textarea>
@@ -71,12 +85,25 @@
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Правила зала</label>
+                            <textarea id="terms_hall" name="terms_hall" class="form-control" placeholder="Опишите что нельзя делать людям в зале, пропишите ваши штрафы и т.д."></textarea>
+                        </div>
+                        @error('terms_hall')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="col-lg-12 ">
                         <div class="form-group photo">
-                            <label>Фото зала (чтобы несколько фото можно было выбрать???)</label>
+                            <label>Фотографии зала</label>
                             <div class="input-group mb-3">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="photo_hall[]" accept="image/*"
-                                           id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" multiple>
+                                    <input type="file" class="custom-file-input" name="photo_hall[]" accept="image/*" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" multiple>
                                     <label class="custom-file-label" for="inputGroupFile01">Выберите
                                         файл/ы</label>
                                 </div>
@@ -118,8 +145,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="send-btn">
-                            <button type="submit" class="theme-btn btn-style-one"><span
-                                        class="btn-title">Добавить</span></button>
+                            <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Добавить</span></button>
                         </div>
                     </div>
                 </div>
@@ -134,35 +160,31 @@
 
             <div class="row clearfix">
                 @forelse($halls as $hall)
-                    <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                         data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><a href="/hall"><img
-                                                src="/storage/photo_halls/{{$hall->preview_hall}}"
-                                                alt="{{$hall->preview_hall}}" title="{{$hall->name_hall}}"></a></figure>
-                            </div>
-                            <div class="lower-box">
-                                <h4>{{$hall->name_hall}}</h4>
-                                <div class="pricing clearfix">
-                                    <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
-                                    <div class="rating">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
+                <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image"><a href="/my_hall"><img src="/storage/photo_halls/{{$hall->preview_hall}}" alt="{{$hall->preview_hall}}" title="{{$hall->name_hall}}"></a></figure>
+                        </div>
+                        <div class="lower-box">
+                            <h4>{{$hall->name_hall}}</h4>
+                            <div class="pricing clearfix">
+                                <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
                                 </div>
-
-                                <div class="text">{{$hall->description_hall}}</div>
-                                <div class="link-box"><a href="/my_hall" class="theme-btn btn-style-three"><span
-                                                class="btn-title">Редактировать зал</span></a></div>
                             </div>
+
+                            <div class="text">{{$hall->description_hall}}</div>
+                            <div class="link-box"><a href="/my_hall" class="theme-btn btn-style-three"><span class="btn-title">Редактировать зал</span></a></div>
                         </div>
                     </div>
+                </div>
                 @empty
-                    <h1>Залы отсутвуют</h1>
+                <h1>Залы отсутвуют</h1>
                 @endforelse
             </div>
         </div>

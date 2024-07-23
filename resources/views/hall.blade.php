@@ -1,7 +1,7 @@
 <x-layout>
     <!-- Banner Section -->
     <section class="page-banner ext-banner">
-        <div class="image-layer" style="background-image:url(images/halls/IMG_5431.jpeg);"></div>
+        <div class="image-layer" style="background-image:url(/images/halls/IMG_5431.jpeg);"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">
@@ -38,9 +38,9 @@
                     </div>
                     <div class="text">
                         <p>Самый популярный для видео-съемок, самый большой зал</p>
-                        {{-- <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed
-                            quia non numquam eius modi tempora incidunt labore dolore sit magnam aliquam quaerat
-                            voluptatem.</p> --}}
+                    </div>
+                    <div class="text">
+                        <p>Расположение зала*</p>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <div class="details-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="details-inner">
                     <h3>Зал предоставляет:</h3>
-                    <div class="text">Короткое описание правил пользования данной студии*</div>
+                    <div class="text">Короткое описание правил пользования данного зала*</div>
                     <ul class="info clearfix">
                         {{-- <li><span class="icon flaticon-tv"></span> Telivision</li> --}}
                         <li><span class="icon flaticon-wifi"></span> Wi-Fi</li>
@@ -61,29 +61,17 @@
 
             <div class="lower-box">
                 <div class="row clearfix">
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                        data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5432.jpeg"
-                                class="lightbox-image"><img src="images/halls/IMG_5432.jpeg" alt=""
-                                    title=""></a></figure>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                        <figure class="image"><a href="/images/halls/IMG_5432.jpeg" class="lightbox-image"><img src="/images/halls/IMG_5432.jpeg" alt="" title=""></a></figure>
                     </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-                        data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5427.jpeg"
-                                class="lightbox-image"><img src="images/halls/IMG_5427.jpeg" alt=""
-                                    title=""></a></figure>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
+                        <figure class="image"><a href="/images/halls/IMG_5427.jpeg" class="lightbox-image"><img src="/images/halls/IMG_5427.jpeg" alt="" title=""></a></figure>
                     </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                        data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5431.jpeg"
-                                class="lightbox-image"><img src="images/halls/IMG_5431.jpeg" alt=""
-                                    title=""></a></figure>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                        <figure class="image"><a href="/images/halls/IMG_5431.jpeg" class="lightbox-image"><img src="/images/halls/IMG_5431.jpeg" alt="" title=""></a></figure>
                     </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-                        data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5424.jpeg"
-                                class="lightbox-image"><img src="images/halls/IMG_5424.jpeg" alt=""
-                                    title=""></a></figure>
+                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
+                        <figure class="image"><a href="/images/halls/IMG_5424.jpeg" class="lightbox-image"><img src="/images/halls/IMG_5424.jpeg" alt="" title=""></a></figure>
                     </div>
                 </div>
             </div>
@@ -91,7 +79,7 @@
     </section>
 
     <!--Rooms Section-->
-    <section class="rooms-section alternate">
+    <!-- <section class="rooms-section alternate">
         <span class="dotted-pattern dotted-pattern-3"></span>
         <span class="tri-pattern tri-pattern-3"></span>
         <div class="auto-container">
@@ -192,5 +180,5 @@
 
             </div>
         </div>
-    </section>
+    </section> -->
 </x-layout>

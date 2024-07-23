@@ -44,26 +44,24 @@
                 @csrf
                 <input type="hidden" name="id_studio" value="{{Auth::user()->studio->id}}">
                 @if (session('error_studio'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>{{ session('error_studio') }}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ session('error_studio') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 @endif
                 @if (session('success_studio'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{ session('success_studio') }}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success_studio') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 @endif
                 <div class="form-group">
                     <label class="font-weight-bold">Название студии<span class="text-danger"></span></label>
-                    <input value="{{ Auth::user()->studio->name_studio }}" type="text" name="studio_name"
-                           id="studio_name" class="form-control"
-                           required>
+                    <input value="{{ Auth::user()->studio->name_studio }}" type="text" name="studio_name" id="studio_name" class="form-control" required>
                 </div>
                 @error('studio_name')
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -75,8 +73,7 @@
                 @enderror
                 <div class="form-group">
                     <label class="font-weight-bold">Описание студии <span class="text-danger"></span></label>
-                    <textarea class="form-control" name="studio_description" id="studio_description"
-                              required>{{ Auth::user()->studio->description_studio }}</textarea>
+                    <textarea class="form-control" name="studio_description" id="studio_description" required>{{ Auth::user()->studio->description_studio }}</textarea>
                 </div>
                 @error('studio_description')
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -86,13 +83,47 @@
                     </button>
                 </div>
                 @enderror
-
+                <div class="form-group">
+                    <label class="font-weight-bold">Telegram <span class="text-danger"></span></label>
+                    <input class="form-control" name="studio_tg" id="studio_tg">{{ Auth::user()->studio->tg_studio }}</input>
+                </div>
+                @error('studio_tg')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
+                <div class="form-group">
+                    <label class="font-weight-bold">VK <span class="text-danger"></span></label>
+                    <input class="form-control" name="studio_vk" id="studio_vk">{{ Auth::user()->studio->vk_studio }}</input>
+                </div>
+                @error('studio_vk')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
+                <div class="form-group">
+                    <label class="font-weight-bold">Instagram <span class="text-danger"></span></label>
+                    <input class="form-control" name="studio_inst" id="studio_inst">{{ Auth::user()->studio->inst_studio }}</input>
+                </div>
+                @error('studio_inst')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
                 <div class="form-group photo">
                     <label class="font-weight-bold">Фото студии</label>
                     <div class="input-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="studio_photo" accept="image/*"
-                                   id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                            <input type="file" class="custom-file-input" name="studio_photo" accept="image/*" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                             <label class="custom-file-label" for="inputGroupFile01">Выберите
                                 файл</label>
                         </div>
@@ -107,8 +138,7 @@
                 </div>
                 @enderror
                 <div class="form-group">
-                    <button type="submit" class="theme-btn btn-style-one btn-block"><span
-                            class="btn-title">Изменить</span></button>
+                    <button type="submit" class="theme-btn btn-style-one btn-block"><span class="btn-title">Изменить</span></button>
                 </div>
             </form>
         </div>
@@ -137,8 +167,7 @@
                     <div class="inner">
                         <span class="dotted-pattern dotted-pattern-10"></span>
                         <div class="image-box clearfix">
-                            <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img
-                                    src="/storage/photo_studios/{{Auth::user()->studio->photo_studio}}" alt="" title="">
+                            <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img src="/storage/photo_studios/{{Auth::user()->studio->photo_studio}}" alt="" title="">
                             </figure>
 
                         </div>
@@ -159,10 +188,9 @@
             <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="inner-box">
                     <div class="image-box">
-                        <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                        <div class="image-layer" style="background-image: url(/images/halls/IMG_4036.jpeg);">
                         </div>
-                        <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
-                                                   title="small_hall">
+                        <figure class="image"><img src="/images/halls/IMG_4036.jpeg" alt="small_hall" title="small_hall">
                         </figure>
                     </div>
                     <div class="cap-box">
@@ -192,8 +220,7 @@
                                     <li>450/час в выходные дни в любое время</li>
                                 </ul>
                             </div>
-                            <div class="link-box"><a href="/hall" class="theme-btn btn-style-one"><span
-                                        class="btn-title">Просмотр зала</span></a></div>
+                            <div class="link-box"><a href="/my_hall" class="theme-btn btn-style-one"><span class="btn-title">Просмотр зала</span></a></div>
                         </div>
                     </div>
                 </div>
@@ -201,10 +228,9 @@
             <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="inner-box">
                     <div class="image-box">
-                        <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                        <div class="image-layer" style="background-image: url(/images/halls/IMG_4036.jpeg);">
                         </div>
-                        <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
-                                                   title="small_hall">
+                        <figure class="image"><img src="/images/halls/IMG_4036.jpeg" alt="small_hall" title="small_hall">
                         </figure>
                     </div>
                     <div class="cap-box">
@@ -234,8 +260,7 @@
                                     <li>450/час в выходные дни в любое время</li>
                                 </ul>
                             </div>
-                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
-                                        class="btn-title">Check
+                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span class="btn-title">Check
                                         Availability</span></a></div>
                         </div>
                     </div>
@@ -246,10 +271,9 @@
             <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="inner-box">
                     <div class="image-box">
-                        <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                        <div class="image-layer" style="background-image: url(/images/halls/IMG_4036.jpeg);">
                         </div>
-                        <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
-                                                   title="small_hall">
+                        <figure class="image"><img src="/images/halls/IMG_4036.jpeg" alt="small_hall" title="small_hall">
                         </figure>
                     </div>
                     <div class="cap-box">
@@ -279,8 +303,7 @@
                                     <li>450/час в выходные дни в любое время</li>
                                 </ul>
                             </div>
-                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
-                                        class="btn-title">Check
+                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span class="btn-title">Check
                                         Availability</span></a></div>
                         </div>
                     </div>
@@ -289,10 +312,9 @@
             <div class="room-block-one height-one wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="inner-box">
                     <div class="image-box">
-                        <div class="image-layer" style="background-image: url(images/halls/IMG_4036.jpeg);">
+                        <div class="image-layer" style="background-image: url(/images/halls/IMG_4036.jpeg);">
                         </div>
-                        <figure class="image"><img src="images/halls/IMG_4036.jpeg" alt="small_hall"
-                                                   title="small_hall">
+                        <figure class="image"><img src="/images/halls/IMG_4036.jpeg" alt="small_hall" title="small_hall">
                         </figure>
                     </div>
                     <div class="cap-box">
@@ -322,8 +344,7 @@
                                     <li>450/час в выходные дни в любое время</li>
                                 </ul>
                             </div>
-                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span
-                                        class="btn-title">Check
+                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-one"><span class="btn-title">Check
                                         Availability</span></a></div>
                         </div>
                     </div>
@@ -534,7 +555,7 @@
         </div>
     </section>
     <script>
-        document.querySelector('.custom-file-input').addEventListener('change', function (event) {
+        document.querySelector('.custom-file-input').addEventListener('change', function(event) {
             var input = event.target;
             var label = input.nextElementSibling;
             var fileName = input.files.length > 0 ? input.files[0].name : 'Выбрать файл';

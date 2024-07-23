@@ -8,7 +8,7 @@
     </style>
     <!-- Banner Section -->
     <section class="page-banner">
-        <div class="image-layer" style="background-image:url(images/background/about_us.jpg);"></div>
+        <div class="image-layer" style="background-image:url(/images/background/about_us.jpg);"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">
@@ -44,9 +44,7 @@
                     <div class="inner">
                         <span class="dotted-pattern dotted-pattern-10"></span>
                         <div class="image-box clearfix">
-                            <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img
-                                    src="/storage/photo_studios/{{$studio_info->photo_studio}}"
-                                    alt="{{$studio_info->photo_studio}}" title="{{$studio_info->name_studio}}"></figure>
+                            <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img src="/storage/photo_studios/{{$studio_info->photo_studio}}" alt="{{$studio_info->photo_studio}}" title="{{$studio_info->name_studio}}"></figure>
 
                         </div>
                     </div>
@@ -57,11 +55,10 @@
 
     <!--Facts Section-->
     <div class="studio_halls">
-        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-             data-wow-duration="1500ms">
+        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
             <div class="inner-box">
                 <div class="image-box">
-                    <figure class="image"><a href="/hall"><img src="images/halls/IMG_5431.jpeg" alt="" title=""></a>
+                    <figure class="image"><a href="/hall"><img src="/images/halls/IMG_5431.jpeg" alt="" title=""></a>
                     </figure>
                 </div>
                 <div class="lower-box">
@@ -84,12 +81,10 @@
             </div>
         </div>
 
-        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-             data-wow-duration="1500ms">
+        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
             <div class="inner-box">
                 <div class="image-box">
-                    <figure class="image"><a href="/hall"><img src="images/resource/featured-image-22.jpg" alt=""
-                                                               title=""></a></figure>
+                    <figure class="image"><a href="/hall"><img src="/images/resource/featured-image-22.jpg" alt="" title=""></a></figure>
                 </div>
                 <div class="lower-box">
                     <h4>Deluxe Room</h4>
@@ -113,12 +108,10 @@
             </div>
         </div>
 
-        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms"
-             data-wow-duration="1500ms">
+        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms" data-wow-duration="1500ms">
             <div class="inner-box">
                 <div class="image-box">
-                    <figure class="image"><a href="room-single.html"><img src="images/resource/featured-image-23.jpg"
-                                                                          alt="" title=""></a></figure>
+                    <figure class="image"><a href="room-single.html"><img src="/images/resource/featured-image-23.jpg" alt="" title=""></a></figure>
                 </div>
                 <div class="lower-box">
                     <h4>Luxury Room</h4>
@@ -136,8 +129,7 @@
                     <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia deserunt mollit
                         anim id est.
                     </div>
-                    <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
-                                class="btn-title">Check Availability</span></a></div>
+                    <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span class="btn-title">Check Availability</span></a></div>
                 </div>
             </div>
         </div>
