@@ -86,7 +86,8 @@
                     <h3>Редактирование зала</h3>
                     <section class="studio_form">
                         <div class="col-sm-12 shadow rounded pt-2 pb-2">
-                            <form method="post" action="{{ route('edit_hall', ['hall' => $hall->id]) }} " id="editStudio"
+                            <form method="post" action="{{ route('edit_hall', ['hall' => $hall->id]) }} "
+                                  id="editStudio"
                                   enctype="multipart/form-data">
                                 @csrf
                                 @if (session('error_hall'))
@@ -162,26 +163,6 @@
                                     </button>
                                 </div>
                                 @enderror
-                                <div class="form-group photo">
-                                    <label class="font-weight-bold">Фотографии зала</label>
-                                    <div class="input-group mb-3">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="hall_photo"
-                                                   accept="image/*" id="inputGroupFile01"
-                                                   aria-describedby="inputGroupFileAddon01">
-                                            <label class="custom-file-label" for="inputGroupFile01">Выберите
-                                                файл</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                @error('hall_photo')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
                                 <div class="form-group">
                                     <button type="submit" class="theme-btn btn-style-one btn-block"><span
                                             class="btn-title">Изменить</span></button>
@@ -215,6 +196,11 @@
                                                      class="lightbox-image"><img
                                         src="/storage/photo_halls/{{$photo->photo_hall}}"
                                         alt="{{$photo->photo_hall}}"></a>
+                                <button type="button" class="close btn-cls" aria-label="Close"
+                                        style="background-color: red; width: 40px; height: 40px; color: white; border-radius: 50%; position: absolute; right: 5px; top: 5px; padding-bottom: 3px"
+                                        data-record-id="{{ $photo->id }}">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </figure>
                         </div>
                     @empty
@@ -225,3 +211,30 @@
     </section>
 
 </x-layout>
+<script>
+    $(document).ready(function () {
+        $('.btn-cls').on('click', function () {
+            var button = $(this);
+            var recordId = button.data('record-id');
+            var imageBlock = button.closest('.image-block');
+
+            $.ajax({
+                url: '/delete_photo/' + recordId,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        imageBlock.remove();
+                    } else {
+                        alert('Ошибка при удалении записи.');
+                    }
+                },
+                error: function () {
+                    alert('Ошибка при удалении записи.');
+                }
+            });
+        });
+    });
+</script>

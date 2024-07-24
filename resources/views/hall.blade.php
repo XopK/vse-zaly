@@ -43,7 +43,7 @@
                             voluptatem.</p> --}}
                     </div>
                     <div class="text">
-                        <p>{{$hall->address_hall}}</p>
+                        <p><i class="fa fa-map-marker" aria-hidden="true" style="margin-right: 10px"></i>{{$hall->address_hall}} </p>
                     </div>
                 </div>
             </div>
@@ -68,10 +68,11 @@
                         <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
                              data-wow-duration="1500ms">
                             <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
-                                                     class="lightbox-image"><img
-                                        src="/storage/photo_halls/{{$photo->photo_hall}}"
-                                        alt="{{$photo->photo_hall}}"
-                                        title="{{$hall->name_hall}}"></a></figure>
+                                                     class="lightbox-image"><img class="photo-image"
+                                                                                 src="/storage/photo_halls/{{$photo->photo_hall}}"
+                                                                                 alt="{{$photo->photo_hall}}"
+                                                                                 title="{{$hall->name_hall}}"></a>
+                            </figure>
                         </div>
                     @empty
                     @endforelse
@@ -81,7 +82,7 @@
     </section>
 
     <!--Rooms Section-->
-    <section class="rooms-section alternate">
+    {{--<section class="rooms-section alternate">
         <span class="dotted-pattern dotted-pattern-3"></span>
         <span class="tri-pattern tri-pattern-3"></span>
         <div class="auto-container">
@@ -185,5 +186,5 @@
 
             </div>
         </div>
-    </section>
+    </section>--}}
 </x-layout>

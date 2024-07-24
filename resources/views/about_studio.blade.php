@@ -207,7 +207,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-1.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-1.jpg" alt="">
                                 </div>
                                 <div class="name">Mark Adams</div>
                                 <div class="designation">Designer</div>
@@ -227,7 +227,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-2.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-2.jpg" alt="">
                                 </div>
                                 <div class="name">Fiona Edwards</div>
                                 <div class="designation">Developer</div>
@@ -247,7 +247,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-3.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-3.jpg" alt="">
                                 </div>
                                 <div class="name">Dominic Allen</div>
                                 <div class="designation">Designer</div>
@@ -267,7 +267,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-1.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-1.jpg" alt="">
                                 </div>
                                 <div class="name">Mark Adams</div>
                                 <div class="designation">Designer</div>
@@ -287,7 +287,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-2.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-2.jpg" alt="">
                                 </div>
                                 <div class="name">Fiona Edwards</div>
                                 <div class="designation">Developer</div>
@@ -307,7 +307,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-3.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-3.jpg" alt="">
                                 </div>
                                 <div class="name">Dominic Allen</div>
                                 <div class="designation">Designer</div>
@@ -327,7 +327,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-1.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-1.jpg" alt="">
                                 </div>
                                 <div class="name">Mark Adams</div>
                                 <div class="designation">Designer</div>
@@ -347,7 +347,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-2.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-2.jpg" alt="">
                                 </div>
                                 <div class="name">Fiona Edwards</div>
                                 <div class="designation">Developer</div>
@@ -367,7 +367,7 @@
                             </div>
 
                             <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-3.jpg" alt="">
+                                <div class="image"><img src="/images/resource/testi-thumb-3.jpg" alt="">
                                 </div>
                                 <div class="name">Dominic Allen</div>
                                 <div class="designation">Designer</div>

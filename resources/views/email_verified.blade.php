@@ -4,21 +4,23 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">Подтверждение почты</div>
+                        <div class="card-header">Подтверждение почты <br><span id="countdown"></span></div>
+
                         <div class="card-body">
                             <form id="confirmationForm" action="{{ route('verifyEmail') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label for="code">Код подтверждения</label>
+
                                     <input type="tel" class="form-control" id="code" name="code" required>
                                 </div>
                                 @error('code')
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                                 @enderror
                                 @if (session('error_verify'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -34,9 +36,10 @@
                                                 class="btn-title">Отправить</span></button>
                                     </div>
                                     <div class="form-group ">
-                                        <span id="countdown"></span>
+
                                         <button type="button" class="btn btn-secondary" id="getCodeBtn">Получить
-                                            код</button>
+                                            код
+                                        </button>
                                     </div>
 
                                 </div>
@@ -54,10 +57,10 @@
         $.ajax({
             url: '/email_confirm/get_code',
             type: 'GET',
-            success: function(response) {
+            success: function (response) {
                 console.log('Код успешно отправлен');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Ошибка при отправке запроса:', error);
             }
         });
@@ -65,7 +68,7 @@
 
     function startCountdown(duration) {
         var countdown = duration;
-        var timer = setInterval(function() {
+        var timer = setInterval(function () {
             countdown--;
             document.getElementById('countdown').textContent = ' (ожидание ' + countdown + ' секунд)';
 
@@ -81,7 +84,7 @@
         }, 1000);
     }
 
-    document.getElementById('getCodeBtn').addEventListener('click', function() {
+    document.getElementById('getCodeBtn').addEventListener('click', function () {
         var btn = this;
         btn.disabled = true;
         sendRequest();

@@ -74,7 +74,8 @@
                     <div class="col-lg-12 ">
                         <div class="form-group subject">
                             <label>Описание зала</label>
-                            <textarea id="description_hall" name="description_hall" class="form-control"></textarea>
+                            <textarea id="description_hall" rows="7" name="description_hall"
+                                      class="form-control"></textarea>
                         </div>
                         @error('description_hall')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -186,7 +187,7 @@
                                     </div>
                                 </div>
 
-                                <div class="text">{{$hall->description_hall}}</div>
+                                <div class="text text-truncate">{{$hall->description_hall}}</div>
                                 <div class="link-box"><a href="/my_hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"
                                                          class="theme-btn btn-style-three"><span
                                             class="btn-title">Редактировать зал</span></a></div>
@@ -194,9 +195,27 @@
                         </div>
                     </div>
                 @empty
-                    <h1>Залы отсутвуют</h1>
+                    <div class="alert alert-warning" role="alert" style="width: 100%">
+                        <strong>Залы отсутствуют!</strong><br>
+                        К сожалению, у вас нет доступных залов. Пожалуйста, добавьте новый зал или свяжитесь с
+                        администрацией для получения помощи.
+                    </div>
+
                 @endforelse
             </div>
         </div>
     </section>
+    <script>
+        document.querySelector('.custom-file-input').addEventListener('change', function (event) {
+            var input = event.target;
+            var label = input.nextElementSibling;
+
+            if (input.files.length > 0) {
+                var fileNames = Array.from(input.files).map(file => file.name).join(', ');
+                label.textContent = fileNames;
+            } else {
+                label.textContent = 'Выбрать файл';
+            }
+        });
+    </script>
 </x-layout>

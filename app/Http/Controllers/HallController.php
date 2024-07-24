@@ -7,6 +7,7 @@ use App\Models\HallOption;
 use App\Models\PhotoHall;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HallController extends Controller
 {
@@ -28,7 +29,6 @@ class HallController extends Controller
             'name_hall' => 'required',
             'area_hall' => 'required|integer',
             'description_hall' => 'required',
-            'photo_hall.*' => 'required|image|max:2048',
             'location_hall' => 'required',
             'terms_hall' => 'required',
         ], [
@@ -56,6 +56,11 @@ class HallController extends Controller
             'rule_hall' => $request->terms_hall,
             'id_studio' => $studio->id,
             'preview_hall' => $hashFirst,
+        ]);
+
+        PhotoHall::create([
+            'id_hall' => $hall->id,
+            'photo_hall' => $hashFirst,
         ]);
 
         foreach (array_slice($request->file('photo_hall'), 1) as $item) {
@@ -105,5 +110,25 @@ class HallController extends Controller
         } else {
             return redirect()->back()->with('error_hall', 'Ошибка обновления!');
         }
+    }
+
+    public function delete_photo($photo)
+    {
+        $delete = PhotoHall::find($photo);
+        $hall = $delete->halls;
+
+
+        if ($delete) {
+            if ($delete->photo_hall == $hall->preview_hall) {
+                return response()->json(['success' => false], 404);
+            } else {
+                Storage::delete('public/photo_halls/' . $delete->photo_hall);
+                $delete->delete();
+                return response()->json(['success' => true]);
+            }
+        } else {
+            return response()->json(['success' => false], 404);
+        }
+
     }
 }

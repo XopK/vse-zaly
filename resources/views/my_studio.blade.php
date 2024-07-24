@@ -74,7 +74,7 @@
                 @enderror
                 <div class="form-group">
                     <label class="font-weight-bold">Описание студии <span class="text-danger"></span></label>
-                    <textarea class="form-control" name="studio_description" id="studio_description"
+                    <textarea class="form-control" rows="7" name="studio_description" id="studio_description"
                               required>{{ Auth::user()->studio->description_studio }}</textarea>
                 </div>
                 @error('studio_description')
@@ -238,6 +238,7 @@
                 @endforeach
             </div>
         @empty
+
         @endforelse
 
 

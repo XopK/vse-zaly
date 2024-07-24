@@ -113,8 +113,8 @@
                         <div class="header clearfix">
                             <h3>{{ Auth::user()->name }}</h3>
                             <img src="/storage/users_profile/{{ Auth::user()->photo_profile }}" alt="avatar"
-                                style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px;"
-                                class="img-fluid profile-img border">
+                                 style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px; object-fit: cover;"
+                                 class="img-fluid profile-img border">
                         </div>
                         <!-- Detail -->
                         <div class="detail-clearfix">
@@ -163,7 +163,9 @@
                                 <div class="booking_info">
                                     <h4>Название зала: Зал для конференций</h4>
                                     <a href="/delete_booking"><span class="fab flaticon-heart"></span></a>
-                                    <a href="/delete_booking"><button>Отменить бронь</button></a>
+                                    <a href="/delete_booking">
+                                        <button>Отменить бронь</button>
+                                    </a>
                                 </div>
                             </li>
                         </ul>
