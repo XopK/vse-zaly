@@ -76,7 +76,7 @@
                         <p>{{$hall->description_hall}}</p>
                     </div>
                     <div class="text">
-                        <p>Расположение зала*</p>
+                        <p>{{$hall->address_hall}}</p>
                     </div>
                 </div>
             </div>
@@ -86,20 +86,20 @@
                     <h3>Редактирование зала</h3>
                     <section class="studio_form">
                         <div class="col-sm-12 shadow rounded pt-2 pb-2">
-                            <form method="post" action="" id="editStudio"
+                            <form method="post" action="{{ route('edit_hall', ['hall' => $hall->id]) }} " id="editStudio"
                                   enctype="multipart/form-data">
                                 @csrf
-                                @if (session('error_studio'))
+                                @if (session('error_hall'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>{{ session('error_studio') }}</strong>
+                                        <strong>{{ session('error_hall') }}</strong>
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                 @endif
-                                @if (session('success_studio'))
+                                @if (session('success_hall'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>{{ session('success_studio') }}</strong>
+                                        <strong>{{ session('success_hall') }}</strong>
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -138,7 +138,7 @@
                                     <label class="font-weight-bold">Описание зала <span
                                             class="text-danger"></span></label>
                                     <textarea class="form-control" name="hall_description" id="hall_description"
-                                              required>{{ $hall->description_hall }}</textarea>
+                                    >{{ $hall->description_hall }}</textarea>
                                 </div>
                                 @error('hall_description')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -152,7 +152,7 @@
                                     <label class="font-weight-bold">Правила зала <span
                                             class="text-danger"></span></label>
                                     <textarea class="form-control" name="hall_terms"
-                                              id="hall_terms">{{ Auth::user()->studio->vk_studio }}</textarea>
+                                              id="hall_terms">{{ $hall->rule_hall }}</textarea>
                                 </div>
                                 @error('hall_terms')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -208,26 +208,17 @@
 
             <div class="lower-box">
                 <div class="row clearfix">
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                         data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5432.jpeg" class="lightbox-image"><img
-                                    src="images/halls/IMG_5432.jpeg" alt="" title=""></a></figure>
-                    </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-                         data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5427.jpeg" class="lightbox-image"><img
-                                    src="images/halls/IMG_5427.jpeg" alt="" title=""></a></figure>
-                    </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                         data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5431.jpeg" class="lightbox-image"><img
-                                    src="images/halls/IMG_5431.jpeg" alt="" title=""></a></figure>
-                    </div>
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-                         data-wow-duration="1500ms">
-                        <figure class="image"><a href="images/halls/IMG_5424.jpeg" class="lightbox-image"><img
-                                    src="images/halls/IMG_5424.jpeg" alt="" title=""></a></figure>
-                    </div>
+                    @forelse($hall->photo_halls as $photo)
+                        <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+                             data-wow-duration="1500ms">
+                            <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
+                                                     class="lightbox-image"><img
+                                        src="/storage/photo_halls/{{$photo->photo_hall}}"
+                                        alt="{{$photo->photo_hall}}"></a>
+                            </figure>
+                        </div>
+                    @empty
+                    @endforelse
                 </div>
             </div>
         </div>

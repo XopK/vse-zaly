@@ -68,12 +68,42 @@ class HallController extends Controller
             ]);
         }
 
-        
+
         if ($hall) {
             return redirect()->back()->with('success_create', 'Зал успешно создан!');
         } else {
             return redirect()->back()->with('error_create', 'Ошибка создания.');
         }
 
+    }
+
+    public function edit_hall(Request $request, Hall $hall)
+    {
+        $validated = $request->validate([
+            'hall_name' => 'required',
+            'hall_area' => 'required|integer',
+            'hall_description' => 'required',
+            'hall_terms' => 'required',
+        ], [
+            'hall_name.required' => 'Введите название зала.',
+            'hall_area.required' => 'Введите площадь зала.',
+            'hall_area.integer' => 'Введите числовые значения.',
+            'hall_description.required' => 'Введите описание зала.',
+            'hall_terms.required' => 'Введите правила зала.',
+        ]);
+
+        $hall->fill([
+            'name_hall' => $request->hall_name,
+            'description_hall' => $request->hall_description,
+            'area_hall' => $request->hall_area,
+            'rule_hall' => $request->hall_terms,
+        ]);
+
+        if ($hall) {
+            $hall->save();
+            return redirect()->back()->with('success_hall', 'Зал обновлен!');
+        } else {
+            return redirect()->back()->with('error_hall', 'Ошибка обновления!');
+        }
     }
 }

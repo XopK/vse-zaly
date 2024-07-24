@@ -226,7 +226,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="text">{{$hall->description_hall}}</div>
+                                    <div class="text text-truncate">{{$hall->description_hall}}</div>
                                     <div class="link-box"><a
                                             href="/my_hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"
                                             class="theme-btn btn-style-one"><span

@@ -42,6 +42,9 @@
                             quia non numquam eius modi tempora incidunt labore dolore sit magnam aliquam quaerat
                             voluptatem.</p> --}}
                     </div>
+                    <div class="text">
+                        <p>{{$hall->address_hall}}</p>
+                    </div>
                 </div>
             </div>
 
@@ -91,7 +94,7 @@
             <div class="row clearfix">
 
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                    data-wow-duration="1500ms">
+                     data-wow-duration="1500ms">
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image"><a href="room-single.html"><img
@@ -112,7 +115,8 @@
                             </div>
 
                             <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia
-                                deserunt mollit anim id est.</div>
+                                deserunt mollit anim id est.
+                            </div>
                             <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
                                         class="btn-title">Check Availability</span></a></div>
                         </div>
@@ -120,7 +124,7 @@
                 </div>
 
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-                    data-wow-duration="1500ms">
+                     data-wow-duration="1500ms">
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image"><a href="room-single.html"><img
@@ -141,7 +145,8 @@
                             </div>
 
                             <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia
-                                deserunt mollit anim id est.</div>
+                                deserunt mollit anim id est.
+                            </div>
                             <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
                                         class="btn-title">Check Availability</span></a></div>
                         </div>
@@ -149,7 +154,7 @@
                 </div>
 
                 <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms"
-                    data-wow-duration="1500ms">
+                     data-wow-duration="1500ms">
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image"><a href="room-single.html"><img
@@ -170,7 +175,8 @@
                             </div>
 
                             <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia
-                                deserunt mollit anim id est.</div>
+                                deserunt mollit anim id est.
+                            </div>
                             <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
                                         class="btn-title">Check Availability</span></a></div>
                         </div>

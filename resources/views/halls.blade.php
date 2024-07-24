@@ -31,10 +31,10 @@
                         </div>
                     </form> -->
                     <form class="filterform" id="filterForm">
-                        
+
                             <label for="name">Поиск по названию</label>
                             <input type="text" class="form-control" id="name">
-                        
+
                             <label for="areaRange">Площадь зала (м²)</label>
                             <div class="d-flex">
                                 <input type="number" class="form-control mr-2" id="areaMin" placeholder="Min" min="0" max="500">
@@ -42,7 +42,7 @@
                                 <input type="range" class="form-control-range mx-2" id="areaRangeMax" min="0" max="500" step="1">
                                 <input type="number" class="form-control ml-2" id="areaMax" placeholder="Max" min="0" max="500">
                             </div>
-                        
+
                             <label for="priceRange">Цена (руб/ч)</label>
                             <div class="d-flex">
                                 <input type="number" class="form-control mr-2" id="priceMin" placeholder="Min" min="0" max="10000">
@@ -50,7 +50,7 @@
                                 <input type="range" class="form-control-range mx-2" id="priceRangeMax" min="0" max="10000" step="100">
                                 <input type="number" class="form-control ml-2" id="priceMax" placeholder="Max" min="0" max="10000">
                             </div>
-                        
+
                             <label>Удобства</label><br>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="cooler">
@@ -68,7 +68,7 @@
                                 <input class="form-check-input" type="checkbox" id="wifi">
                                 <label class="form-check-label" for="wifi">Wi-Fi</label>
                             </div>
-                        
+
                             <label for="sort">Сортировка по цене</label>
                             <select class="form-control" id="sort">
                                 <option value="asc">По возрастанию</option>

@@ -12,4 +12,10 @@ class IndexController extends Controller
         $studios = Studio::limit(6)->get();
         return view('index', ['studios' => $studios]);
     }
+
+    public function about_view()
+    {
+        $studios = Studio::limit(3)->get();
+        return view('about', ['studios' => $studios]);
+    }
 }

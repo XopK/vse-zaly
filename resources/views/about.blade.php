@@ -29,10 +29,12 @@
                         <div class="sec-title">
                             <h2>Сотрудничаем с ведущими студиями</h2>
                         </div>
-                        <div class="text">С нами работают множество студий. Присоединяйтесь к нам сегодня и начните сотрудничество 
-                            с профессионалами, чтобы вывести ваш бизнес на новый уровень!</div>
+                        <div class="text">С нами работают множество студий. Присоединяйтесь к нам сегодня и начните
+                            сотрудничество
+                            с профессионалами, чтобы вывести ваш бизнес на новый уровень!
+                        </div>
                         <a href="/become_partner" class="features">
-                           Стать партнером
+                            Стать партнером
                         </a>
                     </div>
                 </div>
@@ -41,12 +43,14 @@
                     <div class="inner">
                         <span class="dotted-pattern dotted-pattern-10"></span>
                         <div class="image-box clearfix">
-                            <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img
-                                    src="images/logo_main.png" alt="" title=""></figure>
-                            <figure class="image wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms"><img
-                                    src="images/resource/featured-image-13.jpg" alt="" title=""></figure>
-                            <figure class="image wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms"><img
-                                    src="images/resource/featured-image-14.jpg" alt="" title=""></figure>
+                            @forelse($studios as $studio)
+                                <figure class="image wow fadeInUp" data-wow-delay="1000ms" data-wow-duration="1500ms">
+                                    <img
+                                        src="/storage/photo_studios/{{$studio->photo_studio}}"
+                                        alt="{{$studio->photo_studio}}" title="{{$studio->name_studio}}">
+                                </figure>
+                            @empty
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -63,9 +67,10 @@
         <div class="auto-container">
             <div class="sec-title">
                 <h2>С нами бронирование залов станет ещё проще</h2>
-                <div class="lower-text">С нами бронирование залов станет ещё проще и удобнее. 
-                    Мы обеспечим вам легкость и комфорт на каждом этапе, от выбора зала до подтверждения брони, 
-                    чтобы вы могли сосредоточиться на других важных аспектах вашей деятельности</div>
+                <div class="lower-text">С нами бронирование залов станет ещё проще и удобнее.
+                    Мы обеспечим вам легкость и комфорт на каждом этапе, от выбора зала до подтверждения брони,
+                    чтобы вы могли сосредоточиться на других важных аспектах вашей деятельности
+                </div>
             </div>
             <!--Facts Column-->
             <div class="facts-box">
@@ -74,7 +79,8 @@
                         <div class="fact-inner">
                             <div class="fact-count wow zoomInStable" data-wow-delay="0ms" data-wow-duration="2000ms">
                                 <div class="count-box counted"><span class="count-text" data-stop="25"
-                                        data-speed="2000">3</span>+</div>
+                                                                     data-speed="2000">3</span>+
+                                </div>
                             </div>
                             <h4>Лет успешного сотрудничества</h4>
                             <div class="text">Добились высокого качества услуг и доверия наших партнеров</div>
@@ -84,7 +90,7 @@
                         <div class="fact-inner">
                             <div class="fact-count wow zoomInStable" data-wow-delay="300ms" data-wow-duration="2000ms">
                                 <div class="count-box counted"><span class="count-text" data-stop="712"
-                                        data-speed="5000">14</span></div>
+                                                                     data-speed="5000">14</span></div>
                             </div>
                             <h4>Студий уже с нами</h4>
                             <div class="text">Расширяем свои горизонты</div>
@@ -94,7 +100,7 @@
                         <div class="fact-inner">
                             <div class="fact-count wow zoomInStable" data-wow-delay="600ms" data-wow-duration="2000ms">
                                 <div class="count-box counted"><span class="count-text" data-stop="310"
-                                        data-speed="4000">41</span></div>
+                                                                     data-speed="4000">41</span></div>
                             </div>
                             <h4>Мероприятий</h4>
                             <div class="text">Организовали множество мероприятий</div>
@@ -201,7 +207,9 @@
         <div class="auto-container">
             <div class="sec-title centered">
                 <h2>Отзывы</h2>
-                <div class="lower-text">Нам важно что вы думаете о нас, мы за то - чтобы наш проект развивался вместе с вами.</div>
+                <div class="lower-text">Нам важно что вы думаете о нас, мы за то - чтобы наш проект развивался вместе с
+                    вами.
+                </div>
             </div>
 
             <div class="carousel-box">
@@ -213,7 +221,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -232,7 +241,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -251,7 +261,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -270,7 +281,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -289,7 +301,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -308,7 +321,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -327,7 +341,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -346,7 +361,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 
@@ -365,7 +381,8 @@
                                     <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
                                     <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
                                         tempor
-                                        incidunt sed labore dolore magna.</div>
+                                        incidunt sed labore dolore magna.
+                                    </div>
                                 </div>
                             </div>
 

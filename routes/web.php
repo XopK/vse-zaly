@@ -29,9 +29,7 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::get('/about', function () {
-    return view('about');
-});
+Route::get('/about', [IndexController::class, 'about_view']);
 
 Route::get('/terms', function () {
     return view('terms');
@@ -114,3 +112,5 @@ Route::get('/hall/{hall}', [HallController::class, 'hall_view']);
 Route::get('/my_studio', [StudioController::class, 'my_studio_view']);
 
 Route::get('/my_hall/{hall}', [StudioController::class, 'my_hall_view']);
+
+Route::post('/my_hall/{hall}/update', [HallController::class, 'edit_hall'])->name('edit_hall');
