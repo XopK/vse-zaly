@@ -196,7 +196,7 @@
                                                      class="lightbox-image"><img
                                         src="/storage/photo_halls/{{$photo->photo_hall}}"
                                         alt="{{$photo->photo_hall}}"></a>
-                                <button type="button" class="close btn-cls" aria-label="Close"
+                                <button type="button" title="Удалить" class="close btn-cls" aria-label="Close"
                                         style="background-color: red; width: 40px; height: 40px; color: white; border-radius: 50%; position: absolute; right: 5px; top: 5px; padding-bottom: 3px"
                                         data-record-id="{{ $photo->id }}">
                                     <span aria-hidden="true">&times;</span>
