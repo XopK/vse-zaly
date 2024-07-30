@@ -1,4 +1,8 @@
 <x-layout>
+    <head>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    </head>
     <style>
         /* .my_hall_space {
             transition: 0.3s;
@@ -188,6 +192,11 @@
             </div>
 
             <div class="lower-box">
+                <div class="w-25 mb-3">
+                    <button type="submit" data-toggle="modal" data-target="#photoadd"
+                            class="theme-btn btn-style-one btn-block"><span
+                            class="btn-title">Добавить фотографии +</span></button>
+                </div>
                 <div class="row clearfix">
                     @forelse($hall->photo_halls as $photo)
                         <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
@@ -200,6 +209,11 @@
                                         style="background-color: red; width: 40px; height: 40px; color: white; border-radius: 50%; position: absolute; right: 5px; top: 5px; padding-bottom: 3px"
                                         data-record-id="{{ $photo->id }}">
                                     <span aria-hidden="true">&times;</span>
+                                </button>
+                                <button type="button" title="Установить как превью" class="close btn-set"
+                                        style="background-color: #5e5eff; width: 40px; height: 40px; color: white; border-radius: 50%; position: absolute; right: 50px; top: 5px; padding-top: 4px"
+                                        data-photo-id="{{ $photo->id }}" data-name-photo="{{$photo->photo_hall}}">
+                                    <span class="material-symbols-outlined">visibility</span>
                                 </button>
                             </figure>
                         </div>
@@ -218,6 +232,7 @@
             var recordId = button.data('record-id');
             var imageBlock = button.closest('.image-block');
 
+
             $.ajax({
                 url: '/delete_photo/' + recordId,
                 type: 'DELETE',
@@ -228,13 +243,84 @@
                     if (response.success) {
                         imageBlock.remove();
                     } else {
-                        alert('Ошибка при удалении записи.');
+                        console.log('Ошибка при удалении записи.');
                     }
                 },
                 error: function () {
-                    alert('Ошибка при удалении записи.');
+                    console.log('Ошибка при удалении записи.');
+                }
+            });
+        });
+
+        $('.btn-set').on('click', function () {
+            var button = $(this);
+            var photoId = button.data('photo-id');
+            var backgroundImage = $('.image-layer').css('background-image');
+            var newPhoto = button.data('name-photo');
+
+            $.ajax({
+                url: '/update_privew/' + photoId,
+                type: 'POST',
+                data: {
+                    _token: '{{csrf_token()}}'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('.image-layer').css('background-image', 'url(/storage/photo_halls/' + newPhoto + ')');
+                    } else {
+                        console.log('Ошибка обновления');
+                    }
+                },
+                error: function () {
+                    console.log('Ошибка обновления');
                 }
             });
         });
     });
 </script>
+<div class="modal fade" id="photoadd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавление фотографий</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="/my_hall/{{$hall->id}}/add_photo">
+                    @csrf
+                    <div class="col-lg-12 ">
+                        <div class="form-group photo">
+                            <label>Фотографии зала</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="photo_hall[]" accept="image/*"
+                                           id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" multiple>
+                                    <label class="custom-file-label" for="inputGroupFile01">Выберите
+                                        файл/ы</label>
+                                </div>
+                            </div>
+                        </div>
+                        @error('photo_hall')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="send-btn">
+                            <button type="submit" class="theme-btn btn-style-one"><span
+                                    class="btn-title">Добавить</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

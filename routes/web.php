@@ -116,3 +116,7 @@ Route::get('/my_hall/{hall}', [StudioController::class, 'my_hall_view']);
 Route::post('/my_hall/{hall}/update', [HallController::class, 'edit_hall'])->name('edit_hall');
 
 Route::delete('/delete_photo/{photo}', [HallController::class, 'delete_photo']);
+
+Route::post('/update_privew/{photo}', [HallController::class, 'update_preview']);
+
+Route::post('/my_hall/{hall}/add_photo', [HallController::class, 'addPhoto']);

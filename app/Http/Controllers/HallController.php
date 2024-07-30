@@ -131,4 +131,48 @@ class HallController extends Controller
         }
 
     }
+
+    public function update_preview($photo)
+    {
+        $newPhoto = PhotoHall::find($photo);
+        $hall = $newPhoto->halls;
+
+        if ($newPhoto) {
+            $hall->fill([
+                'preview_hall' => $newPhoto->photo_hall,
+            ]);
+            $hall->save();
+            return response()->json(['success' => true]);
+
+        } else {
+            return response()->json(['success' => false], 404);
+        }
+
+    }
+
+    public function addPhoto(Request $request, $hall)
+    {
+        $request->validate([
+            'photo_hall' => 'required'
+        ], [
+            'photo_hall.required' => 'Выберите хотя бы одно фото.'
+        ]);
+
+        foreach ($request->photo_hall as $photo) {
+            $hashPhoto = $photo->hashName();
+            $storePhoto = $photo->store('public/photo_halls');
+
+            $check = PhotoHall::create([
+                'id_hall' => $hall,
+                'photo_hall' => $hashPhoto,
+            ]);
+        }
+
+        if ($check) {
+            return redirect()->back()->with('success_hall', 'Фото добавлено!');
+        } else {
+            return redirect()->back()->with('error_hall', 'Ошибка добавления');
+        }
+
+    }
 }
