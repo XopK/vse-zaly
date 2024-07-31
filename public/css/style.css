@@ -10126,3 +10126,16 @@ a:hover {
     object-fit: cover;
 }
 
+.custom-file-label {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.is-preview {
+    visibility: hidden;
+}
+
+

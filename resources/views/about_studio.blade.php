@@ -81,7 +81,7 @@
                             </div>
                         </div>
 
-                        <div class="text">{{$hall->description_hall}}</div>
+                        <div class="text text-truncate">{{$hall->description_hall}}</div>
                         <div class="link-box"><a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"
                                                  class="theme-btn btn-style-three"><span
                                     class="btn-title">Просмотреть</span></a>

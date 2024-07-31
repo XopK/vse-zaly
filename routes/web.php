@@ -8,6 +8,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudioController;
 use App\Http\Controllers\HallController;
+use App\Http\Controllers\SmsController;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,10 +34,6 @@ Route::get('/about', [IndexController::class, 'about_view']);
 
 Route::get('/terms', function () {
     return view('terms');
-});
-
-Route::get('/halls', function () {
-    return view('halls');
 });
 
 Route::get('/rent', function () {
@@ -120,3 +117,9 @@ Route::delete('/delete_photo/{photo}', [HallController::class, 'delete_photo']);
 Route::post('/update_privew/{photo}', [HallController::class, 'update_preview']);
 
 Route::post('/my_hall/{hall}/add_photo', [HallController::class, 'addPhoto']);
+
+Route::get('/halls', [HallController::class, 'all_halls']);
+
+Route::get('/verify_phone', [SmsController::class, 'sms_verify']);
+
+Route::post('/code_phone', [SmsController::class, 'check_code'])->name('check_code');

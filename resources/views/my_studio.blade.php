@@ -85,45 +85,6 @@
                     </button>
                 </div>
                 @enderror
-                <div class="form-group">
-                    <label class="font-weight-bold">Telegram <span class="text-danger"></span></label>
-                    <input class="form-control" name="tg" id="studio_tg"
-                           value="{{ Auth::user()->studio->telegram }}">
-                </div>
-                @error('studio_tg')
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>{{ $message }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                @enderror
-                <div class="form-group">
-                    <label class="font-weight-bold">VK <span class="text-danger"></span></label>
-                    <input class="form-control" name="vk"
-                           id="studio_vk" value="{{ Auth::user()->studio->vk }}">
-                </div>
-                @error('studio_vk')
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>{{ $message }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                @enderror
-                <div class="form-group">
-                    <label class="font-weight-bold">Instagram <span class="text-danger"></span></label>
-                    <input class="form-control" name="inst"
-                           id="studio_inst" value="{{ Auth::user()->studio->instagram }}">
-                </div>
-                @error('studio_inst')
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>{{ $message }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                @enderror
                 <div class="form-group photo">
                     <label class="font-weight-bold">Фото студии</label>
                     <div class="input-group mb-3">

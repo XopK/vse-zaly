@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'sms_aero' => [
+        'api_key' => env('SMS_API_KEY'),
+        'email' => env('SMS_EMAIL'),
+    ],
+
 ];

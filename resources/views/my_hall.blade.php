@@ -3,35 +3,6 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
     </head>
-    <style>
-        /* .my_hall_space {
-            transition: 0.3s;
-            background-color: black;
-            color: white;
-            padding: 5px;
-            border: 1px solid black;
-        }
-
-        .my_hall_space:hover {
-            transition: 0.3s;
-            background-color: white;
-            color: black;
-            padding: 5px;
-            border: 1px solid black;
-        }
-
-        input {
-            transition: 0.3s;
-            padding: 5px 0 5px 0;
-            border: 1px solid rgb(162, 169, 181);
-        }
-
-        input:hover {
-            transition: 0.3s;
-            padding: 5px 0 5px 0;
-            border: 1px solid rgb(0, 0, 0);
-        } */
-    </style>
     <!-- Banner Section -->
     <section class="page-banner ext-banner">
         <div class="image-layer" style="background-image:url(/storage/photo_halls/{{$hall->preview_hall}});"></div>
@@ -210,11 +181,13 @@
                                         data-record-id="{{ $photo->id }}">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
+
                                 <button type="button" title="Установить как превью" class="close btn-set"
                                         style="background-color: #5e5eff; width: 40px; height: 40px; color: white; border-radius: 50%; position: absolute; right: 50px; top: 5px; padding-top: 4px"
                                         data-photo-id="{{ $photo->id }}" data-name-photo="{{$photo->photo_hall}}">
                                     <span class="material-symbols-outlined">visibility</span>
                                 </button>
+
                             </figure>
                         </div>
                     @empty
@@ -323,4 +296,17 @@
         </div>
     </div>
 </div>
+<script>
+    document.querySelector('.custom-file-input').addEventListener('change', function (event) {
+        var input = event.target;
+        var label = input.nextElementSibling;
+
+        if (input.files.length > 0) {
+            var fileNames = Array.from(input.files).map(file => file.name).join(', ');
+            label.textContent = fileNames;
+        } else {
+            label.textContent = 'Выбрать файл';
+        }
+    });
+</script>
 

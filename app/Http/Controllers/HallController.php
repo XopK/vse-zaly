@@ -175,4 +175,11 @@ class HallController extends Controller
         }
 
     }
+
+    public function all_halls()
+    {
+        $halls = Hall::all();
+
+        return view('halls', ['halls' => $halls]);
+    }
 }

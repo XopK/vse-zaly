@@ -48,7 +48,7 @@ class AuthController extends Controller
 
         $socialLinks = $this->putSocialLink($request);
 
-        $user = User::create([
+        $user = new User([
             'name' => $request->signupusername,
             'phone' => $this->normalizePhoneNumber($request->signupphone),
             'email' => $request->signupemail,
@@ -59,8 +59,8 @@ class AuthController extends Controller
         ]);
 
         if ($user) {
-            Auth::login($user);
-            return redirect('/')->with('success', 'Вы успешно зарегистрировались!');
+            Session::put('user', $user);
+            return redirect('/verify_phone');
         } else {
             return redirect()->back()->with('error', 'Ошибка регистрации');
         }

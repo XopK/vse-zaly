@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Hall;
 use App\Models\Studio;
-use App\Traits\putSocialLinksTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,20 +11,15 @@ use Illuminate\Support\Facades\Storage;
 class StudioController extends Controller
 {
 
-    use putSocialLinksTrait;
-
     public function update_studio(Request $request)
     {
         $validated = $request->validate([
             'studio_name' => 'required|min:3',
             'studio_description' => 'required',
             'studio_photo' => 'image|max:2048',
-            'tg' => 'nullable',
-            'vk' => 'nullable',
-            'inst' => 'nullable',
         ], [
             'studio_name.required' => 'Введите название студии.',
-            'studio_name.required' => 'Минимальная длина названии студии - 3 символа.',
+            'studio_name.min' => 'Минимальная длина названии студии - 3 символа.',
             'studio_description.required' => 'Введите название студии.',
             'studio_photo.image' => 'Выберите изображение.',
             'studio_photo.max' => 'Максимальный размер изображения не должен превышать :max KB.',
@@ -42,15 +36,10 @@ class StudioController extends Controller
             $hashPhoto = $studio->photo_studio;
         }
 
-        $socialLinks = $this->putSocialLink($request);
-
         $studio->fill([
             'name_studio' => $request->studio_name,
             'description_studio' => $request->studio_description,
             'photo_studio' => $hashPhoto,
-            'telegram' => $socialLinks->tg ?? null,
-            'vk' => $socialLinks->vk ?? null,
-            'instagram' => $socialLinks->inst ?? null,
         ]);
 
         if ($studio) {

@@ -36,20 +36,6 @@
                                             src="/storage/photo_studios/{{$studio->photo_studio}}"
                                             alt="studiologo" title="{{$studio->name_studio}}"></a>
                                 </figure>
-                                <div class="social">
-                                    <ul>
-                                        @if($studio->instagram)
-                                            <li><a href="{{$studio->instagram}}"><span class="fab fa-instagram"></span></a></li>
-                                        @endif
-                                        @if($studio->vk)
-                                            <li><a href="{{$studio->vk}}"><span class="fab fa-vk"></span></a></li>
-                                        @endif
-                                        @if($studio->telegram)
-                                            <li><a href="{{$studio->telegram}}"><span class="fab fa-telegram"></span></a></li>
-                                        @endif
-
-                                    </ul>
-                                </div>
                             </div>
                             <div class="info-box">
                                 <div class="info-inner">
