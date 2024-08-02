@@ -10,12 +10,14 @@
                 <div class="form-box default-form filter-form wow fadeInUp" data-wow-delay="0ms"
                      data-wow-duration="1500ms">
                     <form class="form_filter" action="">
-                        <label for="name">Поиск по названию</label>
-                        <input id="name" class="form-control" type="text">
-                        <label for="areaRange">Площадь зала (м²)</label>
+                        <div class="form-group">
+                            <label for="title">Поиск по названию</label>
+                            <input id="title" class="form-control" type="text" style="height: 52px; padding: 10px 20px">
+                        </div>
+                        <label for="areaRange">Площадь зала </label>
                         <div class="d-flex">
-                            <input type="number" class="form-control mr-2" id="areaMin" placeholder="Min" min="0"
-                                   max="500">
+                            <input type="number" class="form-control mr-2" id="areaMin" placeholder="(м²)" min="0"
+                                   max="500" style="height: 52px; padding: 10px 20px">
                             <input type="range" class="form-control-range mx-2" id="areaRangeMin" min="0" max="500"
                                    step="1">
                             <input type="range" class="form-control-range mx-2" id="areaRangeMax" min="0" max="500"

@@ -10138,4 +10138,32 @@ a:hover {
     visibility: hidden;
 }
 
+.form_filter {
+    padding-bottom: 25px;
+}
+
+#slider-div {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+}
+
+#slider-div > div {
+    margin: 8px;
+}
+
+.slider-label {
+    position: absolute;
+    background-color: #eee;
+    padding: 4px;
+    font-size: 0.75rem;
+}
+
+.sticky-col {
+    position: sticky;
+    left: 0;
+    background-color: white; /* чтобы скрыть перекрытие фона при прокрутке */
+    z-index: 1; /* чтобы столбец был выше остальных */
+}
+
 

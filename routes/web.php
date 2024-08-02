@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudioController;
 use App\Http\Controllers\HallController;
 use App\Http\Controllers\SmsController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -123,3 +124,4 @@ Route::get('/halls', [HallController::class, 'all_halls']);
 Route::get('/verify_phone', [SmsController::class, 'sms_verify']);
 
 Route::post('/code_phone', [SmsController::class, 'check_code'])->name('check_code');
+

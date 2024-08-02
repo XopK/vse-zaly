@@ -38,13 +38,17 @@
                     </div>
                     <div class="text">
                         <p>{{$hall->description_hall}}</p>
-                        {{-- <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed
-                            quia non numquam eius modi tempora incidunt labore dolore sit magnam aliquam quaerat
-                            voluptatem.</p> --}}
                     </div>
                     <div class="text">
-                        <p><i class="fa fa-map-marker" aria-hidden="true" style="margin-right: 10px"></i>{{$hall->address_hall}} </p>
+                        <p><i class="fa fa-map-marker" aria-hidden="true"
+                              style="margin-right: 10px"></i>{{$hall->address_hall}} </p>
                     </div>
+                    <div class="col-xl-3" style="padding: 0">
+                        <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
+                                data-target="#booking"><span
+                                class="btn-title">Забронировать</span></button>
+                    </div>
+
                 </div>
             </div>
 
@@ -80,111 +84,6 @@
             </div>
         </div>
     </section>
-
-    <!--Rooms Section-->
-    {{--<section class="rooms-section alternate">
-        <span class="dotted-pattern dotted-pattern-3"></span>
-        <span class="tri-pattern tri-pattern-3"></span>
-        <div class="auto-container">
-            <div class="sec-title centered">
-                <h2>Похожие залы</h2>
-                <div class="lower-text">Тут будут залы сперва залы которые предоставляет та же студия,
-                    потом те которые подходят по той же сфере, в данном случае танцевальные*
-                </div>
-            </div>
-            <div class="row clearfix">
-
-                <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                     data-wow-duration="1500ms">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><a href="room-single.html"><img
-                                        src="images/resource/featured-image-21.jpg" alt="" title=""></a>
-                            </figure>
-                        </div>
-                        <div class="lower-box">
-                            <h4>Balcony Room</h4>
-                            <div class="pricing clearfix">
-                                <div class="price">From <span>$50.00</span></div>
-                                <div class="rating">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                            </div>
-
-                            <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia
-                                deserunt mollit anim id est.
-                            </div>
-                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
-                                        class="btn-title">Check Availability</span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
-                     data-wow-duration="1500ms">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><a href="room-single.html"><img
-                                        src="images/resource/featured-image-22.jpg" alt="" title=""></a>
-                            </figure>
-                        </div>
-                        <div class="lower-box">
-                            <h4>Deluxe Room</h4>
-                            <div class="pricing clearfix">
-                                <div class="price">From <span>$50.00</span></div>
-                                <div class="rating">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                            </div>
-
-                            <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia
-                                deserunt mollit anim id est.
-                            </div>
-                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
-                                        class="btn-title">Check Availability</span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms"
-                     data-wow-duration="1500ms">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><a href="room-single.html"><img
-                                        src="images/resource/featured-image-23.jpg" alt=""
-                                        title=""></a></figure>
-                        </div>
-                        <div class="lower-box">
-                            <h4>Luxury Room</h4>
-                            <div class="pricing clearfix">
-                                <div class="price">From <span>$50.00</span></div>
-                                <div class="rating">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                            </div>
-
-                            <div class="text">Excepteur sint occaecat cupidatat dent in sun in culpa qui officia
-                                deserunt mollit anim id est.
-                            </div>
-                            <div class="link-box"><a href="room-single.html" class="theme-btn btn-style-three"><span
-                                        class="btn-title">Check Availability</span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>--}}
 </x-layout>
+<x-booking :hall="$hall"></x-booking>
+
