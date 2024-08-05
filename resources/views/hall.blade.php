@@ -27,7 +27,7 @@
                 <div class="upper-inner">
                     <h2>{{$hall->name_hall}}</h2>
                     <div class="pricing clearfix">
-                        <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
+                        <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
                         <div class="rating">
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
@@ -66,16 +66,18 @@
                 </div>
             </div>
 
+
             <div class="lower-box">
                 <div class="row clearfix">
                     @forelse($hall->photo_halls as $photo)
+
                         <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
                              data-wow-duration="1500ms">
                             <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
-                                                     class="lightbox-image"><img class="photo-image"
-                                                                                 src="/storage/photo_halls/{{$photo->photo_hall}}"
-                                                                                 alt="{{$photo->photo_hall}}"
-                                                                                 title="{{$hall->name_hall}}"></a>
+                                                     class="lightbox-image"><img
+                                        src="/storage/photo_halls/{{$photo->photo_hall}}"
+                                        alt="{{$photo->photo_hall}}"></a>
+
                             </figure>
                         </div>
                     @empty

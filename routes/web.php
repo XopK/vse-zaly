@@ -125,3 +125,5 @@ Route::get('/verify_phone', [SmsController::class, 'sms_verify']);
 
 Route::post('/code_phone', [SmsController::class, 'check_code'])->name('check_code');
 
+Route::post('/booking', [BookingController::class, 'create_booking'])->name('create_booking');
+

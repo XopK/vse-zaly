@@ -10166,4 +10166,28 @@ a:hover {
     z-index: 1; /* чтобы столбец был выше остальных */
 }
 
+.btn-book {
+    background-color: #1b1c1e;
+    color: white;
+}
+
+.btn-book:focus {
+    box-shadow: none;
+    color: #ffffff;
+}
+
+.btn-book:hover {
+    color: #ffffff;
+}
+
+#currentMonth {
+    text-transform: capitalize;
+}
+
+.highlight-today {
+    background-color: #5c5c5c;
+    font-weight: bold;
+    color: #ffffff;
+}
+
 
