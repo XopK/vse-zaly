@@ -22,7 +22,9 @@ return new class extends Migration {
                 ->constrained('users')
                 ->cascadeOnDelete();
 
-            $table->dateTime('datetime_booking')->nullable();
+            $table->dateTime('booking_start');
+            $table->dateTime('booking_end')->nullable();
+            $table->boolean('status_booking')->default(false);
             $table->timestamps();
         });
     }

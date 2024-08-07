@@ -12,6 +12,8 @@ class BookingHall extends Model
     protected $fillable = [
         'id_hall',
         'id_user',
-        'datetime_booking',
+        'booking_start',
+        'booking_end',
+        'status_booking',
     ];
 }

@@ -10185,9 +10185,25 @@ a:hover {
 }
 
 .highlight-today {
-    background-color: #5c5c5c;
+    background-color: #689dc1;
     font-weight: bold;
     color: #ffffff;
+}
+
+.highlight-cell {
+    background-color: #5c5c5c;
+}
+
+.disabled-cell {
+    background-color: #eaeaea;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.disabled-past {
+    background-color: #eaeaea;
+    pointer-events: none;
+    opacity: 0.6;
 }
 
 

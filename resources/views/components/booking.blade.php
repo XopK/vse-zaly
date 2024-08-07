@@ -1,4 +1,17 @@
 @props(['hall'])
+<style>
+    .table td, .table th {
+        padding: .50rem;
+        vertical-align: top;
+        border: 1px solid #d0d2d8;
+    }
+
+    .table thead th {
+        vertical-align: top;
+        border-bottom: none;
+    }
+
+</style>
 <div class="modal fade" id="booking" tabindex="-1" role="dialog" aria-labelledby="ModalBooking"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="padding-right: 0">
@@ -19,7 +32,8 @@
                     <table class="table" id="weekTable">
                         <thead>
                         <tr>
-                            <th style="width: 15%" scope="col" class="sticky-col" id="monthDisplay"><span id="currentMonth"></span>
+                            <th style="width: 15%" scope="col" class="sticky-col" id="monthDisplay"><span
+                                    id="currentMonth"></span>
                                 <br><span id="weekRange"></span>
                             </th>
                             <th scope="col" class="day"></th>
@@ -32,17 +46,28 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        {{--ячейки генерируются скриптом--}}
                         </tbody>
                     </table>
+                    <div class="booking-form mt-3">
+                        <div id="selectedDateTime">Дата и время: выберите ячейки</div>
+                    </div>
                 </div>
 
             </div>
             <div class="modal-footer d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Стоимость: 5000</h5>
                 <div class="modal-buttons">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <form action="/booking" method="post" id="bookingForm">
+                        @csrf
+                        <input type="hidden" name="selectedHall" value="{{$hall->id}}">
+                        <input type="hidden" name="selectedDate" id="selectedDate">
+                        <input type="hidden" name="selectedTime" id="selectedTime">
+
+                        <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block"><span
+                                class="btn-title">Забронировать</span></button>
+
+                    </form>
                 </div>
 
             </div>
