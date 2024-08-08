@@ -17,6 +17,7 @@ class Hall extends Model
         'address_hall',
         'id_studio',
         'preview_hall',
+        'step_booking',
     ];
 
     public function studio()

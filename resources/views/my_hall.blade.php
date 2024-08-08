@@ -98,7 +98,7 @@
                                 <div class="form-group">
                                     <label class="font-weight-bold">Площадь зала <span
                                             class="text-danger"></span></label>
-                                    <input type="number" class="form-control" name="hall_area"
+                                    <input type="number" class="form-control" min="0" name="hall_area"
                                            value="{{ $hall->area_hall }}" id="hall_area"
                                            required>
                                 </div>
@@ -131,6 +131,21 @@
                                               id="hall_terms">{{ $hall->rule_hall }}</textarea>
                                 </div>
                                 @error('hall_terms')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Шаг бронирования: <span id="step_booking_display"
+                                                                   class="font-weight-bold">1 час</span></label>
+                                    <input type="range" id="step_booking_slider" name="step_booking"
+                                           class="form-control-range mr-3"
+                                           min="0.5" max="3" step="0.5" value="{{ $hall->step_booking }}">
+                                </div>
+                                @error('step_booking')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>{{ $message }}</strong>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -198,6 +213,7 @@
     </section>
 
 </x-layout>
+<script src="/js/rangeStep.js"></script>
 <script>
     $(document).ready(function () {
         $('.btn-cls').on('click', function () {

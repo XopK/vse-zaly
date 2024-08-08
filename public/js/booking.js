@@ -38,17 +38,36 @@ $(document).ready(function () {
         tbody.empty();
 
         var now = moment();
+        var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
 
-        for (var hour = 9; hour <= 22; hour++) {
-            var timeLabel = hour + ':00';
+        var stepMinutes = stepbooking * 60;  // Переводим шаг из часов в минуты
+        console.log(stepMinutes);
+        var startHour = 9;  // Начало рабочего дня
+        var endHour = 22;   // Конец рабочего дня
+
+        // Генерация временных строк с учетом шага
+        for (var time = startHour * 60; time < endHour * 60; time += stepMinutes) {
+            var hour = Math.floor(time / 60);
+            var minutes = time % 60;
+            var timeLabel = (hour < 10 ? '0' : '') + hour + ':' + (minutes < 10 ? '0' : '') + minutes;
+
             var row = $('<tr></tr>');
             row.append('<th scope="row" class="sticky-col">' + timeLabel + '</th>');
 
             for (var i = 0; i < 7; i++) {
                 var cell = $('<td data-day-index="' + i + '" data-time="' + timeLabel + '"></td>');
-                var cellDateTime = getStartOfWeek(moment().add(weekOffset, 'weeks')).add(i, 'days').hour(hour);
+                var cellDateTime = startOfWeek.clone().add(i, 'days').hour(hour).minute(minutes);
 
-                if (cellDateTime.isBefore(now)) {
+                // Проверка на забронированность
+                var isBooked = bookings.some(function (booking) {
+                    var start = moment(booking.booking_start);
+                    var end = moment(booking.booking_end);
+                    return cellDateTime.isBetween(start, end, null, '[]'); // Включаем обе границы
+                });
+
+                if (isBooked) {
+                    cell.addClass('booked-cell');
+                } else if (cellDateTime.isBefore(now)) {
                     cell.addClass('disabled-past');
                 }
 
@@ -59,8 +78,8 @@ $(document).ready(function () {
         }
     }
 
+
     function loadWeek(offset) {
-        // Сбрасываем выбранные ячейки при загрузке новой недели
         selectedCells = [];
         $('#weekTable td').removeClass('highlight-cell');
 
@@ -72,6 +91,8 @@ $(document).ready(function () {
     function updateSelectedInfo() {
         if (selectedCells.length === 0) {
             $('#selectedDateTime').text('Дата и время: выберите ячейки');
+            $('#selectedDate').val('');
+            $('#selectedTime').val('');
             return;
         }
 
@@ -97,8 +118,7 @@ $(document).ready(function () {
             var selectedDate = selectedDay.format('DD.MM.YYYY');
 
             return {
-                date: selectedDate,
-                time: minTime + (maxTime ? ' - ' + maxTime : '')
+                date: selectedDate, time: minTime + (maxTime ? ' - ' + maxTime : '')
             };
         });
 
@@ -114,10 +134,10 @@ $(document).ready(function () {
     function isCellBetweenSelected(cell) {
         if (selectedCells.length < 2) return false;
 
-        var colIndex = cell.index();
+        var colIndex = cell.data('day-index');
         var rowIndex = cell.closest('tr').index();
 
-        var selectedRows = selectedCells.filter(c => c.index() === colIndex).map(c => c.closest('tr').index());
+        var selectedRows = selectedCells.filter(c => c.data('day-index') === colIndex).map(c => c.closest('tr').index());
 
         if (selectedRows.length < 2) return false;
 
@@ -156,9 +176,9 @@ $(document).ready(function () {
                 var maxRowIndex = Math.max(...selectedRows);
 
                 $('#weekTable td').each(function () {
-                    var currentColIndex = $(this).index();
+                    var currentColIndex = $(this).data('day-index');
                     var currentRowIndex = $(this).closest('tr').index();
-                    var isInSelectedColumn = selectedCells.some(c => c.index() === currentColIndex);
+                    var isInSelectedColumn = selectedCells.some(c => c.data('day-index') === currentColIndex);
 
                     if (!isInSelectedColumn) {
                         $(this).addClass('disabled-cell');
@@ -178,6 +198,8 @@ $(document).ready(function () {
                 });
             } else {
                 $('#weekTable td').removeClass('disabled-cell');
+                $('#selectedDate').val('');
+                $('#selectedTime').val('');
             }
 
             updateSelectedInfo();
@@ -189,7 +211,7 @@ $(document).ready(function () {
     $(document).keydown(function (e) {
         if (selectedCells.length > 0) {
             var cell = selectedCells[0];
-            var colIndex = cell.index();
+            var colIndex = cell.data('day-index');
             var rowIndex = cell.closest('tr').index();
             var newCell;
 
@@ -217,17 +239,34 @@ $(document).ready(function () {
         }
     });
 
+    function clearBookingForm() {
+        $('#selectedDate').val('');
+        $('#selectedTime').val('');
+        $('#selectedDateTime').text('Дата и время: выберите ячейки');
+    }
+
     $('#prevWeek').click(function () {
-        weekOffset--;
+        clearBookingForm();
+
+        var newOffset = weekOffset - 1;
+        var newStartOfWeek = getStartOfWeek(moment().add(newOffset, 'weeks'));
+
+        if (newStartOfWeek.isBefore(moment().startOf('isoWeek'))) {
+            return false;
+        }
+
+        weekOffset = newOffset;
         loadWeek(weekOffset);
     });
 
     $('#nextWeek').click(function () {
+        clearBookingForm();
         weekOffset++;
         loadWeek(weekOffset);
     });
 
     $('#currentWeek').click(function () {
+        clearBookingForm();
         weekOffset = 0;
         loadWeek(weekOffset);
     });

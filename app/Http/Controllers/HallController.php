@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingHall;
 use App\Models\Hall;
 use App\Models\HallOption;
 use App\Models\PhotoHall;
@@ -20,7 +21,8 @@ class HallController extends Controller
 
     public function hall_view(Hall $hall)
     {
-        return view('hall', ['hall' => $hall]);
+        $booking = BookingHall::where('id_hall', $hall->id)->get();
+        return view('hall', ['hall' => $hall, 'bookings' => $booking]);
     }
 
     public function create_halls(Request $request)
@@ -31,6 +33,7 @@ class HallController extends Controller
             'description_hall' => 'required',
             'location_hall' => 'required',
             'terms_hall' => 'required',
+            'step_booking' => 'required|numeric'
         ], [
             'name_hall.required' => 'Введите название студии.',
             'area_hall.integer' => 'Введите числовые значения.',
@@ -41,6 +44,8 @@ class HallController extends Controller
             'photo_hall.*.max' => 'Максимальный размер изображения не должен превышать :max KB.',
             'location_hall.required' => 'Введите адрес.',
             'terms_hall.required' => 'Напишите паравила.',
+            'step_booking.integer' => 'Введите числовые значения.',
+            'step_booking.required' => 'Выберите шаг.',
         ]);
 
         $studio = Auth::user()->studio;
@@ -56,6 +61,7 @@ class HallController extends Controller
             'rule_hall' => $request->terms_hall,
             'id_studio' => $studio->id,
             'preview_hall' => $hashFirst,
+            'step_booking' => $request->step_booking,
         ]);
 
         PhotoHall::create([
@@ -89,12 +95,15 @@ class HallController extends Controller
             'hall_area' => 'required|integer',
             'hall_description' => 'required',
             'hall_terms' => 'required',
+            'step_booking' => 'required|numeric',
         ], [
             'hall_name.required' => 'Введите название зала.',
             'hall_area.required' => 'Введите площадь зала.',
             'hall_area.integer' => 'Введите числовые значения.',
             'hall_description.required' => 'Введите описание зала.',
             'hall_terms.required' => 'Введите правила зала.',
+            'step_booking.required' => 'Введите шаг бронирования.',
+            'step_booking.integer' => 'Введите числовые значения.',
         ]);
 
         $hall->fill([
@@ -102,6 +111,7 @@ class HallController extends Controller
             'description_hall' => $request->hall_description,
             'area_hall' => $request->hall_area,
             'rule_hall' => $request->hall_terms,
+            'step_booking' => $request->step_booking,
         ]);
 
         if ($hall) {

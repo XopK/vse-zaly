@@ -87,5 +87,5 @@
         </div>
     </section>
 </x-layout>
-<x-booking :hall="$hall"></x-booking>
+<x-booking :hall="$hall" :bookings="$bookings"></x-booking>
 

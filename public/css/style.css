@@ -10191,7 +10191,7 @@ a:hover {
 }
 
 .highlight-cell {
-    background-color: #5c5c5c;
+    background-color: #689dc1;
 }
 
 .disabled-cell {
@@ -10204,6 +10204,13 @@ a:hover {
     background-color: #eaeaea;
     pointer-events: none;
     opacity: 0.6;
+}
+
+.booked-cell {
+    background-color: #f44336; /* Красный фон */
+    color: white;
+    text-align: center;
+    pointer-events: none; /* Запрет на выбор */
 }
 
 

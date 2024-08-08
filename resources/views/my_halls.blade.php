@@ -101,6 +101,24 @@
                         </div>
                         @enderror
                     </div>
+                    <div class="col-lg-12">
+                        <div class="form-group subject" style="width: 40%">
+                            <label>Шаг бронирования: <span id="step_booking_display"
+                                                           class="font-weight-bold">1 час</span></label>
+                            <input type="range" id="step_booking_slider" name="step_booking"
+                                   class="form-control-range mr-3"
+                                   min="0.5" max="3" step="0.5" value="1">
+                        </div>
+
+                        @error('step_booking')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
                     <div class="col-lg-12 ">
                         <div class="form-group photo">
                             <label>Фотографии зала</label>
@@ -205,6 +223,7 @@
             </div>
         </div>
     </section>
+    <script src="/js/rangeStep.js"></script>
     <script>
         document.querySelector('.custom-file-input').addEventListener('change', function (event) {
             var input = event.target;

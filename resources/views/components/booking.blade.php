@@ -1,4 +1,4 @@
-@props(['hall'])
+@props(['hall', 'bookings'])
 <style>
     .table td, .table th {
         padding: .50rem;
@@ -76,5 +76,9 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ru.min.js"></script>
+<script>
+    var bookings = @json($bookings);
+    var stepbooking = @json($hall->step_booking);
+</script>
 <script src="/js/booking.js"></script>
 
