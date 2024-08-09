@@ -12,10 +12,7 @@
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
     <link rel="icon" href="/images/favicon.png" type="image/x-icon">
-    <!-- filter -->
-    <link rel="stylesheet" href="/css/reset.css"> 
-    <link rel="stylesheet" href="/css/style.css"> 
-    
+
     <script src="/js/modernizr.js"></script> 
     <!-- Responsive Settings -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
