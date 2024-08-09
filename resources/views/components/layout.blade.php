@@ -12,7 +12,11 @@
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
     <link rel="icon" href="/images/favicon.png" type="image/x-icon">
-
+    <!-- filter -->
+    <link rel="stylesheet" href="/css/reset.css"> 
+    <link rel="stylesheet" href="/css/style.css"> 
+    
+    <script src="/js/modernizr.js"></script> 
     <!-- Responsive Settings -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -36,14 +40,11 @@
                 <div class="inner-container clearfix">
                     <!--Logo-->
                     <div class="logo-box">
-                        <div class="logo"><a href="/" title="Hotera - Hotel and Restaurant HTML Template"><img
-                                    src="/images/black-logo.png" alt="Hotera - Hotel and Restaurant HTML Template"
-                                    title="Hotera - Hotel and Restaurant HTML Template"></a></div>
+                        <div class="logo"><a href="/" title="Аренда залов в Уфе"><img src="/images/black-logo.png" alt="Аренда залов в Уфе" title="Аренда залов в Уфе"></a></div>
                     </div>
                     <div class="nav-outer clearfix">
                         <!--Mobile Navigation Toggler-->
-                        <div class="mobile-nav-toggler"><span class="icon flaticon-menu-2"></span><span
-                                class="txt">Меню</span></div>
+                        <div class="mobile-nav-toggler"><span class="icon flaticon-menu-2"></span><span class="txt">Меню</span></div>
 
                         <!-- Main Menu -->
                         <nav class="main-menu navbar-expand-md navbar-light">
@@ -59,18 +60,18 @@
 
                                     <li><a href="/studios">Студии</a></li>
                                     @auth
-                                        <li><a href="/profile">Личный профиль</a></li>
-                                        {{-- <li><a href="/rent">Долгосрочная аренда</a></li> --}}
-                                        @if (Auth::user()->id_role == 2)
-                                            <li><a href="/my_studio">Моя студия</a></li>
-                                            <li><a href="/my_halls">Мои залы</a></li>
-                                        @endif
+                                    <li><a href="/profile">Личный профиль</a></li>
+                                    {{-- <li><a href="/rent">Долгосрочная аренда</a></li> --}}
+                                    @if (Auth::user()->id_role == 2)
+                                    <li><a href="/my_studio">Моя студия</a></li>
+                                    <li><a href="/my_halls">Мои залы</a></li>
+                                    @endif
 
                                     @endauth
                                     @guest
-                                        <li><a data-toggle="modal" data-target="#logModal">Авторизация</a>
-                                        </li>
-                                        <li><a href="/become_partner">Стать партнёром</a></li>
+                                    <li><a data-toggle="modal" data-target="#logModal">Авторизация</a>
+                                    </li>
+                                    <li><a href="/become_partner">Стать партнёром</a></li>
                                     @endguest
                                 </ul>
                             </div>
@@ -85,8 +86,7 @@
             <div class="mobile-menu">
                 <div class="close-btn"><span class="icon flaticon-targeting-cross"></span></div>
                 <div class="menu-backdrop"></div>
-                <div class="nav-logo"><a href="/"><img src="/images/nav-logo.png" alt="logo"
-                            title=""></a></div>
+                <div class="nav-logo"><a href="/"><img src="/images/nav-logo.png" alt="logo" title=""></a></div>
                 <nav class="menu-box">
                     <div class="menu-outer">
 
@@ -159,8 +159,7 @@
                                                 </li>
                                                 <li class="phone"><a href="tel:+7 917 753 2370">+7 917 753 2370</a>
                                                 </li>
-                                                <li class="email"><a
-                                                        href="mailto:vse-zaly@yandex.ru">vse-zaly@yandex.ru</a></li>
+                                                <li class="email"><a href="mailto:vse-zaly@yandex.ru">vse-zaly@yandex.ru</a></li>
                                                 <li class="social-links">
                                                     <a href="#"><span class="fab fa-instagram"></span></a>
                                                     <a href="#"><span class="fab fa-telegram"></span></a>
@@ -185,10 +184,8 @@
                                 <div class="newsletter-form">
                                     <form method="post" action="contact.html">
                                         <div class="form-group clearfix">
-                                            <input type="email" name="email" value="" placeholder="Email"
-                                                required>
-                                            <button type="submit" class="theme-btn btn-style-one"><span
-                                                    class="btn-title">Отправить</span></button>
+                                            <input type="email" name="email" value="" placeholder="Email" required>
+                                            <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Отправить</span></button>
                                         </div>
                                     </form>
                                 </div>
@@ -228,6 +225,10 @@
     <script src="/js/appear.js"></script>
     <script src="/js/wow.js"></script>
     <script src="/js/custom-script.js"></script>
+
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/jquery.mixitup.min.js"></script>
+    <script src="/js/main.js"></script> 
     <x-auth></x-auth>
 </body>
 

@@ -190,6 +190,6 @@ class HallController extends Controller
     {
         $halls = Hall::all();
 
-        return view('halls', ['halls' => $halls]);
+        return view('filter', ['halls' => $halls]);
     }
 }
