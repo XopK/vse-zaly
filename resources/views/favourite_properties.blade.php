@@ -92,6 +92,73 @@
             border: 1px solid black;
             transition: background-color 0.3s, color 0.3s;
         }
+
+        /* Контейнер для сердечка */
+        .heart-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-top: -30px;
+        }
+
+        /* Основные стили для сердечка */
+        .heart {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            background-color: black;
+            /* Цвет сердечка до изменения */
+            transform: rotate(315deg);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin: 15px;
+
+        }
+
+        /* Левая половинка сердечка */
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: black;
+            /* Цвет сердечка до изменения */
+            transition: background-color 0.3s ease;
+        }
+
+        /* Позиционирование левой половинки */
+        .heart::before {
+            top: -12px;
+            left: 0;
+        }
+
+        /* Позиционирование правой половинки */
+        .heart::after {
+            left: 12px;
+            top: 0;
+        }
+
+        /* Эффект изменения цвета и увеличения при клике */
+        .heart-container.active .heart,
+        .heart-container:hover .heart {
+            background-color: red;
+            /* Цвет сердечка после изменения */
+            transform: rotate(315deg) scale(1.2);
+            /* Немного увеличиваем сердечко */
+        }
+
+        .heart-container.active .heart::before,
+        .heart-container.active .heart::after,
+        .heart-container:hover .heart::before,
+        .heart-container:hover .heart::after {
+            background-color: red;
+            /* Цвет сердечка после изменения */
+        }
+
+        .booking-list li{
+            display: flex;
+        }
     </style>
     <!-- Sub banner start -->
     <div class="sub-banner">
@@ -113,8 +180,8 @@
                         <div class="header clearfix">
                             <h3>{{ Auth::user()->name }}</h3>
                             <img src="/storage/users_profile/{{ Auth::user()->photo_profile }}" alt="avatar"
-                                 style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px; object-fit: cover;"
-                                 class="img-fluid profile-img border">
+                                style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px; object-fit: cover;"
+                                class="img-fluid profile-img border">
                         </div>
                         <!-- Detail -->
                         <div class="detail-clearfix">
@@ -160,12 +227,9 @@
                                         <img src="/images/halls/IMG_5441.jpeg" alt="Фото зала">
                                     </div>
                                 </a>
-                                <div class="booking_info">
-                                    <h4>Название зала: Зал для конференций</h4>
-                                    <a href="/delete_booking"><span class="fab flaticon-heart"></span></a>
-                                    <a href="/delete_booking">
-                                        <button>Отменить бронь</button>
-                                    </a>
+                                <div class="heart-container">
+                                    <div class="heart"></div>
+                                    <p>Добавить в избранное</p>
                                 </div>
                             </li>
                         </ul>
@@ -177,3 +241,8 @@
     <!-- User page end -->
 
 </x-layout>
+<script>
+    document.querySelector('.heart-container').addEventListener('click', function() {
+        this.classList.toggle('active');
+    });
+</script>

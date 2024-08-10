@@ -114,19 +114,20 @@
                         <div class="header clearfix">
                             <h3>{{ Auth::user()->name }}</h3>
                             <img src="/storage/users_profile/{{ Auth::user()->photo_profile }}" alt="avatar"
-                                 style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px; object-fit: cover;"
-                                 class="img-fluid profile-img border">
+                                style="min-width: 340px;  min-height: 340px; max-width: 340px; min-height: 340px; object-fit: cover;"
+                                class="img-fluid profile-img border">
                         </div>
                         <!-- Detail -->
                         <div class="detail-clearfix">
                             <ul>
+                                @if (Auth::user()->id_role == 1)
                                 <li>
-                                    <a href="/profile">
+                                    <a href="/profile" class="active">
                                         <i class="flaticon-user"></i>Профиль
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/my_booking" class="active">
+                                    <a href="/my_booking">
                                         <i class="flaticon-house"></i>Мои брони
                                     </a>
                                 </li>
@@ -136,8 +137,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a
-                                        href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
+                                    <a href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
                                         <i class="flaticon-lock"></i>Изменить пароль
                                     </a>
                                 </li>
@@ -146,6 +146,29 @@
                                         <i class="flaticon-logout"></i>Выйти
                                     </a>
                                 </li>
+                                @endif
+                                @if (Auth::user()->id_role == 2)
+                                <li>
+                                    <a href="/profile" class="active">
+                                        <i class="flaticon-user"></i>Профиль
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/my_booking">
+                                        <i class="flaticon-house"></i>Бронирования
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
+                                        <i class="flaticon-lock"></i>Изменить пароль
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('logout') }}" class="border-bto2">
+                                        <i class="flaticon-logout"></i>Выйти
+                                    </a>
+                                </li>
+                                @endif
                             </ul>
                         </div>
 
@@ -153,6 +176,7 @@
                 </div>
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="my-address contact-2">
+                        @if (Auth::user()->id_role == 1)
                         <h3 class="heading-3">Мои брони</h3>
                         <ul class="booking-list">
                             <li>
@@ -171,7 +195,45 @@
                                 </div>
                             </li>
                         </ul>
+                        @endif
                     </div>
+                    @if (Auth::user()->id_role == 2)
+                    <div class="my-address contact-2">
+                        <h3 class="heading-3">Активные брони</h3>
+                        <ul class="booking-list">
+                            <li>
+                                <a href="hall">
+                                    <div class="booking_photo">
+                                        <img src="/images/halls/IMG_5441.jpeg" alt="Фото зала">
+                                    </div>
+                                </a>
+                                <div class="booking_info">
+                                    <h4>Название зала: Зал для конференций</h4>
+                                    <p>Дата бронирования: 2023-07-16</p>
+                                    <p>Время: 10:00 - 14:00</p>
+                                    <a href="/delete_booking">
+                                        <button>Отменить бронь</button>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <h3 class="heading-3">Архив бронирований</h3>
+                    <ul class="booking-list">
+                        <li>
+                            <a href="hall">
+                                <div class="booking_photo">
+                                    <img src="/images/halls/IMG_5441.jpeg" alt="Фото зала">
+                                </div>
+                            </a>
+                            <div class="booking_info">
+                                <h4>Название зала: Зал белый</h4>
+                                <p>Дата бронирования: 2023-02-23</p>
+                                <p>Время: 17:00 - 21:00</p>
+                            </div>
+                        </li>
+                    </ul>
+                    @endif
                 </div>
             </div>
         </div>

@@ -104,6 +104,11 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="/my_booking">
+                                            <i class="flaticon-house"></i>Бронирования
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
                                             <i class="flaticon-lock"></i>Изменить пароль
                                         </a>

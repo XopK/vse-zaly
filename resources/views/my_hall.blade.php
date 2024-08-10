@@ -1,4 +1,10 @@
 <x-layout>
+    <style>
+        form{
+            box-shadow: none;
+            
+        }
+    </style>
     <head>
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
@@ -60,7 +66,7 @@
                 <div class="details-inner">
                     <h3>Редактирование зала</h3>
                     <section class="studio_form">
-                        <div class="col-sm-12 shadow rounded pt-2 pb-2">
+                        <div class="col-sm-12 pt-2 pb-2">
                             <form method="post" action="{{ route('edit_hall', ['hall' => $hall->id]) }} "
                                   id="editStudio"
                                   enctype="multipart/form-data">
