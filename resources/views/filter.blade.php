@@ -1,4 +1,5 @@
 <x-layout>
+	<link rel="stylesheet" href="/css/styles.css">
 	<style>
 		input[type="date"],
 		input[type="time"] {
@@ -40,7 +41,7 @@
 			-webkit-appearance: none;
 			width: 100%;
 			height: 8px;
-			background: #000;
+			background: black;
 			/* Цвет фона ползунка */
 			border-radius: 5px;
 			outline: none;
@@ -51,7 +52,7 @@
 			appearance: none;
 			width: 20px;
 			height: 20px;
-			background: #000;
+			background: black;
 			/* Цвет самого бегунка */
 			cursor: pointer;
 			border-radius: 50%;
@@ -60,13 +61,21 @@
 		input[type="range"]::-moz-range-thumb {
 			width: 20px;
 			height: 20px;
-			background: #000;
+			background: black;
 			/* Цвет самого бегунка */
 			cursor: pointer;
 			border-radius: 50%;
 		}
+
+		.checkbox-label {
+			cursor: pointer;
+		}
+
+		.cd-main-content {
+			background-color: #fff;
+		}
 	</style>
-	<link rel="stylesheet" href="/css/styles.css">
+
 	<main class="cd-main-content" style="margin-top: 120px;">
 		<div class="cd-tab-filter-wrapper">
 			<div class="cd-tab-filter">
@@ -116,7 +125,7 @@
 				<div class="cd-filter-block">
 					<h4>Поиск</h4>
 					<div class="cd-filter-content">
-						<input type="search" placeholder="Напишите зал или студию">
+						<input class="search" type="search" placeholder="Напишите зал или студию">
 					</div> <!-- cd-filter-content -->
 				</div> <!-- cd-filter-block -->
 

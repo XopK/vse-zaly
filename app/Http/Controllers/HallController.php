@@ -192,4 +192,8 @@ class HallController extends Controller
 
         return view('filter', ['halls' => $halls]);
     }
+
+    public function my_halls_profile(){
+        return view("my_halls_profile");
+    }
 }

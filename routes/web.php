@@ -103,6 +103,8 @@ Route::get('/about_studio/{studio}', [StudioController::class, 'about_studio']);
 
 Route::get('/my_halls', [HallController::class, 'my_halls']);
 
+Route::get('/my_halls_profile', [HallController::class, 'my_halls_profile']);
+
 Route::post('/my_halls/create', [HallController::class, 'create_halls'])->name('create_hall');
 
 Route::get('/hall/{hall}', [HallController::class, 'hall_view']);

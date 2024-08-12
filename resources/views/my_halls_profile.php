@@ -1,4 +1,5 @@
-<x-layout>
+
+    <x-layout>
     <style>
         .detail-clearfix {
             border-radius: 4px;
@@ -226,14 +227,14 @@
                                     <div class="booking_photo">
                                         <img src="/images/halls/IMG_5441.jpeg" alt="Фото зала">
                                     </div>
-
+                                    
                                 </a>
                                 <div class="booking_info">
-                                    <h4>Название зала: Зал для конференций</h4>
-                                    <p>Дата бронирования: 2023-07-16</p>
-                                    <p>Время: 10:00 - 14:00</p>
-
-                                </div>
+                                        <h4>Название зала: Зал для конференций</h4>
+                                        <p>Дата бронирования: 2023-07-16</p>
+                                        <p>Время: 10:00 - 14:00</p>
+                                        
+                                    </div>
                                 <div class="heart-container">
                                     <div class="heart"></div>
                                     <p>Удалить из избранного</p>
@@ -247,7 +248,7 @@
     </div>
     <!-- User page end -->
 
-</x-layout>
+    </x-layout>
 <script>
     document.querySelector('.heart-container').addEventListener('click', function() {
         this.classList.toggle('active');

@@ -159,6 +159,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="/my_halls_profile">
+                                        <i class="flaticon-room"></i>Мои залы
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
                                         <i class="flaticon-lock"></i>Изменить пароль
                                     </a>
@@ -211,6 +216,7 @@
                                     <h4>Название зала: Зал для конференций</h4>
                                     <p>Дата бронирования: 2023-07-16</p>
                                     <p>Время: 10:00 - 14:00</p>
+                                    <p>Кто бронировал</p>
                                     <a href="/delete_booking">
                                         <button>Отменить бронь</button>
                                     </a>
@@ -230,6 +236,7 @@
                                 <h4>Название зала: Зал белый</h4>
                                 <p>Дата бронирования: 2023-02-23</p>
                                 <p>Время: 17:00 - 21:00</p>
+                                <p>Кто бронировал</p>
                             </div>
                         </li>
                     </ul>

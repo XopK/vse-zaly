@@ -109,6 +109,11 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="/my_halls_profile">
+                                            <i class="flaticon-room"></i>Мои залы
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}">
                                             <i class="flaticon-lock"></i>Изменить пароль
                                         </a>
@@ -258,7 +263,7 @@
                             <a href="/email_confirm" style="text-decoration: none">
                                 <div class="alert alert-warning mt-4" role="alert">
                                     <strong>Ваша учетная запись не подтверждена.</strong><br>
-                                    Для завершения процесса, пожалуйста, подтвердите
+                                    Для завершения процесса регистрации, пожалуйста, подтвердите
                                     адрес электронной почты, нажав на это сообщение.
                                 </div>
                             </a>
