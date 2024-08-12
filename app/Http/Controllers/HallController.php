@@ -33,7 +33,14 @@ class HallController extends Controller
             'description_hall' => 'required',
             'location_hall' => 'required',
             'terms_hall' => 'required',
-            'step_booking' => 'required|numeric'
+            'step_booking' => 'required|numeric',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i',
+            'price_weekday' => 'required|numeric',
+            'price_weekend' => 'required|numeric',
+            'time_evening' => 'required|date_format:H:i',
+            'price_evening' => 'required|numeric',
+            'max_price' => 'required|numeric',
         ], [
             'name_hall.required' => 'Введите название студии.',
             'area_hall.integer' => 'Введите числовые значения.',
@@ -46,6 +53,20 @@ class HallController extends Controller
             'terms_hall.required' => 'Напишите паравила.',
             'step_booking.integer' => 'Введите числовые значения.',
             'step_booking.required' => 'Выберите шаг.',
+            'start_time.required' => 'Введите время начало работы зала.',
+            'start_time.date_format' => 'Введите верный формат времени.',
+            'end_time.required' => 'Введите время закрытия зала.',
+            'end_time.date_format' => 'Введите верный формат времени.',
+            'price_weekday.required' => 'Введите цену зала.',
+            'price_weekday.numeric' => 'Только числовые значения.',
+            'price_weekend.required' => 'Введите цену зала.',
+            'price_weekend.numeric' => 'Только числовые значения.',
+            'time_evening.required' => 'Введите время для зала.',
+            'time_evening.date_format' => 'Введите верный формат времени.',
+            'price_evening.required' => 'Введите цену зала.',
+            'price_evening.numeric' => 'Только числовые значения.',
+            'max_price.required' => 'Введите цену для зала.',
+            'max_price.numeric' => 'Только числовые значения.',
         ]);
 
         $studio = Auth::user()->studio;
@@ -62,6 +83,13 @@ class HallController extends Controller
             'id_studio' => $studio->id,
             'preview_hall' => $hashFirst,
             'step_booking' => $request->step_booking,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'price_weekday' => $request->price_weekday,
+            'price_weekend' => $request->price_weekend,
+            'time_evening' => $request->time_evening,
+            'price_evening' => $request->price_evening,
+            'max_price' => $request->max_price,
         ]);
 
         PhotoHall::create([
@@ -96,6 +124,13 @@ class HallController extends Controller
             'hall_description' => 'required',
             'hall_terms' => 'required',
             'step_booking' => 'required|numeric',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'price_weekday' => 'required|numeric',
+            'price_weekend' => 'required|numeric',
+            'time_evening' => 'required',
+            'price_evening' => 'required|numeric',
+            'max_price' => 'required|numeric',
         ], [
             'hall_name.required' => 'Введите название зала.',
             'hall_area.required' => 'Введите площадь зала.',
@@ -104,6 +139,20 @@ class HallController extends Controller
             'hall_terms.required' => 'Введите правила зала.',
             'step_booking.required' => 'Введите шаг бронирования.',
             'step_booking.integer' => 'Введите числовые значения.',
+            'start_time.required' => 'Введите время начало работы зала.',
+            'start_time.date_format' => 'Введите верный формат времени.',
+            'end_time.required' => 'Введите время закрытия зала.',
+            'end_time.date_format' => 'Введите верный формат времени.',
+            'price_weekday.required' => 'Введите цену зала.',
+            'price_weekday.numeric' => 'Только числовые значения.',
+            'price_weekend.required' => 'Введите цену зала.',
+            'price_weekend.numeric' => 'Только числовые значения.',
+            'time_evening.required' => 'Введите время для зала.',
+            'time_evening.date_format' => 'Введите верный формат времени.',
+            'price_evening.required' => 'Введите цену зала.',
+            'price_evening.numeric' => 'Только числовые значения.',
+            'max_price.required' => 'Введите цену для зала.',
+            'max_price.numeric' => 'Только числовые значения.',
         ]);
 
         $hall->fill([
@@ -112,6 +161,13 @@ class HallController extends Controller
             'area_hall' => $request->hall_area,
             'rule_hall' => $request->hall_terms,
             'step_booking' => $request->step_booking,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'price_weekday' => $request->price_weekday,
+            'price_weekend' => $request->price_weekend,
+            'time_evening' => $request->time_evening,
+            'price_evening' => $request->price_evening,
+            'max_price' => $request->max_price,
         ]);
 
         if ($hall) {

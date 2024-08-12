@@ -194,7 +194,6 @@ button {
 
 textarea {
     overflow: hidden;
-    resize: none;
 }
 
 button {
@@ -10192,6 +10191,7 @@ a:hover {
 
 .highlight-cell {
     background-color: #689dc1;
+    border: none !important;
 }
 
 .disabled-cell {
@@ -10203,16 +10203,84 @@ a:hover {
 .disabled-past {
     background-color: #eaeaea;
     pointer-events: none;
+    border: none !important;
     opacity: 0.6;
 }
 
 .booked-cell {
     background-color: #f44336; /* Красный фон */
     color: white;
-    text-align: center;
     pointer-events: none; /* Запрет на выбор */
+    border: none !important;
+}
+
+td .price {
+    font-size: 1em;
+    color: #555;
+    text-align: center;
 }
 
 
-/* фильтр */
+/* Контейнер для сердечка */
+.heart-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* Основные стили для сердечка */
+.heart {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    background-color: black;
+    /* Цвет сердечка до изменения */
+    transform: rotate(315deg);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 15px;
+
+}
+
+/* Левая половинка сердечка */
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: black;
+    /* Цвет сердечка до изменения */
+    transition: background-color 0.3s ease;
+}
+
+/* Позиционирование левой половинки */
+.heart::before {
+    top: -12px;
+    left: 0;
+}
+
+/* Позиционирование правой половинки */
+.heart::after {
+    left: 12px;
+    top: 0;
+}
+
+/* Эффект изменения цвета и увеличения при клике */
+.heart-container.active .heart,
+.heart-container:hover .heart {
+    background-color: red;
+    /* Цвет сердечка после изменения */
+    transform: rotate(315deg) scale(1.2);
+    /* Немного увеличиваем сердечко */
+}
+
+.heart-container.active .heart::before,
+.heart-container.active .heart::after,
+.heart-container:hover .heart::before,
+.heart-container:hover .heart::after {
+    background-color: red;
+    /* Цвет сердечка после изменения */
+}
 

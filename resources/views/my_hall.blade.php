@@ -1,8 +1,8 @@
 <x-layout>
     <style>
-        form{
+        form {
             box-shadow: none;
-            
+
         }
     </style>
     <head>
@@ -42,7 +42,7 @@
                     <div class="pricing clearfix">
                         <div class="price">Площадь
                             <span>
-                                {{$hall->area_hall}}
+                                {{$hall->area_hall}} м²
                             </span>
                         </div>
                         <div class="rating">
@@ -152,6 +152,97 @@
                                            min="0.5" max="3" step="0.5" value="{{ $hall->step_booking }}">
                                 </div>
                                 @error('step_booking')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Время начало</label>
+                                    <input type="time" name="start_time" class="form-control"
+                                           value="{{$hall->start_time}}" required>
+                                </div>
+                                @error('start_time')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Время закрытия</label>
+                                    <input type="time" name="end_time" class="form-control"
+                                           value="{{$hall->end_time}}" required>
+                                </div>
+                                @error('end_time')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Цена в будни</label>
+                                    <input type="number" min="0" name="price_weekday" class="form-control"
+                                           value="{{$hall->price_weekday}}" required>
+                                </div>
+                                @error('price_weekday')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Цена в выходные</label>
+                                    <input type="number" min="0" name="price_weekend" class="form-control"
+                                           value="{{$hall->price_weekend}}" required>
+                                </div>
+                                @error('price_weekend')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Время для повышения цены (вечер)</label>
+                                    <input type="time" name="time_evening" class="form-control"
+                                           value="{{$hall->time_evening}}" required>
+                                </div>
+                                @error('time_evening')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Цена вечером</label>
+                                    <input time="number" min="0" name="price_evening" class="form-control"
+                                           value="{{$hall->price_evening}}" required>
+                                </div>
+                                @error('price_evening')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Цена в выходные/вечером</label>
+                                    <input time="number" min="0" name="max_price" class="form-control"
+                                           value="{{$hall->max_price}}" required>
+                                </div>
+                                @error('max_price')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>{{ $message }}</strong>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

@@ -45,7 +45,7 @@
                     <div class="col-lg-12 ">
                         <div class="form-group number">
                             <label>Площадь зала</label>
-                            <input type="number" name="area_hall" class="form-control">
+                            <input type="number" name="area_hall" min="0" class="form-control">
                         </div>
                         @error('area_hall')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -101,8 +101,8 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="col-lg-12">
-                        <div class="form-group subject" style="width: 40%">
+                    <div class="col-lg-5 col-12">
+                        <div class="form-group subject">
                             <label>Шаг бронирования: <span id="step_booking_display"
                                                            class="font-weight-bold">1 час</span></label>
                             <input type="range" id="step_booking_slider" name="step_booking"
@@ -119,6 +119,111 @@
                         </div>
                         @enderror
                     </div>
+                    <div class="col-lg-12 d-flex">
+                        <div class="col-lg-6" style="padding-left: 0">
+                            <div class="form-group subject">
+                                <label>Время начало</label>
+                                <input type="time" min="0" name="start_time" class="form-control" required>
+                            </div>
+                            @error('start_time')
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0">
+                            <div class="form-group subject">
+                                <label>Время закрытия</label>
+                                <input type="time" min="0" name="end_time" class="form-control" required>
+                            </div>
+                            @error('end_time')
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Цена в будни</label>
+                            <input type="number" min="0" name="price_weekday" class="form-control" required>
+                        </div>
+                        @error('price_weekday')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Цена в выходные</label>
+                            <input type="number" min="0" name="price_weekend" class="form-control" required>
+                        </div>
+                        @error('price_weekend')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Время для повышения цены (вечер)</label>
+                            <input type="time" name="time_evening" class="form-control">
+                        </div>
+                        @error('time_evening')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Цена вечером</label>
+                            <input type="number" min="0" name="price_evening" class="form-control">
+                        </div>
+                        @error('price_evening')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Цена в выходные/вечером</label>
+                            <input type="number" min="0" name="max_price" class="form-control">
+                        </div>
+                        @error('max_price')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
                     <div class="col-lg-12 ">
                         <div class="form-group photo">
                             <label>Фотографии зала</label>
@@ -131,6 +236,7 @@
                                 </div>
                             </div>
                         </div>
+
                         @error('photo_hall')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>{{ $message }}</strong>

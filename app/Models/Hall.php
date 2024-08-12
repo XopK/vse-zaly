@@ -18,6 +18,14 @@ class Hall extends Model
         'id_studio',
         'preview_hall',
         'step_booking',
+        'start_time',
+        'end_time',
+        'price_weekday',
+        'price_weekend',
+        'time_evening',
+        'price_evening',
+        'max_price',
+
     ];
 
     public function studio()

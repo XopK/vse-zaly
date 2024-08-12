@@ -56,14 +56,14 @@
 
             </div>
             <div class="modal-footer d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Стоимость: 5000</h5>
+                <h5 class="mb-0">Стоимость: <span id="totalCost">0</span>₽</h5>
                 <div class="modal-buttons">
                     <form action="/booking" method="post" id="bookingForm">
                         @csrf
                         <input type="hidden" name="selectedHall" value="{{$hall->id}}">
                         <input type="hidden" name="selectedDate" id="selectedDate">
                         <input type="hidden" name="selectedTime" id="selectedTime">
-
+                        <input type="hidden" name="totalPrice" id="totalPrice">
                         <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block"><span
                                 class="btn-title">Забронировать</span></button>
 
@@ -79,6 +79,7 @@
 <script>
     var bookings = @json($bookings);
     var stepbooking = @json($hall->step_booking);
+    var hall = @json($hall);
 </script>
 <script src="/js/booking.js"></script>
 

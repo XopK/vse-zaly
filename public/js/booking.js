@@ -41,22 +41,20 @@ $(document).ready(function () {
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
 
         var stepMinutes = stepbooking * 60;  // Переводим шаг из часов в минуты
-        console.log(stepMinutes);
-        var startHour = 9;  // Начало рабочего дня
-        var endHour = 22;   // Конец рабочего дня
+        var startTime = moment(hall.start_time, 'HH:mm');
+        var endTime = moment(hall.end_time, 'HH:mm');
+        var eveningTime = moment(hall.time_evening, 'HH:mm');
 
         // Генерация временных строк с учетом шага
-        for (var time = startHour * 60; time < endHour * 60; time += stepMinutes) {
-            var hour = Math.floor(time / 60);
-            var minutes = time % 60;
-            var timeLabel = (hour < 10 ? '0' : '') + hour + ':' + (minutes < 10 ? '0' : '') + minutes;
+        for (var time = startTime.clone(); time.isBefore(endTime) || time.isSame(endTime); time.add(stepMinutes, 'minutes')) {
 
+            var timeLabel = time.format('HH:mm');
             var row = $('<tr></tr>');
             row.append('<th scope="row" class="sticky-col">' + timeLabel + '</th>');
 
             for (var i = 0; i < 7; i++) {
                 var cell = $('<td data-day-index="' + i + '" data-time="' + timeLabel + '"></td>');
-                var cellDateTime = startOfWeek.clone().add(i, 'days').hour(hour).minute(minutes);
+                var cellDateTime = startOfWeek.clone().add(i, 'days').hour(time.hour()).minute(time.minute());
 
                 // Проверка на забронированность
                 var isBooked = bookings.some(function (booking) {
@@ -65,10 +63,28 @@ $(document).ready(function () {
                     return cellDateTime.isBetween(start, end, null, '[]'); // Включаем обе границы
                 });
 
+                // Логика для заблокированных ячеек
                 if (isBooked) {
                     cell.addClass('booked-cell');
                 } else if (cellDateTime.isBefore(now)) {
                     cell.addClass('disabled-past');
+                } else {
+                    // Если ячейка не заблокирована, добавляем цену
+                    var isWeekend = (i === 5 || i === 6); // Суббота и Воскресенье
+                    var isEvening = time.isSameOrAfter(eveningTime);
+                    var price;
+
+                    if (isWeekend && isEvening) {
+                        price = hall.max_price;
+                    } else if (isWeekend) {
+                        price = hall.price_weekend;
+                    } else if (isEvening) {
+                        price = hall.price_evening;
+                    } else {
+                        price = hall.price_weekday;
+                    }
+
+                    cell.append('<div class="price">' + price + '₽</div>');
                 }
 
                 row.append(cell);
@@ -77,7 +93,6 @@ $(document).ready(function () {
             tbody.append(row);
         }
     }
-
 
     function loadWeek(offset) {
         selectedCells = [];
@@ -93,6 +108,8 @@ $(document).ready(function () {
             $('#selectedDateTime').text('Дата и время: выберите ячейки');
             $('#selectedDate').val('');
             $('#selectedTime').val('');
+            $('#totalPrice').val('0');
+            $('#totalCost').text('0');
             return;
         }
 
@@ -102,13 +119,14 @@ $(document).ready(function () {
             if (!acc[dayIndex]) {
                 acc[dayIndex] = [];
             }
-            acc[dayIndex].push(time);
+            acc[dayIndex].push(cell);
             return acc;
         }, {});
 
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
         var selectedInfo = Object.keys(groupedByDay).map(dayIndex => {
-            var times = groupedByDay[dayIndex];
+            var cells = groupedByDay[dayIndex];
+            var times = cells.map(cell => cell.data('time'));
             times.sort((a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'));
 
             var minTime = times[0];
@@ -118,7 +136,7 @@ $(document).ready(function () {
             var selectedDate = selectedDay.format('DD.MM.YYYY');
 
             return {
-                date: selectedDate, time: minTime + (maxTime ? ' - ' + maxTime : '')
+                date: selectedDate, time: minTime + (maxTime ? ' - ' + maxTime : ''), cells: cells
             };
         });
 
@@ -129,7 +147,17 @@ $(document).ready(function () {
             $('#selectedDate').val(selectedInfo[0].date);
             $('#selectedTime').val(selectedInfo.map(info => info.time).join(', '));
         }
+
+        // Подсчет стоимости
+        var totalCost = selectedCells.reduce((total, cell) => {
+            var price = parseFloat(cell.find('.price').text().replace('₽', ''));
+            return total + price;
+        }, 0);
+
+        $('#totalCost').text(totalCost);
+        $('#totalPrice').val(totalCost);  // Устанавливаем значение скрытого поля
     }
+
 
     function isCellBetweenSelected(cell) {
         if (selectedCells.length < 2) return false;
@@ -240,6 +268,7 @@ $(document).ready(function () {
     });
 
     function clearBookingForm() {
+        $('#totalPrice').val('');
         $('#selectedDate').val('');
         $('#selectedTime').val('');
         $('#selectedDateTime').text('Дата и время: выберите ячейки');

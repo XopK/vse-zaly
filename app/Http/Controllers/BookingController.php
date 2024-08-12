@@ -16,6 +16,7 @@ class BookingController extends Controller
             'selectedHall' => 'required',
             'selectedDate' => 'required',
             'selectedTime' => 'required',
+            'totalPrice' => 'required',
         ]);
 
         $user = Auth::user();
@@ -43,6 +44,7 @@ class BookingController extends Controller
             'id_user' => $user->id,
             'booking_start' => $startDateTime,
             'booking_end' => $endDateTime,
+            'total_price' => $request->totalPrice,
         ]);
 
         if ($booking) {
