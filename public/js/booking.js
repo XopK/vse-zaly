@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $('#peopleCount').change(function () {
+        generateTimeRows(); // Перегенерировать строки времени при изменении количества человек
+    });
     moment.locale('ru');
     var weekOffset = 0;
     var selectedCells = [];
@@ -45,6 +48,9 @@ $(document).ready(function () {
         var endTime = moment(hall.end_time, 'HH:mm');
         var eveningTime = moment(hall.time_evening, 'HH:mm');
 
+        // Получаем выбранное количество человек
+        var peopleCount = parseInt($('#peopleCount').val());
+
         // Генерация временных строк с учетом шага
         for (var time = startTime.clone(); time.isBefore(endTime) || time.isSame(endTime); time.add(stepMinutes, 'minutes')) {
 
@@ -72,19 +78,22 @@ $(document).ready(function () {
                     // Если ячейка не заблокирована, добавляем цену
                     var isWeekend = (i === 5 || i === 6); // Суббота и Воскресенье
                     var isEvening = time.isSameOrAfter(eveningTime);
-                    var price;
+                    var basePrice;
 
                     if (isWeekend && isEvening) {
-                        price = hall.max_price;
+                        basePrice = hall.max_price;
                     } else if (isWeekend) {
-                        price = hall.price_weekend;
+                        basePrice = hall.price_weekend;
                     } else if (isEvening) {
-                        price = hall.price_evening;
+                        basePrice = hall.price_evening;
                     } else {
-                        price = hall.price_weekday;
+                        basePrice = hall.price_weekday;
                     }
 
-                    cell.append('<div class="price">' + price + '₽</div>');
+                    // Увеличиваем базовую цену на количество человек
+                    var finalPrice = basePrice + peopleCount;
+
+                    cell.append('<div class="price">' + finalPrice + ' ₽</div>');
                 }
 
                 row.append(cell);
@@ -93,6 +102,7 @@ $(document).ready(function () {
             tbody.append(row);
         }
     }
+
 
     function loadWeek(offset) {
         selectedCells = [];

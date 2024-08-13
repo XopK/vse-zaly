@@ -10163,6 +10163,7 @@ a:hover {
     left: 0;
     background-color: white; /* чтобы скрыть перекрытие фона при прокрутке */
     z-index: 1; /* чтобы столбец был выше остальных */
+    user-select: none;
 }
 
 .btn-book {
@@ -10218,8 +10219,8 @@ td .price {
     font-size: 1em;
     color: #555;
     text-align: center;
+    user-select: none;
 }
-
 
 /* Контейнер для сердечка */
 .heart-container {

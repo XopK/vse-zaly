@@ -225,6 +225,66 @@
                     </div>
 
                     <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Повышение цены от 2 до 3 на</label>
+                            <input type="number" min="0" name="price_for_two" class="form-control">
+                        </div>
+                        @error('price_for_two')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Повышение цены от 4 до 6 на</label>
+                            <input type="number" min="0" name="price_for_four" class="form-control">
+                        </div>
+                        @error('price_for_four')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Повышение цены от 7 до 9 на</label>
+                            <input type="number" min="0" name="price_for_seven" class="form-control">
+                        </div>
+                        @error('price_for_seven')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <div class="form-group subject">
+                            <label>Повышение цены от 10 и более на</label>
+                            <input type="number" min="0" name="price_for_nine" class="form-control">
+                        </div>
+                        @error('price_for_nine')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-12 ">
                         <div class="form-group photo">
                             <label>Фотографии зала</label>
                             <div class="input-group mb-3">
@@ -274,7 +334,7 @@
                     <div class="col-lg-12">
                         <div class="send-btn">
                             <button type="submit" class="theme-btn btn-style-one"><span
-                                    class="btn-title">Добавить</span></button>
+                                        class="btn-title">Добавить</span></button>
                         </div>
                     </div>
                 </div>
@@ -294,9 +354,9 @@
                         <div class="inner-box">
                             <div class="image-box">
                                 <figure class="image"><a
-                                        href="/my_hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"><img
-                                            src="/storage/photo_halls/{{$hall->preview_hall}}"
-                                            alt="{{$hall->preview_hall}}" title="{{$hall->name_hall}}"></a></figure>
+                                            href="/my_hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"><img
+                                                src="/storage/photo_halls/{{$hall->preview_hall}}"
+                                                alt="{{$hall->preview_hall}}" title="{{$hall->name_hall}}"></a></figure>
                             </div>
                             <div class="lower-box">
                                 <h4>{{$hall->name_hall}}</h4>
@@ -314,7 +374,7 @@
                                 <div class="text text-truncate">{{$hall->description_hall}}</div>
                                 <div class="link-box"><a href="/my_hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"
                                                          class="theme-btn btn-style-three"><span
-                                            class="btn-title">Редактировать зал</span></a></div>
+                                                class="btn-title">Редактировать зал</span></a></div>
                             </div>
                         </div>
                     </div>

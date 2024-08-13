@@ -25,7 +25,10 @@ class Hall extends Model
         'time_evening',
         'price_evening',
         'max_price',
-
+        'price_for_two',
+        'price_for_four',
+        'price_for_seven',
+        'price_for_nine',
     ];
 
     public function studio()

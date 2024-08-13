@@ -226,7 +226,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label>Цена вечером</label>
-                                    <input time="number" min="0" name="price_evening" class="form-control"
+                                    <input type="number" min="0" name="price_evening" class="form-control"
                                            value="{{$hall->price_evening}}" required>
                                 </div>
                                 @error('price_evening')
@@ -239,10 +239,62 @@
                                 @enderror
                                 <div class="form-group">
                                     <label>Цена в выходные/вечером</label>
-                                    <input time="number" min="0" name="max_price" class="form-control"
+                                    <input type="number" min="0" name="max_price" class="form-control"
                                            value="{{$hall->max_price}}" required>
                                 </div>
                                 @error('max_price')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Повышение цены от 2 до 3 на</label>
+                                    <input type="number" min="0" name="price_for_two" class="form-control"
+                                           value="{{$hall->price_for_two}}" required>
+                                </div>
+                                @error('price_for_two')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Повышение цены от 4 до 6 на</label>
+                                    <input type="number" min="0" name="price_for_four" class="form-control"
+                                           value="{{$hall->price_for_four}}" required>
+                                </div>
+                                @error('price_for_four')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Повышение цены от 7 до 9 на</label>
+                                    <input type="number" min="0" name="price_for_seven" class="form-control"
+                                           value="{{$hall->price_for_seven}}" required>
+                                </div>
+                                @error('price_for_seven')
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label>Повышение цены от 10 и более на</label>
+                                    <input type="number" min="0" name="price_for_nine" class="form-control"
+                                           value="{{$hall->price_for_nine}}" required>
+                                </div>
+                                @error('price_for_nine')
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>{{ $message }}</strong>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

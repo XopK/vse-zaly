@@ -41,6 +41,10 @@ class HallController extends Controller
             'time_evening' => 'required|date_format:H:i',
             'price_evening' => 'required|numeric',
             'max_price' => 'required|numeric',
+            'price_for_two' => 'required|numeric',
+            'price_for_four' => 'required|numeric',
+            'price_for_seven' => 'required|numeric',
+            'price_for_nine' => 'required|numeric',
         ], [
             'name_hall.required' => 'Введите название студии.',
             'area_hall.integer' => 'Введите числовые значения.',
@@ -67,6 +71,14 @@ class HallController extends Controller
             'price_evening.numeric' => 'Только числовые значения.',
             'max_price.required' => 'Введите цену для зала.',
             'max_price.numeric' => 'Только числовые значения.',
+            'price_for_two.required' => 'Введите цену для зала.',
+            'price_for_two.numeric' => 'Только числовые значения.',
+            'price_for_four.required' => 'Введите цену для зала.',
+            'price_for_four.numeric' => 'Только числовые значения.',
+            'price_for_seven.required' => 'Введите цену для зала.',
+            'price_for_seven.numeric' => 'Только числовые значения.',
+            'price_for_nine.required' => 'Введите цену для зала.',
+            'price_for_nine.numeric' => 'Только числовые значения.',
         ]);
 
         $studio = Auth::user()->studio;
@@ -90,6 +102,10 @@ class HallController extends Controller
             'time_evening' => $request->time_evening,
             'price_evening' => $request->price_evening,
             'max_price' => $request->max_price,
+            'price_for_two' => $request->price_for_two,
+            'price_for_four' => $request->price_for_four,
+            'price_for_seven' => $request->price_for_seven,
+            'price_for_nine' => $request->price_for_nine,
         ]);
 
         PhotoHall::create([
@@ -131,6 +147,10 @@ class HallController extends Controller
             'time_evening' => 'required',
             'price_evening' => 'required|numeric',
             'max_price' => 'required|numeric',
+            'price_for_two' => 'required|numeric',
+            'price_for_four' => 'required|numeric',
+            'price_for_seven' => 'required|numeric',
+            'price_for_nine' => 'required|numeric',
         ], [
             'hall_name.required' => 'Введите название зала.',
             'hall_area.required' => 'Введите площадь зала.',
@@ -153,6 +173,14 @@ class HallController extends Controller
             'price_evening.numeric' => 'Только числовые значения.',
             'max_price.required' => 'Введите цену для зала.',
             'max_price.numeric' => 'Только числовые значения.',
+            'price_for_two.required' => 'Введите цену для зала.',
+            'price_for_two.numeric' => 'Только числовые значения.',
+            'price_for_four.required' => 'Введите цену для зала.',
+            'price_for_four.numeric' => 'Только числовые значения.',
+            'price_for_seven.required' => 'Введите цену для зала.',
+            'price_for_seven.numeric' => 'Только числовые значения.',
+            'price_for_nine.required' => 'Введите цену для зала.',
+            'price_for_nine.numeric' => 'Только числовые значения.',
         ]);
 
         $hall->fill([
@@ -168,6 +196,10 @@ class HallController extends Controller
             'time_evening' => $request->time_evening,
             'price_evening' => $request->price_evening,
             'max_price' => $request->max_price,
+            'price_for_two' => $request->price_for_two,
+            'price_for_four' => $request->price_for_four,
+            'price_for_seven' => $request->price_for_seven,
+            'price_for_nine' => $request->price_for_nine,
         ]);
 
         if ($hall) {
@@ -249,7 +281,8 @@ class HallController extends Controller
         return view('filter', ['halls' => $halls]);
     }
 
-    public function my_halls_profile(){
+    public function my_halls_profile()
+    {
         return view("my_halls_profile");
     }
 }
