@@ -16,6 +16,6 @@ class BookingHall extends Model
         'booking_end',
         'total_price',
         'status_booking',
-
+        'count_people_booking',
     ];
 }

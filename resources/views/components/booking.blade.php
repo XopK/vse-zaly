@@ -58,33 +58,35 @@
             <div class="modal-footer">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-between">
-                        <div class="col-md-6 col-sm-12">
-                            <h5 class="mb-3">Стоимость: <span id="totalCost">0</span>₽</h5>
+                        <div class="col-md-6 col-sm-12 mb-3">
+                            <select id="peopleCount" class="form-control"
+                                    style="box-shadow: none; border: 1px solid #dee2e6">
+                                <option value="0" data-count="1" selected>для 1</option>
+                                <option value="{{$hall->price_for_two}}" data-count="2">от 2 до 3 человек</option>
+                                <option value="{{$hall->price_for_four}}" data-count="4">от 4 до 6 человек</option>
+                                <option value="{{$hall->price_for_seven}}" data-count="7">от 7 до 9 человек</option>
+                                <option value="{{$hall->price_for_nine}}" data-count="10">от 10 и более</option>
+                            </select>
                         </div>
 
-                        <div class="col-md-6 col-sm-12 text-right">
+                        <div class="col-md-6 col-sm-12">
+                            <h5>Стоимость: <span id="totalCost">0</span>₽</h5>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 text-right ">
                             <form action="/booking" method="post" id="bookingForm">
                                 @csrf
                                 <input type="hidden" name="selectedHall" value="{{$hall->id}}">
                                 <input type="hidden" name="selectedDate" id="selectedDate">
                                 <input type="hidden" name="selectedTime" id="selectedTime">
                                 <input type="hidden" name="totalPrice" id="totalPrice">
+                                <input type="hidden" name="countPeople" id="countPeople">
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>
                                 </button>
                             </form>
                         </div>
 
-                        <div class="col-md-6 col-sm-12">
-                            <select id="peopleCount" class="form-control mb-3"
-                                    style="box-shadow: none; border: 1px solid #dee2e6">
-                                <option value="0">для 1</option>
-                                <option value="{{$hall->price_for_two}}" data-price="2">от 2 до 3 человек</option>
-                                <option value="{{$hall->price_for_four}}" data-price="4">от 4 до 6 человек</option>
-                                <option value="{{$hall->price_for_seven}}" data-price="7">от 7 до 9 человек</option>
-                                <option value="{{$hall->price_for_nine}}" data-price="10">от 10 и более</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
             </div>

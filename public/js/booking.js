@@ -1,7 +1,23 @@
 $(document).ready(function () {
+    // Устанавливаем начальное значение количества человек при загрузке страницы
+    var initialPeopleCount = $('#peopleCount').find('option:selected').data('count');
+    $('#countPeople').val(initialPeopleCount);
+
+    // Выполните все необходимые операции, которые обычно выполняются при изменении выбора
+    generateTimeRows();
+
+    // Остальной ваш код...
     $('#peopleCount').change(function () {
-        generateTimeRows(); // Перегенерировать строки времени при изменении количества человек
+        clearBookingForm();
+        selectedCells = [];
+
+        var peopleCount = $(this).find('option:selected').data('count');
+        $('#countPeople').val(peopleCount);
+
+        $('#weekTable td').removeClass('highlight-cell');
+        generateTimeRows();
     });
+
     moment.locale('ru');
     var weekOffset = 0;
     var selectedCells = [];
@@ -66,7 +82,13 @@ $(document).ready(function () {
                 var isBooked = bookings.some(function (booking) {
                     var start = moment(booking.booking_start);
                     var end = moment(booking.booking_end);
-                    return cellDateTime.isBetween(start, end, null, '[]'); // Включаем обе границы
+
+                    // Если текущее время является концом брони, не закрашиваем ячейку
+                    if (cellDateTime.isSame(end)) {
+                        return false;
+                    }
+
+                    return cellDateTime.isBetween(start, end, null, '[)');
                 });
 
                 // Логика для заблокированных ячеек
@@ -140,7 +162,19 @@ $(document).ready(function () {
             times.sort((a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'));
 
             var minTime = times[0];
-            var maxTime = times.length > 1 ? times[times.length - 1] : null;
+            var maxTime = times.length > 1 ? times[times.length - 1] : minTime;
+
+            // Преобразуем maxTime в момент, если оно существует
+            var maxTimeMoment = moment(maxTime, 'HH:mm');
+
+            // Рассчитываем дополнительное время в зависимости от шага бронирования
+            var additionalMinutes = stepbooking * 60; // умножаем шаг на 60, чтобы получить минуты
+
+            // Если выбрана только одна ячейка, добавляем шаг к minTime (и maxTime)
+            maxTimeMoment.add(additionalMinutes, 'minutes');
+
+            // Обновляем maxTime для отображения
+            maxTime = maxTimeMoment.format('HH:mm');
 
             var selectedDay = startOfWeek.clone().add(dayIndex, 'days');
             var selectedDate = selectedDay.format('DD.MM.YYYY');
@@ -278,7 +312,9 @@ $(document).ready(function () {
     });
 
     function clearBookingForm() {
+        $('#totalCost').text('0');
         $('#totalPrice').val('');
+        $('#countPeople').val('');
         $('#selectedDate').val('');
         $('#selectedTime').val('');
         $('#selectedDateTime').text('Дата и время: выберите ячейки');

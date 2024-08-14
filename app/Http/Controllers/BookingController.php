@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
-use App\View\Components\booking;
+use App\Models\Hall;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +17,7 @@ class BookingController extends Controller
             'selectedDate' => 'required',
             'selectedTime' => 'required',
             'totalPrice' => 'required',
+            'countPeople' => 'required',
         ]);
 
         $user = Auth::user();
@@ -39,18 +40,94 @@ class BookingController extends Controller
             return back()->withErrors(['startandend' => 'Ошибка в формате времени или даты']);
         }
 
-        $booking = BookingHall::create([
-            'id_hall' => $request->selectedHall,
-            'id_user' => $user->id,
-            'booking_start' => $startDateTime,
-            'booking_end' => $endDateTime,
-            'total_price' => $request->totalPrice,
-        ]);
+        $checking = $this->checkUserBooking($request, $startDateTime, $endDateTime);
 
-        if ($booking) {
-            return redirect('/')->with('succes', 'Успешное бронирование!');
+
+        if ($checking) {
+            BookingHall::create([
+                'id_hall' => $request->selectedHall,
+                'id_user' => $user->id,
+                'booking_start' => $startDateTime,
+                'booking_end' => $endDateTime,
+                'total_price' => $request->totalPrice,
+                'count_people_booking' => $request->countPeople,
+            ]);
+
+            return redirect('/')->with('success', 'Успешное бронирование!');
         } else {
             return back()->with('error', 'Ошибка бронирования!');
         }
     }
+
+    private function checkUserBooking($request, $startDateTime, $endDateTime)
+    {
+        $hall = Hall::find($request->selectedHall);
+
+        $existingBookingHall = BookingHall::where('id_hall', $request->selectedHall)
+            ->where(function ($query) use ($startDateTime, $endDateTime) {
+                $query->where(function ($query) use ($startDateTime, $endDateTime) {
+                    $query->where('booking_start', '<', $endDateTime)
+                        ->where('booking_end', '>', $startDateTime);
+                });
+            })->first();
+
+        if ($existingBookingHall) {
+            return false;
+        }
+
+        $totalPrice = 0;
+        $stepBooking = $hall->step_booking * 60;
+        $currentDateTime = $startDateTime->copy();
+        $peopleCount = $request->input('countPeople');
+
+
+        switch ($peopleCount) {
+            case 2:
+                $peoplePrice = $hall->price_for_two;
+                break;
+            case 4:
+                $peoplePrice = $hall->price_for_four;
+                break;
+            case 7:
+                $peoplePrice = $hall->price_for_seven;
+                break;
+            case 10:
+                $peoplePrice = $hall->price_for_nine;
+                break;
+            default:
+                $peoplePrice = 0;
+                break;
+        }
+
+        while ($currentDateTime->lt($endDateTime)) {
+            $isWeekend = in_array($currentDateTime->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
+            $isEvening = $currentDateTime->hour >= $hall->time_evening;
+
+            if ($isWeekend && $isEvening) {
+                $basePrice = $hall->max_price;
+            } elseif ($isWeekend) {
+                $basePrice = $hall->price_weekend;
+            } elseif ($isEvening) {
+                $basePrice = $hall->price_evening;
+            } else {
+                $basePrice = $hall->price_weekday;
+            }
+
+
+            $finalPrice = $basePrice + $peoplePrice;
+
+
+            $totalPrice += $finalPrice;
+
+
+            $currentDateTime->addMinutes($stepBooking);
+        }
+
+        if ($totalPrice != $request->totalPrice) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
