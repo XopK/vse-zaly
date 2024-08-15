@@ -77,11 +77,23 @@ class BookingController extends Controller
 
         $totalPrice = 0;
         $stepBooking = $hall->step_booking * 60;
-        $currentDateTime = $startDateTime->copy();
-        $peopleCount = $request->input('countPeople');
+
+        $timezone = 'Asia/Yekaterinburg';
+
+        $selectedDate = $request->selectedDate;
+        $selectedTime = $request->selectedTime;
+
+        list($startTime, $endTime) = explode(' - ', $selectedTime);
+
+        $startDateTime = Carbon::createFromFormat('d.m.Y H:i', "{$selectedDate} {$startTime}", $timezone);
+        $endDateTime = Carbon::createFromFormat('d.m.Y H:i', "{$selectedDate} {$endTime}", $timezone);
+
+        if ($endDateTime->lt($startDateTime)) {
+            $endDateTime->addDay();
+        }
 
 
-        switch ($peopleCount) {
+        switch ($request->countPeople) {
             case 2:
                 $peoplePrice = $hall->price_for_two;
                 break;
@@ -99,7 +111,10 @@ class BookingController extends Controller
                 break;
         }
 
+        // Цикл расчета стоимости бронирования
+        $currentDateTime = $startDateTime->copy();
         while ($currentDateTime->lt($endDateTime)) {
+
             $isWeekend = in_array($currentDateTime->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
             $isEvening = $currentDateTime->hour >= $hall->time_evening;
 
@@ -113,21 +128,18 @@ class BookingController extends Controller
                 $basePrice = $hall->price_weekday;
             }
 
-
             $finalPrice = $basePrice + $peoplePrice;
-
 
             $totalPrice += $finalPrice;
 
-
             $currentDateTime->addMinutes($stepBooking);
         }
-
-        if ($totalPrice != $request->totalPrice) {
+        if ($totalPrice != (float)$request->totalPrice) {
             return false;
         }
 
         return true;
     }
+
 
 }
