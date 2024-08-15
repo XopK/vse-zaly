@@ -12,8 +12,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('bookings:archive')->daily();
+        $schedule->command('bookings:archive')->hourly();
     }
+
     /**
      * Register the commands for the application.
      */
