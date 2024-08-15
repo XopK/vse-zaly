@@ -25,7 +25,7 @@
 
         .booking_photo {
             max-width: 240px;
-            max-height: 240px;
+            max-height: 270px;
             padding-right: 20px;
         }
 
@@ -75,39 +75,63 @@
         <div class="my-address contact-2">
             <h3 class="heading-3">Активные брони</h3>
             <ul class="booking-list">
-                <li>
-                    <a href="hall">
-                        <div class="booking_photo">
-                            <img src="/images/halls/IMG_5441.jpeg" alt="Фото зала">
-                        </div>
-                    </a>
-                    <div class="booking_info">
-                        <h4>Название зала: Зал для конференций</h4>
-                        <p>Дата бронирования: 2023-07-16</p>
-                        <p>Время: 10:00 - 14:00</p>
-                        <p>Кто бронировал</p>
-                        <a href="/delete_booking">
-                            <button>Отменить бронь</button>
+                @forelse($active_bookings as $active)
+                    <li>
+                        <a href="/hall/{{$active->hall->id}}-{{Str::slug($active->hall->name_hall)}}">
+                            <div class="booking_photo">
+                                <img src="/storage/photo_halls/{{$active->hall->preview_hall}}"
+                                     alt="{{$active->hall->preview_hall}}" title="{{$active->hall->name_hall}}">
+                            </div>
                         </a>
+                        <div class="booking_info">
+                            <h4>{{$active->hall->name_hall}}</h4>
+                            <p>Дата бронирования: {{ date('d.m.Y', strtotime($active->booking_start)) }}</p>
+                            <p>Время бронирования: {{ date('H:i', strtotime($active->booking_start)) }}
+                                - {{ date('H:i', strtotime($active->booking_end)) }}</p>
+                            <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($active->created_at)) }}</p>
+                            <p><strong>{{$active->user->name}} (<a
+                                        href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
+                            </p>
+
+                            <a href="/delete_booking">
+                                <button>Отменить бронь</button>
+                            </a>
+                        </div>
+                    </li>
+                @empty
+                    <div class="alert alert-warning" role="alert">
+                        У вас нет активных броней
                     </div>
-                </li>
+                @endforelse
             </ul>
         </div>
         <h3 class="heading-3">Архив бронирований</h3>
         <ul class="booking-list">
-            <li>
-                <a href="hall">
-                    <div class="booking_photo">
-                        <img src="/images/halls/IMG_5441.jpeg" alt="Фото зала">
+            @forelse($archived_bookings as $archive)
+                <li>
+                    <a href="/hall/{{$archive->hall->id}}-{{Str::slug($archive->hall->name_hall)}}">
+                        <div class="booking_photo">
+                            <img src="/storage/photo_halls/{{$archive->hall->preview_hall}}"
+                                 alt="{{$archive->hall->preview_hall}}" title="{{$archive->hall->name_hall}}">
+                        </div>
+                    </a>
+                    <div class="booking_info">
+                        <h4>{{$archive->hall->name_hall}}</h4>
+                        <p>Дата бронирования: {{ date('d.m.Y', strtotime($archive->booking_start)) }}</p>
+                        <p>Время бронирования: {{ date('H:i', strtotime($archive->booking_start)) }}
+                            - {{ date('H:i', strtotime($archive->booking_end)) }}</p>
+                        <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($archive->created_at)) }}</p>
+                        <p><strong>{{$archive->user->name}} (<a
+                                    href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
+                        </p>
                     </div>
-                </a>
-                <div class="booking_info">
-                    <h4>Название зала: Зал белый</h4>
-                    <p>Дата бронирования: 2023-02-23</p>
-                    <p>Время: 17:00 - 21:00</p>
-                    <p>Кто бронировал</p>
+                </li>
+            @empty
+                <div class="alert alert-warning" role="alert">
+                    У вас нет архивных броней
                 </div>
-            </li>
+            @endforelse
+
         </ul>
     @endif
     <!-- User page end -->

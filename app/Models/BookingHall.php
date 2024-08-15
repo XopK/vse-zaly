@@ -16,6 +16,38 @@ class BookingHall extends Model
         'booking_end',
         'total_price',
         'status_booking',
+        'is_archive',
         'count_people_booking',
     ];
+
+    protected $dates = ['booking_start', 'booking_end'];
+
+    public function hall()
+    {
+        return $this->belongsTo(Hall::class, 'id_hall');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function is_expired()
+    {
+
+        if ($this->booking_end instanceof \Carbon\Carbon) {
+            return $this->booking_end->isPast();
+        } else {
+            $bookingEnd = \Carbon\Carbon::parse($this->booking_end);
+            return $bookingEnd->isPast();
+        }
+    }
+
+    public function update_booking()
+    {
+        if ($this->is_expired() && $this->is_archive == 0) {
+            $this->is_archive = 1;
+            $this->save();
+        }
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VerfyEmail;
+use App\Models\BookingHall;
 use App\Models\User;
 use App\Traits\PhoneNormalizerTrait;
 use App\Traits\putSocialLinksTrait;
@@ -166,5 +167,21 @@ class UserController extends Controller
             Session::forget('new_email');
             return redirect()->back()->with('error_verify', 'Неверный код верификации!');
         }
+    }
+
+    public function my_booking()
+    {
+        $userId = Auth::user()->id;
+
+        $booking_halls = BookingHall::whereHas('hall.studio', function ($query) use ($userId) {
+            $query->where('id_user', $userId);
+        })->with('hall.studio', 'user')->get();
+
+        $booking_halls->each->update_booking();
+
+        $activeBookings = $booking_halls->where('is_archive', 0);
+        $archivedBookings = $booking_halls->where('is_archive', 1);
+
+        return view('my_booking', ['active_bookings' => $activeBookings, 'archived_bookings' => $archivedBookings]);
     }
 }

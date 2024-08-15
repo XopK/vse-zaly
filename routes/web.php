@@ -57,10 +57,6 @@ Route::get('/email_confirm', function () {
     return view('email_verified');
 });
 
-Route::get('/my_booking', function () {
-    return view('my_booking');
-});
-
 Route::get('/favourite_properties', function () {
     return view('favourite_properties');
 });
@@ -68,6 +64,8 @@ Route::get('/favourite_properties', function () {
 Route::get('/change_password', function () {
     return view('change_password');
 });
+
+Route::get('/my_booking', [UserController::class, 'my_booking'])->name('my_booking');
 
 Route::post('/sign_up', [AuthController::class, 'sign_up'])->name('signup');
 
