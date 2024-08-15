@@ -112,6 +112,33 @@
                             </div>
                             @enderror
                             <div class="form-group">
+                                <label class="font-weight-bold">Пароль <span class="text-danger">*</span></label>
+                                <input type="password" name="signuppassword" id="signuppassword"
+                                       class="form-control" required>
+                            </div>
+                            @error('signuppassword')
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @enderror
+                            <div class="form-group">
+                                <label class="font-weight-bold">Подтвердите пароль <span
+                                        class="text-danger">*</span></label>
+                                <input type="password" name="signupcpassword" id="signupcpassword"
+                                       class="form-control" required>
+                            </div>
+                            @error('signupcpassword')
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @enderror
+                            <div class="form-group">
                                 <label class="font-weight-bold">Telegram</label>
                                 <input type="text" name="tg" value="{{ old('tg') }}"
                                        id="signuptg" class="form-control">
@@ -143,33 +170,6 @@
                                        id="signupinst" class="form-control">
                             </div>
                             @error('inst')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @enderror
-                            <div class="form-group">
-                                <label class="font-weight-bold">Пароль <span class="text-danger">*</span></label>
-                                <input type="password" name="signuppassword" id="signuppassword"
-                                       class="form-control" required>
-                            </div>
-                            @error('signuppassword')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            @enderror
-                            <div class="form-group">
-                                <label class="font-weight-bold">Подтвердите пароль <span
-                                        class="text-danger">*</span></label>
-                                <input type="password" name="signupcpassword" id="signupcpassword"
-                                       class="form-control" required>
-                            </div>
-                            @error('signupcpassword')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
