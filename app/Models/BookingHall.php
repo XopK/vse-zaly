@@ -22,6 +22,13 @@ class BookingHall extends Model
 
     protected $dates = ['booking_start', 'booking_end'];
 
+    protected static function booted()
+    {
+        static::created(function ($booking) {
+            $booking->hall->increment('count_booking');
+        });
+    }
+
     public function hall()
     {
         return $this->belongsTo(Hall::class, 'id_hall');

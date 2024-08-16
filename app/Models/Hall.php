@@ -29,6 +29,7 @@ class Hall extends Model
         'price_for_four',
         'price_for_seven',
         'price_for_nine',
+        'count_booking',
     ];
 
     public function studio()

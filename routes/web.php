@@ -10,6 +10,7 @@ use App\Http\Controllers\StudioController;
 use App\Http\Controllers\HallController;
 use App\Http\Controllers\SmsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PartnerController;
 use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -101,7 +102,7 @@ Route::get('/about_studio/{studio}', [StudioController::class, 'about_studio']);
 
 Route::get('/my_halls', [HallController::class, 'my_halls']);
 
-Route::get('/my_halls_profile', [HallController::class, 'my_halls_profile']);
+Route::get('/my_halls_profile', [PartnerController::class, 'my_halls_profile']);
 
 Route::post('/my_halls/create', [HallController::class, 'create_halls'])->name('create_hall');
 

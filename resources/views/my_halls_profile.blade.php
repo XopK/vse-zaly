@@ -114,26 +114,31 @@
         }
     </style>
     <div class="my-address contact-2">
-        <h3 class="heading-3">Избранные залы</h3>
+        <h3 class="heading-3">Мои залы</h3>
         <ul class="booking-list">
-            <li>
-                <a href="hall">
-                    <div class="booking_photo">
-                        <img src="/images/halls/IMG_5441.jpeg" alt="Фото зала">
+            @forelse($halls as $hall)
+                <li>
+                    <a href="/my_hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}">
+                        <div class="booking_photo">
+                            <img src="/storage/photo_halls/{{$hall->preview_hall}}" alt="{{$hall->preview_hall}}"
+                                 title="{{$hall->name_hall}}">
+                        </div>
+
+                    </a>
+                    <div class="booking_info">
+                        <h4>{{$hall->name_hall}}</h4>
+                        <p>Всего бронировали: {{$hall->count_booking}}</p>
+                        <p>Время: 10:00 - 14:00</p>
+
                     </div>
+                    {{--<div class="heart-container">
+                        <div class="heart"></div>
+                        <p>Удалить из избранного</p>
+                    </div>--}}
+                </li>
+            @empty
+            @endforelse
 
-                </a>
-                <div class="booking_info">
-                    <h4>Название зала: Зал для конференций</h4>
-                    <p>Дата бронирования: 2023-07-16</p>
-                    <p>Время: 10:00 - 14:00</p>
-
-                </div>
-                <div class="heart-container">
-                    <div class="heart"></div>
-                    <p>Удалить из избранного</p>
-                </div>
-            </li>
         </ul>
     </div>
 </x-profile>

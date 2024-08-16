@@ -160,7 +160,7 @@
                                 </div>
                                 @enderror
                                 <div class="form-group">
-                                    <label>Время начало</label>
+                                    <label>Время открытия</label>
                                     <input type="time" name="start_time" class="form-control"
                                            value="{{$hall->start_time}}" required>
                                 </div>

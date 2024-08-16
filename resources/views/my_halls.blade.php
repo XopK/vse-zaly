@@ -122,7 +122,7 @@
                     <div class="col-lg-12 d-flex">
                         <div class="col-lg-6" style="padding-left: 0">
                             <div class="form-group subject">
-                                <label>Время начало</label>
+                                <label>Время открытия</label>
                                 <input type="time" min="0" name="start_time" class="form-control" required>
                             </div>
                             @error('start_time')

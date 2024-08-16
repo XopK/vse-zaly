@@ -71,9 +71,11 @@ class BookingController extends Controller
                 });
             })->first();
 
+
         if ($existingBookingHall) {
             return false;
         }
+
 
         $totalPrice = 0;
         $stepBooking = $hall->step_booking * 60;
@@ -113,10 +115,11 @@ class BookingController extends Controller
 
         // Цикл расчета стоимости бронирования
         $currentDateTime = $startDateTime->copy();
-        while ($currentDateTime->lt($endDateTime)) {
+        $eveningStartTime = $currentDateTime->copy()->setTimeFromTimeString($hall->time_evening);
 
+        while ($currentDateTime->lt($endDateTime)) {
             $isWeekend = in_array($currentDateTime->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
-            $isEvening = $currentDateTime->hour >= $hall->time_evening;
+            $isEvening = $currentDateTime->gt($eveningStartTime) || $currentDateTime->copy()->addMinutes($stepBooking)->gt($eveningStartTime);
 
             if ($isWeekend && $isEvening) {
                 $basePrice = $hall->max_price;
@@ -129,10 +132,14 @@ class BookingController extends Controller
             }
 
             $finalPrice = $basePrice + $peoplePrice;
-
             $totalPrice += $finalPrice;
 
             $currentDateTime->addMinutes($stepBooking);
+
+
+            if ($currentDateTime->toDateString() !== $startDateTime->toDateString()) {
+                $eveningStartTime->addDay();
+            }
         }
         if ($totalPrice != (float)$request->totalPrice) {
             return false;

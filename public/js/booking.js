@@ -314,7 +314,6 @@ $(document).ready(function () {
     function clearBookingForm() {
         $('#totalCost').text('0');
         $('#totalPrice').val('');
-        $('#countPeople').val('');
         $('#selectedDate').val('');
         $('#selectedTime').val('');
         $('#selectedDateTime').text('Дата и время: выберите ячейки');
