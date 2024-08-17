@@ -51,7 +51,7 @@
 
                                     <li><a href="/about">О нас</a></li>
 
-                                    <li><a href="/terms">Правила залов</a></li>
+                                    <!-- <li><a href="/terms">Правила залов</a></li> -->
 
                                     <li><a href="/halls">Залы</a></li>
 
@@ -140,7 +140,7 @@
 
                                                 <li><a href="/about">О нас</a></li>
 
-                                                <li><a href="/terms">Правила залов</a></li>
+                                                <!-- <li><a href="/terms">Правила залов</a></li> -->
 
                                                 <li><a href="/halls">Залы</a></li>
 
@@ -156,7 +156,7 @@
                                                 </li>
                                                 <li class="phone"><a href="tel:+7 917 753 2370">+7 917 753 2370</a>
                                                 </li>
-                                                <li class="email"><a href="mailto:vse-zaly@yandex.ru">vse-zaly@yandex.ru</a></li>
+                                                <li class="email"><a href="mailto:no-reply@vsezaly.ru">no-reply@vsezaly.ru</a></li>
                                                 <li class="social-links">
                                                     <a href="#"><span class="fab fa-instagram"></span></a>
                                                     <a href="#"><span class="fab fa-telegram"></span></a>
@@ -199,7 +199,7 @@
                     <div class="inner clearfix">
                         <div class="copyright">&copy; 2024 Все залы - Все права защищены</div>
                         <div class="bottom-links">
-                            <a href="#">Пользовательское соглашение</a> &ensp;|&ensp; <a href="#">Политика
+                            <a href="/terms">Пользовательское соглашение</a> &ensp;|&ensp; <a href="#">Политика
                                 конфиденциальности</a>
                         </div>
                     </div>

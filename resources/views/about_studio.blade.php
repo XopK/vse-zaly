@@ -5,6 +5,13 @@
             display: flex;
             margin: 0 auto;
         }
+
+        .lower-text h3 {
+            text-align: left;
+            font-size: 18px;
+            color: black;
+        }
+    
     </style>
     <!-- Banner Section -->
     <section class="page-banner">
@@ -59,36 +66,36 @@
     <!--Facts Section-->
     <div class="studio_halls">
         @forelse($studio_info->halls as $hall)
-            <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                 data-wow-duration="1500ms">
-                <div class="inner-box">
-                    <div class="image-box">
-                        <figure class="image"><a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"><img
-                                    src="/storage/photo_halls/{{$hall->preview_hall}}" alt="{{$hall->preview_hall}}"
-                                    title="{{$hall->name_hall}}"></a>
-                        </figure>
+        <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+            data-wow-duration="1500ms">
+            <div class="inner-box">
+                <div class="image-box">
+                    <figure class="image"><a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"><img
+                                src="/storage/photo_halls/{{$hall->preview_hall}}" alt="{{$hall->preview_hall}}"
+                                title="{{$hall->name_hall}}"></a>
+                    </figure>
+                </div>
+                <div class="lower-box">
+                    <h4>{{$hall->name_hall}}</h4>
+                    <div class="pricing clearfix">
+                        <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
+                        <div class="rating">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
                     </div>
-                    <div class="lower-box">
-                        <h4>{{$hall->name_hall}}</h4>
-                        <div class="pricing clearfix">
-                            <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
-                            <div class="rating">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                        </div>
 
-                        <div class="text text-truncate">{{$hall->description_hall}}</div>
-                        <div class="link-box"><a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"
-                                                 class="theme-btn btn-style-three"><span
-                                    class="btn-title">Просмотреть</span></a>
-                        </div>
+                    <div class="text text-truncate">{{$hall->description_hall}}</div>
+                    <div class="link-box"><a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"
+                            class="theme-btn btn-style-three"><span
+                                class="btn-title">Просмотреть</span></a>
                     </div>
                 </div>
             </div>
+        </div>
         @empty
         @endforelse
     </div>
@@ -178,8 +185,20 @@
         </div>
     </section> --}}
 
+    <div class="auto-container" style="margin-top: 50px;">
+        <div class="sec-title centered">
+            <h2>Контакты студии</h2>
+            <div class="lower-text" style="font-size: 24px;">
+                <h3>адрес студии</h3>
+                <h3><a href="tel:+7 917 753 2370">номер студии</a></h3>
+                <h3><a href="mailto:no-reply@vsezaly.ru">почта студии</a></h3>
+
+            </div>
+        </div>
+    </div>
+
     <!--Testimonials Section-->
-    <section class="testimonials-section">
+    <!-- <section class="testimonials-section">
         <div class="circles-two">
             <div class="c-1"></div>
             <div class="c-2"></div>
@@ -377,5 +396,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </x-layout>
