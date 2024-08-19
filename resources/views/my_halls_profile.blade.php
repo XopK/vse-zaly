@@ -115,6 +115,10 @@
     </style>
     <div class="my-address contact-2">
         <h3 class="heading-3">Мои залы</h3>
+        <div class="d-flex justify-content-between">
+            <h5 class="heading-3">Общий доход: {{$sum_income}} ₽</h5>
+            <h5 class="heading-3">Кол-во бронирований: {{$total_count_booking}}</h5>
+        </div>
         <ul class="booking-list">
             @forelse($halls as $hall)
                 <li>
@@ -128,8 +132,8 @@
                     <div class="booking_info">
                         <h4>{{$hall->name_hall}}</h4>
                         <p>Всего бронировали: {{$hall->count_booking}}</p>
-                        <p>Время: 10:00 - 14:00</p>
-
+                        <p>Доход: {{$hall->total_income}} ₽</p>
+                        <p>Просмотры: {{$hall->view_count    }}</p>
                     </div>
                     {{--<div class="heart-container">
                         <div class="heart"></div>

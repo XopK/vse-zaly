@@ -11,7 +11,9 @@ class PartnerController extends Controller
     public function my_halls_profile()
     {
         $halls = Hall::where('id_studio', Auth::user()->studio->id)->get();
+        $sum_income = $halls->sum('total_income');
+        $total_count_booking = $halls->sum('count_booking');
 
-        return view("my_halls_profile", ['halls' => $halls]);
+        return view("my_halls_profile", ['halls' => $halls, 'sum_income' => $sum_income, 'total_count_booking' => $total_count_booking]);
     }
 }

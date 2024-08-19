@@ -29,6 +29,13 @@ class BookingHall extends Model
         });
     }
 
+    public function income($money)
+    {
+        $hall = $this->hall;
+        $hall->total_income += $money;
+        $hall->save();
+    }
+
     public function hall()
     {
         return $this->belongsTo(Hall::class, 'id_hall');
@@ -41,7 +48,6 @@ class BookingHall extends Model
 
     public function is_expired()
     {
-
         if ($this->booking_end instanceof \Carbon\Carbon) {
             return $this->booking_end->isPast();
         } else {

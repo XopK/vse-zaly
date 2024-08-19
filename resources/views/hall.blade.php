@@ -1,5 +1,5 @@
 <x-layout>
-    
+
     <style>
         svg {
             cursor: pointer;
@@ -20,7 +20,7 @@
             display: none;
         }
 
-        #checkbox:checked+label svg {
+        #checkbox:checked + label svg {
             #heart {
                 transform: scale(.2);
                 fill: #E2264D;
@@ -295,53 +295,58 @@
             <div class="upper-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
 
                 <div class="upper-inner">
-                    <div class="stfu">
-                        <input type="checkbox" id="checkbox" />
-                        <label for="checkbox">
-                            <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
-                                <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
-                                    <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
-                                    <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
+                    @if(Auth::user())
+                        <div class="stfu">
+                            <input type="checkbox" id="checkbox"/>
+                            <label for="checkbox">
+                                <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+                                        <path
+                                            d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z"
+                                            id="heart" fill="#AAB8C2"/>
+                                        <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5"/>
 
-                                    <g id="grp7" opacity="0" transform="translate(7 6)">
-                                        <circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2" />
-                                        <circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2" />
-                                    </g>
+                                        <g id="grp7" opacity="0" transform="translate(7 6)">
+                                            <circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2"/>
+                                            <circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2"/>
+                                        </g>
 
-                                    <g id="grp6" opacity="0" transform="translate(0 28)">
-                                        <circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2" />
-                                        <circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2" />
-                                    </g>
+                                        <g id="grp6" opacity="0" transform="translate(0 28)">
+                                            <circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2"/>
+                                            <circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2"/>
+                                        </g>
 
-                                    <g id="grp3" opacity="0" transform="translate(52 28)">
-                                        <circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2" />
-                                        <circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2" />
-                                    </g>
+                                        <g id="grp3" opacity="0" transform="translate(52 28)">
+                                            <circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2"/>
+                                            <circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2"/>
+                                        </g>
 
-                                    <g id="grp2" opacity="0" transform="translate(44 6)">
-                                        <circle id="oval2" fill="#CC8EF5" cx="5" cy="6" r="2" />
-                                        <circle id="oval1" fill="#CC8EF5" cx="2" cy="2" r="2" />
-                                    </g>
+                                        <g id="grp2" opacity="0" transform="translate(44 6)">
+                                            <circle id="oval2" fill="#CC8EF5" cx="5" cy="6" r="2"/>
+                                            <circle id="oval1" fill="#CC8EF5" cx="2" cy="2" r="2"/>
+                                        </g>
 
-                                    <g id="grp5" opacity="0" transform="translate(14 50)">
-                                        <circle id="oval1" fill="#91D2FA" cx="6" cy="5" r="2" />
-                                        <circle id="oval2" fill="#91D2FA" cx="2" cy="2" r="2" />
-                                    </g>
+                                        <g id="grp5" opacity="0" transform="translate(14 50)">
+                                            <circle id="oval1" fill="#91D2FA" cx="6" cy="5" r="2"/>
+                                            <circle id="oval2" fill="#91D2FA" cx="2" cy="2" r="2"/>
+                                        </g>
 
-                                    <g id="grp4" opacity="0" transform="translate(35 50)">
-                                        <circle id="oval1" fill="#F48EA7" cx="6" cy="5" r="2" />
-                                        <circle id="oval2" fill="#F48EA7" cx="2" cy="2" r="2" />
-                                    </g>
+                                        <g id="grp4" opacity="0" transform="translate(35 50)">
+                                            <circle id="oval1" fill="#F48EA7" cx="6" cy="5" r="2"/>
+                                            <circle id="oval2" fill="#F48EA7" cx="2" cy="2" r="2"/>
+                                        </g>
 
-                                    <g id="grp1" opacity="0" transform="translate(24)">
-                                        <circle id="oval1" fill="#9FC7FA" cx="2.5" cy="3" r="2" />
-                                        <circle id="oval2" fill="#9FC7FA" cx="7.5" cy="2" r="2" />
+                                        <g id="grp1" opacity="0" transform="translate(24)">
+                                            <circle id="oval1" fill="#9FC7FA" cx="2.5" cy="3" r="2"/>
+                                            <circle id="oval2" fill="#9FC7FA" cx="7.5" cy="2" r="2"/>
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
-                        </label>
-                        <label for="checkbox">Добавить в избранное</label>
-                    </div>
+                                </svg>
+                            </label>
+                            <label for="checkbox">Добавить в избранное</label>
+                        </div>
+                    @else
+                    @endif
                     <h2>{{$hall->name_hall}}</h2>
                     <div class="pricing clearfix">
                         <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
@@ -358,13 +363,21 @@
                     </div>
                     <div class="text">
                         <p><i class="fa fa-map-marker" aria-hidden="true"
-                                style="margin-right: 10px"></i>{{$hall->address_hall}} </p>
+                              style="margin-right: 10px"></i>{{$hall->address_hall}} </p>
                     </div>
-                    <div class="col-xl-3" style="padding: 0">
-                        <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
-                            data-target="#booking"><span
-                                class="btn-title">Забронировать</span></button>
-                    </div>
+                    @if(Auth::user())
+                        <div class="col-xl-3" style="padding: 0">
+                            <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
+                                    data-target="#booking"><span
+                                    class="btn-title">Забронировать</span></button>
+                        </div>
+                    @else
+                        <div class="col-xl-3" style="padding: 0">
+                            <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
+                                    data-target="#logModal"><span
+                                    class="btn-title">Забронировать</span></button>
+                        </div>
+                    @endif
 
 
                 </div>
@@ -388,15 +401,15 @@
                 <div class="row clearfix">
                     @forelse($hall->photo_halls as $photo)
 
-                    <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                        data-wow-duration="1500ms">
-                        <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
-                                class="lightbox-image"><img
-                                    src="/storage/photo_halls/{{$photo->photo_hall}}"
-                                    alt="{{$photo->photo_hall}}"></a>
+                        <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+                             data-wow-duration="1500ms">
+                            <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
+                                                     class="lightbox-image"><img
+                                        src="/storage/photo_halls/{{$photo->photo_hall}}"
+                                        alt="{{$photo->photo_hall}}"></a>
 
-                        </figure>
-                    </div>
+                            </figure>
+                        </div>
                     @empty
                     @endforelse
                 </div>
@@ -406,7 +419,7 @@
 </x-layout>
 <x-booking :hall="$hall" :bookings="$bookings"></x-booking>
 <script>
-    document.querySelector('.heart-container').addEventListener('click', function() {
+    document.querySelector('.heart-container').addEventListener('click', function () {
         this.classList.toggle('active');
     });
 </script>

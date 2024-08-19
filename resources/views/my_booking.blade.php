@@ -53,27 +53,36 @@
         <div class="my-address contact-2">
             <h3 class="heading-3">Мои брони</h3>
             <ul class="booking-list">
-                <li>
-                    <a href="hall">
-                        <div class="booking_photo">
-                            <img src="/images/halls/IMG_5441.jpeg" alt="Фото зала">
-                        </div>
-                    </a>
-                    <div class="booking_info">
-                        <h4>Зал для конференций</h4>
-                        <p>Дата бронирования: 2023-07-16</p>
-                        <p>Время: 10:00 - 14:00</p>
-                        <a href="/delete_booking">
-                            <button>Отменить бронь</button>
+                @forelse($bookings_user as $user)
+                    <li>
+                        <a href="/hall/{{$user->hall->id}}-{{Str::slug($user->hall->name_hall)}}">
+                            <div class="booking_photo">
+                                <img src="/storage/photo_halls/{{$user->hall->preview_hall}}"
+                                     alt="{{$user->hall->preview_hall}}" title="{{$user->hall->name_hall}}">
+                            </div>
                         </a>
+                        <div class="booking_info">
+                            <h4>{{$user->hall->name_hall}}</h4>
+                            <p>Дата бронирования: {{ date('d.m.Y', strtotime($user->booking_start)) }}</p>
+                            <p>Время: {{ date('H:i', strtotime($user->booking_start)) }}
+                                - {{ date('H:i', strtotime($user->booking_end)) }}</p>
+                            <a href="/delete_booking">
+                                <button>Отменить бронь</button>
+                            </a>
+                        </div>
+                    </li>
+                @empty
+                    <div class="alert alert-warning" role="alert">
+                        У вас нет броней.
                     </div>
-                </li>
+                @endforelse
+
             </ul>
         </div>
     @endif
     @if (Auth::user()->id_role == 2)
         <div class="my-address contact-2">
-            <h3 class="heading-3">Активные брони</h3>
+            <h3 class="heading-3">Активные брони{{count($active_bookings) ? ': ' . count($active_bookings) : '' }}</h3>
             <ul class="booking-list">
                 @forelse($active_bookings as $active)
                     <li>
@@ -92,7 +101,17 @@
                             <p><strong>{{$active->user->name}} (<a
                                         href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
                             </p>
-
+                            <p>
+                                <strong>
+                                    @if($active->user->email_verified_at)
+                                        <a href="mailto:{{$active->user->email}}">
+                                            {{$active->user->email}}
+                                        </a>
+                                    @else
+                                        Почта не подтверждена!
+                                    @endif
+                                </strong>
+                            </p>
                             <a href="/delete_booking">
                                 <button>Отменить бронь</button>
                             </a>
@@ -105,7 +124,8 @@
                 @endforelse
             </ul>
         </div>
-        <h3 class="heading-3">Архив бронирований</h3>
+        <h3 class="heading-3">Архив
+            бронирований{{count($archived_bookings) ? ': ' . count($archived_bookings) : '' }}</h3>
         <ul class="booking-list">
             @forelse($archived_bookings as $archive)
                 <li>

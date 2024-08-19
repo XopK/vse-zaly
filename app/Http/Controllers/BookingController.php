@@ -44,7 +44,7 @@ class BookingController extends Controller
 
 
         if ($checking) {
-            BookingHall::create([
+            $bookingHall = BookingHall::create([
                 'id_hall' => $request->selectedHall,
                 'id_user' => $user->id,
                 'booking_start' => $startDateTime,
@@ -53,7 +53,9 @@ class BookingController extends Controller
                 'count_people_booking' => $request->countPeople,
             ]);
 
-            return redirect('/')->with('success', 'Успешное бронирование!');
+            $bookingHall->income($request->totalPrice);
+
+            return redirect('/my_booking')->with('success', 'Успешное бронирование!');
         } else {
             return back()->with('error', 'Ошибка бронирования!');
         }
@@ -119,7 +121,7 @@ class BookingController extends Controller
 
         while ($currentDateTime->lt($endDateTime)) {
             $isWeekend = in_array($currentDateTime->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
-            $isEvening = $currentDateTime->gt($eveningStartTime) || $currentDateTime->copy()->addMinutes($stepBooking)->gt($eveningStartTime);
+            $isEvening = $currentDateTime->gte($eveningStartTime);
 
             if ($isWeekend && $isEvening) {
                 $basePrice = $hall->max_price;

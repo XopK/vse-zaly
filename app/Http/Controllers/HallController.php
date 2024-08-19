@@ -21,6 +21,14 @@ class HallController extends Controller
     public function hall_view(Hall $hall)
     {
         $booking = BookingHall::where('id_hall', $hall->id)->get();
+
+        $sessionKey = 'hall_view_' . $hall->id;
+
+        if (!session()->has($sessionKey)) {
+            $hall->increment('view_count');
+            session([$sessionKey => true]);
+        }
+
         return view('hall', ['hall' => $hall, 'bookings' => $booking]);
     }
 

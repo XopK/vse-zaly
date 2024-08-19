@@ -177,11 +177,12 @@ class UserController extends Controller
             $query->where('id_user', $userId);
         })->with('hall.studio', 'user')->get();
 
-        $booking_halls->each->update_booking();
-
         $activeBookings = $booking_halls->where('is_archive', 0);
         $archivedBookings = $booking_halls->where('is_archive', 1);
 
-        return view('my_booking', ['active_bookings' => $activeBookings, 'archived_bookings' => $archivedBookings]);
+
+        $bookings_user = BookingHall::where('id_user', $userId)->where('is_archive', 0)->get();
+
+        return view('my_booking', ['active_bookings' => $activeBookings, 'archived_bookings' => $archivedBookings, 'bookings_user' => $bookings_user]);
     }
 }
