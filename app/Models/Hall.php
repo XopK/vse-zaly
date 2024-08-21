@@ -48,4 +48,9 @@ class Hall extends Model
     {
         return $this->hasMany(BookingHall::class, 'id_hall');
     }
+
+    public function FavoriteHalls()
+    {
+        return $this->hasMany(FavoriteHall::class, 'id_hall');
+    }
 }

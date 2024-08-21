@@ -58,10 +58,6 @@ Route::get('/email_confirm', function () {
     return view('email_verified');
 });
 
-Route::get('/favourite_properties', function () {
-    return view('favourite_properties');
-});
-
 Route::get('/change_password', function () {
     return view('change_password');
 });
@@ -127,4 +123,13 @@ Route::get('/verify_phone', [SmsController::class, 'sms_verify']);
 Route::post('/code_phone', [SmsController::class, 'check_code'])->name('check_code');
 
 Route::post('/booking', [BookingController::class, 'create_booking'])->name('create_booking');
+
+Route::delete('/delete_hall/{hall}', [HallController::class, 'delete_hall']);
+
+Route::post('/favorite', [UserController::class, 'addToFavorite'])->name('favorite.add');
+
+Route::delete('/favorite', [UserController::class, 'removeFromFavorite'])->name('favorite.remove');
+
+Route::get('/favourite_properties', [UserController::class, 'favourite_properties'])->name('favourite.properties');
+
 

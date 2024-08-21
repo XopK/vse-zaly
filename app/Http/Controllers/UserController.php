@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\VerfyEmail;
 use App\Models\BookingHall;
+use App\Models\FavoriteHall;
 use App\Models\User;
 use App\Traits\PhoneNormalizerTrait;
 use App\Traits\putSocialLinksTrait;
@@ -184,5 +185,36 @@ class UserController extends Controller
         $bookings_user = BookingHall::where('id_user', $userId)->where('is_archive', 0)->get();
 
         return view('my_booking', ['active_bookings' => $activeBookings, 'archived_bookings' => $archivedBookings, 'bookings_user' => $bookings_user]);
+    }
+
+    public function addToFavorite(Request $request)
+    {
+        $user = Auth::user();
+        $hall = $request->input('item_id');
+
+        $user->favorites()->create(['id_hall' => $hall]);
+        return response()->json(['status' => 'added']);
+    }
+
+    public function removeFromFavorite(Request $request)
+    {
+        $user = Auth::user();
+        $hall = $request->input('item_id');
+
+        $user->favorites()->where('id_hall', $hall)->delete();
+        return response()->json(['status' => 'removed']);
+
+    }
+
+    public function favourite_properties()
+    {
+        $user = Auth::user();
+        $favorites = FavoriteHall::where('id_user', $user->id)->with('halls')->get();
+
+        $favorites->each(function ($favorite) {
+            $favorite->is_favorite = true;
+        });
+
+        return view('favourite_properties', ['favorites' => $favorites]);
     }
 }

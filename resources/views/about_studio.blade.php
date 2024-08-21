@@ -11,7 +11,7 @@
             font-size: 18px;
             color: black;
         }
-    
+
     </style>
     <!-- Banner Section -->
     <section class="page-banner">
@@ -78,7 +78,7 @@
                 <div class="lower-box">
                     <h4>{{$hall->name_hall}}</h4>
                     <div class="pricing clearfix">
-                        <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
+                        <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
                         <div class="rating">
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>

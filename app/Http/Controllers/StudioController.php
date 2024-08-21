@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hall;
 use App\Models\Studio;
+use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -11,21 +12,32 @@ use Illuminate\Support\Facades\Storage;
 class StudioController extends Controller
 {
 
+    use PhoneNormalizerTrait;
+
     public function update_studio(Request $request)
     {
+        $studio = Studio::find($request->id_studio);
+
         $validated = $request->validate([
             'studio_name' => 'required|min:3',
             'studio_description' => 'required',
-            'studio_photo' => 'image|max:2048',
+            'studio_photo' => 'nullable|image|max:2048',
+            'email_studio' => 'required|email|unique:studios,email_studio,' . $studio->id,
+            'phone_studio' => 'required|unique:studios,phone_studio,' . $studio->id,
+            'adress_studio' => 'required',
         ], [
             'studio_name.required' => 'Введите название студии.',
             'studio_name.min' => 'Минимальная длина названии студии - 3 символа.',
             'studio_description.required' => 'Введите название студии.',
             'studio_photo.image' => 'Выберите изображение.',
             'studio_photo.max' => 'Максимальный размер изображения не должен превышать :max KB.',
+            'email_studio.required' => 'Введите адрес студии',
+            'email_studio.email' => 'Введите корректный адрес электронной почты.',
+            'email_studio.unique' => 'Студия с такой почтой уже существует.',
+            'phone_studio.required' => 'Введите номер телефона студии.',
+            'phone_studio.unique' => 'Этот номер уже занят',
+            'adress_studio.required' => 'Введите адрес студии',
         ]);
-
-        $studio = Studio::find($request->id_studio);
 
         if ($request->file('studio_photo') != null) {
             $hashPhoto = $request->file('studio_photo')->hashName();
@@ -40,6 +52,9 @@ class StudioController extends Controller
             'name_studio' => $request->studio_name,
             'description_studio' => $request->studio_description,
             'photo_studio' => $hashPhoto,
+            'email_studio' => $request->email_studio,
+            'phone_studio' => $this->normalizePhoneNumber($request->phone_studio),
+            'adress_studio' => $request->adress_studio,
         ]);
 
         if ($studio) {

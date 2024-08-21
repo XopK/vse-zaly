@@ -85,6 +85,47 @@
                     </button>
                 </div>
                 @enderror
+                <div class="form-group">
+                    <label class="font-weight-bold">Почта студии<span class="text-danger"></span></label>
+                    <input value="{{ Auth::user()->studio->email_studio }}" type="email" name="email_studio"
+                           id="email_studio" class="form-control" required>
+                </div>
+                @error('email_studio')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
+                <div class="form-group">
+                    <label class="font-weight-bold">Телефон студии<span class="text-danger"></span></label>
+                    <input value="{{ Auth::user()->studio->phone_studio }}" placeholder="+7(___)-___-____" type="tel"
+                           name="phone_studio"
+                           id="phone_studio" class="form-control" required>
+                </div>
+                @error('phone_studio')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
+                <div class="form-group">
+                    <label class="font-weight-bold">Адрес студии<span class="text-danger"></span></label>
+                    <input value="{{ Auth::user()->studio->adress_studio }}" type="text"
+                           name="adress_studio"
+                           id="adress_studio" class="form-control" required>
+                </div>
+                @error('adress_studio')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
                 <div class="form-group photo">
                     <label class="font-weight-bold">Фото студии</label>
                     <div class="input-group mb-3">
@@ -104,6 +145,7 @@
                     </button>
                 </div>
                 @enderror
+
                 <div class="form-group">
                     <button type="submit" class="theme-btn btn-style-one btn-block"><span
                             class="btn-title">Изменить</span></button>
@@ -413,4 +455,8 @@
             label.textContent = fileName;
         });
     </script>
+
 </x-layout>
+<script>
+    $("#phone_studio").mask("+7(999)-999-9999");
+</script>

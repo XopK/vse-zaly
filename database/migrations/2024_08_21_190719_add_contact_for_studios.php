@@ -10,8 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('halls', function (Blueprint $table) {
-            $table->integer('total_income')->after('count_booking')->default(0);
+        Schema::table('studios', function (Blueprint $table) {
+            $table->string('email_studio')->nullable()->after('photo_studio')->unique();
+            $table->string('phone_studio')->nullable()->after('email_studio')->unique();
+            $table->string('adress_studio')->nullable()->after('phone_studio');
         });
     }
 
@@ -20,7 +22,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('halls', function (Blueprint $table) {
+        Schema::table('studios', function (Blueprint $table) {
             //
         });
     }

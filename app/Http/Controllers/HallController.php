@@ -29,7 +29,13 @@ class HallController extends Controller
             session([$sessionKey => true]);
         }
 
-        return view('hall', ['hall' => $hall, 'bookings' => $booking]);
+        $isFavorite = false;
+        if (Auth::check()) {
+            $user = Auth::user();
+            $isFavorite = $user->favorites()->where('id_hall', $hall->id)->exists();
+        }
+
+        return view('hall', ['hall' => $hall, 'bookings' => $booking, 'isFavorite' => $isFavorite]);
     }
 
     public function create_halls(Request $request)
@@ -286,6 +292,12 @@ class HallController extends Controller
         $halls = Hall::all();
 
         return view('filter', ['halls' => $halls]);
+    }
+
+    public function delete_hall(Hall $hall)
+    {
+        $hall->delete();
+        return redirect()->back()->with('success', 'Зал удален!');
     }
 
 

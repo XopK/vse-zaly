@@ -316,6 +316,7 @@ figure {
     color: #ffffff;
 }
 
+
 /*Btn Style Two*/
 
 .btn-style-two {
@@ -10284,5 +10285,10 @@ td .price {
 .heart-container:hover .heart::after {
     background-color: red;
     /* Цвет сердечка после изменения */
+}
+
+#heart-svg {
+    width: 55px;
+    height: 55px;
 }
 

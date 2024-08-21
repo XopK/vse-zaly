@@ -99,7 +99,7 @@
                                 - {{ date('H:i', strtotime($active->booking_end)) }}</p>
                             <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($active->created_at)) }}</p>
                             <p><strong>{{$active->user->name}} (<a
-                                        href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
+                                            href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
                             </p>
                             <p>
                                 <strong>
@@ -142,7 +142,18 @@
                             - {{ date('H:i', strtotime($archive->booking_end)) }}</p>
                         <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($archive->created_at)) }}</p>
                         <p><strong>{{$archive->user->name}} (<a
-                                    href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
+                                        href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
+                        </p>
+                        <p>
+                            <strong>
+                                @if($archive->user->email_verified_at)
+                                    <a href="mailto:{{$archive->user->email}}">
+                                        {{$archive->user->email}}
+                                    </a>
+                                @else
+                                    Почта не подтверждена!
+                                @endif
+                            </strong>
                         </p>
                     </div>
                 </li>

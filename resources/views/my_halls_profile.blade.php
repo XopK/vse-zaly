@@ -133,12 +133,9 @@
                         <h4>{{$hall->name_hall}}</h4>
                         <p>Всего бронировали: {{$hall->count_booking}}</p>
                         <p>Доход: {{$hall->total_income}} ₽</p>
-                        <p>Просмотры: {{$hall->view_count    }}</p>
+                        <p>Просмотры: {{$hall->view_count}}</p>
                     </div>
-                    {{--<div class="heart-container">
-                        <div class="heart"></div>
-                        <p>Удалить из избранного</p>
-                    </div>--}}
+
                 </li>
             @empty
             @endforelse

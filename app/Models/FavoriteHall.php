@@ -5,28 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Studio extends Model
+class FavoriteHall extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name_studio',
-        'description_studio',
-        'photo_studio',
-        'email_studio',
-        'phone_studio',
-        'adress_studio',
+        'id_hall',
         'id_user',
-
     ];
 
-    public function owner()
+    public function users()
     {
         return $this->belongsTo(User::class, 'id_user');
     }
 
     public function halls()
     {
-        return $this->hasMany(Hall::class, 'id_studio');
+        return $this->belongsTo(Hall::class, 'id_hall');
     }
 }
