@@ -10292,3 +10292,58 @@ td .price {
     height: 55px;
 }
 
+/* Стили для маркера */
+.marker-class {
+    width: 30px; /* Увеличенный размер маркера */
+    height: 30px;
+    background-color: #515151; /* Оранжевый цвет маркера */
+    border-radius: 50%; /* Делаем маркер круглым */
+    border: 2px solid #ffffff;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень для объема */
+}
+
+/* Всплывающий текст при наведении */
+.marker-class:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 40px; /* Позиция текста над маркером */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень для текста */
+    font-size: 14px; /* Увеличенный размер шрифта */
+}
+
+/* Контейнер для контактов студии */
+.contact-info {
+    text-align: left;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Поверх всех элементов */
+    max-width: 600px; /* Максимальная ширина контейнера */
+}
+
+.contact-info p {
+    margin-bottom: 2px;
+}
+
+.contact-info h5 {
+    margin: 5px 0;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+

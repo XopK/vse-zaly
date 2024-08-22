@@ -131,6 +131,14 @@ $(document).ready(function () {
         $('#weekTable td').removeClass('highlight-cell');
 
         var startOfWeek = getStartOfWeek(moment().add(offset, 'weeks'));
+        var twoWeeksLater = moment().add(2, 'weeks').endOf('isoWeek');
+
+        // Ограничение: если начало недели больше, чем две недели от текущей даты, не переключаемся
+        if (startOfWeek.isAfter(twoWeeksLater)) {
+            alert('Нельзя выбрать дату более чем на две недели вперёд.');
+            return;
+        }
+
         updateWeekDisplay(startOfWeek);
         generateTimeRows();
     }
@@ -336,8 +344,20 @@ $(document).ready(function () {
     $('#nextWeek').click(function () {
         clearBookingForm();
         weekOffset++;
+
+        var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
+        var twoWeeksLater = moment().add(2, 'weeks').endOf('isoWeek');
+
+        // Ограничение: если начало недели больше, чем две недели от текущей даты, не переключаемся
+        if (startOfWeek.isAfter(twoWeeksLater)) {
+            alert('Нельзя выбрать дату более чем на две недели вперёд.');
+            weekOffset--;  // Отменяем изменение
+            return;
+        }
+
         loadWeek(weekOffset);
     });
+
 
     $('#currentWeek').click(function () {
         clearBookingForm();

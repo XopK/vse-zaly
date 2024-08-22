@@ -1,4 +1,5 @@
 <x-layout>
+    <script src="https://api-maps.yandex.ru/v3/?apikey=fb479454-3414-49cd-bc3c-75471adbd7ee&lang=ru_RU"></script>
     <style>
         svg {
             cursor: pointer;
@@ -417,6 +418,19 @@
                     @endforelse
                 </div>
             </div>
+            <div class="centered" style="margin-top: 50px;">
+                <h2>Адрес</h2>
+                <div class="sec-title d-flex" style="position: relative;">
+                    <div id="map" style="width: 100%; height: 450px;"></div>
+                    <div class="contact-info">
+                        <h5>{{$hall->address_hall}}</h5>
+                        <p>Телефон: <a href="tel:{{$hall->studio->phone_studio}}">{{$hall->studio->phone_studio}}</a>
+                        </p>
+                        <p>Почта: <a href="mailto:{{$hall->studio->email_studio}}">{{$hall->studio->email_studio}}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </x-layout>
@@ -444,5 +458,68 @@
             });
         });
     });
+</script>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const mapElement = document.getElementById('map');
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                loadMap();
+                observer.disconnect();
+            }
+        }, {threshold: 0.1});
+
+        observer.observe(mapElement);
+    });
+
+    function loadMap() {
+        fetch('/get-coordinates', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({address: "{{$hall->address_hall}}"})
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.coordinates) {
+                    ymaps3.ready.then(function () {
+                        const {YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer} = ymaps3;
+
+                        const map = new YMap(document.getElementById('map'), {
+                            location: {
+                                center: [parseFloat(data.coordinates.latitude), parseFloat(data.coordinates.longitude)],
+                                zoom: 18
+                            }
+                        }, [
+                            new YMapDefaultSchemeLayer(),
+                            new YMapDefaultFeaturesLayer()
+                        ]);
+
+                        const markerElement = document.createElement('div');
+                        markerElement.className = 'marker-class';
+                        markerElement.setAttribute('data-tooltip', '{{$hall->address_hall}}');
+
+                        const marker = new ymaps3.YMapMarker(
+                            {
+                                coordinates: [parseFloat(data.coordinates.latitude), parseFloat(data.coordinates.longitude)],
+                                draggable: false,
+                                mapFollowsOnDrag: true
+                            },
+                            markerElement
+                        );
+
+                        map.addChild(marker);
+                    });
+                } else {
+                    console.error('Coordinates not found');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching coordinates:', error);
+            });
+    }
 </script>
 

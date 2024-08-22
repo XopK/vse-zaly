@@ -132,4 +132,6 @@ Route::delete('/favorite', [UserController::class, 'removeFromFavorite'])->name(
 
 Route::get('/favourite_properties', [UserController::class, 'favourite_properties'])->name('favourite.properties');
 
+Route::post('/get-coordinates', [StudioController::class, 'getCoordinates']);
+
 

@@ -36,4 +36,8 @@ return [
         'email' => env('SMS_EMAIL'),
     ],
 
+    'yandex_geocoding' => [
+        'api_key' => env('YANDEX_GEOCODING_API_KEY'),
+    ],
+
 ];

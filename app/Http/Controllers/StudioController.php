@@ -7,12 +7,22 @@ use App\Models\Studio;
 use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
+use App\Services\GeocodingService;
 
 class StudioController extends Controller
 {
 
     use PhoneNormalizerTrait;
+
+    protected $geocodingService;
+
+    public function __construct(GeocodingService $geocodingService)
+    {
+        $this->geocodingService = $geocodingService;
+    }
 
     public function update_studio(Request $request)
     {
@@ -87,5 +97,24 @@ class StudioController extends Controller
     public function my_hall_view(Hall $hall)
     {
         return view('my_hall', ['hall' => $hall]);
+    }
+
+    public function getCoordinates(Request $request)
+    {
+        $address = $request->input('address');
+        $cacheKey = 'geocode_' . md5($address);
+
+        if (Cache::has($cacheKey)) {
+            $coordinatesArray = Cache::get($cacheKey);
+        } else {
+            $coordinatesArray = $this->geocodingService->getCoordinates($address);
+            if ($coordinatesArray) {
+                $this->geocodingService->cacheCoordinates($cacheKey, $coordinatesArray);
+            } else {
+                return response()->json(['error' => 'Coordinates not found'], 404);
+            }
+        }
+
+        return response()->json(['coordinates' => $coordinatesArray]);
     }
 }
