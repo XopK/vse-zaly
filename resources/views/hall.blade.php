@@ -1,5 +1,6 @@
 <x-layout>
-    <script src="https://api-maps.yandex.ru/v3/?apikey=fb479454-3414-49cd-bc3c-75471adbd7ee&lang=ru_RU"></script>
+    <script
+        src="https://api-maps.yandex.ru/v3/?apikey={{config('services.yandex_geocoding.api_key')}}&lang=ru_RU"></script>
     <style>
         svg {
             cursor: pointer;
@@ -474,7 +475,7 @@
     });
 
     function loadMap() {
-        fetch('/get-coordinates', {
+        fetch('/get_coordinates', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
