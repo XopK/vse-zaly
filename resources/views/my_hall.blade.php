@@ -57,7 +57,13 @@
                         <p>{{$hall->description_hall}}</p>
                     </div>
                     <div class="text">
-                        <p>{{$hall->address_hall}}</p>
+                        <p><i class="fa fa-map-marker" aria-hidden="true"
+                              style="margin-right: 10px"></i>{{$hall->address_hall}}</p>
+                    </div>
+                    <div class="col-lg-3 mb-3" style="padding-left: 0">
+                        <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
+                                data-target="#booking"><span
+                                class="btn-title">Зарезервировать</span></button>
                     </div>
                 </div>
             </div>
@@ -362,6 +368,7 @@
     </section>
 
 </x-layout>
+<x-booking_studio :hall="$hall" :bookings="$bookings"></x-booking_studio>
 <script src="/js/rangeStep.js"></script>
 <script>
     $(document).ready(function () {

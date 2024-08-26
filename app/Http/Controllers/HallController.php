@@ -296,8 +296,16 @@ class HallController extends Controller
 
     public function delete_hall(Hall $hall)
     {
-        $hall->delete();
-        return redirect()->back()->with('success', 'Зал удален!');
+        $user = Auth::user();
+
+        $isOwner = Hall::where('id_studio', $user->studio->id)->where('id', $hall->id)->exists();
+        if ($isOwner) {
+            $hall->delete();
+            return redirect()->back()->with('success', 'Зал удален!');
+        }
+
+        return redirect()->back()->with('error', 'Ошибка удаления');
+
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingHall;
 use App\Models\Hall;
 use App\Models\Studio;
 use App\Traits\PhoneNormalizerTrait;
@@ -96,7 +97,9 @@ class StudioController extends Controller
 
     public function my_hall_view(Hall $hall)
     {
-        return view('my_hall', ['hall' => $hall]);
+        $booking = BookingHall::where('id_hall', $hall->id)->get();
+
+        return view('my_hall', ['hall' => $hall, 'bookings' => $booking,]);
     }
 
     public function getCoordinates(Request $request)

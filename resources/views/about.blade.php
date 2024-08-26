@@ -1,6 +1,6 @@
 <x-layout>
     <style>
-        .lower-text h3{
+        .lower-text h3 {
             text-align: left;
             font-size: 18px;
             color: black;
@@ -51,11 +51,11 @@
                         <span class="dotted-pattern dotted-pattern-10"></span>
                         <div class="image-box clearfix">
                             @forelse($studios as $studio)
-                            <figure class="image wow fadeInUp" data-wow-delay="1000ms" data-wow-duration="1500ms">
-                                <img
-                                    src="/storage/photo_studios/{{$studio->photo_studio}}"
-                                    alt="{{$studio->photo_studio}}" title="{{$studio->name_studio}}">
-                            </figure>
+                                <figure class="image wow fadeInUp" data-wow-delay="1000ms" data-wow-duration="1500ms">
+                                    <img
+                                        src="/storage/photo_studios/{{$studio->photo_studio}}"
+                                        alt="{{$studio->photo_studio}}" title="{{$studio->name_studio}}">
+                                </figure>
                             @empty
                             @endforelse
                         </div>
@@ -86,7 +86,7 @@
                         <div class="fact-inner">
                             <div class="fact-count wow zoomInStable" data-wow-delay="0ms" data-wow-duration="2000ms">
                                 <div class="count-box counted"><span class="count-text" data-stop="25"
-                                        data-speed="2000">3</span>+
+                                                                     data-speed="2000">3</span>+
                                 </div>
                             </div>
                             <h4>Лет успешного сотрудничества</h4>
@@ -97,7 +97,7 @@
                         <div class="fact-inner">
                             <div class="fact-count wow zoomInStable" data-wow-delay="300ms" data-wow-duration="2000ms">
                                 <div class="count-box counted"><span class="count-text" data-stop="712"
-                                        data-speed="5000">14</span></div>
+                                                                     data-speed="5000">14</span></div>
                             </div>
                             <h4>Студий уже с нами</h4>
                             <div class="text">Расширяем свои горизонты</div>
@@ -107,7 +107,7 @@
                         <div class="fact-inner">
                             <div class="fact-count wow zoomInStable" data-wow-delay="600ms" data-wow-duration="2000ms">
                                 <div class="count-box counted"><span class="count-text" data-stop="310"
-                                        data-speed="4000">41</span></div>
+                                                                     data-speed="4000">41</span></div>
                             </div>
                             <h4>Мероприятий</h4>
                             <div class="text">Организовали множество мероприятий</div>
@@ -205,18 +205,19 @@
         </div>
     </section> --}}
 
-    
-    <div class="auto-container" style="margin-top: 50px;">
-        <div class="sec-title centered">
-            <h2>Контакты</h2>
-            <div class="lower-text" style="font-size: 24px;">
-                <h3>г. Уфа, ул. Бульвар Ибрагимова 88,</h3>
-                <h3><a href="tel:+7 917 753 2370">+7 917 753 2370</a></h3>
-                <h3><a href="mailto:no-reply@vsezaly.ru">no-reply@vsezaly.ru</a></h3>
-
+    <div class="auto-container centered" style="margin-top: 50px;">
+        <h2>Контакты студии</h2>
+        <div class="sec-title d-flex" style="position: relative;">
+            <script type="text/javascript" charset="utf-8" async
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae28e7ac8fd19e238bce4941c00c459b796f0c6b0a44a4acce539e9d365e0432c&amp;width=100%25&amp;height=450&amp;lang=ru_RU&amp;scroll=true"></script>
+            <div class="contact-info">
+                <h5>г. Уфа, ул. Бульвар Ибрагимова 88</h5>
+                <p>Телефон: <a href="tel:+79177532370">+7 917 753 2370</a></p>
+                <p>Почта: <a href="mailto:no-reply@vsezaly.ru">no-reply@vsezaly.ru</a></p>
             </div>
         </div>
     </div>
+
     <!--Testimonials Section-->
     <!-- <section class="testimonials-section">
         <div class="circles-two">

@@ -314,7 +314,7 @@
                         <p><i class="fa fa-map-marker" aria-hidden="true"
                               style="margin-right: 10px"></i>{{$hall->address_hall}} </p>
                     </div>
-                    @if(Auth::user())
+                    @auth
                         <div class="row d-flex justify-content-between">
                             <div class="col-lg-3 mb-3">
                                 <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
@@ -376,13 +376,14 @@
                                 </div>
                             </div>
                         </div>
-                    @else
+                    @endauth
+                    @guest
                         <div class="col-xl-3" style="padding: 0">
                             <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
                                     data-target="#logModal"><span
                                     class="btn-title">Забронировать</span></button>
                         </div>
-                    @endif
+                    @endguest
 
 
                 </div>

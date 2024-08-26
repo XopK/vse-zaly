@@ -134,4 +134,4 @@ Route::get('/favourite_properties', [UserController::class, 'favourite_propertie
 
 Route::post('/get_coordinates', [StudioController::class, 'getCoordinates']);
 
-
+Route::delete('/delete_booking/{booking}', [BookingController::class, 'delete_bookings']);

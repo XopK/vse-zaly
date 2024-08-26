@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
 use App\Models\Hall;
+use App\View\Components\booking;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -148,6 +149,32 @@ class BookingController extends Controller
         }
 
         return true;
+    }
+
+    public function delete_bookings(BookingHall $booking)
+    {
+        $user = Auth::user();
+        $isCurrentUser = BookingHall::where('id_user', $user->id)->where('id', $booking->id)->exists();
+
+        if ($user->id_role == 2) {
+            $isCurrentUser = true;
+        }
+
+        if ($isCurrentUser) {
+            $nowTime = Carbon::now();
+            $startBooking = Carbon::parse($booking->booking_start);
+
+            if ($nowTime->diffInHours($startBooking, false) >= 24) {
+
+                $booking->delete();
+                return redirect('/my_booking')->with('success_delete', 'Бронь отменена.');
+
+            } else {
+                return redirect('/my_booking')->with('error_delete', 'Бронирование можно отменить только за 24 часа.');
+            }
+        } else {
+            return redirect('/my_booking')->with('error_delete', 'Ошибка удаления!');
+        }
     }
 
 

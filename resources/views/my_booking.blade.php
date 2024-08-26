@@ -53,6 +53,22 @@
         <div class="my-address contact-2">
             <h3 class="heading-3">Мои брони</h3>
             <ul class="booking-list">
+                @if (session('error_delete'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ session('error_delete') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                @if (session('success_delete'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success_delete') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 @forelse($bookings_user as $user)
                     <li>
                         <a href="/hall/{{$user->hall->id}}-{{Str::slug($user->hall->name_hall)}}">
@@ -66,9 +82,11 @@
                             <p>Дата бронирования: {{ date('d.m.Y', strtotime($user->booking_start)) }}</p>
                             <p>Время: {{ date('H:i', strtotime($user->booking_start)) }}
                                 - {{ date('H:i', strtotime($user->booking_end)) }}</p>
-                            <a href="/delete_booking">
-                                <button>Отменить бронь</button>
-                            </a>
+                            <form action="/delete_booking/{{$user->id}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Отменить бронь</button>
+                            </form>
                         </div>
                     </li>
                 @empty
@@ -84,6 +102,22 @@
         <div class="my-address contact-2">
             <h3 class="heading-3">Активные брони{{count($active_bookings) ? ': ' . count($active_bookings) : '' }}</h3>
             <ul class="booking-list">
+                @if (session('error_delete'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ session('error_delete') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                @if (session('success_delete'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success_delete') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 @forelse($active_bookings as $active)
                     <li>
                         <a href="/hall/{{$active->hall->id}}-{{Str::slug($active->hall->name_hall)}}">
@@ -99,7 +133,7 @@
                                 - {{ date('H:i', strtotime($active->booking_end)) }}</p>
                             <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($active->created_at)) }}</p>
                             <p><strong>{{$active->user->name}} (<a
-                                            href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
+                                        href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
                             </p>
                             <p>
                                 <strong>
@@ -112,9 +146,11 @@
                                     @endif
                                 </strong>
                             </p>
-                            <a href="/delete_booking">
-                                <button>Отменить бронь</button>
-                            </a>
+                            <form action="/delete_booking/{{$active->id}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Отменить бронь</button>
+                            </form>
                         </div>
                     </li>
                 @empty
@@ -142,7 +178,7 @@
                             - {{ date('H:i', strtotime($archive->booking_end)) }}</p>
                         <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($archive->created_at)) }}</p>
                         <p><strong>{{$archive->user->name}} (<a
-                                        href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
+                                    href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
                         </p>
                         <p>
                             <strong>

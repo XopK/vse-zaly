@@ -29,10 +29,9 @@ class ConfirmEmailController extends Controller
     public function verifyEmail(Request $request)
     {
         $validated = $request->validate([
-            'code' => 'required|integer'
+            'code' => 'required'
         ], [
-            'code.required' => 'Введите код.',
-            'code.integer' => 'Введите только цифры',
+            'code.required' => 'Введите код.'
         ]);
 
         $storedCode = Session::get('verification_code');

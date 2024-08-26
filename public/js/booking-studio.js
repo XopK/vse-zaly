@@ -131,11 +131,10 @@ $(document).ready(function () {
         $('#weekTable td').removeClass('highlight-cell');
 
         var startOfWeek = getStartOfWeek(moment().add(offset, 'weeks'));
-        var twoWeeksLater = moment().add(2, 'weeks').endOf('isoWeek');
+        var oneMonthLater = moment().add(1, 'month').endOf('day');
 
-        // Ограничение: если начало недели больше, чем две недели от текущей даты, не переключаемся
-        if (startOfWeek.isAfter(twoWeeksLater)) {
-            alert('Нельзя выбрать дату более чем на две недели вперёд.');
+        if (startOfWeek.isAfter(oneMonthLater)) {
+            alert('Нельзя выбрать дату более чем на один месяц вперёд.');
             return;
         }
 
@@ -172,16 +171,13 @@ $(document).ready(function () {
             var minTime = times[0];
             var maxTime = times.length > 1 ? times[times.length - 1] : minTime;
 
-            // Преобразуем maxTime в момент, если оно существует
+
             var maxTimeMoment = moment(maxTime, 'HH:mm');
 
-            // Рассчитываем дополнительное время в зависимости от шага бронирования
-            var additionalMinutes = stepbooking * 60; // умножаем шаг на 60, чтобы получить минуты
+            var additionalMinutes = stepbooking * 60;
 
-            // Если выбрана только одна ячейка, добавляем шаг к minTime (и maxTime)
             maxTimeMoment.add(additionalMinutes, 'minutes');
 
-            // Обновляем maxTime для отображения
             maxTime = maxTimeMoment.format('HH:mm');
 
             var selectedDay = startOfWeek.clone().add(dayIndex, 'days');
@@ -207,7 +203,7 @@ $(document).ready(function () {
         }, 0);
 
         $('#totalCost').text(totalCost);
-        $('#totalPrice').val(totalCost);  // Устанавливаем значение скрытого поля
+        $('#totalPrice').val(totalCost);
     }
 
 
@@ -229,7 +225,8 @@ $(document).ready(function () {
 
     $('#weekTable').on('click', 'td', function () {
         var cell = $(this);
-        if (cell.hasClass('disabled-past')) {
+        if (cell.hasClass('disabled-past') || cell.hasClass('booked-cell')) {
+            // Если ячейка в прошлом или забронирована, ничего не делаем
             return;
         }
 
@@ -250,37 +247,18 @@ $(document).ready(function () {
                 selectedCells.push(cell);
             }
 
-            if (selectedCells.length > 0) {
-                var selectedRows = selectedCells.map(c => c.closest('tr').index());
-                var minRowIndex = Math.min(...selectedRows);
-                var maxRowIndex = Math.max(...selectedRows);
+            // Обновляем доступность ячеек
+            $('#weekTable td').each(function () {
+                var currentCell = $(this);
+                var currentColIndex = currentCell.data('day-index');
+                var cellDateTime = getStartOfWeek(moment().add(weekOffset, 'weeks'))
+                    .add(currentColIndex, 'days')
+                    .hour(parseInt(currentCell.data('time')));
 
-                $('#weekTable td').each(function () {
-                    var currentColIndex = $(this).data('day-index');
-                    var currentRowIndex = $(this).closest('tr').index();
-                    var isInSelectedColumn = selectedCells.some(c => c.data('day-index') === currentColIndex);
-
-                    if (!isInSelectedColumn) {
-                        $(this).addClass('disabled-cell');
-                    } else {
-                        var cellDateTime = getStartOfWeek(moment().add(weekOffset, 'weeks'))
-                            .add(currentColIndex, 'days')
-                            .hour(parseInt($(this).data('time')));
-
-                        if (currentRowIndex >= minRowIndex - 1 && currentRowIndex <= maxRowIndex + 1) {
-                            if (!$(this).hasClass('disabled-past') && cellDateTime.isSameOrAfter(moment())) {
-                                $(this).removeClass('disabled-cell');
-                            }
-                        } else {
-                            $(this).addClass('disabled-cell');
-                        }
-                    }
-                });
-            } else {
-                $('#weekTable td').removeClass('disabled-cell');
-                $('#selectedDate').val('');
-                $('#selectedTime').val('');
-            }
+                if (!currentCell.hasClass('disabled-past') && !currentCell.hasClass('booked-cell') && cellDateTime.isSameOrAfter(moment())) {
+                    currentCell.removeClass('disabled-cell');
+                }
+            });
 
             updateSelectedInfo();
         } else {
@@ -346,11 +324,11 @@ $(document).ready(function () {
         weekOffset++;
 
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
-        var twoWeeksLater = moment().add(2, 'weeks').endOf('isoWeek');
+        var oneMonthLater = moment().add(1, 'month').endOf('day');  // Добавляем 1 месяц
 
-        // Ограничение: если начало недели больше, чем две недели от текущей даты, не переключаемся
-        if (startOfWeek.isAfter(twoWeeksLater)) {
-            alert('Нельзя выбрать дату более чем на две недели вперёд.');
+        // Ограничение: если начало недели больше, чем один месяц от текущей даты, не переключаемся
+        if (startOfWeek.isAfter(oneMonthLater)) {
+            alert('Нельзя выбрать дату более чем на один месяц вперёд.');
             weekOffset--;  // Отменяем изменение
             return;
         }

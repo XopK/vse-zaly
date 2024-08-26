@@ -1,10 +1,12 @@
 <x-layout>
-    <script src="https://api-maps.yandex.ru/v3/?apikey={{config('services.yandex_geocoding.api_key')}}&lang=ru_RU"></script>
+    <script
+        src="https://api-maps.yandex.ru/v3/?apikey={{config('services.yandex_geocoding.api_key')}}&lang=ru_RU"></script>
     <style>
         .studio_halls {
             width: 80%;
             display: flex;
             margin: 0 auto;
+            flex-wrap: wrap;
         }
 
         .lower-text h3 {
@@ -64,7 +66,7 @@
     </section>
 
     <!--Facts Section-->
-    <div class="studio_halls">
+    <div class="auto-container studio_halls">
         @forelse($studio_info->halls as $hall)
             <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
                  data-wow-duration="1500ms">
