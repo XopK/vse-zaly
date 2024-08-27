@@ -10210,7 +10210,7 @@ a:hover {
 }
 
 .booked-cell {
-    background-color: #807d7d; /* Красный фон */
+    background-color: #eaeaea; /* Красный фон */
     opacity: 0.6;
     color: white;
     pointer-events: none; /* Запрет на выбор */

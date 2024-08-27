@@ -206,7 +206,7 @@
     </section> --}}
 
     <div class="auto-container centered" style="margin-top: 50px;">
-        <h2>Контакты студии</h2>
+        <h2>Контакты</h2>
         <div class="sec-title d-flex" style="position: relative;">
             <script type="text/javascript" charset="utf-8" async
                     src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae28e7ac8fd19e238bce4941c00c459b796f0c6b0a44a4acce539e9d365e0432c&amp;width=100%25&amp;height=450&amp;lang=ru_RU&amp;scroll=true"></script>

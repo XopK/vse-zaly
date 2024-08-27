@@ -69,7 +69,6 @@ $(document).ready(function () {
 
         // Генерация временных строк с учетом шага
         for (var time = startTime.clone(); time.isBefore(endTime); time.add(stepMinutes, 'minutes')) {
-
             var timeLabel = time.format('HH:mm');
             var row = $('<tr></tr>');
             row.append('<th scope="row" class="sticky-col">' + timeLabel + '</th>');

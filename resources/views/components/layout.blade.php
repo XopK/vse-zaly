@@ -13,7 +13,6 @@
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
     <link rel="icon" href="/images/favicon.png" type="image/x-icon">
 
-    <script src="/js/modernizr.js"></script>
     <!-- Responsive Settings -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -229,7 +228,6 @@
 <script src="/js/appear.js"></script>
 <script src="/js/wow.js"></script>
 <script src="/js/custom-script.js"></script>
-<script src="/js/jquery.mixitup.min.js"></script>
 <x-auth></x-auth>
 </body>
 

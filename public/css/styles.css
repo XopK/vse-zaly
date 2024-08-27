@@ -3,56 +3,13 @@
 Primary style
 
 -------------------------------- */
-*,
-*::after,
-*::before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-html {
-    font-size: 62.5%;
-}
-
-html * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-    color: #000000;
-    text-decoration: none;
-}
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
 
 /* --------------------------------
 
 Main Components
 
 -------------------------------- */
-.cd-header {
-    position: relative;
-    height: 150px;
-    background-color: #331d35;
-}
-
-.cd-header h1 {
-    color: #ffffff;
-    line-height: 150px;
-    text-align: center;
-    font-size: 2.4rem;
-    font-weight: 300;
-}
-
-@media only screen and (min-width: 1170px) {
-    .cd-header {
-        height: 180px;
-    }
-
-    .cd-header h1 {
-        line-height: 180px;
-    }
-}
 
 .cd-main-content {
     position: relative;
@@ -122,10 +79,9 @@ xtab-filter
 }
 
 .cd-tab-filter {
-    /* tabbed navigation style on mobile - dropdown */
     position: relative;
     height: 50px;
-    width: 140px;
+    width: 180px;
     margin: 0 auto;
     z-index: 1;
 }
@@ -134,7 +90,7 @@ xtab-filter
     /* small arrow icon */
     content: '';
     position: absolute;
-    right: 14px;
+    right: 10px;
     top: 50%;
     bottom: auto;
     -webkit-transform: translateY(-50%);
@@ -157,7 +113,7 @@ xtab-filter
     top: 0;
     left: 0;
     background-color: #ffffff;
-    box-shadow: inset 0 -2px 0 #000000;
+    box-shadow: inset 0 -2px 0 #404040;
 }
 
 .cd-tab-filter li {
@@ -173,18 +129,16 @@ xtab-filter
     display: block;
     /* set same size of the .cd-tab-filter */
     height: 50px;
-    width: 140px;
-    line-height: 50px;
-    padding-left: 14px;
+    width: 180px;
+    padding: 10px 15px;
 }
 
 .cd-tab-filter a.selected {
-    background: #000000;
+    background: #323232;
     color: #ffffff;
 }
 
 .cd-tab-filter.is-open::after {
-    /* small arrow rotation */
     -webkit-transform: translateY(-50%) rotate(-180deg);
     -moz-transform: translateY(-50%) rotate(-180deg);
     -ms-transform: translateY(-50%) rotate(-180deg);
@@ -193,7 +147,7 @@ xtab-filter
 }
 
 .cd-tab-filter.is-open ul {
-    box-shadow: inset 0 -2px 0 #000000, 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -2px 0 #858585, 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .cd-tab-filter.is-open ul li {
@@ -202,7 +156,7 @@ xtab-filter
 
 .cd-tab-filter.is-open .placeholder a {
     /* reduces the opacity of the placeholder on mobile when the menu is open */
-    display: none;
+    opacity: .4;
 }
 
 @media only screen and (min-width: 768px) {
@@ -237,20 +191,17 @@ xtab-filter
         padding: 0 1em;
         width: auto;
         color: #9a9a9a;
-        text-transform: uppercase;
-        font-weight: 700;
-        font-size: 1.3rem;
     }
 
     .no-touch .cd-tab-filter a:hover {
-        color: #000000;
+        color: #393939;
     }
 
     .cd-tab-filter a.selected {
         background: transparent;
-        color: #000000;
+        color: #121212;
         /* create border bottom using box-shadow property */
-        box-shadow: inset 0 -2px 0 #000000;
+        box-shadow: inset 0 -2px 0 #393939;
     }
 
     .cd-tab-filter.is-open ul li {
@@ -357,7 +308,7 @@ xfilter
     position: absolute;
     top: 0;
     left: 0;
-    width: 280px;
+    width: 290px;
     height: 100%;
     background: #ffffff;
     box-shadow: 4px 4px 20px transparent;
@@ -388,7 +339,7 @@ xfilter
     left: 0;
     height: 50px;
     width: 100%;
-    background-color: #000000;
+    background-color: #181b1f;
     z-index: 2;
 }
 
@@ -404,9 +355,8 @@ xfilter
     line-height: 50px;
     width: 60px;
     color: #ffffff;
-    font-size: 1.3rem;
     text-align: center;
-    background: #000000;
+    background: #181b1f;
     opacity: 0;
     -webkit-transition: opacity 0.3s;
     -moz-transition: opacity 0.3s;
@@ -414,9 +364,6 @@ xfilter
     z-index: 3;
 }
 
-.no-touch .cd-filter .cd-close:hover {
-    background: #000000;
-}
 
 .cd-filter.filter-is-visible {
     -webkit-transform: translateX(0);
@@ -448,9 +395,7 @@ xfilter
     height: 50px;
     line-height: 50px;
     width: 60px;
-    /* image replacement */
     overflow: hidden;
-    text-indent: 100%;
     color: transparent;
     white-space: nowrap;
     background: transparent url("../images/cd-icon-filter.svg") no-repeat center center;
@@ -467,9 +412,7 @@ xfilter
         left: 2%;
         text-indent: 0;
         color: #9a9a9a;
-        text-transform: uppercase;
-        font-size: 1.3rem;
-        font-weight: 700;
+        font-size: large;
         padding-left: 24px;
         background-position: left center;
         -webkit-transition: color 0.3s;
@@ -478,11 +421,10 @@ xfilter
     }
 
     .no-touch .cd-filter-trigger:hover {
-        color: #000000;
+        color: #393939;
     }
 
-    .cd-filter-trigger.filter-is-visible,
-    .cd-filter-trigger.filter-is-visible:hover {
+    .cd-filter-trigger.filter-is-visible, .cd-filter-trigger.filter-is-visible:hover {
         color: #ffffff;
     }
 }
@@ -496,15 +438,12 @@ xcustom form elements
     margin-bottom: 1.6em;
 }
 
-.cd-filter-block h4 {
+.cd-filter-block h5 {
     /* filter block title */
     position: relative;
     margin-bottom: .2em;
     padding: 10px 0 10px 20px;
     color: #9a9a9a;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 1.3rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -512,11 +451,11 @@ xcustom form elements
     cursor: pointer;
 }
 
-.no-touch .cd-filter-block h4:hover {
-    color: #000000;
+.no-touch .cd-filter-block h5:hover {
+    color: #393939;
 }
 
-.cd-filter-block h4::before {
+.cd-filter-block h5::before {
     /* arrow */
     content: '';
     position: absolute;
@@ -535,7 +474,7 @@ xcustom form elements
     transition: transform 0.3s;
 }
 
-.cd-filter-block h4.closed::before {
+.cd-filter-block h5.closed::before {
     -webkit-transform: translateY(-50%) rotate(-90deg);
     -moz-transform: translateY(-50%) rotate(-90deg);
     -ms-transform: translateY(-50%) rotate(-90deg);
@@ -543,18 +482,17 @@ xcustom form elements
     transform: translateY(-50%) rotate(-90deg);
 }
 
-.cd-filter-block input,
-.cd-filter-block select,
+.cd-filter-block input, .cd-filter-block select,
 .cd-filter-block .radio-label::before,
 .cd-filter-block .checkbox-label::before {
     /* shared style for input elements */
-    font-family: "Open Sans", sans-serif;
     border-radius: 0;
     background-color: #ffffff;
     border: 2px solid #e6e6e6;
 }
 
 .cd-filter-block input[type='search'],
+.cd-filter-block input[type='date'],
 .cd-filter-block input[type='text'],
 .cd-filter-block select {
     width: 100%;
@@ -568,19 +506,20 @@ xcustom form elements
 }
 
 .cd-filter-block input[type='search']:focus,
+.cd-filter-block input[type="date"]:focus,
 .cd-filter-block input[type='text']:focus,
 .cd-filter-block select:focus {
     outline: none;
     background-color: #ffffff;
-    border-color: #000000;
+    border-color: #181b1f;
 }
 
-.cd-filter-block input[type='search'] {
+.cd-filter-block input[type='search'],
+.cd-filter-block input[type='date'] {
     /* custom style for the search element */
     border-color: transparent;
     background-color: #e6e6e6;
     /* prevent jump - ios devices */
-    font-size: 1.6rem !important;
 }
 
 .cd-filter-block input[type='search']::-webkit-search-cancel-button {
@@ -613,7 +552,6 @@ xcustom form elements
 
 .cd-filter-block select {
     cursor: pointer;
-    font-size: 1.4rem;
 }
 
 .cd-filter-block select::-ms-expand {
@@ -644,15 +582,13 @@ xcustom form elements
 .cd-filter-block .checkbox-label,
 .cd-filter-block .radio-label {
     padding-left: 24px;
-    font-size: 1.4rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-.cd-filter-block .checkbox-label::before,
-.cd-filter-block .checkbox-label::after,
+.cd-filter-block .checkbox-label::before, .cd-filter-block .checkbox-label::after,
 .cd-filter-block .radio-label::before,
 .cd-filter-block .radio-label::after {
     /* custom radio and check boxes */
@@ -681,10 +617,14 @@ xcustom form elements
 }
 
 .cd-filter-block .checkbox-label::after {
-    /* check mark style for check boxes */
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
     width: 16px;
     height: 16px;
     background: url("../images/cd-icon-check.svg") no-repeat center center;
+    background-size: contain; /* Масштабируем галочку */
 }
 
 .cd-filter-block .radio-label::before,
@@ -702,8 +642,8 @@ xcustom form elements
 
 .cd-filter-block input[type=radio]:checked + label::before,
 .cd-filter-block input[type=checkbox]:checked + label::before {
-    border-color: #000000;
-    background-color: #000000;
+    border-color: #181b1f;
+    background-color: #181b1f;
 }
 
 .cd-filter-block input[type=radio]:checked + label::after,
@@ -712,9 +652,55 @@ xcustom form elements
 }
 
 @-moz-document url-prefix() {
-
     /* hide custom arrow on Firefox - select element */
     .cd-filter-block .cd-select::after {
         display: none;
     }
 }
+
+.slider-container {
+    margin-bottom: 20px;
+}
+
+.slider-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.slider-value {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Стили для черного ползунка */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #393939;
+    /* Цвет фона ползунка */
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #181b1f;
+    /* Цвет самого бегунка */
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #181b1f;
+    /* Цвет самого бегунка */
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+
