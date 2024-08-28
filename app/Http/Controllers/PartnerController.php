@@ -16,4 +16,9 @@ class PartnerController extends Controller
 
         return view("my_halls_profile", ['halls' => $halls, 'sum_income' => $sum_income, 'total_count_booking' => $total_count_booking]);
     }
+
+    public function booking_for_partner(Request $request)
+    {
+        dd($request);
+    }
 }

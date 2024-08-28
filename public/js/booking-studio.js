@@ -78,22 +78,19 @@ $(document).ready(function () {
                 var cell = $('<td data-day-index="' + i + '" data-time="' + timeLabel + '"></td>');
                 var cellDateTime = startOfWeek.clone().add(i, 'days').hour(time.hour()).minute(time.minute());
 
-                // Проверка на забронированность
-                var isBooked = bookings.some(function (booking) {
+                // Ищем конкретное бронирование для текущей ячейки
+                var matchingBooking = bookings.find(function (booking) {
                     var start = moment(booking.booking_start);
                     var end = moment(booking.booking_end);
-
-                    // Если текущее время является концом брони, не закрашиваем ячейку
-                    if (cellDateTime.isSame(end)) {
-                        return false;
-                    }
-
                     return cellDateTime.isBetween(start, end, null, '[)');
                 });
 
                 // Логика для заблокированных ячеек
-                if (isBooked) {
-                    cell.addClass('booked-cell');
+                if (matchingBooking) {
+                    cell.addClass('booked-cell-studio');
+                    var userName = matchingBooking.user ? matchingBooking.user.name : 'Неизвестно';
+                    var userPhone = matchingBooking.user ? matchingBooking.user.phone : 'Неизвестно';
+                    cell.append('<div class="booked-by"><span class="user-name" data-toggle="tooltip" title="' + userPhone + '">' + userName + '</span></div>');
                 } else if (cellDateTime.isBefore(now)) {
                     cell.addClass('disabled-past');
                 } else {
@@ -111,7 +108,7 @@ $(document).ready(function () {
                     } else {
                         basePrice = hall.price_weekday;
                     }
-
+                    basePrice -= hall.price_for_studio;
                     // Увеличиваем базовую цену на количество человек
                     var finalPrice = basePrice + peopleCount;
 
@@ -169,32 +166,28 @@ $(document).ready(function () {
             times.sort((a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'));
 
             var minTime = times[0];
-            var maxTime = times.length > 1 ? times[times.length - 1] : minTime;
-
+            var maxTime = times[times.length - 1];
 
             var maxTimeMoment = moment(maxTime, 'HH:mm');
-
-            var additionalMinutes = stepbooking * 60;
-
-            maxTimeMoment.add(additionalMinutes, 'minutes');
-
+            maxTimeMoment.add(stepbooking * 60, 'minutes');
             maxTime = maxTimeMoment.format('HH:mm');
 
             var selectedDay = startOfWeek.clone().add(dayIndex, 'days');
             var selectedDate = selectedDay.format('DD.MM.YYYY');
 
             return {
-                date: selectedDate, time: minTime + (maxTime ? ' - ' + maxTime : ''), cells: cells
+                date: selectedDate, timeRange: minTime + ' - ' + maxTime
             };
         });
 
-        var dateTimeText = selectedInfo.map(info => `Дата: ${info.date}, Время: ${info.time}`).join('<br>');
+        // Формирование текста для отображения: Дата: 30.08.2024 (12:00 - 14:00), 31.08.2024 (15:00 - 17:00)
+        var dateTimeText = selectedInfo.map(info => `Дата: ${info.date} (${info.timeRange})`).join(', ');
+
         $('#selectedDateTime').html(dateTimeText);
 
-        if (selectedInfo.length > 0) {
-            $('#selectedDate').val(selectedInfo[0].date);
-            $('#selectedTime').val(selectedInfo.map(info => info.time).join(', '));
-        }
+        // Заполняем скрытые поля для отправки данных
+        $('#selectedDate').val(selectedInfo.map(info => info.date).join(', '));
+        $('#selectedTime').val(selectedInfo.map(info => info.timeRange).join(', '));
 
         // Подсчет стоимости
         var totalCost = selectedCells.reduce((total, cell) => {
@@ -225,7 +218,7 @@ $(document).ready(function () {
 
     $('#weekTable').on('click', 'td', function () {
         var cell = $(this);
-        if (cell.hasClass('disabled-past') || cell.hasClass('booked-cell')) {
+        if (cell.hasClass('disabled-past') || cell.hasClass('booked-cell-studio')) {
             // Если ячейка в прошлом или забронирована, ничего не делаем
             return;
         }
@@ -255,7 +248,7 @@ $(document).ready(function () {
                     .add(currentColIndex, 'days')
                     .hour(parseInt(currentCell.data('time')));
 
-                if (!currentCell.hasClass('disabled-past') && !currentCell.hasClass('booked-cell') && cellDateTime.isSameOrAfter(moment())) {
+                if (!currentCell.hasClass('disabled-past') && !currentCell.hasClass('booked-cell-studio') && cellDateTime.isSameOrAfter(moment())) {
                     currentCell.removeClass('disabled-cell');
                 }
             });

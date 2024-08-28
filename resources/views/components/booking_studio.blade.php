@@ -57,8 +57,11 @@
             </div>
             <div class="modal-footer">
                 <div class="container-fluid">
-                    <div class="row align-items-center justify-content-between">
+                    <div class="row align-items-start justify-content-between">
                         <div class="col-md-6 col-sm-12 mb-3">
+                            <div class="col-md-6 col-sm-12 mb-3 px-0">
+                                <h5>Стоимость: <span id="totalCost">0</span>₽</h5>
+                            </div>
                             <select id="peopleCount" class="form-control"
                                     style="box-shadow: none; border: 1px solid #dee2e6">
                                 <option value="0" data-count="1" selected>для 1</option>
@@ -67,25 +70,32 @@
                                 <option value="{{$hall->price_for_seven}}" data-count="7">от 7 до 9 человек</option>
                                 <option value="{{$hall->price_for_nine}}" data-count="10">от 10 и более</option>
                             </select>
+
                         </div>
 
-                        <div class="col-md-6 col-sm-12">
-                            <h5>Стоимость: <span id="totalCost">0</span>₽</h5>
-                        </div>
 
-                        <div class="col-md-6 col-sm-12 text-right ">
-                            <form action="/booking" method="post" id="bookingForm">
+                        <div class="col-md-6 col-sm-12 text-right mb-3">
+                            <form action="/booking_studio" method="post" id="bookingForm">
                                 @csrf
                                 <input type="hidden" name="selectedHall" value="{{$hall->id}}">
                                 <input type="hidden" name="selectedDate" id="selectedDate">
                                 <input type="hidden" name="selectedTime" id="selectedTime">
                                 <input type="hidden" name="totalPrice" id="totalPrice">
                                 <input type="hidden" name="countPeople" id="countPeople">
+                                <div class="form-group">
+                                    <input type="text" placeholder="На кого бронируют" name="price_for_four"
+                                           class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder="Номер телефона" name="price_for_four"
+                                           class="form-control">
+                                </div>
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>
                                 </button>
                             </form>
                         </div>
+
 
                     </div>
                 </div>
@@ -102,4 +112,9 @@
     var hall = @json($hall);
 </script>
 <script src="/js/booking-studio.js"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 

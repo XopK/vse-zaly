@@ -75,16 +75,16 @@
                                         <i class="flaticon-user"></i>Профиль
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="/favourite_properties"
+                                       class="{{ Request::is('favourite_properties') ? 'active' : '' }}">
+                                        <i class="flaticon-heart"></i>Избранные залы
+                                    </a>
+                                </li>
                                 @if (Auth::user()->id_role == 1)
                                     <li>
                                         <a href="/my_booking" class="{{ Request::is('my_booking') ? 'active' : '' }}">
                                             <i class="flaticon-house"></i>Мои брони
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/favourite_properties"
-                                           class="{{ Request::is('favourite_properties') ? 'active' : '' }}">
-                                            <i class="flaticon-heart"></i>Избранные залы
                                         </a>
                                     </li>
                                 @endif

@@ -10217,6 +10217,20 @@ a:hover {
     border: none !important;
 }
 
+.booked-cell-studio {
+    background-color: #d1d1d1; /* Красный фон */
+    opacity: 0.6;
+    color: white;
+    cursor: pointer;
+    border: none !important;
+}
+
+.booked-by {
+    color: black;
+    text-align: center;
+    user-select: none;
+}
+
 td .price {
     font-size: 1em;
     color: #555;
