@@ -9,13 +9,13 @@ class IndexController extends Controller
 {
     public function index_view()
     {
-        $studios = Studio::limit(6)->get();
+        $studios = Studio::all();
         return view('index', ['studios' => $studios]);
     }
 
     public function about_view()
     {
-        $studios = Studio::limit(3)->get();
+        $studios = Studio::all();
         return view('about', ['studios' => $studios]);
     }
 }

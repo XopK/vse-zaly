@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+img {
+    max-width: 200px;
+}
+
+body {
+    background-color: #ffffff;
+    color: #ffffff;
+    display: flex;
+}
+
+.admin-panel {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #000000;
+    padding-top: 20px;
+    position: fixed;
+    height: 100%;
+}
+
+.sidebar ul {
+    list-style-type: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #333333;
+    border-radius: 5px;
+}
+
+.content {
+    margin-left: 200px;
+    /* Отступ равный ширине боковой панели */
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #ffffff;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.halls-list {
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.halls-list h2{
+    padding-bottom: 20px;
+}
+
+.hall {
+    display: flex;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.hall_info{
+    gap: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}

@@ -32,6 +32,18 @@ Route::get('/test', function () {
     return view('test');
 });
 
+Route::get('/admin', function () {
+    return view('/admin/index');
+});
+
+Route::get('/admin/users', function () {
+    return view('/admin/users');
+});
+
+Route::get('/admin/studios', function () {
+    return view('/admin/studios');
+});
+
 Route::get('/about', [IndexController::class, 'about_view']);
 
 Route::get('/terms', function () {
