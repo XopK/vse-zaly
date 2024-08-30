@@ -149,3 +149,5 @@ Route::post('/get_coordinates', [StudioController::class, 'getCoordinates']);
 Route::delete('/delete_booking/{booking}', [BookingController::class, 'delete_bookings']);
 
 Route::post('/booking_studio', [PartnerController::class, 'booking_for_partner']);
+
+Route::post('/verify_phone/change', [SmsController::class, 'change_phone']);

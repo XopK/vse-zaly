@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Services\SmsService;
+use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class SmsController extends Controller
 {
+    use PhoneNormalizerTrait;
 
     protected $smsService;
 
@@ -38,6 +40,21 @@ class SmsController extends Controller
 
 
         return view('sms', ['user' => $user]);
+    }
+
+    public function change_phone(Request $request)
+    {
+        $validated = $request->validate([
+            'changePhone' => 'required|unique:users,phone',
+        ]);
+
+        $user = Session::get('user');
+
+        $user['phone'] = $this->normalizePhoneNumber($request->changePhone);
+
+        Session::put('user', $user);
+
+        return $this->sms_verify();
     }
 
     public function check_code(Request $request)

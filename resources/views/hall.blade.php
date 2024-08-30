@@ -316,12 +316,12 @@
                     </div>
                     @auth
                         <div class="row d-flex justify-content-between">
-                            
+
                             @if(Auth::user()->id_role == 2)
                                 <div class="col-lg-3 mb-3 ">
                                     <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
                                             data-target="#warning"><span
-                                                class="btn-title">Забронировать</span></button>
+                                            class="btn-title">Забронировать</span></button>
                                 </div>
                             @endif
 
@@ -329,7 +329,7 @@
                                 <div class="col-lg-3 mb-3 ">
                                     <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
                                             data-target="#booking"><span
-                                                class="btn-title">Забронировать</span></button>
+                                            class="btn-title">Забронировать</span></button>
                                 </div>
                             @endif
 
@@ -342,8 +342,8 @@
                                             <g id="Group" fill="none" fill-rule="evenodd"
                                                transform="translate(467 392)">
                                                 <path
-                                                        d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z"
-                                                        id="heart" fill="#AAB8C2"/>
+                                                    d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z"
+                                                    id="heart" fill="#AAB8C2"/>
                                                 <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5"
                                                         r="1.5"/>
 
@@ -393,7 +393,7 @@
                         <div class="col-xl-3" style="padding: 0">
                             <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
                                     data-target="#logModal"><span
-                                        class="btn-title">Забронировать</span></button>
+                                    class="btn-title">Забронировать</span></button>
                         </div>
                     @endguest
 
@@ -423,8 +423,8 @@
                              data-wow-duration="1500ms">
                             <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
                                                      class="lightbox-image"><img
-                                            src="/storage/photo_halls/{{$photo->photo_hall}}"
-                                            alt="{{$photo->photo_hall}}"></a>
+                                        src="/storage/photo_halls/{{$photo->photo_hall}}"
+                                        alt="{{$photo->photo_hall}}"></a>
 
                             </figure>
                         </div>
@@ -455,8 +455,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="Modalwarning">{{$hall->name_hall}} (Площадь {{$hall->area_hall}}
-                        м²)</h4>
+                    <h5 class="modal-title" id="Modalwarning">{{$hall->name_hall}} (Площадь {{$hall->area_hall}}
+                        м²)</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
