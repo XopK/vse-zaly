@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="col-md-6 col-sm-12">
-                            <h5>Стоимость: <span id="totalCost">0</span>₽</h5>
+                            <h5 style="float: right">Стоимость: <span id="totalCost">0</span>₽</h5>
                         </div>
 
                         <div class="col-md-6 col-sm-12 text-right ">

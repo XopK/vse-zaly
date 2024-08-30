@@ -316,12 +316,22 @@
                     </div>
                     @auth
                         <div class="row d-flex justify-content-between">
-                            <div class="col-lg-3 mb-3">
+
+                            <div class="col-lg-3 mb-3 ">
                                 <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
-                                        data-target="#booking"><span
+                                        data-target="#warning"><span
                                         class="btn-title">Забронировать</span></button>
                             </div>
-                            <div class="col-lg-3">
+
+                            @if(Auth::user()->id_role != 2)
+                                <div class="col-lg-3 mb-3 ">
+                                    <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
+                                            data-target="#booking"><span
+                                            class="btn-title">Забронировать</span></button>
+                                </div>
+                            @endif
+
+                            <div class="col-lg-3 px-0">
                                 <div class="stfu" style="user-select: none;">
                                     <input type="checkbox" id="checkbox"
                                            data-item-id="{{ $hall->id }}" {{ $isFavorite ? 'checked' : '' }}>
@@ -437,6 +447,37 @@
     </section>
 </x-layout>
 <x-booking :hall="$hall" :bookings="$bookings"></x-booking>
+<div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="Modalwarning">{{$hall->name_hall}} (Площадь {{$hall->area_hall}} м²)</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <strong>Вы точно хотите забронировать место в своем зале?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                <button type="button" class="btn btn-primary" id="apply">Да</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('apply').addEventListener('click', function () {
+        // Закрываем первое модальное окно
+        $('#warning').modal('hide');
+
+        // Открываем второе модальное окно после того, как первое закроется
+        $('#warning').on('hidden.bs.modal', function () {
+            $('#booking').modal('show');
+        });
+    });
+</script>
 <script>
     $(document).ready(function () {
         $('#checkbox').change(function () {
