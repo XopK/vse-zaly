@@ -316,14 +316,18 @@
                     </div>
                     @auth
                         <div class="row d-flex justify-content-between">
-
+                            
                             @if(Auth::user()->id_role == 2)
-                                <div class="col-lg-3 mb-3 ">
-                                    <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
-                                            data-target="#warning"><span
-                                            class="btn-title">Забронировать</span></button>
-                                </div>
+                                @if(Auth::user()->studio->id == $hall->id_studio)
+                                    <div class="col-lg-3 mb-3 ">
+                                        <button type="button" class="theme-btn btn-style-one btn-block"
+                                                data-toggle="modal"
+                                                data-target="#warning"><span
+                                                class="btn-title">Забронировать</span></button>
+                                    </div>
+                                @endif
                             @endif
+
 
                             @if(Auth::user()->id_role == 1)
                                 <div class="col-lg-3 mb-3 ">
