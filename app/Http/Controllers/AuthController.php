@@ -94,6 +94,9 @@ class AuthController extends Controller
             $field => ($field == 'phone') ? $normalizedPhone : $request->emailOrPhone,
             'password' => $request->password,
         ], $request->has('remember'))) {
+            if (Auth::user()->id_role == 3) {
+                return redirect('/admin');
+            }
             return redirect('/')->with('success', 'Авторизация прошла успешно!');
         } else {
             return redirect()->back()->with('error_signin', 'Проверьте введеные данные.');
