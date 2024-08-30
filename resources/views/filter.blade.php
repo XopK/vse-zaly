@@ -9,14 +9,47 @@
                         <a data-type="all" href="#0">Все</a> <!-- selected option on mobile -->
                     </li>
                     <li class="filter"><a class="selected" href="#0" data-type="all">Все</a></li>
-                    <li class="filter" data-filter=".color-1"><a href="#0" data-type="color-1">По возрастанию ₽</a></li>
-                    <li class="filter" data-filter=".color-2"><a href="#0" data-type="color-2">По убыванию ₽</a></li>
+                    <li class="filter" data-filter="#color-1"><a href="#0" data-type="color-1">По возрастанию ₽</a></li>
+                    <li class="filter" data-filter="#color-2"><a href="#0" data-type="color-2">По убыванию ₽</a></li>
                 </ul> <!-- cd-filters -->
             </div> <!-- cd-tab-filter -->
         </div> <!-- cd-tab-filter-wrapper -->
 
         <section class="cd-gallery">
-            <ul>
+            @forelse($halls as $hall)
+                <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+                     data-wow-duration="1500ms">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image"><a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"><img
+                                        src="/storage/photo_halls/{{$hall->preview_hall}}" alt="{{$hall->preview_hall}}"
+                                        title="{{$hall->name_hall}}"></a>
+                            </figure>
+                        </div>
+                        <div class="lower-box">
+                            <h4>{{$hall->name_hall}}</h4>
+                            <div class="pricing clearfix">
+                                <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
+                                <div class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+
+                            <div class="text text-truncate">{{$hall->description_hall}}</div>
+                            <div class="link-box"><a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"
+                                                     class="theme-btn btn-style-three"><span
+                                        class="btn-title">Просмотреть</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+            @endforelse
+            {{--<ul>
                 <li class="mix color-1 check1 radio2 option3"><img src="/img/img-1.jpg" alt="Image 1"></li>
                 <li class="mix color-2 check2 radio2 option2"><img src="/img/img-2.jpg" alt="Image 2"></li>
                 <li class="mix color-1 check3 radio3 option1"><img src="/img/img-3.jpg" alt="Image 3"></li>
@@ -32,7 +65,7 @@
                 <li class="gap"></li>
                 <li class="gap"></li>
                 <li class="gap"></li>
-            </ul>
+            </ul>--}}
             <div class="cd-fail-message">No results found</div>
         </section> <!-- cd-gallery -->
 

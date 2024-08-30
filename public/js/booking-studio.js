@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // Устанавливаем начальное значение количества человек при загрузке страницы
+    var weekSelections = {};
     var initialPeopleCount = $('#peopleCount').find('option:selected').data('count');
     $('#countPeople').val(initialPeopleCount);
 
@@ -137,9 +137,11 @@ $(document).ready(function () {
 
         updateWeekDisplay(startOfWeek);
         generateTimeRows();
+        restoreSelection();
     }
 
     function updateSelectedInfo() {
+        
         if (selectedCells.length === 0) {
             $('#selectedDateTime').text('Дата и время: выберите ячейки');
             $('#selectedDate').val('');
@@ -290,6 +292,61 @@ $(document).ready(function () {
         }
     });
 
+    function saveFormData() {
+        var formData = {
+            selectedDateTime: $('#selectedDateTime').text(),
+            selectedDate: $('#selectedDate').val(),
+            selectedTime: $('#selectedTime').val(),
+            totalPrice: $('#totalPrice').val(),
+            totalCost: $('#totalCost').text()
+        };
+        weekSelections[weekOffset] = {
+            cells: selectedCells.map(cell => ({
+                dayIndex: cell.data('day-index'), time: cell.data('time')
+            })), formData: formData
+        };
+    }
+
+
+    function saveCurrentSelection() {
+        weekSelections[weekOffset] = selectedCells.map(cell => ({
+            dayIndex: cell.data('day-index'), time: cell.data('time')
+        }));
+    }
+
+    function restoreSelection() {
+        selectedCells = [];
+        var selectionData = weekSelections[weekOffset] || {};
+
+        // Восстанавливаем выделенные ячейки
+        var cellsToRestore = selectionData.cells || [];
+        cellsToRestore.forEach(selection => {
+            var cell = $('#weekTable td[data-day-index="' + selection.dayIndex + '"][data-time="' + selection.time + '"]');
+            if (cell.length > 0 && !cell.hasClass('disabled-past') && !cell.hasClass('booked-cell-studio')) {
+                cell.addClass('highlight-cell');
+                selectedCells.push(cell);
+            }
+        });
+
+        // Восстанавливаем данные формы
+        var formData = selectionData.formData || {
+            selectedDateTime: 'Дата и время: выберите ячейки',
+            selectedDate: '',
+            selectedTime: '',
+            totalPrice: '0',
+            totalCost: '0'
+        };
+
+        $('#selectedDateTime').text(formData.selectedDateTime);
+        $('#selectedDate').val(formData.selectedDate);
+        $('#selectedTime').val(formData.selectedTime);
+        $('#totalPrice').val(formData.totalPrice);
+        $('#totalCost').text(formData.totalCost);
+
+        updateSelectedInfo();
+    }
+
+
     function clearBookingForm() {
         $('#totalCost').text('0');
         $('#totalPrice').val('');
@@ -298,51 +355,53 @@ $(document).ready(function () {
         $('#selectedDateTime').text('Дата и время: выберите ячейки');
     }
 
-    $('#prevWeek').click(function () {
-        clearBookingForm();
+    $('#prevWeek, #nextWeek').click(function () {
+        saveCurrentSelection();
+        saveFormData(); // Сохраняем данные формы перед переключением недели
 
-        var newOffset = weekOffset - 1;
-        var newStartOfWeek = getStartOfWeek(moment().add(newOffset, 'weeks'));
-
-        if (newStartOfWeek.isBefore(moment().startOf('isoWeek'))) {
-            return false;
-        }
-
-        weekOffset = newOffset;
-        loadWeek(weekOffset);
-    });
-
-    $('#nextWeek').click(function () {
-        clearBookingForm();
-        weekOffset++;
-
-        var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
-        var oneMonthLater = moment().add(1, 'month').endOf('day');  // Добавляем 1 месяц
-
-        // Ограничение: если начало недели больше, чем один месяц от текущей даты, не переключаемся
-        if (startOfWeek.isAfter(oneMonthLater)) {
-            alert('Нельзя выбрать дату более чем на один месяц вперёд.');
-            weekOffset--;  // Отменяем изменение
-            return;
+        if ($(this).attr('id') === 'prevWeek') {
+            weekOffset--;
+        } else {
+            weekOffset++;
         }
 
         loadWeek(weekOffset);
     });
-
 
     $('#currentWeek').click(function () {
-        clearBookingForm();
+        saveCurrentSelection();
+        saveFormData(); // Сохраняем данные формы перед переключением недели
         weekOffset = 0;
         loadWeek(weekOffset);
     });
 
     $('#saveChanges').click(function () {
+        saveFormData(); // Сохраняем текущие изменения
+
         if (selectedCells.length === 0) {
             alert('Пожалуйста, выберите дату и время.');
             return;
         }
+
+        // Объединяем все данные в одну форму для отправки
+        var finalData = Object.values(weekSelections).reduce((acc, weekData) => {
+            acc.selectedDateTime.push(weekData.formData.selectedDateTime);
+            acc.selectedDate.push(weekData.formData.selectedDate);
+            acc.selectedTime.push(weekData.formData.selectedTime);
+            acc.totalPrice = (parseFloat(acc.totalPrice) + parseFloat(weekData.formData.totalPrice)).toString();
+            return acc;
+        }, {
+            selectedDateTime: [], selectedDate: [], selectedTime: [], totalPrice: '0'
+        });
+
+        // Записываем объединенные данные в форму
+        $('#selectedDateTime').val(finalData.selectedDateTime.join(', '));
+        $('#selectedDate').val(finalData.selectedDate.join(', '));
+        $('#selectedTime').val(finalData.selectedTime.join(', '));
+        $('#totalPrice').val(finalData.totalPrice);
+
         $('#bookingForm').submit();
-    });
+    })
 
     loadWeek(weekOffset);
 });
