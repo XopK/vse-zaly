@@ -44,6 +44,10 @@ Route::get('/admin/studios', function () {
     return view('/admin/studios');
 });
 
+Route::get('/admin/booking', function () {
+    return view('/admin/booking');
+});
+
 Route::get('/about', [IndexController::class, 'about_view']);
 
 Route::get('/terms', function () {

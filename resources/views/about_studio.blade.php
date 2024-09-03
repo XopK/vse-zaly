@@ -23,7 +23,7 @@
         <div class="banner-inner">
             <div class="auto-container">
                 <div class="inner-container clearfix">
-                    <h1>О студии {{$studio_info->name_studio}}</h1>
+                    <h1>Студия {{$studio_info->name_studio}}</h1>
                 </div>
             </div>
         </div>

@@ -16,6 +16,7 @@
                 <li><a href="/admin">Главная</a></li>
                 <li><a href="/admin/studios">Студии</a></li>
                 <li><a href="/admin/users">Пользователи</a></li>
+                <li><a href="/admin/booking">Бронирования</a></li>
             </ul>
         </nav>
         <!-- Контент -->

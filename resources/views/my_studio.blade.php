@@ -248,7 +248,7 @@
     </div>
 
     <!--Testimonials Section-->
-    <section class="testimonials-section">
+    {{-- <section class="testimonials-section">
         <div class="circles-two">
             <div class="c-1"></div>
             <div class="c-2"></div>
@@ -446,7 +446,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <script>
         document.querySelector('.custom-file-input').addEventListener('change', function (event) {
             var input = event.target;

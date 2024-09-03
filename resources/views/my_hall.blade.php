@@ -348,7 +348,7 @@
             <div class="details-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="details-inner">
                     <h3>Зал предоставляет:</h3>
-                    <div class="text">Короткое описание правил пользования данного зала*</div>
+                    <div class="text">Правила: {{$hall->rule_hall}}</div>
                     <ul class="info clearfix">
                         {{-- <li><span class="icon flaticon-tv"></span> Telivision</li> --}}
                         <li><span class="icon flaticon-wifi"></span> Wi-Fi</li>
