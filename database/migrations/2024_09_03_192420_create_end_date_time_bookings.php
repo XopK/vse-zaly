@@ -10,8 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('halls', function (Blueprint $table) {
-            $table->integer('price_for_studio')->after('max_price');
+        Schema::create('end_date_time_bookings', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_booking')->constrained('booking_halls');
+            $table->dateTime('booking_start');
+            $table->dateTime('booking_end')->nullable();
         });
     }
 
@@ -20,8 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('halls', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('end_date_time_bookings');
     }
 };

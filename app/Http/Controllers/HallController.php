@@ -58,7 +58,6 @@ class HallController extends Controller
             'price_for_four' => 'required|numeric',
             'price_for_seven' => 'required|numeric',
             'price_for_nine' => 'required|numeric',
-            'price_for_studio' => 'required|numeric',
         ], [
             'name_hall.required' => 'Введите название студии.',
             'area_hall.integer' => 'Введите числовые значения.',
@@ -93,8 +92,6 @@ class HallController extends Controller
             'price_for_seven.numeric' => 'Только числовые значения.',
             'price_for_nine.required' => 'Введите цену для зала.',
             'price_for_nine.numeric' => 'Только числовые значения.',
-            'price_for_studio.required' => 'Введите цену для зала.',
-            'price_for_studio.numeric' => 'Только числовые значения.',
         ]);
 
         $studio = Auth::user()->studio;
@@ -122,7 +119,6 @@ class HallController extends Controller
             'price_for_four' => $request->price_for_four,
             'price_for_seven' => $request->price_for_seven,
             'price_for_nine' => $request->price_for_nine,
-            'price_for_studio' => $request->price_for_studio,
         ]);
 
         PhotoHall::create([
@@ -169,7 +165,6 @@ class HallController extends Controller
             'price_for_four' => 'required|numeric',
             'price_for_seven' => 'required|numeric',
             'price_for_nine' => 'required|numeric',
-            'price_for_studio' => 'required|numeric',
         ], [
             'hall_name.required' => 'Введите название зала.',
             'hall_area.required' => 'Введите площадь зала.',
@@ -200,8 +195,6 @@ class HallController extends Controller
             'price_for_seven.numeric' => 'Только числовые значения.',
             'price_for_nine.required' => 'Введите цену для зала.',
             'price_for_nine.numeric' => 'Только числовые значения.',
-            'price_for_studio.required' => 'Введите цену для зала.',
-            'price_for_studio.numeric' => 'Только числовые значения.',
             'address_hall.required' => 'Введите адрес зала.',
         ]);
 
@@ -223,7 +216,6 @@ class HallController extends Controller
             'price_for_four' => $request->price_for_four,
             'price_for_seven' => $request->price_for_seven,
             'price_for_nine' => $request->price_for_nine,
-            'price_for_studio' => $request->price_for_studio,
         ]);
 
         if ($hall) {

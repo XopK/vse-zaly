@@ -32,7 +32,6 @@ class Hall extends Model
         'count_booking',
         'total_income',
         'view_count',
-        'price_for_studio',
     ];
 
     public function studio()

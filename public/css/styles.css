@@ -514,13 +514,6 @@ xcustom form elements
     border-color: #181b1f;
 }
 
-.cd-filter-block input[type='search'],
-.cd-filter-block input[type='date'] {
-    /* custom style for the search element */
-    border-color: transparent;
-    background-color: #e6e6e6;
-    /* prevent jump - ios devices */
-}
 
 .cd-filter-block input[type='search']::-webkit-search-cancel-button {
     display: none;

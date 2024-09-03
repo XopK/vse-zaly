@@ -60,6 +60,8 @@ class BookingController extends Controller
         } else {
             return back()->with('error', 'Ошибка бронирования!');
         }
+
+
     }
 
     private function checkUserBooking($request, $startDateTime, $endDateTime)

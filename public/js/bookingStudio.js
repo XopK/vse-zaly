@@ -1,5 +1,7 @@
 $(document).ready(function () {
     var weekSelections = {};
+    var selectTimePrice = {};
+
     var initialPeopleCount = $('#peopleCount').find('option:selected').data('count');
     $('#countPeople').val(initialPeopleCount);
 
@@ -108,7 +110,6 @@ $(document).ready(function () {
                     } else {
                         basePrice = hall.price_weekday;
                     }
-                    basePrice -= hall.price_for_studio;
                     // Увеличиваем базовую цену на количество человек
                     var finalPrice = basePrice + peopleCount;
 
@@ -141,7 +142,7 @@ $(document).ready(function () {
     }
 
     function updateSelectedInfo() {
-        
+
         if (selectedCells.length === 0) {
             $('#selectedDateTime').text('Дата и время: выберите ячейки');
             $('#selectedDate').val('');
@@ -256,6 +257,7 @@ $(document).ready(function () {
             });
 
             updateSelectedInfo();
+            get_selectTimePrice();
         } else {
             console.warn("Cell data is missing 'dayIndex' or 'time'.");
         }
@@ -328,7 +330,6 @@ $(document).ready(function () {
             }
         });
 
-        // Восстанавливаем данные формы
         var formData = selectionData.formData || {
             selectedDateTime: 'Дата и время: выберите ячейки',
             selectedDate: '',
@@ -379,7 +380,6 @@ $(document).ready(function () {
         saveFormData(); // Сохраняем текущие изменения
 
         if (selectedCells.length === 0) {
-            alert('Пожалуйста, выберите дату и время.');
             return;
         }
 

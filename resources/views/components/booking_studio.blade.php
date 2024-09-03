@@ -49,6 +49,7 @@
                         {{--ячейки генерируются скриптом--}}
                         </tbody>
                     </table>
+
                     <div class="sticky-col booking-form mt-3">
                         <div id="selectedDateTime">Дата и время: выберите ячейки</div>
                     </div>
@@ -83,11 +84,7 @@
                                 <input type="hidden" name="totalPrice" id="totalPrice">
                                 <input type="hidden" name="countPeople" id="countPeople">
                                 <div class="form-group">
-                                    <input type="text" placeholder="На кого бронируют" name="price_for_four"
-                                           class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Номер телефона" name="price_for_four"
+                                    <input type="text" placeholder="Номер телефона" id="phone_book" name="phone_booking"
                                            class="form-control">
                                 </div>
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
@@ -111,10 +108,15 @@
     var stepbooking = @json($hall->step_booking);
     var hall = @json($hall);
 </script>
-<script src="/js/booking-studio.js"></script>
+<script src="/js/bookingStudio.js"></script>
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js"
+        type="text/javascript"></script>
+<script>
+    $("#phone_book").mask("+7(999)-999-9999");
 </script>
 

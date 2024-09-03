@@ -271,19 +271,6 @@
                                 </div>
                                 @enderror
                                 <div class="form-group">
-                                    <label>Скидка для студии (сколько будем отнимать от текущих цен)</label>
-                                    <input type="number" min="0" name="price_for_studio" class="form-control"
-                                           value="{{$hall->price_for_studio}}" required>
-                                </div>
-                                @error('price_for_studio')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
                                     <label>Надбавка цены за 2 до 3 человек</label>
                                     <input type="number" min="0" name="price_for_two" class="form-control"
                                            value="{{$hall->price_for_two}}" required>
