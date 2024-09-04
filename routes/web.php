@@ -155,3 +155,6 @@ Route::delete('/delete_booking/{booking}', [BookingController::class, 'delete_bo
 Route::post('/booking_studio', [PartnerController::class, 'booking_for_partner']);
 
 Route::post('/verify_phone/change', [SmsController::class, 'change_phone']);
+
+Route::post('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
+

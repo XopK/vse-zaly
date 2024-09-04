@@ -40,4 +40,9 @@ return [
         'api_key' => env('YANDEX_GEOCODING_API_KEY'),
     ],
 
+    'tinkoff' => [
+        'terminal_key' => env('TINKOFF_TERMINAL_KEY'),
+        'secret_key' => env('TINKOFF_SECRET_KEY'),
+    ],
+
 ];

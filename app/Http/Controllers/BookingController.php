@@ -4,13 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
 use App\Models\Hall;
-use App\View\Components\booking;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\PaymentService;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {
+
+    protected $paymentService;
+
+    public function __construct(PaymentService $paymentService)
+    {
+        $this->paymentService = $paymentService;
+    }
+
     public function create_booking(Request $request)
     {
         $validated = $request->validate([
@@ -43,9 +53,9 @@ class BookingController extends Controller
 
         $checking = $this->checkUserBooking($request, $startDateTime, $endDateTime);
 
-
         if ($checking) {
-            $bookingHall = BookingHall::create([
+
+            $bookingHall = new BookingHall([
                 'id_hall' => $request->selectedHall,
                 'id_user' => $user->id,
                 'booking_start' => $startDateTime,
@@ -54,9 +64,10 @@ class BookingController extends Controller
                 'count_people_booking' => $request->countPeople,
             ]);
 
-            $bookingHall->income($request->totalPrice);
+            $payment_url = $this->payment_bookings($request);
+            Session::put('bookingHall', $bookingHall);
 
-            return redirect('/my_booking')->with('success', 'Успешное бронирование!');
+            return redirect()->away($payment_url);
         } else {
             return back()->with('error', 'Ошибка бронирования!');
         }
@@ -176,6 +187,43 @@ class BookingController extends Controller
             }
         } else {
             return redirect('/my_booking')->with('error_delete', 'Ошибка удаления!');
+        }
+    }
+
+    public function payment_bookings($request)
+    {
+        $hall = Hall::where('id', $request->selectedHall)->first();
+
+        $amount = $request->totalPrice;
+        $orderId = Str::uuid();
+        $description = $hall->name_hall . ' ' . '(' . $hall->area_hall . 'кв. м' . ')';
+
+        $paymentUrl = $this->paymentService->makePayment($amount, $orderId, $description);
+
+        if ($paymentUrl) {
+            return $paymentUrl;
+        } else {
+            return redirect()->back()->with('error', 'Ошибка при инициации платежа');
+        }
+    }
+
+    public function callback(Request $request)
+    {
+        $data = $request->all();
+
+        $generatedToken = $this->paymentService->generateToken($data);
+
+        if ($generatedToken === $data['Token']) {
+            if ($data['Status'] === 'CONFIRMED') {
+                $booking = Session::get('bookingHall');
+                $booking->save();
+                $booking->income($data['totalPrice']);
+            } else {
+                return response()->json(['Success' => false], 400);
+            }
+            return response()->json(['Success' => true]);
+        } else {
+            return response()->json(['Success' => false], 400);
         }
     }
 

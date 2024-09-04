@@ -460,30 +460,31 @@
     </section>
 </x-layout>
 <x-booking :hall="$hall" :bookings="$bookings"></x-booking>
-@if(Auth::user()->id_role == 2)
-    <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="Modalwarning">{{$hall->name_hall}} (Площадь {{$hall->area_hall}}
-                        м²)</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <strong>Вы точно хотите забронировать место в своем зале?</strong>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
-                    <button type="button" class="btn btn-primary" id="apply">Да</button>
+@auth
+    @if(Auth::user()->id_role == 2)
+        <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="Modalwarning">{{$hall->name_hall}} (Площадь {{$hall->area_hall}}
+                            м²)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <strong>Вы точно хотите забронировать место в своем зале?</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                        <button type="button" class="btn btn-primary" id="apply">Да</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
-
+    @endif
+@endauth
 <script>
     document.getElementById('apply').addEventListener('click', function () {
         // Закрываем первое модальное окно

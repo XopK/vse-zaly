@@ -20,7 +20,7 @@ class HallController extends Controller
 
     public function hall_view(Hall $hall)
     {
-        $booking = BookingHall::where('id_hall', $hall->id)->get();
+        $booking = BookingHall::where('id_hall', $hall->id)->where('status_booking', 1)->get();
 
         $sessionKey = 'hall_view_' . $hall->id;
 
