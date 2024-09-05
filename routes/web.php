@@ -158,3 +158,7 @@ Route::post('/verify_phone/change', [SmsController::class, 'change_phone']);
 
 Route::post('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
 
+Route::get('/payment/successful', [BookingController::class, 'payment_successful'])->name('payment.successful');
+
+Route::get('/payment/failed', [BookingController::class, 'payment_failed'])->name('payment.failed');
+

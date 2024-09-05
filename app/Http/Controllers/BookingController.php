@@ -8,8 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\PaymentService;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
+
 
 class BookingController extends Controller
 {
@@ -55,7 +54,7 @@ class BookingController extends Controller
 
         if ($checking) {
 
-            $bookingHall = new BookingHall([
+            $bookingHall = BookingHall::create([
                 'id_hall' => $request->selectedHall,
                 'id_user' => $user->id,
                 'booking_start' => $startDateTime,
@@ -64,8 +63,7 @@ class BookingController extends Controller
                 'count_people_booking' => $request->countPeople,
             ]);
 
-            $payment_url = $this->payment_bookings($request);
-            Session::put('bookingHall', $bookingHall);
+            $payment_url = $this->payment_bookings($request, $bookingHall);
 
             return redirect()->away($payment_url);
         } else {
@@ -190,12 +188,12 @@ class BookingController extends Controller
         }
     }
 
-    public function payment_bookings($request)
+    public function payment_bookings($request, $bookingHall)
     {
         $hall = Hall::where('id', $request->selectedHall)->first();
 
         $amount = $request->totalPrice;
-        $orderId = Str::uuid();
+        $orderId = $bookingHall->id;
         $description = $hall->name_hall . ' ' . '(' . $hall->area_hall . 'кв. м' . ')';
 
         $paymentUrl = $this->paymentService->makePayment($amount, $orderId, $description);
@@ -211,21 +209,34 @@ class BookingController extends Controller
     {
         $data = $request->all();
 
-        $generatedToken = $this->paymentService->generateToken($data);
+        if ($data['Status'] == 'CONFIRMED') {
 
-        if ($generatedToken === $data['Token']) {
-            if ($data['Status'] === 'CONFIRMED') {
-                $booking = Session::get('bookingHall');
+            $booking = BookingHall::where('id', $data['OrderId'])->first();
+
+            if ($booking) {
+                $booking->status_booking = 1;
                 $booking->save();
-                $booking->income($data['totalPrice']);
+                $booking->income($data['Amount'] / 100);
+
+                return response()->json(['Success' => true]);
             } else {
-                return response()->json(['Success' => false], 400);
+
+                return response()->json(['Success' => false, 'Error' => 'Booking not found'], 400);
             }
-            return response()->json(['Success' => true]);
         } else {
-            return response()->json(['Success' => false], 400);
+
+            return response()->json(['Success' => false, 'Error' => 'Invalid status'], 400);
         }
     }
 
+    public function payment_successful()
+    {
+        return view('payment_successful');
+    }
+
+    public function payment_failed()
+    {
+        return view('payment_failed');
+    }
 
 }

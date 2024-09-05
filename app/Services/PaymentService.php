@@ -18,6 +18,10 @@ class PaymentService
 
     public function generateToken($data)
     {
+        if (isset($data['Token'])) {
+            unset($data['Token']);
+        }
+
         $data['Password'] = $this->secretKey;
 
         ksort($data);
@@ -29,18 +33,14 @@ class PaymentService
 
     public function makePayment($amount, $orderId, $description)
     {
+
         $data = [
             'TerminalKey' => $this->terminalKey,
             'Amount' => $amount * 100,
             'OrderId' => $orderId,
             'Description' => $description,
-            'NotificationURL' => route('payment.callback'),
-
-
         ];
-        dd($data);
         $data['Token'] = $this->generateToken($data);
-
         try {
             $response = Http::post('https://securepay.tinkoff.ru/v2/Init', $data);
 
@@ -58,5 +58,6 @@ class PaymentService
             return null;
         }
     }
+
 
 }
