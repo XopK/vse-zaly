@@ -39,6 +39,8 @@ class PaymentService
             'Amount' => $amount * 100,
             'OrderId' => $orderId,
             'Description' => $description,
+            'SuccessURL' => route('payment.successful'),
+            'FailURL' => route('payment.failed'),
         ];
         $data['Token'] = $this->generateToken($data);
         try {
