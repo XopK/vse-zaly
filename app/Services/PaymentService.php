@@ -62,5 +62,33 @@ class PaymentService
         }
     }
 
+    public function cancelPayment($PaymentId)
+    {
+        $data = [
+            'TerminalKey' => $this->terminalKey,
+            'PaymentId' => $PaymentId,
+        ];
+
+        $data['Token'] = $this->generateToken($data);
+
+        try {
+            $response = Http::post('https://securepay.tinkoff.ru/v2/Cancel', $data);
+            if ($response->successful()) {
+                $body = $response->json();
+                if ($body['Success']) {
+                    \Log::info('Платеж отменен!');
+                    return true;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
 
 }

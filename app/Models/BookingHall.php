@@ -15,7 +15,7 @@ class BookingHall extends Model
         'booking_start',
         'booking_end',
         'total_price',
-        'status_booking',
+        'payment_id',
         'is_archive',
         'count_people_booking',
     ];

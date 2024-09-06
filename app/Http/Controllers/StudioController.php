@@ -97,7 +97,7 @@ class StudioController extends Controller
 
     public function my_hall_view(Hall $hall)
     {
-        $booking = BookingHall::where('id_hall', $hall->id)->where('status_booking', 1)->with('user')->get();
+        $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user')->get();
 
         return view('my_hall', ['hall' => $hall, 'bookings' => $booking,]);
     }

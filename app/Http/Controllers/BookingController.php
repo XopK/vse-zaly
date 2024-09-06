@@ -177,9 +177,12 @@ class BookingController extends Controller
 
             if ($nowTime->diffInHours($startBooking, false) >= 24) {
 
-                $booking->delete();
-                return redirect('/my_booking')->with('success_delete', 'Бронь отменена.');
-
+                if ($this->paymentService->cancelPayment($booking->payment_id)) {
+                    $booking->delete();
+                    return redirect('/my_booking')->with('success_delete', 'Бронь отменена.');
+                } else {
+                    return redirect('/my_booking')->with('success_delete', 'Бронь отменена.');
+                }
             } else {
                 return redirect('/my_booking')->with('error_delete', 'Бронирование можно отменить только за 24 часа.');
             }
@@ -207,15 +210,15 @@ class BookingController extends Controller
 
     public function callback(Request $request)
     {
-        \Log::info("requestdata: ", $request);
         $data = $request->all();
+        \Log::info("requestdata: ", $data);
 
         if ($data['Status'] == 'CONFIRMED') {
 
             $booking = BookingHall::where('id', $data['OrderId'])->first();
 
             if ($booking) {
-                $booking->status_booking = 1;
+                $booking->payment_id = $data['PaymentId'];
                 $booking->save();
                 $booking->income($data['Amount'] / 100);
 
