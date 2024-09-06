@@ -33,7 +33,7 @@
                     <form method="post" action="{{ route('request_partner') }}" id="requestFrom">
                         @csrf
                         <div class="form-group">
-                            <label class="font-weight-bold">Почта <span class="text-danger">*</span></label>
+                            <label class="font-weight-bold">Почта<span class="text-danger">*</span></label>
                             <input type="email" name="emailReq" id="emailReq" class="form-control" required>
                         </div>
                         @error('emailReq')
@@ -61,6 +61,18 @@
                             <input type="text" name="nameStudio" id="nameStudio" class="form-control" required>
                         </div>
                         @error('nameStudio')
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @enderror
+                        <div class="form-group">
+                            <label class="font-weight-bold">Адрес студии<span class="text-danger">*</span></label>
+                            <input type="text" name="adressStudio" id="adressStudio" class="form-control" required>
+                        </div>
+                        @error('adressStudio')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>{{ $message }}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

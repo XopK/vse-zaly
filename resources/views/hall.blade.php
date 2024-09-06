@@ -299,13 +299,13 @@
                     <h2>{{$hall->name_hall}}</h2>
                     <div class="pricing clearfix">
                         <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
-                        <div class="rating">
+                        {{-- <div class="rating">
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="text">
                         <p>{{$hall->description_hall}}</p>

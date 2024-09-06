@@ -1,4 +1,5 @@
 <x-layout>
+    
     <style>
         .detail-clearfix {
             border-radius: 4px;

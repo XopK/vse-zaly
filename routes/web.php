@@ -48,6 +48,10 @@ Route::get('/admin/booking', function () {
     return view('/admin/booking');
 });
 
+Route::get('/admin/studio_requests', function () {
+    return view('/admin/studio_requests');
+});
+
 Route::get('/about', [IndexController::class, 'about_view']);
 
 Route::get('/terms', function () {

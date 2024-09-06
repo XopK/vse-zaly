@@ -1,6 +1,7 @@
 @props(['hall', 'bookings'])
 <style>
-    .table td, .table th {
+    .table td,
+    .table th {
         padding: .50rem;
         vertical-align: top;
         border: 1px solid #d0d2d8;
@@ -10,14 +11,13 @@
         vertical-align: top;
         border-bottom: none;
     }
-
 </style>
-<div class="modal fade" id="booking" tabindex="-1" role="dialog" aria-labelledby="ModalBooking"
-     aria-hidden="true">
+<div class="modal fade" id="booking" tabindex="-1" role="dialog" aria-labelledby="ModalBooking" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="padding-right: 0">
         <div class="modal-content" style="padding: 5px">
             <div class="modal-header" style="border-bottom: none; padding-bottom: 0">
-                <h4 class="modal-title" id="ModalBooking">{{$hall->name_hall}} (Площадь {{$hall->area_hall}} м²)</h4>
+                <h4 class="modal-title" id="ModalBooking">{{ $hall->name_hall }} (Площадь {{ $hall->area_hall }} м²)
+                </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -31,22 +31,22 @@
                     </div>
                     <table class="table" id="weekTable">
                         <thead>
-                        <tr>
-                            <th style="width: 15%" scope="col" class="sticky-col" id="monthDisplay"><span
-                                    id="currentMonth"></span>
-                                <br><span id="weekRange"></span>
-                            </th>
-                            <th scope="col" class="day"></th>
-                            <th scope="col" class="day"></th>
-                            <th scope="col" class="day"></th>
-                            <th scope="col" class="day"></th>
-                            <th scope="col" class="day"></th>
-                            <th scope="col" class="day"></th>
-                            <th scope="col" class="day"></th>
-                        </tr>
+                            <tr>
+                                <th style="width: 15%" scope="col" class="sticky-col" id="monthDisplay"><span
+                                        id="currentMonth"></span>
+                                    <br><span id="weekRange"></span>
+                                </th>
+                                <th scope="col" class="day"></th>
+                                <th scope="col" class="day"></th>
+                                <th scope="col" class="day"></th>
+                                <th scope="col" class="day"></th>
+                                <th scope="col" class="day"></th>
+                                <th scope="col" class="day"></th>
+                                <th scope="col" class="day"></th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {{--ячейки генерируются скриптом--}}
+                            {{-- ячейки генерируются скриптом --}}
                         </tbody>
                     </table>
 
@@ -64,12 +64,12 @@
                                 <h5>Стоимость: <span id="totalCost">0</span>₽</h5>
                             </div>
                             <select id="peopleCount" class="form-control"
-                                    style="box-shadow: none; border: 1px solid #dee2e6">
+                                style="box-shadow: none; border: 1px solid #dee2e6">
                                 <option value="0" data-count="1" selected>для 1</option>
-                                <option value="{{$hall->price_for_two}}" data-count="2">от 2 до 3 человек</option>
-                                <option value="{{$hall->price_for_four}}" data-count="4">от 4 до 6 человек</option>
-                                <option value="{{$hall->price_for_seven}}" data-count="7">от 7 до 9 человек</option>
-                                <option value="{{$hall->price_for_nine}}" data-count="10">от 10 и более</option>
+                                <option value="{{ $hall->price_for_two }}" data-count="2">от 2 до 3 человек</option>
+                                <option value="{{ $hall->price_for_four }}" data-count="4">от 4 до 6 человек</option>
+                                <option value="{{ $hall->price_for_seven }}" data-count="7">от 7 до 9 человек</option>
+                                <option value="{{ $hall->price_for_nine }}" data-count="10">от 10 и более</option>
                             </select>
 
                         </div>
@@ -78,14 +78,14 @@
                         <div class="col-md-6 col-sm-12 text-right mb-3">
                             <form action="/booking_studio" method="post" id="bookingForm">
                                 @csrf
-                                <input type="hidden" name="selectedHall" value="{{$hall->id}}">
+                                <input type="hidden" name="selectedHall" value="{{ $hall->id }}">
                                 <input type="hidden" name="selectedDate" id="selectedDate">
                                 <input type="hidden" name="selectedTime" id="selectedTime">
                                 <input type="hidden" name="totalPrice" id="totalPrice">
                                 <input type="hidden" name="countPeople" id="countPeople">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Номер телефона" id="phone_book" name="phone_booking"
-                                           class="form-control">
+                                    <input type="text" placeholder="Номер телефона" id="phone_book"
+                                        name="phone_booking" class="form-control">
                                 </div>
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>
@@ -110,13 +110,12 @@
 </script>
 <script src="/js/bookingStudio.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js"
-        type="text/javascript"></script>
+    type="text/javascript"></script>
 <script>
     $("#phone_book").mask("+7(999)-999-9999");
 </script>
-

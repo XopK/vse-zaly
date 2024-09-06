@@ -81,13 +81,13 @@
                         <h4>{{$hall->name_hall}}</h4>
                         <div class="pricing clearfix">
                             <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
-                            <div class="rating">
+                            {{-- <div class="rating">
                                 <span class="fa fa-star"></span>
                                 <span class="fa fa-star"></span>
                                 <span class="fa fa-star"></span>
                                 <span class="fa fa-star"></span>
                                 <span class="fa fa-star"></span>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="text text-truncate">{{$hall->description_hall}}</div>

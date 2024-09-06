@@ -45,13 +45,13 @@
                                 {{$hall->area_hall}} м²
                             </span>
                         </div>
-                        <div class="rating">
+                        {{-- <div class="rating">
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="text">
                         <p>{{$hall->description_hall}}</p>
