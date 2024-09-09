@@ -42,7 +42,6 @@ $(document).ready(function () {
                 // Обновляем список залов по результатам фильтрации на сервере
                 $('.hall-item').each(function () {
                     let hallId = $(this).data('id');
-                    // Скрываем залы, которые не вернулись с сервера
                     if (!response.some(hall => hall.id == hallId)) {
                         $(this).hide();
                     }

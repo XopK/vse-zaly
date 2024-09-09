@@ -304,21 +304,21 @@ class HallController extends Controller
         $query = Hall::query();
 
         // Фильтр по дате
-        if ($request->has('date') && $request->date != '') {
-            // Логика фильтра по дате
-            // Например, если у зала есть поле 'available_date'
-            // $query->whereDate('available_date', $request->date);
-        }
+        if ($request->has('date') && $request->date != '' && $request->has('time') && $request->time != '') {
+            $selectedDate = $request->date;
+            $selectedTime = $request->time;
 
-        // Фильтр по времени
-        if ($request->has('time') && $request->time != '') {
-            // Логика фильтра по времени
+            // Ищем залы, которые не забронированы в указанную дату и время
+            $query->whereDoesntHave('booking_halls', function ($bookingQuery) use ($selectedDate, $selectedTime) {
+                $bookingQuery->whereDate('booking_start', $selectedDate)
+                    ->whereTime('booking_start', '<=', $selectedTime)
+                    ->whereTime('booking_end', '>', $selectedTime);
+            });
         }
 
         // Получаем отфильтрованные залы
         $halls = $query->get();
 
-        // Возвращаем результат в JSON формате для клиентской фильтрации
         return response()->json($halls);
     }
 
