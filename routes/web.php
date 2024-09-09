@@ -166,3 +166,5 @@ Route::get('/payment/successful', [BookingController::class, 'payment_successful
 
 Route::get('/payment/failed', [BookingController::class, 'payment_failed'])->name('payment.failed');
 
+Route::get('/halls/filter', [HallController::class, 'filter_halls']);
+

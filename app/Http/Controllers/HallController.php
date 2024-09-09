@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BookingHall;
 use App\Models\Hall;
 use App\Models\PhotoHall;
+use App\Models\Studio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -293,8 +294,32 @@ class HallController extends Controller
     public function all_halls()
     {
         $halls = Hall::all();
+        $studios = Studio::all();
 
-        return view('filter', ['halls' => $halls]);
+        return view('filter', ['halls' => $halls, 'studios' => $studios]);
+    }
+
+    public function filter_halls(Request $request)
+    {
+        $query = Hall::query();
+
+        // Фильтр по дате
+        if ($request->has('date') && $request->date != '') {
+            // Логика фильтра по дате
+            // Например, если у зала есть поле 'available_date'
+            // $query->whereDate('available_date', $request->date);
+        }
+
+        // Фильтр по времени
+        if ($request->has('time') && $request->time != '') {
+            // Логика фильтра по времени
+        }
+
+        // Получаем отфильтрованные залы
+        $halls = $query->get();
+
+        // Возвращаем результат в JSON формате для клиентской фильтрации
+        return response()->json($halls);
     }
 
     public function delete_hall(Hall $hall)

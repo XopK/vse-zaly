@@ -29,7 +29,6 @@
         .booking_photo {
             max-width: 240px;
             max-height: 240px;
-            padding-right: 20px;
         }
 
         .booking_info button {
@@ -338,21 +337,23 @@
         <ul class="booking-list">
             @forelse($favorites as $favorite)
                 <li>
-
-                    <a href="/hall/{{$favorite->halls->id}}-{{Str::slug($favorite->halls->name_hall)}}">
-                        <div class="booking_photo">
-                            <img src="/storage/photo_halls/{{$favorite->halls->preview_hall}}"
-                                 alt="{{$favorite->halls->preview_hall}}"
-                                 title="{{$favorite->halls->name_hall}}">
+                    <div class="infoPhoto d-flex">
+                        <a href="/hall/{{$favorite->halls->id}}-{{Str::slug($favorite->halls->name_hall)}}">
+                            <div class="booking_photo" style="padding-right: 20px;">
+                                <img src="/storage/photo_halls/{{$favorite->halls->preview_hall}}"
+                                     alt="{{$favorite->halls->preview_hall}}"
+                                     title="{{$favorite->halls->name_hall}}">
+                            </div>
+                        </a>
+                        <div class="booking_info">
+                            <h4>{{$favorite->halls->name_hall}}</h4>
+                            <p>Площадь: {{$favorite->halls->area_hall}} м²</p>
+                            <p class="text text-truncate"
+                               style="max-width: 300px;">Описание: {{$favorite->halls->description_hall}}</p>
+                            <p>Адрес: {{$favorite->halls->address_hall}}</p>
                         </div>
-                    </a>
-                    <div class="booking_info">
-                        <h4>{{$favorite->halls->name_hall}}</h4>
-                        <p>Площадь: {{$favorite->halls->area_hall}} м²</p>
-                        <p class="text text-truncate"
-                           style="max-width: 300px;">{{$favorite->halls->description_hall}}</p>
-                        <p>Адрес: {{$favorite->halls->address_hall}}</p>
                     </div>
+
                     <div class="stfu" style="user-select: none;">
                         <input type="checkbox" id="checkbox"
                                data-item-id="{{ $favorite->halls->id }}" {{ $favorite->is_favorite ? 'checked' : '' }}>

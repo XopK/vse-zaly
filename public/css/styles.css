@@ -29,6 +29,17 @@ Main Components
     width: 100%;
 }
 
+.cd-gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fix-block {
+    flex: 1 1 calc(33.333% - 20px); /* Карточки занимают 33% ширины, отступы учтены */
+    box-sizing: border-box;
+
+}
+
 .cd-main-content.is-fixed .cd-gallery {
     padding-top: 76px;
 }
