@@ -62,9 +62,9 @@
                     <h5>Площадь</h5>
                     <div class="cd-filter-content slider-container">
                         <label for="area">Минимальная площадь (м²):</label>
-                        <input type="range" id="area" name="area" min="0" max="150" step="10" value="70"
+                        <input type="range" id="area" name="area" min="0" max="150" step="10" value="150"
                                oninput="document.getElementById('area-value').textContent = this.value;">
-                        <span id="area-value" class="slider-value">70</span> <!-- Вывод текущего значения -->
+                        <span id="area-value" class="slider-value">150</span> <!-- Вывод текущего значения -->
                     </div> <!-- cd-filter-content -->
                 </div> <!-- cd-filter-block -->
 
