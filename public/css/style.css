@@ -568,7 +568,8 @@ img {
     display: block;
     left: 0;
     top: 0;
-    padding: 0px 50px;
+    padding: 0px 0px;
+    height: 70px;
     width: 100%;
     background: #ffffff;
     z-index: 1;
@@ -594,6 +595,7 @@ img {
     float: left;
     padding: 20px 0px;
     margin-right: 50px;
+    margin-left: 50px;
 }
 
 .header-style-one .header-upper .logo-box .logo {
@@ -603,8 +605,8 @@ img {
 
 .header-style-one .header-upper .logo-box .logo img {
     position: relative;
-    display: inline-block;
-    max-width: 100%;
+    /* display: inline-block; */
+    width: 180px;
     max-height: 80px;
     z-index: 1;
 }
@@ -612,13 +614,13 @@ img {
 .header-style-one .other-links {
     position: relative;
     float: right;
-    padding: 30px 0px 0px;
+    /* padding: 30px 0px 0px; */
 }
 
 .header-style-one .other-links .info {
     position: relative;
     float: left;
-    padding-top: 15px;
+    /* padding-top: 15px; */
 }
 
 .header-style-one .other-links .link-box {
@@ -642,7 +644,7 @@ img {
     display: inline-block;
     vertical-align: middle;
     color: #171b27;
-    line-height: 30px;
+    /* line-height: 30px; */
 }
 
 .header-style-one .other-links .info li .icon {
@@ -679,7 +681,8 @@ img {
 .main-menu .navigation > li {
     position: relative;
     float: left;
-    padding: 30px 0px;
+    text-align: center;
+    padding: 3px 0px;
     margin-right: 40px;
     -webkit-transition: all 300ms ease;
     -moz-transition: all 300ms ease;
@@ -701,7 +704,7 @@ img {
     display: block;
     text-align: center;
     font-size: 16px;
-    line-height: 30px;
+    /* line-height: 30px; */
     font-weight: 500;
     letter-spacing: 0.03em;
     color: #000000;
@@ -758,7 +761,7 @@ img {
 
 .main-menu .navigation > li > ul > li {
     position: relative;
-    padding: 0px 30px;
+    /* padding: 0px 30px; */
     width: 100%;
     margin-bottom: 5px;
 }
@@ -897,45 +900,54 @@ img {
 
 ***/
 
+/* Закрепляем хедер в верхней части экрана */
 .header-style-one.alternate {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Устанавливаем высокий z-index, чтобы хедер всегда был на переднем плане */
 }
 
-.header-style-one.alternate .header-span {
-    display: none;
-}
-
+/* Убираем верхний и нижний отступы хедера */
 .header-style-one.alternate .header-upper {
     background: none;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
+/* Фиксированный хедер при прокрутке */
 .fixed-header.header-style-one.alternate .header-upper {
     background: #171b27;
     border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
+/* Уменьшаем отступы логотипа */
 .header-style-one.alternate .header-upper .logo-box {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-.header-style-one.alternate .other-links .info li a {
-    color: #ffffff;
-}
-
-.header-style-one.alternate .nav-outer .main-menu {
+/* Скрываем мобильный переключатель меню для настольной версии */
+.header-style-one.alternate .nav-outer .mobile-nav-toggler {
     display: none;
 }
 
-.header-style-one.alternate .nav-outer .mobile-nav-toggler {
+/* Отображаем основное меню */
+.header-style-one.alternate .nav-outer .main-menu {
     display: block;
-    margin-top: 37px;
-    color: #ffffff;
-    font-size: 20px;
 }
 
+/* Убираем верхние отступы в других элементах хедера */
 .header-style-one.alternate .other-links {
-    padding-top: 25px;
+    padding-top: 0;
+}
+
+/* Отступ для контента */
+.page-wrapper {
+    margin-top: 60px; /* Отступ для основного содержимого, чтобы не перекрывалось хедером */
 }
 
 /***
@@ -1312,7 +1324,7 @@ body.search-visible {
     left: 0;
     top: -200px;
     height: 120px;
-    width: 100%;
+    width: 180px;
     padding: 34px 20px;
     text-align: center;
     z-index: 10;
@@ -10359,5 +10371,6 @@ td .price {
 .contact-info a:hover {
     text-decoration: underline;
 }
+
 
 

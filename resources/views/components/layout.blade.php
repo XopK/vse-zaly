@@ -39,9 +39,8 @@
                 <div class="inner-container clearfix">
                     <!--Logo-->
                     <div class="logo-box">
-                        <div class="logo"><a href="/" title="Аренда залов в Уфе"><img
-                                    src="/images/black-logo.png" alt="Аренда залов в Уфе"
-                                    title="Аренда залов в Уфе"></a></div>
+                        <div class="logo"><a href="/" title="Аренда залов в Уфе"><img src="/images/LOGO.png"
+                                    alt="Аренда залов в Уфе" class="logo1" title="Аренда залов в Уфе"></a></div>
                     </div>
                     <div class="nav-outer clearfix">
                         <!--Mobile Navigation Toggler-->
