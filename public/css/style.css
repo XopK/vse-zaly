@@ -1277,11 +1277,11 @@ body.search-visible {
     position: relative;
     float: right;
     font-size: 30px;
-    line-height: 40px;
+    line-height: 20px;
     cursor: pointer;
     margin-left: 0px;
     color: #222222;
-    margin: 37px 0px 0px;
+    margin: 20px 0px 0px;
     display: none;
 }
 

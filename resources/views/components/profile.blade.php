@@ -1,5 +1,5 @@
 <x-layout>
-    
+
     <style>
         .detail-clearfix {
             border-radius: 4px;
@@ -56,7 +56,7 @@
     <!-- Sub banner end -->
 
     <!-- User page start -->
-    <div class="user-page content-area-7 submit-property" style="margin: 120px 0">
+    <div class="user-page content-area-7 submit-property" style="margin: 40px 0">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-sm-12 mb-3">

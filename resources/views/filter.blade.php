@@ -1,7 +1,7 @@
 <x-layout>
     <link rel="stylesheet" href="/css/styles.css"> <!-- Resource style -->
     <script src="/js/modernizr.js"></script> <!-- Modernizr -->
-    <main class="cd-main-content" style="margin-top: 120px">
+    <main class="cd-main-content" style="margin-top: 30px">
         <div class="cd-tab-filter-wrapper">
             <div class="cd-tab-filter">
                 <ul class="cd-filters">
