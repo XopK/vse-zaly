@@ -265,10 +265,6 @@ xgallery
     width: 100%;
 }
 
-.cd-gallery .cd-fail-message {
-    display: none;
-    text-align: center;
-}
 
 @media only screen and (min-width: 768px) {
     .cd-gallery {
@@ -706,5 +702,35 @@ input[type="range"]::-moz-range-thumb {
     cursor: pointer;
     border-radius: 50%;
 }
+
+.page-link {
+    color: #000000;
+}
+
+.page-item.active .page-link {
+    background-color: #4c4c4c;
+    border-color: #181b1f;
+}
+
+.page-link:hover {
+    color: #ffffff;
+    background-color: #888888;
+    border-color: #888888;
+}
+
+.page-link:focus {
+    color: #ffffff;
+    background-color: #393939;
+    border-color: #a6a6a6;
+    outline: none;
+}
+
+.page-link:active {
+    color: #ffffff;
+    background-color: #4c4c4c;
+    border-color: #707070;
+    outline: none;
+}
+
 
 

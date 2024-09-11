@@ -293,7 +293,7 @@ class HallController extends Controller
 
     public function all_halls()
     {
-        $halls = Hall::all();
+        $halls = Hall::paginate(12);
         $studios = Studio::all();
 
         return view('filter', ['halls' => $halls, 'studios' => $studios]);
@@ -303,23 +303,57 @@ class HallController extends Controller
     {
         $query = Hall::query();
 
-        // Фильтр по дате
+        if ($request->filled('search')) {
+            $search = strtolower($request->input('search'));
+            $query->whereRaw("LOWER(name_hall) LIKE ?", ["%$search%"])
+                ->orWhereRaw("LOWER(address_hall) LIKE ?", ["%$search%"]);
+        }
+
         if ($request->has('date') && $request->date != '' && $request->has('time') && $request->time != '') {
             $selectedDate = $request->date;
             $selectedTime = $request->time;
 
-            // Ищем залы, которые не забронированы в указанную дату и время
             $query->whereDoesntHave('booking_halls', function ($bookingQuery) use ($selectedDate, $selectedTime) {
                 $bookingQuery->whereDate('booking_start', $selectedDate)
                     ->whereTime('booking_start', '<=', $selectedTime)
-                    ->whereTime('booking_end', '>', $selectedTime);
+                    ->whereTime('booking_end', '>=', $selectedTime);
             });
         }
 
-        // Получаем отфильтрованные залы
-        $halls = $query->get();
+        if ($request->filled('price')) {
+            $query->where('max_price', '<=', $request->input('price'));
+        }
 
-        return response()->json($halls);
+        if ($request->filled('area')) {
+            $query->where('area_hall', '<=', $request->input('area'));
+        }
+
+        if ($request->filled('studio')) {
+            $query->whereHas('studio', function ($q) use ($request) {
+                $q->where('id_studio', $request->input('studio'));
+            });
+        }
+
+        if ($request->filled('sort')) {
+            switch ($request->input('sort')) {
+                case '#asc':
+                    $query->orderBy('max_price', 'asc');
+                    break;
+                case '#desc':
+                    $query->orderBy('max_price', 'desc');
+                    break;
+                case '#all':
+                    // Нет сортировки
+                    break;
+            }
+        }
+
+        $halls = $query->paginate(12);
+
+        $html = view('partials.halls', compact('halls'))->render();
+        $pagination = $halls->links()->render(); // Рендерим встроенные ссылки пагинации
+
+        return response()->json(['html' => $html, 'pagination' => $pagination]);
     }
 
     public function delete_hall(Hall $hall)

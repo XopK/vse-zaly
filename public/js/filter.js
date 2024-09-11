@@ -1,63 +1,99 @@
 $(document).ready(function () {
+    let typingTimer;
+    const typingInterval = 400;
+    let previousFilters = {};
+    let previousContent = ''; // Переменная для хранения предыдущего содержимого залов
 
-    // Фильтрация по цене, площади, студии и названию (клиентская)
-    function clientSideFilter() {
-        let search = $('input[type="search"]').val().toLowerCase();  // Поиск по названию зала
-        let price = $('#price').val();  // Максимальная цена
-        let minArea = $('#area').val();  // Минимальная площадь
-        let studio = $('#selectThis').val();  // Студия
-
-        $('.hall-item').each(function () {
-            let hallName = $(this).data('name');
-            let hallPrice = $(this).data('price');
-            let hallArea = $(this).data('area');
-            let hallStudio = $(this).data('studio');  // Слуг студии
-
-            // Проверка условий: цена <= выбранной, площадь >= минимальной, поиск по имени и студии
-            if (hallPrice <= price && hallArea <= minArea && hallName.includes(search) && (studio === '' || hallStudio === studio)) {
-                if (!$(this).is(':visible')) {
-                    $(this).stop(true, true).fadeIn(400);  // Плавное появление
-                }
-            } else {
-                if ($(this).is(':visible')) {
-                    $(this).stop(true, true).fadeOut(400);  // Плавное исчезновение
-                }
-            }
-        });
-    }
-
-    // Клиентская фильтрация при изменении параметров
-    $('input[type="search"], #price, #area, #selectThis').on('input change', function () {
-        clientSideFilter();
-    });
-
-    // Серверная фильтрация по дате и времени (AJAX)
-    function fetchServerFilteredHalls() {
+    // Функция для обновления списка залов
+    function fetchServerFilteredHalls(page = 1, updateUrl = true) {
         let filters = {
-            date: $('#date').val(), time: $('#timeThis').val(),
+            search: $('input[type="search"]').val().trim(),
+            date: $('#date').val(),
+            time: $('#timeThis').val(),
+            price: $('#price').val(),
+            area: $('#area').val(),
+            studio: $('#selectThis').val(),
+            sort: $('.cd-filters .filter .selected').parent().data('filter'),
+            page: page // Добавляем номер страницы
         };
 
+        // Проверяем, изменились ли фильтры
+        if (JSON.stringify(filters) === JSON.stringify(previousFilters)) {
+            return; // Если фильтры не изменились, не отправляем запрос
+        }
+
+        previousFilters = filters;
+
         $.ajax({
-            url: "/halls/filter", method: "GET", data: filters, success: function (response) {
-                // Обновляем список залов по результатам фильтрации на сервере
-                $('.hall-item').each(function () {
-                    let hallId = $(this).data('id');
-                    if (!response.some(hall => hall.id == hallId)) {
-                        $(this).hide();
+            url: "/halls/filter",
+            method: "GET",
+            data: filters,
+            beforeSend: function () {
+                $('#halls-container').fadeOut(300);
+            },
+            success: function (response) {
+
+                if (response.html !== previousContent) {
+                    previousContent = response.html; // Обновляем предыдущий контент
+                    $('#halls-container').html(response.html);
+                    $('#halls-container').fadeIn(300);
+                    $('.hall-item').hide().each(function (index) {
+                        $(this).delay(100 * index).fadeIn(300);
+                    });
+                    $('#pagination-container').html(response.pagination); // Обновляем пагинацию
+
+                    // Прокрутка вверх страницы
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+
+                    // Обновляем URL
+                    if (updateUrl) {
+                        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?page=' + page;
+                        window.history.pushState({path: newUrl}, '', newUrl);
                     }
-                });
-                clientSideFilter(); // Применяем клиентские фильтры
-            }, error: function (xhr) {
+                } else {
+                    $('#halls-container').fadeIn(300); // Простой fadeIn без анимации
+                }
+            },
+            error: function (xhr) {
                 console.log(xhr.responseText);
+                $('#halls-container').fadeIn(300); // В случае ошибки показываем старые данные
             }
         });
     }
 
-    // Серверная фильтрация при изменении даты и времени
-    $('#date, #timeThis').on('change', function () {
+    // Обработчики событий для текстовых полей
+    $('input[type="search"]').on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(fetchServerFilteredHalls, typingInterval);
+    });
+
+    // Обработчики событий для фильтров типа range
+    $('#price, #area').on('change', function () {
         fetchServerFilteredHalls();
     });
 
-    // Изначальная фильтрация (например, при загрузке страницы)
-    clientSideFilter();
+    // Обработчики событий для выпадающих списков и даты
+    $('#selectThis, #date, #timeThis').on('change', function () {
+        fetchServerFilteredHalls();
+    });
+
+    // Обработчик событий для кнопок фильтров
+    $('.filter').on('click', function (e) {
+        e.preventDefault();
+        $('.filter a').removeClass('selected');
+        $(this).find('a').addClass('selected');
+        fetchServerFilteredHalls();
+    });
+
+    // Обработчик кликов по ссылкам пагинации
+    $(document).on('click', '.pagination a', function (e) {
+        e.preventDefault();
+
+        let page = $(this).attr('href').split('page=')[1]; // Получаем номер страницы из URL
+
+        fetchServerFilteredHalls(page, true); // Загружаем залы для выбранной страницы и обновляем URL
+    });
+
+    // Изначальная загрузка данных
+    fetchServerFilteredHalls();
 });
