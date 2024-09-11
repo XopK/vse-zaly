@@ -2,7 +2,7 @@
     <style>
         .hall_add {
             width: 80%;
-            margin: 150px auto;
+            margin: 30px auto;
         }
     </style>
     <div class="hall_add">
@@ -10,7 +10,7 @@
         <div class="my-address contact-2">
             <h3 class="heading-3">Добавить новый зал</h3>
             <form action="/">
-                
+
             </form>
             <form action="{{ route('create_hall') }}" method="POST" enctype="multipart/form-data">
                 @csrf

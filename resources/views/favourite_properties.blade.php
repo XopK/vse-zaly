@@ -64,11 +64,11 @@
             }
         }
 
-        #checkbox {
+        .checkbox {
             display: none;
         }
 
-        #checkbox:checked + label svg {
+        .checkbox:checked + label svg {
             #heart {
                 transform: scale(.2);
                 fill: #E2264D;
@@ -355,9 +355,9 @@
                     </div>
 
                     <div class="stfu" style="user-select: none;">
-                        <input type="checkbox" id="checkbox"
+                        <input type="checkbox" class="checkbox" id="checkbox-{{ $favorite->halls->id }}"
                                data-item-id="{{ $favorite->halls->id }}" {{ $favorite->is_favorite ? 'checked' : '' }}>
-                        <label for="checkbox">
+                        <label for="checkbox-{{ $favorite->halls->id }}">
                             <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
                                 <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
                                     <path
@@ -414,7 +414,7 @@
 </x-profile>
 <script>
     $(document).ready(function () {
-        $('#checkbox').change(function () {
+        $('.checkbox').change(function () {
             var itemId = $(this).data('item-id');
             var url = $(this).is(':checked') ? '{{ route("favorite.add") }}' : '{{ route("favorite.remove") }}';
             var method = $(this).is(':checked') ? 'POST' : 'DELETE';

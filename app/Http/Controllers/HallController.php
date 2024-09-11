@@ -321,7 +321,7 @@ class HallController extends Controller
         }
 
         if ($request->filled('price')) {
-            $query->where('max_price', '<=', $request->input('price'));
+            $query->where('max_price', '>=', $request->input('price'));
         }
 
         if ($request->filled('area')) {
