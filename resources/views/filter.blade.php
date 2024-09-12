@@ -52,9 +52,9 @@
                     <h5>Цена</h5>
                     <div class="cd-filter-content slider-container">
                         <label for="price">Максимальная цена (руб):</label>
-                        <input type="range" id="price" name="price" min="0" max="5000" step="10" value="1000"
+                        <input type="range" id="price" name="price" min="0" max="5000" step="10" value="0"
                                oninput="document.getElementById('price-value').textContent = this.value;">
-                        <span id="price-value" class="slider-value">1000</span> <!-- Вывод текущего значения -->
+                        <span id="price-value" class="slider-value">0</span> <!-- Вывод текущего значения -->
                     </div> <!-- cd-filter-content -->
                 </div><!-- cd-filter-block -->
 

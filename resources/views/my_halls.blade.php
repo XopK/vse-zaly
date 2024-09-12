@@ -4,6 +4,37 @@
             width: 80%;
             margin: 30px auto;
         }
+
+        .custom-input {
+            width: 55px;
+        }
+
+
+        .btn-group-icon button {
+            margin-left: 5px;
+        }
+
+        .form-row {
+            align-items: center;
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .custom-input {
+                width: 50px;
+            }
+
+            #price-block {
+                position: relative;
+            }
+
+            #price-block .close {
+                position: absolute;
+                top: 70px;
+                right: 25px;
+            }
+        }
     </style>
     <div class="hall_add">
 
@@ -37,12 +68,12 @@
                             <input type="text" name="name_hall" class="form-control">
                         </div>
                         @error('name_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
@@ -51,56 +82,57 @@
                             <input type="number" name="area_hall" min="0" class="form-control">
                         </div>
                         @error('area_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group number">
                             <label>Расположение зала</label>
                             <input type="text" name="location_hall" class="form-control"
-                                placeholder="г.Уфа ул.Коммунистическая 46/1" required>
+                                   placeholder="г.Уфа ул.Коммунистическая 46/1">
                         </div>
                         @error('location_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group subject">
                             <label>Описание зала</label>
-                            <textarea id="description_hall" rows="7" name="description_hall" class="form-control"></textarea>
+                            <textarea id="description_hall" rows="7" name="description_hall"
+                                      class="form-control"></textarea>
                         </div>
                         @error('description_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group subject">
                             <label>Правила зала</label>
                             <textarea id="terms_hall" name="terms_hall" class="form-control"
-                                placeholder="Опишите что нельзя делать людям в зале, пропишите ваши штрафы и т.д."></textarea>
+                                      placeholder="Опишите что нельзя делать людям в зале, пропишите ваши штрафы и т.д."></textarea>
                         </div>
                         @error('terms_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-5 col-12">
@@ -108,17 +140,17 @@
                             <label>Шаг бронирования: <span id="step_booking_display" class="font-weight-bold">1
                                     час</span></label>
                             <input type="range" id="step_booking_slider" name="step_booking"
-                                class="form-control-range mr-3" min="0.5" max="3" step="0.5"
-                                value="1">
+                                   class="form-control-range mr-3" min="0.5" max="3" step="0.5"
+                                   value="1">
                         </div>
 
                         @error('step_booking')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 d-flex">
@@ -126,15 +158,15 @@
                             <div class="form-group subject">
                                 <label>Время открытия</label>
                                 <input type="time" min="0" name="start_time" class="form-control"
-                                    required>
+                                       required>
                             </div>
                             @error('start_time')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             @enderror
                         </div>
                         <div class="col-lg-6" style="padding-right: 0">
@@ -143,158 +175,78 @@
                                 <input type="time" min="0" name="end_time" class="form-control" required>
                             </div>
                             @error('end_time')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Цена в будни</label>
-                            <input type="number" min="0" name="price_weekday" class="form-control" required>
-                        </div>
-                        @error('price_weekday')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                    <div class="col-lg-12 contain-price">
+                        <div class="mb-3">
+                            <div class="send-btn">
+                                <button id="duplicate-block" type="button" class="theme-btn btn-style-one">
+                                   <span
+                                       class="btn-title" style="padding: 5px 15px">Добавить блок</span>
                                 </button>
                             </div>
-                        @enderror
-                    </div>
 
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Цена в выходные</label>
-                            <input type="number" min="0" name="price_weekend" class="form-control" required>
                         </div>
-                        @error('price_weekend')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                        <!-- Блок, который будет клонироваться -->
+                        <div class="form-row align-items-center mb-4" id="price-block">
+                            <!-- Часть с количеством людей -->
+                            <div class="px-1">
+                                <span>От</span>
                             </div>
-                        @enderror
-                    </div>
+                            <div class="px-1">
+                                <input id="numberone" type="number" min="0" name="min_people[]"
+                                       class="form-control custom-input"
+                                       value="1" readonly>
+                            </div>
+                            <div class="px-1">
+                                <span>до</span>
+                            </div>
+                            <div class="px-1">
+                                <input type="number" min="0" name="max_people[]" class="form-control custom-input">
+                            </div>
+                            <div class="px-1">
+                                <span>чел.</span>
+                            </div>
 
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Время для повышения цены (вечер)</label>
-                            <input type="time" name="time_evening" class="form-control">
+                            <!-- Время: Будни, Вечер и т.д. -->
+                            <div class="col-sm-12 col-md-6 mt-2 mt-md-0">
+                                <div class="form-row">
+                                    <div class="col-5 col-sm" style="padding-left: 0">
+                                        <input type="number" min="0" name="weekday_price[]" class="form-control"
+                                               placeholder="Будни">
+                                    </div>
+                                    <div class="col-5 col-sm">
+                                        <input type="number" min="0" name="weekday_evening_price[]" class="form-control"
+                                               placeholder="Будни/Вечер">
+                                    </div>
+                                    <div class="col-5 col-sm" style="padding-left: 0">
+                                        <input type="number" min="0" name="weekend_price[]" class="form-control"
+                                               placeholder="Выходные">
+                                    </div>
+                                    <div class="col-5 col-sm">
+                                        <input type="number" min="0" name="weekend_evening_price[]" class="form-control"
+                                               placeholder="Выходные/Вечер">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        @error('time_evening')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @enderror
+                        <div id="cloned-blocks"></div>
                     </div>
-
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Цена вечером</label>
-                            <input type="number" min="0" name="price_evening" class="form-control">
-                        </div>
-                        @error('price_evening')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Цена в выходные/вечером</label>
-                            <input type="number" min="0" name="max_price" class="form-control">
-                        </div>
-                        @error('max_price')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Надбавка цены за 2 до 3 человек</label>
-                            <input type="number" min="0" name="price_for_two" class="form-control">
-                        </div>
-                        @error('price_for_two')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Надбавка цены за 4 до 6 человек</label>
-                            <input type="number" min="0" name="price_for_four" class="form-control">
-                        </div>
-                        @error('price_for_four')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Надбавка цены за 7 до 9 человек</label>
-                            <input type="number" min="0" name="price_for_seven" class="form-control">
-                        </div>
-                        @error('price_for_seven')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="col-lg-12 ">
-                        <div class="form-group subject">
-                            <label>Надбавка цены за 10 и более человек</label>
-                            <input type="number" min="0" name="price_for_nine" class="form-control">
-                        </div>
-                        @error('price_for_nine')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="col-lg-12 ">
+                    <div class="col-lg-6">
                         <div class="form-group photo">
                             <label>Фотографии зала</label>
                             <div class="input-group mb-3">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" name="photo_hall[]"
-                                        accept="image/*" id="inputGroupFile01"
-                                        aria-describedby="inputGroupFileAddon01" multiple>
+                                           accept="image/*" id="inputGroupFile01"
+                                           aria-describedby="inputGroupFileAddon01" multiple>
                                     <label class="custom-file-label" for="inputGroupFile01">Выберите
                                         файл/ы</label>
                                 </div>
@@ -302,12 +254,12 @@
                         </div>
 
                         @error('photo_hall')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                     </div>
                     <div class="col-lg-12">
@@ -329,7 +281,7 @@
             <div class="row clearfix">
                 @forelse($halls as $hall)
                     <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                        data-wow-duration="1500ms">
+                         data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
                                 <figure class="image"><a
@@ -342,13 +294,7 @@
                                 <h4>{{ $hall->name_hall }}</h4>
                                 <div class="pricing clearfix">
                                     <div class="price">Площадь <span>{{ $hall->area_hall }} м²</span></div>
-                                    {{-- <div class="rating">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div> --}}
+
                                 </div>
 
                                 <div class="text text-truncate">{{ $hall->description_hall }}</div>
@@ -358,8 +304,8 @@
                                             зал</span></a></div>
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-danger" style="width: 100%; padding: 15px 0"
-                                        data-toggle="modal" data-target="#warning" data-id="{{ $hall->id }}"
-                                        data-name="{{ $hall->name_hall }}">
+                                            data-toggle="modal" data-target="#warning" data-id="{{ $hall->id }}"
+                                            data-name="{{ $hall->name_hall }}">
                                         Удалить
                                     </button>
                                 </div>
@@ -376,23 +322,24 @@
             </div>
         </div>
     </section>
-    <script src="/js/rangeStep.js"></script>
-    <script>
-        document.querySelector('.custom-file-input').addEventListener('change', function(event) {
-            var input = event.target;
-            var label = input.nextElementSibling;
-
-            if (input.files.length > 0) {
-                var fileNames = Array.from(input.files).map(file => file.name).join(', ');
-                label.textContent = fileNames;
-            } else {
-                label.textContent = 'Выбрать файл';
-            }
-        });
-    </script>
 </x-layout>
+<script src="/js/rangeStep.js"></script>
+<script>
+    document.querySelector('.custom-file-input').addEventListener('change', function (event) {
+        var input = event.target;
+        var label = input.nextElementSibling;
+
+        if (input.files.length > 0) {
+            var fileNames = Array.from(input.files).map(file => file.name).join(', ');
+            label.textContent = fileNames;
+        } else {
+            label.textContent = 'Выбрать файл';
+        }
+    });
+</script>
+<script src="/js/priceHall.js"></script>
 <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -417,7 +364,7 @@
 </div>
 
 <script>
-    $('#warning').on('show.bs.modal', function(event) {
+    $('#warning').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var hallName = button.data('name'); // Extract hall name from data-* attributes
         var hallId = button.data('id'); // Extract hall id from data-* attributes

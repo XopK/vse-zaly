@@ -3,149 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фильтрация залов</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Bootstrap Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        #filter {
-            width: 20%;
-            float: left;
+        .custom-input {
+            width: 60px;
         }
-        #results {
-            width: 50%;
-            float: left;
-            margin-left: 2%;
+
+        .btn-group-icon {
+            display: flex;
+            align-items: center;
         }
-        #map {
-            width: 25%;
-            float: right;
+
+        .btn-group-icon button {
+            margin-left: 5px;
+        }
+
+        .form-row .col-auto {
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .custom-input {
+                width: 50px;
+            }
+
+            .btn-group-icon {
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div id="filter" class="p-3">
-            <h4>Фильтр</h4>
-            <form id="filterForm">
-                <div class="form-group">
-                    <label for="name">Поиск по названию</label>
-                    <input type="text" class="form-control" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="areaRange">Площадь зала (м²)</label>
-                    <div class="d-flex">
-                        <input type="number" class="form-control mr-2" id="areaMin" placeholder="Min" min="0" max="500">
-                        <input type="range" class="form-control-range mx-2" id="areaRangeMin" min="0" max="500" step="1">
-                        <input type="range" class="form-control-range mx-2" id="areaRangeMax" min="0" max="500" step="1">
-                        <input type="number" class="form-control ml-2" id="areaMax" placeholder="Max" min="0" max="500">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="priceRange">Цена (руб)</label>
-                    <div class="d-flex">
-                        <input type="number" class="form-control mr-2" id="priceMin" placeholder="Min" min="0" max="10000">
-                        <input type="range" class="form-control-range mx-2" id="priceRangeMin" min="0" max="10000" step="100">
-                        <input type="range" class="form-control-range mx-2" id="priceRangeMax" min="0" max="10000" step="100">
-                        <input type="number" class="form-control ml-2" id="priceMax" placeholder="Max" min="0" max="10000">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Удобства</label><br>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="cooler">
-                        <label class="form-check-label" for="cooler">Кулер с водой</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="lighting">
-                        <label class="form-check-label" for="lighting">Подсветка</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="speaker">
-                        <label class="form-check-label" for="speaker">Колонка</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="wifi">
-                        <label class="form-check-label" for="wifi">Wi-Fi</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="sort">Сортировка по цене</label>
-                    <select class="form-control" id="sort">
-                        <option value="asc">По возрастанию</option>
-                        <option value="desc">По убыванию</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Применить фильтр</button>
-            </form>
+<div class="container mt-4">
+    <div class="form-row align-items-center">
+        <!-- Часть с количеством людей -->
+        <div class="col-auto d-flex align-items-center">
+            <span>От</span>
         </div>
-        <div id="results" class="p-3">
-            <h4>Результаты поиска</h4>
-            <!-- Здесь будут отображаться результаты поиска -->
+        <div class="col-auto">
+            <input type="text" class="form-control custom-input" placeholder="1">
         </div>
-        <div id="map" class="p-3">
-            <h4>Карта</h4>
-            <div id="mapContainer" style="width: 100%; height: 500px; background-color: #eaeaea;">
-                <!-- Здесь будет карта -->
+        <div class="col-auto d-flex align-items-center">
+            <span>до</span>
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control custom-input" placeholder="__">
+        </div>
+        <div class="col-auto d-flex align-items-center">
+            <span>чел.</span>
+        </div>
+
+        <!-- Время: Будни, Вечер и т.д. -->
+        <div class="col-sm-12 col-md-6 mt-2 mt-md-0">
+            <div class="form-row">
+                <div class="col-6 col-sm">
+                    <input type="text" class="form-control" placeholder="Будни">
+                </div>
+                <div class="col-6 col-sm">
+                    <input type="text" class="form-control" placeholder="Будни/Вечер">
+                </div>
+                <div class="col-6 col-sm mt-2 mt-sm-0">
+                    <input type="text" class="form-control" placeholder="Выходные">
+                </div>
+                <div class="col-6 col-sm mt-2 mt-sm-0">
+                    <input type="text" class="form-control" placeholder="Выходные/Вечер">
+                </div>
             </div>
         </div>
+
+        <!-- Кнопки "+" и "×" -->
+        <div class="col-auto btn-group-icon mt-2 mt-md-0">
+            <button class="btn btn-outline-secondary">+</button>
+            <button class="btn btn-outline-secondary">×</button>
+        </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Скрипт для отображения карты -->
-    <script>
-        function syncInputs(rangeMin, rangeMax, inputMin, inputMax) {
-            rangeMin.addEventListener('input', function() {
-                inputMin.value = this.value;
-                if (parseInt(rangeMin.value) > parseInt(rangeMax.value)) {
-                    rangeMax.value = this.value;
-                    inputMax.value = this.value;
-                }
-            });
+</div>
 
-            rangeMax.addEventListener('input', function() {
-                inputMax.value = this.value;
-                if (parseInt(rangeMax.value) < parseInt(rangeMin.value)) {
-                    rangeMin.value = this.value;
-                    inputMin.value = this.value;
-                }
-            });
-
-            inputMin.addEventListener('input', function() {
-                rangeMin.value = this.value;
-                if (parseInt(inputMin.value) > parseInt(inputMax.value)) {
-                    inputMax.value = this.value;
-                    rangeMax.value = this.value;
-                }
-            });
-
-            inputMax.addEventListener('input', function() {
-                rangeMax.value = this.value;
-                if (parseInt(inputMax.value) < parseInt(inputMin.value)) {
-                    inputMin.value = this.value;
-                    rangeMin.value = this.value;
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            syncInputs(
-                document.getElementById('areaRangeMin'),
-                document.getElementById('areaRangeMax'),
-                document.getElementById('areaMin'),
-                document.getElementById('areaMax')
-            );
-            syncInputs(
-                document.getElementById('priceRangeMin'),
-                document.getElementById('priceRangeMax'),
-                document.getElementById('priceMin'),
-                document.getElementById('priceMax')
-            );
-        });
-
-        document.getElementById('filterForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Здесь можно добавить логику фильтрации и отображения результатов
-        });
-    </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

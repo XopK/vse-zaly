@@ -20,15 +20,6 @@ class Hall extends Model
         'step_booking',
         'start_time',
         'end_time',
-        'price_weekday',
-        'price_weekend',
-        'time_evening',
-        'price_evening',
-        'max_price',
-        'price_for_two',
-        'price_for_four',
-        'price_for_seven',
-        'price_for_nine',
         'count_booking',
         'total_income',
         'view_count',
@@ -52,5 +43,10 @@ class Hall extends Model
     public function FavoriteHalls()
     {
         return $this->hasMany(FavoriteHall::class, 'id_hall');
+    }
+
+    public function hall_price()
+    {
+        return $this->hasMany(HallPrice::class, 'id_hall');
     }
 }

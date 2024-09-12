@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
 use App\Models\Hall;
+use App\Models\HallPrice;
 use App\Models\Studio;
 use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
@@ -98,8 +99,9 @@ class StudioController extends Controller
     public function my_hall_view(Hall $hall)
     {
         $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user')->get();
+        $hall_price = HallPrice::where('id_hall', $hall->id)->get();
 
-        return view('my_hall', ['hall' => $hall, 'bookings' => $booking,]);
+        return view('my_hall', ['hall' => $hall, 'bookings' => $booking, 'hall_price' => $hall_price]);
     }
 
     public function getCoordinates(Request $request)

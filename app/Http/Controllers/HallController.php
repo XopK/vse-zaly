@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
 use App\Models\Hall;
+use App\Models\HallPrice;
 use App\Models\PhotoHall;
 use App\Models\Studio;
 use Illuminate\Http\Request;
@@ -50,23 +51,17 @@ class HallController extends Controller
             'step_booking' => 'required|numeric',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i',
-            'price_weekday' => 'required|numeric',
-            'price_weekend' => 'required|numeric',
-            'time_evening' => 'required|date_format:H:i',
-            'price_evening' => 'required|numeric',
-            'max_price' => 'required|numeric',
-            'price_for_two' => 'required|numeric',
-            'price_for_four' => 'required|numeric',
-            'price_for_seven' => 'required|numeric',
-            'price_for_nine' => 'required|numeric',
+            'max_people.*' => 'required|numeric|min:1',
+            'min_people.*' => 'required|numeric|min:1',
+            'weekday_price.*' => 'required|numeric|min:0',
+            'weekday_evening_price.*' => 'required|numeric|min:0',
+            'weekend_price.*' => 'required|numeric|min:0',
+            'weekend_evening_price.*' => 'required|numeric|min:0',
         ], [
             'name_hall.required' => 'Введите название студии.',
             'area_hall.integer' => 'Введите числовые значения.',
             'area_hall.required' => 'Введите площадь зала.',
             'description_hall.required' => 'Введите описание зала.',
-            'photo_hall.*.required' => 'Выберите фото.',
-            'photo_hall.*.image' => 'Только изображения!',
-            'photo_hall.*.max' => 'Максимальный размер изображения не должен превышать :max KB.',
             'location_hall.required' => 'Введите адрес.',
             'terms_hall.required' => 'Напишите паравила.',
             'step_booking.integer' => 'Введите числовые значения.',
@@ -75,24 +70,24 @@ class HallController extends Controller
             'start_time.date_format' => 'Введите верный формат времени.',
             'end_time.required' => 'Введите время закрытия зала.',
             'end_time.date_format' => 'Введите верный формат времени.',
-            'price_weekday.required' => 'Введите цену зала.',
-            'price_weekday.numeric' => 'Только числовые значения.',
-            'price_weekend.required' => 'Введите цену зала.',
-            'price_weekend.numeric' => 'Только числовые значения.',
-            'time_evening.required' => 'Введите время для зала.',
-            'time_evening.date_format' => 'Введите верный формат времени.',
-            'price_evening.required' => 'Введите цену зала.',
-            'price_evening.numeric' => 'Только числовые значения.',
-            'max_price.required' => 'Введите цену для зала.',
-            'max_price.numeric' => 'Только числовые значения.',
-            'price_for_two.required' => 'Введите цену для зала.',
-            'price_for_two.numeric' => 'Только числовые значения.',
-            'price_for_four.required' => 'Введите цену для зала.',
-            'price_for_four.numeric' => 'Только числовые значения.',
-            'price_for_seven.required' => 'Введите цену для зала.',
-            'price_for_seven.numeric' => 'Только числовые значения.',
-            'price_for_nine.required' => 'Введите цену для зала.',
-            'price_for_nine.numeric' => 'Только числовые значения.',
+            'max_people.*.required' => 'Укажите максимальное количество людей.',
+            'max_people.*.numeric' => 'Максимальное количество людей должно быть числом.',
+            'max_people.*.min' => 'Максимальное количество людей должно быть не менее 1.',
+            'min_people.*.required' => 'Укажите минимальное количество людей.',
+            'min_people.*.numeric' => 'Минимальное количество людей должно быть числом.',
+            'min_people.*.min' => 'Минимальное количество людей должно быть не менее 1.',
+            'weekday_price.*.required' => 'Укажите цену на будний день.',
+            'weekday_price.*.numeric' => 'Цена на будний день должна быть числом.',
+            'weekday_price.*.min' => 'Цена на будний день не может быть отрицательной.',
+            'weekday_evening_price.*.required' => 'Укажите вечернюю цену на будний день.',
+            'weekday_evening_price.*.numeric' => 'Вечерняя цена на будний день должна быть числом.',
+            'weekday_evening_price.*.min' => 'Вечерняя цена на будний день не может быть отрицательной.',
+            'weekend_price.*.required' => 'Укажите цену на выходной день.',
+            'weekend_price.*.numeric' => 'Цена на выходной день должна быть числом.',
+            'weekend_price.*.min' => 'Цена на выходной день не может быть отрицательной.',
+            'weekend_evening_price.*.required' => 'Укажите вечернюю цену на выходной день.',
+            'weekend_evening_price.*.numeric' => 'Вечерняя цена на выходной день должна быть числом.',
+            'weekend_evening_price.*.min' => 'Вечерняя цена на выходной день не может быть отрицательной.',
         ]);
 
         $studio = Auth::user()->studio;
@@ -111,16 +106,20 @@ class HallController extends Controller
             'step_booking' => $request->step_booking,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
-            'price_weekday' => $request->price_weekday,
-            'price_weekend' => $request->price_weekend,
-            'time_evening' => $request->time_evening,
-            'price_evening' => $request->price_evening,
-            'max_price' => $request->max_price,
-            'price_for_two' => $request->price_for_two,
-            'price_for_four' => $request->price_for_four,
-            'price_for_seven' => $request->price_for_seven,
-            'price_for_nine' => $request->price_for_nine,
         ]);
+
+
+        foreach ($request->min_people as $index => $min_people) {
+            $hall_price = HallPrice::create([
+                'id_hall' => $hall->id,
+                'min_people' => $min_people,
+                'max_people' => $request->max_people[$index],
+                'weekday_price' => $request->weekday_price[$index],
+                'weekday_evening_price' => $request->weekday_evening_price[$index],
+                'weekend_price' => $request->weekend_price[$index],
+                'weekend_evening_price' => $request->weekend_evening_price[$index]
+            ]);
+        }
 
         PhotoHall::create([
             'id_hall' => $hall->id,
@@ -136,7 +135,6 @@ class HallController extends Controller
                 'photo_hall' => $hashPhoto,
             ]);
         }
-
 
         if ($hall) {
             return redirect()->back()->with('success_create', 'Зал успешно создан!');
@@ -157,15 +155,6 @@ class HallController extends Controller
             'step_booking' => 'required|numeric',
             'start_time' => 'required',
             'end_time' => 'required',
-            'price_weekday' => 'required|numeric',
-            'price_weekend' => 'required|numeric',
-            'time_evening' => 'required',
-            'price_evening' => 'required|numeric',
-            'max_price' => 'required|numeric',
-            'price_for_two' => 'required|numeric',
-            'price_for_four' => 'required|numeric',
-            'price_for_seven' => 'required|numeric',
-            'price_for_nine' => 'required|numeric',
         ], [
             'hall_name.required' => 'Введите название зала.',
             'hall_area.required' => 'Введите площадь зала.',
@@ -178,25 +167,6 @@ class HallController extends Controller
             'start_time.date_format' => 'Введите верный формат времени.',
             'end_time.required' => 'Введите время закрытия зала.',
             'end_time.date_format' => 'Введите верный формат времени.',
-            'price_weekday.required' => 'Введите цену зала.',
-            'price_weekday.numeric' => 'Только числовые значения.',
-            'price_weekend.required' => 'Введите цену зала.',
-            'price_weekend.numeric' => 'Только числовые значения.',
-            'time_evening.required' => 'Введите время для зала.',
-            'time_evening.date_format' => 'Введите верный формат времени.',
-            'price_evening.required' => 'Введите цену зала.',
-            'price_evening.numeric' => 'Только числовые значения.',
-            'max_price.required' => 'Введите цену для зала.',
-            'max_price.numeric' => 'Только числовые значения.',
-            'price_for_two.required' => 'Введите цену для зала.',
-            'price_for_two.numeric' => 'Только числовые значения.',
-            'price_for_four.required' => 'Введите цену для зала.',
-            'price_for_four.numeric' => 'Только числовые значения.',
-            'price_for_seven.required' => 'Введите цену для зала.',
-            'price_for_seven.numeric' => 'Только числовые значения.',
-            'price_for_nine.required' => 'Введите цену для зала.',
-            'price_for_nine.numeric' => 'Только числовые значения.',
-            'address_hall.required' => 'Введите адрес зала.',
         ]);
 
         $hall->fill([
@@ -208,15 +178,6 @@ class HallController extends Controller
             'step_booking' => $request->step_booking,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
-            'price_weekday' => $request->price_weekday,
-            'price_weekend' => $request->price_weekend,
-            'time_evening' => $request->time_evening,
-            'price_evening' => $request->price_evening,
-            'max_price' => $request->max_price,
-            'price_for_two' => $request->price_for_two,
-            'price_for_four' => $request->price_for_four,
-            'price_for_seven' => $request->price_for_seven,
-            'price_for_nine' => $request->price_for_nine,
         ]);
 
         if ($hall) {

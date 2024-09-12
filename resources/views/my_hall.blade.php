@@ -2,7 +2,30 @@
     <style>
         form {
             box-shadow: none;
+        }
 
+        .custom-input {
+            width: 55px;
+        }
+
+        .btn-group-icon button {
+            margin-left: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .custom-input {
+                width: 50px;
+            }
+
+            #price-block {
+                position: relative;
+            }
+
+            #price-block .close {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
         }
     </style>
     <head>
@@ -45,13 +68,7 @@
                                 {{$hall->area_hall}} м²
                             </span>
                         </div>
-                        {{-- <div class="rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div> --}}
+
                     </div>
                     <div class="text">
                         <p>{{$hall->description_hall}}</p>
@@ -164,7 +181,7 @@
                                     </button>
                                 </div>
                                 @enderror
-                                <div class="form-group">
+                                <div class="form-group" style="width: 50%">
                                     <label>Шаг бронирования: <span id="step_booking_display"
                                                                    class="font-weight-bold">1 час</span></label>
                                     <input type="range" id="step_booking_slider" name="step_booking"
@@ -205,126 +222,67 @@
                                     </button>
                                 </div>
                                 @enderror
-                                <div class="form-group">
-                                    <label>Цена в будни</label>
-                                    <input type="number" min="0" name="price_weekday" class="form-control"
-                                           value="{{$hall->price_weekday}}" required>
-                                </div>
-                                @error('price_weekday')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <label>Цена в выходные</label>
-                                    <input type="number" min="0" name="price_weekend" class="form-control"
-                                           value="{{$hall->price_weekend}}" required>
-                                </div>
-                                @error('price_weekend')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <label>Время для повышения цены (вечер)</label>
-                                    <input type="time" name="time_evening" class="form-control"
-                                           value="{{$hall->time_evening}}" required>
-                                </div>
-                                @error('time_evening')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <label>Цена вечером</label>
-                                    <input type="number" min="0" name="price_evening" class="form-control"
-                                           value="{{$hall->price_evening}}" required>
-                                </div>
-                                @error('price_evening')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <label>Цена в выходные/вечером</label>
-                                    <input type="number" min="0" name="max_price" class="form-control"
-                                           value="{{$hall->max_price}}" required>
-                                </div>
-                                @error('max_price')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <label>Надбавка цены за 2 до 3 человек</label>
-                                    <input type="number" min="0" name="price_for_two" class="form-control"
-                                           value="{{$hall->price_for_two}}" required>
-                                </div>
-                                @error('price_for_two')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <label>Надбавка цены за 4 до 6 человек</label>
-                                    <input type="number" min="0" name="price_for_four" class="form-control"
-                                           value="{{$hall->price_for_four}}" required>
-                                </div>
-                                @error('price_for_four')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <label>Надбавка цены за 7 до 9 человек</label>
-                                    <input type="number" min="0" name="price_for_seven" class="form-control"
-                                           value="{{$hall->price_for_seven}}" required>
-                                </div>
-                                @error('price_for_seven')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <label>Надбавка цены за 10 и более человек</label>
-                                    <input type="number" min="0" name="price_for_nine" class="form-control"
-                                           value="{{$hall->price_for_nine}}" required>
-                                </div>
-                                @error('price_for_nine')
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                @enderror
-                                <div class="form-group">
-                                    <button type="submit" class="theme-btn btn-style-one btn-block"><span
-                                            class="btn-title">Изменить</span></button>
+                                <div class="contain-price">
+                                    <div class="mb-3">
+                                        <div class="send-btn">
+                                            <button id="duplicate-block" type="button" class="theme-btn btn-style-one">
+                                                <span class="btn-title" style="padding: 5px 15px">Добавить блок</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @foreach($hall_price as $price)
+                                        <div class="form-row align-items-center px-1 mb-4" id="price-block">
+                                            <!-- Часть с количеством людей -->
+                                            <div class="px-1">
+                                                <span>От</span>
+                                            </div>
+                                            <div class="px-1">
+                                                <input id="numberone" type="number" min="0" name="min_people[]"
+                                                       class="form-control custom-input"
+                                                       value="{{$price->min_people}}" readonly>
+                                            </div>
+                                            <div class="px-1">
+                                                <span>до</span>
+                                            </div>
+                                            <div class="px-1">
+                                                <input type="number" min="0" name="max_people[]"
+                                                       class="form-control custom-input" value="{{$price->max_people}}">
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-6 mt-2 mt-md-0">
+                                                <div class="form-row">
+                                                    <div class="col-6 col-sm col-lg-6" style="padding-left: 0">
+                                                        <input type="number" min="0" name="weekday_price[]"
+                                                               class="form-control"
+                                                               placeholder="Будни" value="{{$price->weekday_price}}">
+                                                    </div>
+                                                    <div class="col-6 col-sm col-lg-6">
+                                                        <input type="number" min="0" name="weekday_evening_price[]"
+                                                               class="form-control"
+                                                               placeholder="Будни/Вечер"
+                                                               value="{{$price->weekday_evening_price}}">
+                                                    </div>
+                                                    <div class="col-6 col-sm col-lg-6" style="padding-left: 0">
+                                                        <input type="number" min="0" name="weekend_price[]"
+                                                               class="form-control"
+                                                               placeholder="Выходные" value="{{$price->weekend_price}}">
+                                                    </div>
+                                                    <div class="col-6 col-sm col-lg-6">
+                                                        <input type="number" min="0" name="weekend_evening_price[]"
+                                                               class="form-control"
+                                                               placeholder="Выходные/Вечер"
+                                                               value="{{$price->weekend_evening_price}}">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <div id="cloned-blocks"></div>
+                                    <div class="form-group">
+                                        <button type="submit" class="theme-btn btn-style-one btn-block"><span
+                                                class="btn-title">Изменить</span></button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -347,11 +305,10 @@
             </div>
 
             <div class="lower-box">
-                <div class="w-25 mb-3">
-                    <button type="submit" data-toggle="modal" data-target="#photoadd"
-                            class="theme-btn btn-style-one btn-block"><span
-                            class="btn-title">Добавить фотографии +</span></button>
-                </div>
+                <button type="submit" data-toggle="modal" data-target="#photoadd"
+                        class="theme-btn btn-style-one btn-block mb-3"><span
+                        class="btn-title">Добавить фотографии +</span></button>
+
                 <div class="row clearfix">
                     @forelse($hall->photo_halls as $photo)
                         <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
@@ -384,6 +341,7 @@
 </x-layout>
 <x-booking_studio :hall="$hall" :bookings="$bookings"></x-booking_studio>
 <script src="/js/rangeStep.js"></script>
+<script src="/js/priceHall.js"></script>
 <script>
     $(document).ready(function () {
         $('.btn-cls').on('click', function () {
