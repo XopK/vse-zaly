@@ -87,7 +87,7 @@
             <div class="mobile-menu">
                 <div class="close-btn"><span class="icon flaticon-targeting-cross"></span></div>
                 <div class="menu-backdrop"></div>
-                <div class="nav-logo"><a href="/"><img src="/images/nav-logo.png" alt="logo"
+                <div class="nav-logo"><a href="/"><img src="/images/favicon.png" alt="logo"
                             title=""></a></div>
                 <nav class="menu-box">
                     <div class="menu-outer">
@@ -126,7 +126,7 @@
                         <div class="column col-xl-3 col-lg-12 col-md-12 col-sm-12">
                             <div class="footer-widget about-widget">
                                 <div class="logo">
-                                    <a href="#"><img src="/images/footer-logo.png" alt=""></a>
+                                    <a href="#"><img src="/images/favicon.png" alt=""></a>
                                 </div>
                             </div>
                         </div>
