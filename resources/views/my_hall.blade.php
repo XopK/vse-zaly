@@ -5,11 +5,21 @@
         }
 
         .custom-input {
-            width: 55px;
+            width: 60px;
         }
 
         .btn-group-icon button {
             margin-left: 5px;
+        }
+
+        .count-k {
+            position: relative;
+            top: 12px;
+        }
+
+        .close {
+            position: relative;
+            top: 10px;
         }
 
         @media (max-width: 768px) {
@@ -17,11 +27,15 @@
                 width: 50px;
             }
 
-            #price-block {
+            .price-block {
                 position: relative;
             }
 
-            #price-block .close {
+            .count-k {
+                top: 0;
+            }
+
+            .price-block .close {
                 position: absolute;
                 top: 5px;
                 right: 5px;
@@ -80,7 +94,7 @@
                     <div class="col-lg-3 mb-3" style="padding-left: 0">
                         <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
                                 data-target="#booking"><span
-                                class="btn-title">Зарезервировать</span></button>
+                                    class="btn-title">Зарезервировать</span></button>
                     </div>
                 </div>
             </div>
@@ -112,7 +126,7 @@
                                 @endif
                                 <div class="form-group">
                                     <label class="font-weight-bold">Название зала<span
-                                            class="text-danger"></span></label>
+                                                class="text-danger"></span></label>
                                     <input value="{{ $hall->name_hall }}" type="text" name="hall_name"
                                            id="hall_name" class="form-control" required>
                                 </div>
@@ -126,7 +140,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label class="font-weight-bold">Площадь зала <span
-                                            class="text-danger"></span></label>
+                                                class="text-danger"></span></label>
                                     <input type="number" class="form-control" min="0" name="hall_area"
                                            value="{{ $hall->area_hall }}" id="hall_area"
                                            required>
@@ -141,7 +155,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label class="font-weight-bold">Расположение зала <span
-                                            class="text-danger"></span></label>
+                                                class="text-danger"></span></label>
                                     <input type="text" name="address_hall" class="form-control"
                                            value="{{$hall->address_hall}}" required>
                                 </div>
@@ -155,7 +169,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label class="font-weight-bold">Описание зала <span
-                                            class="text-danger"></span></label>
+                                                class="text-danger"></span></label>
                                     <textarea class="form-control" name="hall_description" id="hall_description"
                                     >{{ $hall->description_hall }}</textarea>
                                 </div>
@@ -169,7 +183,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label class="font-weight-bold">Правила зала <span
-                                            class="text-danger"></span></label>
+                                                class="text-danger"></span></label>
                                     <textarea class="form-control" name="hall_terms"
                                               id="hall_terms">{{ $hall->rule_hall }}</textarea>
                                 </div>
@@ -230,58 +244,78 @@
                                             </button>
                                         </div>
                                     </div>
-                                    @foreach($hall_price as $price)
-                                        <div class="form-row align-items-center px-1 mb-4" id="price-block">
-                                            <!-- Часть с количеством людей -->
-                                            <div class="px-1">
-                                                <span>От</span>
+                                    @foreach($hall_price as $key=>$price)
+                                        <input type="hidden" name="id_price[]" value="{{$price->id}}">
+                                        <div
+                                                class="form-row align-items-center px-1 mb-4 price-block {{ $key > 0 ? '' : 'originalblock  ' }}"
+                                                id="price-block-{{$price->id}}">
+                                            <div class="d-flex align-items-center count-k">
+                                                <div class="px-1">
+                                                    <span>От</span>
+                                                </div>
+                                                <div class="px-1">
+                                                    <input type="number" min="0" name="min_people[]"
+                                                           class="form-control custom-input"
+                                                           value="{{$price->min_people}}" {{ $key > 0 ? '' : 'readonly' }}>
+                                                </div>
+                                                <div class="px-1">
+                                                    <span>до</span>
+                                                </div>
+                                                <div class="px-1">
+                                                    <input type="number" min="0" name="max_people[]"
+                                                           class="form-control custom-input"
+                                                           value="{{$price->max_people}}">
+                                                </div>
                                             </div>
-                                            <div class="px-1">
-                                                <input id="numberone" type="number" min="0" name="min_people[]"
-                                                       class="form-control custom-input"
-                                                       value="{{$price->min_people}}" readonly>
-                                            </div>
-                                            <div class="px-1">
-                                                <span>до</span>
-                                            </div>
-                                            <div class="px-1">
-                                                <input type="number" min="0" name="max_people[]"
-                                                       class="form-control custom-input" value="{{$price->max_people}}">
-                                            </div>
-
                                             <div class="col-sm-12 col-md-6 mt-2 mt-md-0">
                                                 <div class="form-row">
-                                                    <div class="col-6 col-sm col-lg-6" style="padding-left: 0">
+                                                    <div class="col-6 col-sm col-lg-3 mb-2" style="padding-left: 0">
+                                                        <label for="weekday_price_{{$loop->index}}"
+                                                               style="font-size: 14px;">Будни</label>
                                                         <input type="number" min="0" name="weekday_price[]"
-                                                               class="form-control"
+                                                               class="form-control" id="weekday_price_{{$loop->index}}"
                                                                placeholder="Будни" value="{{$price->weekday_price}}">
                                                     </div>
-                                                    <div class="col-6 col-sm col-lg-6">
+                                                    <div class="col-6 col-sm col-lg-3 mb-2">
+                                                        <label for="weekday_evening_price_{{$loop->index}}"
+                                                               style="font-size: 14px;">Будни/Вечер</label>
                                                         <input type="number" min="0" name="weekday_evening_price[]"
                                                                class="form-control"
+                                                               id="weekday_evening_price_{{$loop->index}}"
                                                                placeholder="Будни/Вечер"
                                                                value="{{$price->weekday_evening_price}}">
                                                     </div>
-                                                    <div class="col-6 col-sm col-lg-6" style="padding-left: 0">
+                                                    <div class="col-6 col-sm col-lg-3" style="padding-left: 0">
+                                                        <label for="weekend_price_{{$loop->index}}"
+                                                               style="font-size: 14px;">Выходные</label>
                                                         <input type="number" min="0" name="weekend_price[]"
-                                                               class="form-control"
+                                                               class="form-control" id="weekend_price_{{$loop->index}}"
                                                                placeholder="Выходные" value="{{$price->weekend_price}}">
                                                     </div>
-                                                    <div class="col-6 col-sm col-lg-6">
+                                                    <div class="col-6 col-sm col-lg-3">
+                                                        <label for="weekend_evening_price_{{$loop->index}}"
+                                                               style="font-size: 14px; white-space: nowrap;">Выходные/Вечер</label>
                                                         <input type="number" min="0" name="weekend_evening_price[]"
                                                                class="form-control"
+                                                               id="weekend_evening_price_{{$loop->index}}"
                                                                placeholder="Выходные/Вечер"
                                                                value="{{$price->weekend_evening_price}}">
                                                     </div>
-
                                                 </div>
                                             </div>
+                                            @if($key > 0)
+                                                <button type="button" class="close px-2 delete-price"
+                                                        data-id="{{$price->id}}"
+                                                        aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                </button>
+                                            @endif
                                         </div>
                                     @endforeach
+
                                     <div id="cloned-blocks"></div>
                                     <div class="form-group">
                                         <button type="submit" class="theme-btn btn-style-one btn-block"><span
-                                                class="btn-title">Изменить</span></button>
+                                                    class="btn-title">Изменить</span></button>
                                     </div>
                                 </div>
                             </form>
@@ -305,18 +339,19 @@
             </div>
 
             <div class="lower-box">
-                <button type="submit" data-toggle="modal" data-target="#photoadd"
-                        class="theme-btn btn-style-one btn-block mb-3"><span
-                        class="btn-title">Добавить фотографии +</span></button>
-
+                <div class="col-lg-3 p-0">
+                    <button type="submit" data-toggle="modal" data-target="#photoadd"
+                            class="theme-btn btn-style-one btn-block mb-3"><span
+                                class="btn-title">Добавить фотографии +</span></button>
+                </div>
                 <div class="row clearfix">
                     @forelse($hall->photo_halls as $photo)
                         <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
                              data-wow-duration="1500ms">
                             <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
                                                      class="lightbox-image"><img
-                                        src="/storage/photo_halls/{{$photo->photo_hall}}"
-                                        alt="{{$photo->photo_hall}}"></a>
+                                            src="/storage/photo_halls/{{$photo->photo_hall}}"
+                                            alt="{{$photo->photo_hall}}"></a>
                                 <button type="button" title="Удалить" class="close btn-cls" aria-label="Close"
                                         style="background-color: red; width: 40px; height: 40px; color: white; border-radius: 50%; position: absolute; right: 5px; top: 5px; padding-bottom: 3px"
                                         data-record-id="{{ $photo->id }}">
@@ -341,7 +376,10 @@
 </x-layout>
 <x-booking_studio :hall="$hall" :bookings="$bookings"></x-booking_studio>
 <script src="/js/rangeStep.js"></script>
-<script src="/js/priceHall.js"></script>
+<script>
+    let blockCount = {{ count($hall_price) }};
+</script>
+<script src="/js/priceHallEdit.js"></script>
 <script>
     $(document).ready(function () {
         $('.btn-cls').on('click', function () {
@@ -392,6 +430,30 @@
                     console.log('Ошибка обновления');
                 }
             });
+        });
+
+        $('.delete-price').on('click', function () {
+            var id = $(this).data('id');
+            var url = '/delete_hall/price/' + id;
+            var block = $('#price-block-' + id);
+
+
+            $.ajax({
+                url: url, type: 'DELETE', data: {
+                    _token: '{{ csrf_token() }}'
+                }, success: function (response) {
+                    if (response.success) {
+                        block.fadeOut(400, function () { // Анимация исчезновения
+                            block.remove(); // Удаление элемента после завершения анимации
+                        });
+                    } else {
+                        console.log('Произошла ошибка при удалении.');
+                    }
+                }, error: function () {
+                    console.log('Не удалось удалить запись.');
+                }
+            });
+
         });
     });
 </script>

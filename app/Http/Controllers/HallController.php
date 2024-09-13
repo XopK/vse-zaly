@@ -42,6 +42,7 @@ class HallController extends Controller
 
     public function create_halls(Request $request)
     {
+
         $validated = $request->validate([
             'name_hall' => 'required',
             'area_hall' => 'required|integer',
@@ -155,6 +156,12 @@ class HallController extends Controller
             'step_booking' => 'required|numeric',
             'start_time' => 'required',
             'end_time' => 'required',
+            'max_people.*' => 'required|numeric|min:1',
+            'min_people.*' => 'required|numeric|min:1',
+            'weekday_price.*' => 'required|numeric|min:0',
+            'weekday_evening_price.*' => 'required|numeric|min:0',
+            'weekend_price.*' => 'required|numeric|min:0',
+            'weekend_evening_price.*' => 'required|numeric|min:0',
         ], [
             'hall_name.required' => 'Введите название зала.',
             'hall_area.required' => 'Введите площадь зала.',
@@ -167,6 +174,24 @@ class HallController extends Controller
             'start_time.date_format' => 'Введите верный формат времени.',
             'end_time.required' => 'Введите время закрытия зала.',
             'end_time.date_format' => 'Введите верный формат времени.',
+            'max_people.*.required' => 'Укажите максимальное количество людей.',
+            'max_people.*.numeric' => 'Максимальное количество людей должно быть числом.',
+            'max_people.*.min' => 'Максимальное количество людей должно быть не менее 1.',
+            'min_people.*.required' => 'Укажите минимальное количество людей.',
+            'min_people.*.numeric' => 'Минимальное количество людей должно быть числом.',
+            'min_people.*.min' => 'Минимальное количество людей должно быть не менее 1.',
+            'weekday_price.*.required' => 'Укажите цену на будний день.',
+            'weekday_price.*.numeric' => 'Цена на будний день должна быть числом.',
+            'weekday_price.*.min' => 'Цена на будний день не может быть отрицательной.',
+            'weekday_evening_price.*.required' => 'Укажите вечернюю цену на будний день.',
+            'weekday_evening_price.*.numeric' => 'Вечерняя цена на будний день должна быть числом.',
+            'weekday_evening_price.*.min' => 'Вечерняя цена на будний день не может быть отрицательной.',
+            'weekend_price.*.required' => 'Укажите цену на выходной день.',
+            'weekend_price.*.numeric' => 'Цена на выходной день должна быть числом.',
+            'weekend_price.*.min' => 'Цена на выходной день не может быть отрицательной.',
+            'weekend_evening_price.*.required' => 'Укажите вечернюю цену на выходной день.',
+            'weekend_evening_price.*.numeric' => 'Вечерняя цена на выходной день должна быть числом.',
+            'weekend_evening_price.*.min' => 'Вечерняя цена на выходной день не может быть отрицательной.',
         ]);
 
         $hall->fill([
@@ -179,6 +204,36 @@ class HallController extends Controller
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
         ]);
+
+        foreach ($request->min_people as $index => $min_people) {
+
+            if (isset($request->id_price[$index])) {
+
+                $prices = HallPrice::where('id', $request->id_price[$index])->first();
+
+                if ($prices != null) {
+                    $prices->fill([
+                        'min_people' => $request->min_people[$index],
+                        'max_people' => $min_people,
+                        'weekday_price' => $request->weekday_price[$index],
+                        'weekday_evening_price' => $request->weekday_evening_price[$index],
+                        'weekend_price' => $request->weekend_price[$index],
+                        'weekend_evening_price' => $request->weekend_evening_price[$index],
+                    ]);
+                    $prices->save();
+                }
+            } else {
+                HallPrice::create([
+                    'id_hall' => $hall->id,
+                    'min_people' => $request->min_people[$index],
+                    'max_people' => $request->max_people[$index],
+                    'weekday_price' => $request->weekday_price[$index],
+                    'weekday_evening_price' => $request->weekday_evening_price[$index],
+                    'weekend_price' => $request->weekend_price[$index],
+                    'weekend_evening_price' => $request->weekend_evening_price[$index],
+                ]);
+            }
+        }
 
         if ($hall) {
             $hall->save();
@@ -329,6 +384,14 @@ class HallController extends Controller
 
         return redirect()->back()->with('error', 'Ошибка удаления');
 
+    }
+
+    public function delete_price($id)
+    {
+        $price = HallPrice::findOrFail($id);
+        $price->delete();
+
+        return response()->json(['success' => 'Запись удалена успешно']);
     }
 
 

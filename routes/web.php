@@ -168,3 +168,5 @@ Route::get('/payment/failed', [BookingController::class, 'payment_failed'])->nam
 
 Route::get('/halls/filter', [HallController::class, 'filter_halls']);
 
+Route::delete('/delete_hall/price/{id}', [HallController::class, 'delete_price'])->name('hall-price.destroy');;
+
