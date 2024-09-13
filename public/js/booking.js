@@ -1,12 +1,9 @@
 $(document).ready(function () {
-    // Устанавливаем начальное значение количества человек при загрузке страницы
     var initialPeopleCount = $('#peopleCount').find('option:selected').data('count');
     $('#countPeople').val(initialPeopleCount);
 
-    // Выполните все необходимые операции, которые обычно выполняются при изменении выбора
     generateTimeRows();
 
-    // Остальной ваш код...
     $('#peopleCount').change(function () {
         clearBookingForm();
         selectedCells = [];

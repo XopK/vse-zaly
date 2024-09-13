@@ -213,8 +213,8 @@ class HallController extends Controller
 
                 if ($prices != null) {
                     $prices->fill([
-                        'min_people' => $request->min_people[$index],
-                        'max_people' => $min_people,
+                        'min_people' => $min_people,
+                        'max_people' => $request->max_people[$index],
                         'weekday_price' => $request->weekday_price[$index],
                         'weekday_evening_price' => $request->weekday_evening_price[$index],
                         'weekend_price' => $request->weekend_price[$index],
