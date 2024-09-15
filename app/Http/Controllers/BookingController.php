@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
 use App\Models\Hall;
+use App\Models\HallPrice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,10 +28,11 @@ class BookingController extends Controller
             'selectedDate' => 'required',
             'selectedTime' => 'required',
             'totalPrice' => 'required',
-            'countPeople' => 'required',
+            'idPriceHall' => 'required',
         ]);
 
         $user = Auth::user();
+        $hallPrice = HallPrice::find($request->idPriceHall);
 
         try {
             $date = Carbon::createFromFormat('d.m.Y', $request->selectedDate);
@@ -60,7 +62,8 @@ class BookingController extends Controller
                 'booking_start' => $startDateTime,
                 'booking_end' => $endDateTime,
                 'total_price' => $request->totalPrice,
-                'count_people_booking' => $request->countPeople,
+                'min_people' => $hallPrice->min_people,
+                'max_people' => $hallPrice->max_people,
             ]);
 
             $payment_url = $this->payment_bookings($request, $bookingHall);
@@ -76,6 +79,7 @@ class BookingController extends Controller
     private function checkUserBooking($request, $startDateTime, $endDateTime)
     {
         $hall = Hall::find($request->selectedHall);
+        $hallPrice = HallPrice::find($request->idPriceHall);
 
         $existingBookingHall = BookingHall::where('id_hall', $request->selectedHall)
             ->where(function ($query) use ($startDateTime, $endDateTime) {
@@ -85,11 +89,9 @@ class BookingController extends Controller
                 });
             })->first();
 
-
         if ($existingBookingHall) {
             return false;
         }
-
 
         $totalPrice = 0;
         $stepBooking = $hall->step_booking * 60;
@@ -108,45 +110,25 @@ class BookingController extends Controller
             $endDateTime->addDay();
         }
 
-
-        switch ($request->countPeople) {
-            case 2:
-                $peoplePrice = $hall->price_for_two;
-                break;
-            case 4:
-                $peoplePrice = $hall->price_for_four;
-                break;
-            case 7:
-                $peoplePrice = $hall->price_for_seven;
-                break;
-            case 10:
-                $peoplePrice = $hall->price_for_nine;
-                break;
-            default:
-                $peoplePrice = 0;
-                break;
-        }
-
         // Цикл расчета стоимости бронирования
         $currentDateTime = $startDateTime->copy();
-        $eveningStartTime = $currentDateTime->copy()->setTimeFromTimeString($hall->time_evening);
+        $eveningStartTime = $currentDateTime->copy()->setTimeFromTimeString('18:00');
 
         while ($currentDateTime->lt($endDateTime)) {
             $isWeekend = in_array($currentDateTime->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
             $isEvening = $currentDateTime->gte($eveningStartTime);
 
             if ($isWeekend && $isEvening) {
-                $basePrice = $hall->max_price;
+                $basePrice = $hallPrice->weekend_evening_price;
             } elseif ($isWeekend) {
-                $basePrice = $hall->price_weekend;
+                $basePrice = $hallPrice->weekend_price;
             } elseif ($isEvening) {
-                $basePrice = $hall->price_evening;
+                $basePrice = $hallPrice->weekday_evening_price;
             } else {
-                $basePrice = $hall->price_weekday;
+                $basePrice = $hallPrice->weekday_price;
             }
 
-            $finalPrice = $basePrice + $peoplePrice;
-            $totalPrice += $finalPrice;
+            $totalPrice += $basePrice;
 
             $currentDateTime->addMinutes($stepBooking);
 

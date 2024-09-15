@@ -23,6 +23,7 @@ class HallController extends Controller
     public function hall_view(Hall $hall)
     {
         $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->get();
+        $hallPrice = HallPrice::where('id_hall', $hall->id)->get();
 
         $sessionKey = 'hall_view_' . $hall->id;
 
@@ -37,7 +38,7 @@ class HallController extends Controller
             $isFavorite = $user->favorites()->where('id_hall', $hall->id)->exists();
         }
 
-        return view('hall', ['hall' => $hall, 'bookings' => $booking, 'isFavorite' => $isFavorite]);
+        return view('hall', ['hall' => $hall, 'bookings' => $booking, 'isFavorite' => $isFavorite, 'hallPrice' => $hallPrice]);
     }
 
     public function create_halls(Request $request)
@@ -337,8 +338,14 @@ class HallController extends Controller
         }
 
         if ($request->filled('price')) {
-            $query->where('max_price', '>=', $request->input('price'));
+            $price = $request->input('price');
+
+            // Фильтруем залы по максимальной цене в связанных записях
+            $query->whereHas('hall_price', function ($subQuery) use ($price) {
+                $subQuery->whereRaw('GREATEST(weekday_price, weekday_evening_price, weekend_price, weekend_evening_price) >= ?', [$price]);
+            });
         }
+
 
         if ($request->filled('area')) {
             $query->where('area_hall', '<=', $request->input('area'));

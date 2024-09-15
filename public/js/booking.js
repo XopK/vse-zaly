@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var initialPeopleCount = $('#peopleCount').find('option:selected').data('count');
-    $('#countPeople').val(initialPeopleCount);
+    var initialIdPrice = $('#peopleCount').find('option:selected').val();
+    $('#idPriceHall').val(initialIdPrice);
 
     generateTimeRows();
 
@@ -8,8 +8,27 @@ $(document).ready(function () {
         clearBookingForm();
         selectedCells = [];
 
-        var peopleCount = $(this).find('option:selected').data('count');
-        $('#countPeople').val(peopleCount);
+        var selectedId = $(this).find('option:selected').val();
+        $('#idPriceHall').val(selectedId);
+
+        var minPeople = $(this).find('option:selected').data('min_people');
+        var maxPeople = $(this).find('option:selected').data('max_people');
+
+        var selectedPriceRange = hallPrices.find(function (price) {
+            return minPeople >= price.min_people && maxPeople <= price.max_people;
+        });
+
+        if (selectedPriceRange) {
+            // Обновляем цены для данного количества людей
+            hall.price_weekday = selectedPriceRange.weekday_price;
+            hall.price_evening = selectedPriceRange.weekday_evening_price;
+            hall.price_weekend = selectedPriceRange.weekend_price;
+            hall.price_weekend_evening = selectedPriceRange.weekend_evening_price;
+            // Перегенерируем строки с новыми ценами
+            generateTimeRows();
+        } else {
+            console.error('No price range found for this people count.');
+        }
 
         $('#weekTable td').removeClass('highlight-cell');
         generateTimeRows();
@@ -59,7 +78,17 @@ $(document).ready(function () {
         var stepMinutes = stepbooking * 60;  // Переводим шаг из часов в минуты
         var startTime = moment(hall.start_time, 'HH:mm');
         var endTime = moment(hall.end_time, 'HH:mm');
-        var eveningTime = moment(hall.time_evening, 'HH:mm');
+
+        var selectedPriceId = $('#peopleCount').val();
+        var selectedPriceRange = hallPrices.find(function (price) {
+            return price.id == selectedPriceId;
+        });
+        var eveningTime = moment('18:00', 'HH:mm');
+
+        if (!selectedPriceRange) {
+            console.error('No price range found for this selection.');
+            return;
+        }
 
         // Получаем выбранное количество человек
         var peopleCount = parseInt($('#peopleCount').val());
@@ -98,20 +127,18 @@ $(document).ready(function () {
                     var isEvening = time.isSameOrAfter(eveningTime);
                     var basePrice;
 
+                    // Определяем фиксированную цену на основе дня недели и времени дня
                     if (isWeekend && isEvening) {
-                        basePrice = hall.max_price;
+                        basePrice = selectedPriceRange.weekend_evening_price;
                     } else if (isWeekend) {
-                        basePrice = hall.price_weekend;
+                        basePrice = selectedPriceRange.weekend_price;
                     } else if (isEvening) {
-                        basePrice = hall.price_evening;
+                        basePrice = selectedPriceRange.weekday_evening_price;
                     } else {
-                        basePrice = hall.price_weekday;
+                        basePrice = selectedPriceRange.weekday_price;
                     }
 
-                    // Увеличиваем базовую цену на количество человек
-                    var finalPrice = basePrice + peopleCount;
-
-                    cell.append('<div class="price">' + finalPrice + ' ₽</div>');
+                    cell.append('<div class="price">' + basePrice + ' ₽</div>');
                 }
 
                 row.append(cell);

@@ -24,7 +24,6 @@ return new class extends Migration {
 
             $table->dateTime('booking_start');
             $table->dateTime('booking_end')->nullable();
-            $table->boolean('status_booking')->default(false);
             $table->timestamps();
         });
     }

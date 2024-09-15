@@ -55,7 +55,6 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr) {
-                console.log(xhr.responseText);
                 $('#halls-container').fadeIn(300); // В случае ошибки показываем старые данные
             }
         });

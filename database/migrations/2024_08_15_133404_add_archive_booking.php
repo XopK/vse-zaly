@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('booking_halls', function (Blueprint $table) {
-            $table->boolean('is_archive')->after('status_booking')->default(false);
+            $table->boolean('is_archive')->default(false);
         });
     }
 

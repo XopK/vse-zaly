@@ -11,7 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('booking_halls', function (Blueprint $table) {
-            $table->dropColumn('status_booking');
+            $table->dropColumn('count_people_booking');
+            $table->integer('min_people');
+            $table->integer('max_people');
         });
     }
 
@@ -20,6 +22,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Schema::table('booking_halls', function (Blueprint $table) {
+            //
+        });
     }
 };

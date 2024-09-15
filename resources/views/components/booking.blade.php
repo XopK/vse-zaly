@@ -1,4 +1,4 @@
-@props(['hall', 'bookings'])
+@props(['hall', 'bookings', 'hallPrice'])
 <style>
     .table td, .table th {
         padding: .50rem;
@@ -61,11 +61,13 @@
                         <div class="col-md-6 col-sm-12 mb-3">
                             <select id="peopleCount" class="form-control"
                                     style="box-shadow: none; border: 1px solid #dee2e6">
-                                <option value="0" data-count="1" selected>для 1</option>
-                                <option value="{{$hall->price_for_two}}" data-count="2">от 2 до 3 человек</option>
-                                <option value="{{$hall->price_for_four}}" data-count="4">от 4 до 6 человек</option>
-                                <option value="{{$hall->price_for_seven}}" data-count="7">от 7 до 9 человек</option>
-                                <option value="{{$hall->price_for_nine}}" data-count="10">от 10 и более</option>
+                                @foreach($hallPrice as $index => $price)
+                                    <option value="{{ $price->id }}"
+                                            {{ $index > 0 ? '' : 'selected' }} data-min_people="{{ $price->min_people }}"
+                                            data-max_people="{{$price->max_people}}">
+                                        от {{ $price->min_people }} до {{ $price->max_people }} человек
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -80,7 +82,7 @@
                                 <input type="hidden" name="selectedDate" id="selectedDate">
                                 <input type="hidden" name="selectedTime" id="selectedTime">
                                 <input type="hidden" name="totalPrice" id="totalPrice">
-                                <input type="hidden" name="countPeople" id="countPeople">
+                                <input type="hidden" name="idPriceHall" id="idPriceHall">
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>
                                 </button>
@@ -100,6 +102,8 @@
     var bookings = @json($bookings);
     var stepbooking = @json($hall->step_booking);
     var hall = @json($hall);
+    var hallPrices = @json($hallPrice);
+
 </script>
 <script src="/js/booking.js"></script>
 

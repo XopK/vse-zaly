@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('booking_halls', function (Blueprint $table) {
-            $table->integer('count_people_booking')->after('status_booking');
+            $table->integer('count_people_booking');
         });
     }
 

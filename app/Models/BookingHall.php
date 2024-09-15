@@ -17,7 +17,8 @@ class BookingHall extends Model
         'total_price',
         'payment_id',
         'is_archive',
-        'count_people_booking',
+        'min_people',
+        'max_people',
     ];
 
     protected $dates = ['booking_start', 'booking_end'];
