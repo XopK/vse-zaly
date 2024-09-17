@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'phone',
         'photo_profile',
+        'phone_verfied',
         'email',
         'telegram',
         'vk',
@@ -67,5 +68,10 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->hasMany(FavoriteHall::class, 'id_user');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role');
     }
 }

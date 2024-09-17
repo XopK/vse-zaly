@@ -9,47 +9,52 @@
 </head>
 
 <body>
-    <div class="admin-panel">
-        <!-- Панель навигации -->
-        <nav class="sidebar">
-            <ul>
-                <li><a href="/admin">Главная</a></li>
-                <li><a href="/admin/studios">Студии</a></li>
-                <li><a href="/admin/users">Пользователи</a></li>
-                <li><a href="/admin/booking">Бронирования</a></li>
-                <li><a href="/admin/studio_requests">Заявки от студий</a></li>
-            </ul>
-        </nav>
-        <!-- Контент -->
-        <div class="content">
-            <!-- Общая информация -->
-            <div class="summary">
-                <div class="summary-item">
-                    <h2>Сколько всего студий:</h2>
-                    <p>250</p>
-                </div>
-
+<div class="admin-panel">
+    <!-- Панель навигации -->
+    <nav class="sidebar">
+        <ul>
+            <li><a href="/admin">Главная</a></li>
+            <li><a href="/admin/studios">Студии</a></li>
+            <li><a href="/admin/users">Пользователи</a></li>
+            <li><a href="/admin/booking">Бронирования</a></li>
+            <li><a href="/admin/studio_requests">Заявки от студий</a></li>
+        </ul>
+    </nav>
+    <!-- Контент -->
+    <div class="content">
+        <!-- Общая информация -->
+        <div class="summary">
+            <div class="summary-item">
+                <h2>Сколько всего студий:</h2>
+                <p>{{count($studios)}}</p>
             </div>
-            <!-- Список залов -->
-            <div class="halls-list">
-                <h2>Список студий</h2>
+
+        </div>
+        <!-- Список залов -->
+        <div class="halls-list">
+            <h2>Список студий</h2>
+            @forelse($studios as $studio)
                 <div class="hall">
                     <div class="img">
-                        <img src="/images/halls/IMG_4036.jpeg" alt="упс">
+                        <img src="/storage/photo_studios/{{$studio->photo_studio}}" alt="{{$studio->photo_studio}}">
                     </div>
+
                     <div class="hall_info">
-                        <h3>Студия: Brain</h3>
-                        <p>владелец: </p>
-                        <p>Адрес: </p>
-                        <p>номер тлф: </p>
-                        <p>сколько залов: </p>
-                        <p>сколько раз у студии бронировали: </p>
+                        <h3>Студия: {{$studio->name_studio}}</h3>
+                        <p>владелец: {{$studio->owner->name}}</p>
+                        <p>адрес: {{$studio->adress_studio}}</p>
+                        <p>номер телефона: {{$studio->phone_studio}}</p>
+                        <p>сколько залов: {{$studio->halls->count()}}</p>
+                        <p>сколько раз у студии бронировали: {{ $studio->halls->sum('count_booking') }}</p>
                     </div>
                 </div>
+            @empty
 
-            </div>
+            @endforelse
+
         </div>
     </div>
+</div>
 </body>
 
 </html>

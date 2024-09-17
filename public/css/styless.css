@@ -76,12 +76,13 @@ body {
     border-radius: 5px;
 }
 
-.halls-list h2{
+.halls-list h2 {
     padding-bottom: 20px;
 }
 
 .hall {
     display: flex;
+    align-items: center;
     background-color: #ffffff;
     color: #000000;
     padding: 10px;
@@ -89,9 +90,33 @@ body {
     border-radius: 5px;
 }
 
-.hall_info{
+.hall_info {
     gap: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.truncate {
+    margin: 0; /* Убираем внешний отступ */
+    -webkit-line-clamp: 1; /* Число отображаемых строк */
+    display: -webkit-box; /* Включаем флексбоксы */
+    -webkit-box-orient: vertical; /* Вертикальная ориентация */
+    overflow: hidden; /* Обрезаем всё за пределами блока */
+}
+
+.btn {
+    padding: 15px 10px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.btn-apply {
+    background-color: #2a9e47;
+}
+
+.btn-deny {
+    background-color: #c62b31;
 }

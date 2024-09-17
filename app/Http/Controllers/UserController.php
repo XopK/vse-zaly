@@ -217,4 +217,9 @@ class UserController extends Controller
 
         return view('favourite_properties', ['favorites' => $favorites]);
     }
+
+    public function user_profile(User $user)
+    {
+        return view('user_profile', ['user' => $user]);
+    }
 }

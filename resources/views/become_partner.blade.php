@@ -37,86 +37,86 @@
                             <input type="email" name="emailReq" id="emailReq" class="form-control" required>
                         </div>
                         @error('emailReq')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Имя<span class="text-danger">*</span></label>
                             <input type="text" name="nameReq" id="nameReq" class="form-control" required>
                         </div>
                         @error('nameReq')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Название студии<span class="text-danger">*</span></label>
                             <input type="text" name="nameStudio" id="nameStudio" class="form-control" required>
                         </div>
                         @error('nameStudio')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Адрес студии<span class="text-danger">*</span></label>
-                            <input type="text" name="adressStudio" id="adressStudio" class="form-control" required>
+                            <input type="text" name="addressStudio" id="addressStudio" class="form-control" required>
                         </div>
-                        @error('adressStudio')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        @error('addressStudio')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Телефон</label>
                             <input type="text" name="phoneReq" id="phonestudios" placeholder="+7(___)-___-____"
-                                class="form-control">
+                                   class="form-control">
                         </div>
                         @error('phoneReq')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Пароль<span class="text-danger">*</span></label>
                             <input type="password" name="passwordReq" id="passwordReq" class="form-control" required>
                         </div>
                         @error('passwordReq')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                         <div class="form-group">
                             <label class="font-weight-bold">Подтвердите пароль<span class="text-danger">*</span></label>
                             <input type="password" name="confirmPasswordReq" id="confirmPasswordReq"
-                                class="form-control" required>
+                                   class="form-control" required>
                         </div>
                         @error('confirmPasswordReq')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @enderror
                         <div class="form-group">
                             <label><input type="checkbox" name="signupcondition" id="requestcondition" required> Я
@@ -134,20 +134,9 @@
             </div>
         </div>
     </section>
-
-    <!--Map Section-->
-    {{-- <section class="map-section">
-        <div class="map-layer">
-            <div class="map-canvas" data-zoom="12" data-lat="-37.817085" data-lng="144.955631" data-type="roadmap"
-                data-hue="#ffc400" data-title="Singapore" data-icon-path="images/icons/map-marker.png"
-                data-content="Singapore VIC 3000, USA<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
-            </div>
-        </div>
-    </section> --}}
-
 </x-layout>
 <script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js"
-    type="text/javascript"></script>
+        type="text/javascript"></script>
 <script>
     $("#phonestudios").mask("+7(999)-999-9999");
 </script>

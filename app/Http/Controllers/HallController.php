@@ -9,6 +9,7 @@ use App\Models\PhotoHall;
 use App\Models\Studio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class HallController extends Controller
@@ -360,10 +361,18 @@ class HallController extends Controller
         if ($request->filled('sort')) {
             switch ($request->input('sort')) {
                 case '#asc':
-                    $query->orderBy('max_price', 'asc');
+                    // Сортировка по возрастанию максимальной цены
+                    $query->leftJoin('hall_prices', 'halls.id', '=', 'hall_prices.id_hall')
+                        ->select('halls.*', DB::raw('GREATEST(MAX(weekday_price), MAX(weekday_evening_price), MAX(weekend_price), MAX(weekend_evening_price)) as max_price'))
+                        ->groupBy('halls.id') // Группируем по ID залов, чтобы избежать дублирования
+                        ->orderBy('max_price', 'asc');
                     break;
                 case '#desc':
-                    $query->orderBy('max_price', 'desc');
+                    // Сортировка по убыванию максимальной цены
+                    $query->leftJoin('hall_prices', 'halls.id', '=', 'hall_prices.id_hall')
+                        ->select('halls.*', DB::raw('GREATEST(MAX(weekday_price), MAX(weekday_evening_price), MAX(weekend_price), MAX(weekend_evening_price)) as max_price'))
+                        ->groupBy('halls.id') // Группируем по ID залов, чтобы избежать дублирования
+                        ->orderBy('max_price', 'desc');
                     break;
                 case '#all':
                     // Нет сортировки
@@ -374,7 +383,7 @@ class HallController extends Controller
         $halls = $query->paginate(12);
 
         $html = view('partials.halls', compact('halls'))->render();
-        $pagination = $halls->links()->render(); // Рендерим встроенные ссылки пагинации
+        $pagination = $halls->links()->render();
 
         return response()->json(['html' => $html, 'pagination' => $pagination]);
     }

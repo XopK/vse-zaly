@@ -193,7 +193,6 @@ class BookingController extends Controller
     public function callback(Request $request)
     {
         $data = $request->all();
-        \Log::info("requestdata: ", $data);
 
         if ($data['Status'] == 'CONFIRMED') {
 

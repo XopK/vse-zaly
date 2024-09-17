@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class PartnerRequest extends Model
 {
-    use HasFactory;
 
     protected $fillable = [
         'email',
         'name',
         'name_studio',
+        'address',
         'phone',
         'password',
     ];

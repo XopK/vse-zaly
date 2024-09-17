@@ -94,7 +94,7 @@
                     <div class="col-lg-3 mb-3" style="padding-left: 0">
                         <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
                                 data-target="#booking"><span
-                                    class="btn-title">Зарезервировать</span></button>
+                                class="btn-title">Зарезервировать</span></button>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                                 @endif
                                 <div class="form-group">
                                     <label class="font-weight-bold">Название зала<span
-                                                class="text-danger"></span></label>
+                                            class="text-danger"></span></label>
                                     <input value="{{ $hall->name_hall }}" type="text" name="hall_name"
                                            id="hall_name" class="form-control" required>
                                 </div>
@@ -140,7 +140,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label class="font-weight-bold">Площадь зала <span
-                                                class="text-danger"></span></label>
+                                            class="text-danger"></span></label>
                                     <input type="number" class="form-control" min="0" name="hall_area"
                                            value="{{ $hall->area_hall }}" id="hall_area"
                                            required>
@@ -155,7 +155,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label class="font-weight-bold">Расположение зала <span
-                                                class="text-danger"></span></label>
+                                            class="text-danger"></span></label>
                                     <input type="text" name="address_hall" class="form-control"
                                            value="{{$hall->address_hall}}" required>
                                 </div>
@@ -169,7 +169,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label class="font-weight-bold">Описание зала <span
-                                                class="text-danger"></span></label>
+                                            class="text-danger"></span></label>
                                     <textarea class="form-control" name="hall_description" id="hall_description"
                                     >{{ $hall->description_hall }}</textarea>
                                 </div>
@@ -183,7 +183,7 @@
                                 @enderror
                                 <div class="form-group">
                                     <label class="font-weight-bold">Правила зала <span
-                                                class="text-danger"></span></label>
+                                            class="text-danger"></span></label>
                                     <textarea class="form-control" name="hall_terms"
                                               id="hall_terms">{{ $hall->rule_hall }}</textarea>
                                 </div>
@@ -247,8 +247,8 @@
                                     @foreach($hall_price as $key=>$price)
                                         <input type="hidden" name="id_price[]" value="{{$price->id}}">
                                         <div
-                                                class="form-row align-items-center px-1 mb-4 price-block {{ $key > 0 ? '' : 'originalblock  ' }}"
-                                                id="price-block-{{$price->id}}">
+                                            class="form-row align-items-center px-1 mb-4 price-block {{ $key > 0 ? '' : 'originalblock  ' }}"
+                                            id="price-block-{{$price->id}}">
                                             <div class="d-flex align-items-center count-k">
                                                 <div class="px-1">
                                                     <span>От</span>
@@ -315,7 +315,7 @@
                                     <div id="cloned-blocks"></div>
                                     <div class="form-group">
                                         <button type="submit" class="theme-btn btn-style-one btn-block"><span
-                                                    class="btn-title">Изменить</span></button>
+                                                class="btn-title">Изменить</span></button>
                                     </div>
                                 </div>
                             </form>
@@ -342,7 +342,7 @@
                 <div class="col-lg-3 p-0">
                     <button type="submit" data-toggle="modal" data-target="#photoadd"
                             class="theme-btn btn-style-one btn-block mb-3"><span
-                                class="btn-title">Добавить фотографии +</span></button>
+                            class="btn-title">Добавить фотографии +</span></button>
                 </div>
                 <div class="row clearfix">
                     @forelse($hall->photo_halls as $photo)
@@ -350,8 +350,8 @@
                              data-wow-duration="1500ms">
                             <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
                                                      class="lightbox-image"><img
-                                            src="/storage/photo_halls/{{$photo->photo_hall}}"
-                                            alt="{{$photo->photo_hall}}"></a>
+                                        src="/storage/photo_halls/{{$photo->photo_hall}}"
+                                        alt="{{$photo->photo_hall}}"></a>
                                 <button type="button" title="Удалить" class="close btn-cls" aria-label="Close"
                                         style="background-color: red; width: 40px; height: 40px; color: white; border-radius: 50%; position: absolute; right: 5px; top: 5px; padding-bottom: 3px"
                                         data-record-id="{{ $photo->id }}">
@@ -414,7 +414,7 @@
             var newPhoto = button.data('name-photo');
 
             $.ajax({
-                url: '/update_privew/' + photoId,
+                url: '/update_preview/' + photoId,
                 type: 'POST',
                 data: {
                     _token: '{{csrf_token()}}'
