@@ -17,6 +17,7 @@
             <li><a href="/admin/users">Пользователи</a></li>
             <li><a href="/admin/booking">Бронирования</a></li>
             <li><a href="/admin/studio_requests">Заявки от студий</a></li>
+            <li><a href="{{ route('logout') }}">Выйти</a></li>
         </ul>
     </nav>
     <!-- Контент -->

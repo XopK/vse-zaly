@@ -23,16 +23,45 @@
         .halls {
             text-align: center;
         }
+
+        .btn-outline-warning {
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .btn-outline-warning:hover {
+            color: white;
+            background: #353535;
+            border-color: #dfdfdf
+        }
+
+        .btn-outline-warning:focus {
+            box-shadow: 0 0 0 .2rem rgb(225, 225, 225)
+        }
+
+        .btn-outline-warning:not(:disabled):not(.disabled).active, .btn-outline-warning:not(:disabled):not(.disabled):active, .show > .btn-outline-warning.dropdown-toggle {
+            color: #ffffff;
+            background-color: #353535;
+            border-color: #dfdfdf
+        }
+
+        .btn-outline-warning:not(:disabled):not(.disabled).active:focus, .btn-outline-warning:not(:disabled):not(.disabled):active:focus, .show > .btn-outline-warning.dropdown-toggle:focus {
+            box-shadow: 0 0 0 .2rem rgb(225, 225, 225)
+        }
     </style>
     <!-- Banner Section -->
     <section class="page-banner">
-        <div class="image-layer" style="background-image:url(images/background/about_us.jpg);"></div>
+        <div class="image-layer"
+             style="background-image:url('/storage/banner_studio/{{Auth::user()->studio->banner_studio}}');"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">
             <div class="auto-container">
                 <div class="inner-container clearfix">
-                    <h1>Моя студия "{{ Auth::user()->studio->name_studio }}"</h1>
+                    <h1 class="mb-2">Моя студия "{{ Auth::user()->studio->name_studio }}"</h1>
+                    <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#filebanner">
+                        Изменить баннер
+                    </button>
                 </div>
             </div>
         </div>
@@ -243,220 +272,57 @@
         @empty
 
         @endforelse
-
-
     </div>
 
-    <!--Testimonials Section-->
-    {{-- <section class="testimonials-section">
-        <div class="circles-two">
-            <div class="c-1"></div>
-            <div class="c-2"></div>
-        </div>
-        <div class="auto-container">
-            <div class="sec-title centered">
-                <h2>Отзывы</h2>
-                <div class="lower-text">Нам важно что вы думаете о нас, мы за то - чтобы наш проект развивался вместе с
-                    вами.
-                </div>
+
+</x-layout>
+<div class="modal fade" id="filebanner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Баннер для студии</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="{{route('update_banner')}}">
+                    @csrf
+                    <div class="col-lg-12 ">
+                        <div class="form-group photo">
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="banner_studio" accept="image/*"
+                                           id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Выберите
+                                        файл</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="send-btn">
+                            <button type="submit" class="theme-btn btn-style-one"><span
+                                    class="btn-title">Добавить</span></button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            <div class="carousel-box">
-                <div class="testimonial-carousel owl-theme owl-carousel">
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-1.jpg" alt="">
-                                </div>
-                                <div class="name">Mark Adams</div>
-                                <div class="designation">Designer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-2.jpg" alt="">
-                                </div>
-                                <div class="name">Fiona Edwards</div>
-                                <div class="designation">Developer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-3.jpg" alt="">
-                                </div>
-                                <div class="name">Dominic Allen</div>
-                                <div class="designation">Designer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-1.jpg" alt="">
-                                </div>
-                                <div class="name">Mark Adams</div>
-                                <div class="designation">Designer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-2.jpg" alt="">
-                                </div>
-                                <div class="name">Fiona Edwards</div>
-                                <div class="designation">Developer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-3.jpg" alt="">
-                                </div>
-                                <div class="name">Dominic Allen</div>
-                                <div class="designation">Designer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-1.jpg" alt="">
-                                </div>
-                                <div class="name">Mark Adams</div>
-                                <div class="designation">Designer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-2.jpg" alt="">
-                                </div>
-                                <div class="name">Fiona Edwards</div>
-                                <div class="designation">Developer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-block">
-                        <div class="inner">
-                            <div class="content-box">
-                                <div class="content">
-                                    <div class="quote-icon"><span class="flaticon-quote-1"></span></div>
-                                    <div class="text">Lorem ipsum dolor sit amet consectetur adipis elit eiusmod
-                                        tempor
-                                        incidunt sed labore dolore magna.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <div class="image"><img src="images/resource/testi-thumb-3.jpg" alt="">
-                                </div>
-                                <div class="name">Dominic Allen</div>
-                                <div class="designation">Designer</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </section> --}}
-    <script>
-        document.querySelector('.custom-file-input').addEventListener('change', function (event) {
+    </div>
+</div>
+<script>
+    document.querySelectorAll('.custom-file-input').forEach(function (input) {
+        input.addEventListener('change', function (event) {
             var input = event.target;
             var label = input.nextElementSibling;
             var fileName = input.files.length > 0 ? input.files[0].name : 'Выбрать файл';
             label.textContent = fileName;
         });
-    </script>
-
-</x-layout>
+    });
+</script>
 <script>
     $("#phone_studio").mask("+7(999)-999-9999");
 </script>

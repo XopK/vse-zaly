@@ -1,8 +1,9 @@
 <x-layout>
 
     <!-- Banner Section -->
-    <section class="page-banner">
-        <div class="image-layer" style="background-image: url('/images/background/studios.jpg');"></div>
+    <section class="page-banner" style="padding: 100px 0">
+        <div class="image-layer"
+             style="background-image: url('/images/background/studios.png'); background-size: cover;"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">

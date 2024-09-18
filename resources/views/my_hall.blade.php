@@ -195,6 +195,25 @@
                                     </button>
                                 </div>
                                 @enderror
+                                <div class="form-group" style="margin-left: 20px">
+                                    @forelse($allFeatures as $allFeature)
+                                        <div class="feature-item my-3">
+                                            <input name="features[]"
+                                                   {{ $hall->features->contains('id', $allFeature->id) ? 'checked' : '' }} class="form-check-input"
+                                                   type="checkbox"
+                                                   value="{{$allFeature->id}}"
+                                                   id="defaultCheck{{ $loop->index }}">
+                                            <label class="form-check-label" for="defaultCheck{{ $loop->index }}">
+                                                {{$allFeature->title_feature}}
+                                                <img src="/images/features/{{$allFeature->photo_feature}}"
+                                                     alt="Feature Image"
+                                                     style="margin-left: 10px;">
+                                            </label>
+                                        </div>
+                                    @empty
+                                        <p>Нет доступных удобств.</p>
+                                    @endforelse
+                                </div>
                                 <div class="form-group" style="width: 50%">
                                     <label>Шаг бронирования: <span id="step_booking_display"
                                                                    class="font-weight-bold">1 час</span></label>
@@ -329,15 +348,17 @@
                     <h3>Зал предоставляет:</h3>
                     <div class="text">Правила: {{$hall->rule_hall}}</div>
                     <ul class="info clearfix">
-                        {{-- <li><span class="icon flaticon-tv"></span> Telivision</li> --}}
-                        <li><span class="icon flaticon-wifi"></span> Wi-Fi</li>
-                        <li><span class="icon flaticon-coffee-cup"></span> Кофе</li>
-                        <li><span class="icon flaticon-wine-glass"></span> Мини бар</li>
-                        {{-- <li><span class="icon flaticon-dumbbell"></span> Gymnasium</li> --}}
+                        @forelse($hall->features as $feature)
+                            <li><img class="icon" src="/images/features/{{$feature->photo_feature}}"
+                                     alt="{{$feature->photo_feature}}">{{$feature->title_feature}}
+                            </li>
+                        @empty
+                            <li>Удобства отсутствуют</li>
+                        @endforelse
                     </ul>
                 </div>
             </div>
-
+            
             <div class="lower-box">
                 <div class="col-lg-3 p-0">
                     <button type="submit" data-toggle="modal" data-target="#photoadd"
@@ -374,7 +395,7 @@
     </section>
 
 </x-layout>
-<x-booking_studio :hall="$hall" :bookings="$bookings"></x-booking_studio>
+<x-booking_studio :hall="$hall" :bookings="$bookings" :hall_price="$hall_price"></x-booking_studio>
 <script src="/js/rangeStep.js"></script>
 <script>
     let blockCount = {{ count($hall_price) }};

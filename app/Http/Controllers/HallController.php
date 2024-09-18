@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
+use App\Models\Feature;
+use App\Models\FeatureHalls;
 use App\Models\Hall;
 use App\Models\HallPrice;
 use App\Models\PhotoHall;
@@ -17,8 +19,9 @@ class HallController extends Controller
     public function my_halls()
     {
         $halls = Hall::where('id_studio', Auth::user()->studio->id)->get();
+        $features = Feature::all();
 
-        return view('my_halls', ['halls' => $halls]);
+        return view('my_halls', ['halls' => $halls, 'features' => $features]);
     }
 
     public function hall_view(Hall $hall)
@@ -44,7 +47,6 @@ class HallController extends Controller
 
     public function create_halls(Request $request)
     {
-
         $validated = $request->validate([
             'name_hall' => 'required',
             'area_hall' => 'required|integer',
@@ -111,6 +113,12 @@ class HallController extends Controller
             'end_time' => $request->end_time,
         ]);
 
+        foreach ($request->features as $feature) {
+            FeatureHalls::create([
+                'id_feature' => $feature,
+                'id_hall' => $hall->id,
+            ]);
+        }
 
         foreach ($request->min_people as $index => $min_people) {
             $hall_price = HallPrice::create([
@@ -206,6 +214,10 @@ class HallController extends Controller
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
         ]);
+
+        $features = $request->input('features', []);
+
+        $hall->features()->sync($features);
 
         foreach ($request->min_people as $index => $min_people) {
 

@@ -28,12 +28,23 @@ class BookingHall extends Model
         static::created(function ($booking) {
             $booking->hall->increment('count_booking');
         });
+
+        static::deleted(function ($booking) {
+            $booking->hall->decrement('count_booking');
+        });
     }
 
     public function income($money)
     {
         $hall = $this->hall;
         $hall->total_income += $money;
+        $hall->save();
+    }
+
+    public function minusincome($money)
+    {
+        $hall = $this->hall;
+        $hall->total_income -= $money;
         $hall->save();
     }
 

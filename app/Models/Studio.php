@@ -13,6 +13,7 @@ class Studio extends Model
         'name_studio',
         'description_studio',
         'photo_studio',
+        'banner_studio',
         'email_studio',
         'phone_studio',
         'adress_studio',

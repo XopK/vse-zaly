@@ -33,7 +33,6 @@ class PaymentService
 
     public function makePayment($amount, $orderId, $description)
     {
-
         $data = [
             'TerminalKey' => $this->terminalKey,
             'Amount' => $amount * 100,

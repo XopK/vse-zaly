@@ -54,6 +54,7 @@ class BookingController extends Controller
 
         $checking = $this->checkUserBooking($request, $startDateTime, $endDateTime);
 
+
         if ($checking) {
 
             $bookingHall = BookingHall::create([
@@ -66,13 +67,14 @@ class BookingController extends Controller
                 'max_people' => $hallPrice->max_people,
             ]);
 
-            $payment_url = $this->payment_bookings($request, $bookingHall);
+            $paymentUrl = $this->payment_bookings($request, $bookingHall);
+            if ($paymentUrl) {
+                return redirect()->away($paymentUrl);
+            } else {
+                return back()->with('error', 'Ошибка бронирования!');
+            }
 
-            return redirect()->away($payment_url);
-        } else {
-            return back()->with('error', 'Ошибка бронирования!');
         }
-
 
     }
 
@@ -160,6 +162,7 @@ class BookingController extends Controller
             if ($nowTime->diffInHours($startBooking, false) >= 24) {
 
                 if ($this->paymentService->cancelPayment($booking->payment_id)) {
+                    $booking->minusincome($booking->total_price);
                     $booking->delete();
                     return redirect('/my_booking')->with('success_delete', 'Бронь отменена.');
                 } else {
@@ -183,11 +186,8 @@ class BookingController extends Controller
 
         $paymentUrl = $this->paymentService->makePayment($amount, $orderId, $description);
 
-        if ($paymentUrl) {
-            return $paymentUrl;
-        } else {
-            return redirect()->back()->with('error', 'Ошибка при инициации платежа');
-        }
+        return $paymentUrl ?: false;
+
     }
 
     public function callback(Request $request)
@@ -222,6 +222,30 @@ class BookingController extends Controller
     public function payment_failed()
     {
         return view('payment_failed');
+    }
+
+    public function for_partner(Request $request)
+    {
+        
+        $validated = $request->validate([
+            'selectedHall' => 'required',
+            'selectedDate' => 'required',
+            'selectedTime' => 'required',
+            'totalPrice' => 'required',
+            'idPriceHall' => 'required',
+        ]);
+
+        $user = Auth::user();
+        $hallPrice = HallPrice::find($request->idPriceHall);
+
+        $dates = explode(', ', $request->selectedDate);
+        $times = explode(', ', $request->selectedTime);
+
+        if (count($dates) != count($times)) {
+            return back()->withErrors(['selectedDate' => 'Количество дат и временных интервалов не совпадает.']);
+        }
+
+
     }
 
 }

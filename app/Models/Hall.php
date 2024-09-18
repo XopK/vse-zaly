@@ -49,4 +49,9 @@ class Hall extends Model
     {
         return $this->hasMany(HallPrice::class, 'id_hall');
     }
+
+    public function features()
+    {
+        return $this->belongsToMany(Feature::class, 'feature_halls', 'id_hall', 'id_feature');
+    }
 }
