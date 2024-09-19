@@ -38,7 +38,6 @@ class PaymentService
             'Amount' => $amount * 100,
             'OrderId' => $orderId,
             'Description' => $description,
-            'NotificationURL' => route('payment.callback'),
             'SuccessURL' => route('payment.successful'),
             'FailURL' => route('payment.failed'),
         ];
