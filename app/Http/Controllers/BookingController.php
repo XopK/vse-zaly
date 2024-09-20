@@ -193,6 +193,7 @@ class BookingController extends Controller
     public function callback(Request $request)
     {
         $data = $request->all();
+        \Log::info($data);
 
         if ($data['Status'] == 'CONFIRMED') {
 
@@ -226,7 +227,6 @@ class BookingController extends Controller
 
     public function for_partner(Request $request)
     {
-        
         $validated = $request->validate([
             'selectedHall' => 'required',
             'selectedDate' => 'required',

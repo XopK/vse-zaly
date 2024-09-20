@@ -112,14 +112,13 @@ Route::middleware('check.auth')->group(function () {
 
     Route::delete('/delete_booking/{booking}', [BookingController::class, 'delete_bookings']);
 
-    Route::post('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
-
     Route::get('/payment/successful', [BookingController::class, 'payment_successful'])->name('payment.successful');
 
     Route::get('/payment/failed', [BookingController::class, 'payment_failed'])->name('payment.failed');
 
 });
 
+Route::post('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
 
 Route::get('/', [IndexController::class, 'index_view']);
 
