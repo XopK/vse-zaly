@@ -68,12 +68,12 @@
                             <input type="text" name="name_hall" class="form-control">
                         </div>
                         @error('name_hall')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
@@ -82,57 +82,56 @@
                             <input type="number" name="area_hall" min="0" class="form-control">
                         </div>
                         @error('area_hall')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group number">
                             <label>Расположение зала</label>
                             <input type="text" name="location_hall" class="form-control"
-                                   placeholder="г.Уфа ул.Коммунистическая 46/1">
+                                placeholder="г.Уфа ул.Коммунистическая 46/1">
                         </div>
                         @error('location_hall')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group subject">
                             <label>Описание зала</label>
-                            <textarea id="description_hall" rows="7" name="description_hall"
-                                      class="form-control"></textarea>
+                            <textarea id="description_hall" rows="7" name="description_hall" class="form-control"></textarea>
                         </div>
                         @error('description_hall')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group subject">
                             <label>Правила зала</label>
                             <textarea id="terms_hall" name="terms_hall" class="form-control"
-                                      placeholder="Опишите что нельзя делать людям в зале, пропишите ваши штрафы и т.д."></textarea>
+                                placeholder="Опишите что нельзя делать людям в зале, пропишите ваши штрафы и т.д."></textarea>
                         </div>
                         @error('terms_hall')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 ">
@@ -142,12 +141,11 @@
                                 @forelse($features as $feature)
                                     <div class="feature-item my-3">
                                         <input name="features[]" class="form-check-input" type="checkbox"
-                                               value="{{$feature->id}}"
-                                               id="defaultCheck{{ $loop->index }}">
+                                            value="{{ $feature->id }}" id="defaultCheck{{ $loop->index }}">
                                         <label class="form-check-label" for="defaultCheck{{ $loop->index }}">
-                                            {{$feature->title_feature}}
-                                            <img src="/images/features/{{$feature->photo_feature}}" alt="Feature Image"
-                                                 style="margin-left: 10px;">
+                                            {{ $feature->title_feature }}
+                                            <img src="/images/features/{{ $feature->photo_feature }}"
+                                                alt="Feature Image" style="margin-left: 10px;">
                                         </label>
                                     </div>
                                 @empty
@@ -161,17 +159,17 @@
                             <label>Шаг бронирования: <span id="step_booking_display" class="font-weight-bold">1
                                     час</span></label>
                             <input type="range" id="step_booking_slider" name="step_booking"
-                                   class="form-control-range mr-3" min="0.5" max="3" step="0.5"
-                                   value="1">
+                                class="form-control-range mr-3" min="0.5" max="3" step="0.5"
+                                value="1">
                         </div>
 
                         @error('step_booking')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         @enderror
                     </div>
                     <div class="col-lg-12 d-flex">
@@ -179,15 +177,15 @@
                             <div class="form-group subject">
                                 <label>Время открытия</label>
                                 <input type="time" min="0" name="start_time" class="form-control"
-                                       required>
+                                    required>
                             </div>
                             @error('start_time')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             @enderror
                         </div>
                         <div class="col-lg-6" style="padding-right: 0">
@@ -196,25 +194,17 @@
                                 <input type="time" min="0" name="end_time" class="form-control" required>
                             </div>
                             @error('end_time')
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ $message }}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             @enderror
                         </div>
                     </div>
                     <div class="col-lg-12 contain-price">
-                        <div class="mb-3">
-                            <div class="send-btn">
-                                <button id="duplicate-block" type="button" class="theme-btn btn-style-one">
-                                   <span
-                                       class="btn-title" style="padding: 5px 15px">Добавить блок</span>
-                                </button>
-                            </div>
-
-                        </div>
+                        <p>Вы указываете цену за шаг брони!!!</p>
                         <!-- Блок, который будет клонироваться -->
                         <div class="form-row align-items-center mb-4" id="price-block">
                             <!-- Часть с количеством людей -->
@@ -223,14 +213,14 @@
                             </div>
                             <div class="px-1">
                                 <input id="numberone" type="number" min="0" name="min_people[]"
-                                       class="form-control custom-input"
-                                       value="1" readonly>
+                                    class="form-control custom-input" value="1" readonly>
                             </div>
                             <div class="px-1">
                                 <span>до</span>
                             </div>
                             <div class="px-1">
-                                <input type="number" min="0" name="max_people[]" class="form-control custom-input">
+                                <input type="number" min="0" name="max_people[]"
+                                    class="form-control custom-input">
                             </div>
                             <div class="px-1">
                                 <span>чел.</span>
@@ -240,34 +230,42 @@
                             <div class="col-sm-12 col-md-6 mt-2 mt-md-0">
                                 <div class="form-row">
                                     <div class="col-5 col-sm" style="padding-left: 0">
-                                        <input type="number" min="0" name="weekday_price[]" class="form-control"
-                                               placeholder="Будни">
+                                        <input type="number" min="0" name="weekday_price[]"
+                                            class="form-control" placeholder="Будни/День">
                                     </div>
                                     <div class="col-5 col-sm">
-                                        <input type="number" min="0" name="weekday_evening_price[]" class="form-control"
-                                               placeholder="Будни/Вечер">
+                                        <input type="number" min="0" name="weekday_evening_price[]"
+                                            class="form-control" placeholder="Будни/Вечер">
                                     </div>
                                     <div class="col-5 col-sm" style="padding-left: 0">
-                                        <input type="number" min="0" name="weekend_price[]" class="form-control"
-                                               placeholder="Выходные">
+                                        <input type="number" min="0" name="weekend_price[]"
+                                            class="form-control" placeholder="Выходные/День">
                                     </div>
                                     <div class="col-5 col-sm">
-                                        <input type="number" min="0" name="weekend_evening_price[]" class="form-control"
-                                               placeholder="Выходные/Вечер">
+                                        <input type="number" min="0" name="weekend_evening_price[]"
+                                            class="form-control" placeholder="Выходные/Вечер">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div id="cloned-blocks"></div>
+                        <div class="mb-3">
+                            <div class="send-btn">
+                                <button id="duplicate-block" type="button" class="theme-btn btn-style-one">
+                                    <span class="btn-title" style="padding: 5px 15px">Добавить блок</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="col-lg-6">
                         <div class="form-group photo">
                             <label>Фотографии зала</label>
                             <div class="input-group mb-3">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" name="photo_hall[]"
-                                           accept="image/*" id="inputGroupFile01"
-                                           aria-describedby="inputGroupFileAddon01" multiple>
+                                        accept="image/*" id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01" multiple>
                                     <label class="custom-file-label" for="inputGroupFile01">Выберите
                                         файл/ы</label>
                                 </div>
@@ -275,12 +273,12 @@
                         </div>
 
                         @error('photo_hall')
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{{ $message }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ $message }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         @enderror
                     </div>
                     <div class="col-lg-12">
@@ -302,7 +300,7 @@
             <div class="row clearfix">
                 @forelse($halls as $hall)
                     <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                         data-wow-duration="1500ms">
+                        data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
                                 <figure class="image"><a
@@ -325,8 +323,8 @@
                                             зал</span></a></div>
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-danger" style="width: 100%; padding: 15px 0"
-                                            data-toggle="modal" data-target="#warning" data-id="{{ $hall->id }}"
-                                            data-name="{{ $hall->name_hall }}">
+                                        data-toggle="modal" data-target="#warning" data-id="{{ $hall->id }}"
+                                        data-name="{{ $hall->name_hall }}">
                                         Удалить
                                     </button>
                                 </div>
@@ -346,7 +344,7 @@
 </x-layout>
 <script src="/js/rangeStep.js"></script>
 <script>
-    document.querySelector('.custom-file-input').addEventListener('change', function (event) {
+    document.querySelector('.custom-file-input').addEventListener('change', function(event) {
         var input = event.target;
         var label = input.nextElementSibling;
 
@@ -360,7 +358,7 @@
 </script>
 <script src="/js/priceHall.js"></script>
 <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -385,7 +383,7 @@
 </div>
 
 <script>
-    $('#warning').on('show.bs.modal', function (event) {
+    $('#warning').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var hallName = button.data('name'); // Extract hall name from data-* attributes
         var hallId = button.data('id'); // Extract hall id from data-* attributes
