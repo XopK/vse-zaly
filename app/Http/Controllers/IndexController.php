@@ -15,7 +15,7 @@ class IndexController extends Controller
 
     public function about_view()
     {
-        $studios = Studio::all();
+        $studios = Studio::limit(3)->get();
         return view('about', ['studios' => $studios]);
     }
 }

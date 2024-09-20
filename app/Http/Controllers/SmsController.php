@@ -119,7 +119,7 @@ class SmsController extends Controller
                 return redirect()->back()->with('error', 'Срок действия кода истек. Запросите новый код.');
             }
         } else {
-            return redirect()->back()->with('error_verify', 'Неверный код верификации!');
+            return redirect()->back()->with('error', 'Неверный код верификации!');
         }
     }
 }

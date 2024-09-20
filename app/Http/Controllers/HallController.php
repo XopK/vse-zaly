@@ -148,9 +148,9 @@ class HallController extends Controller
         }
 
         if ($hall) {
-            return redirect()->back()->with('success_create', 'Зал успешно создан!');
+            return redirect()->back()->with('success', 'Зал успешно создан!');
         } else {
-            return redirect()->back()->with('error_create', 'Ошибка создания.');
+            return redirect()->back()->with('error', 'Ошибка создания.');
         }
 
     }
@@ -251,9 +251,9 @@ class HallController extends Controller
 
         if ($hall) {
             $hall->save();
-            return redirect()->back()->with('success_hall', 'Зал обновлен!');
+            return redirect()->back()->with('success', 'Зал обновлен!');
         } else {
-            return redirect()->back()->with('error_hall', 'Ошибка обновления!');
+            return redirect()->back()->with('error', 'Ошибка обновления!');
         }
     }
 
@@ -314,9 +314,9 @@ class HallController extends Controller
         }
 
         if ($check) {
-            return redirect()->back()->with('success_hall', 'Фото добавлено!');
+            return redirect()->back()->with('success', 'Фото добавлено!');
         } else {
-            return redirect()->back()->with('error_hall', 'Ошибка добавления');
+            return redirect()->back()->with('error', 'Ошибка добавления');
         }
 
     }

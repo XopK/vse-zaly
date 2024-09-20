@@ -48,7 +48,11 @@ $(document).ready(function () {
             $('#totalPrice').val(weekData.formData.totalPrice);
             $('#totalCost').text(weekData.formData.totalPrice);
         }
+
+        // Добавляем обновление общей стоимости
+        updateSelectedInfo();
     }
+
 
 
     function updateFormWithSelectedCells() {
@@ -78,7 +82,7 @@ $(document).ready(function () {
                 }
             });
 
-            // Суммируем стоимость для всех ячеек за эту неделю
+
             totalCost += parseFloat(weekData.formData.totalPrice || 0);
         });
 
@@ -276,50 +280,54 @@ $(document).ready(function () {
 
 
     function updateSelectedInfo() {
-        var groupedByDate = selectedCells.reduce(function (acc, cell) {
-            var date = cell.data('date');
-            var time = cell.data('time');
+        var allSelectedInfo = [];
+        var totalCost = 0;  // Переменная для общей стоимости
 
-            if (!acc[date]) {
-                acc[date] = [];
-            }
+        // Проходим по всем неделям и собираем данные
+        Object.keys(selectedCellsByWeek).forEach(function (weekKey) {
+            var weekData = selectedCellsByWeek[weekKey];
 
-            acc[date].push(time);
-            return acc;
-        }, {});
+            // Сохраняем ячейки для этой недели
+            weekData.cells.forEach(function (cellData) {
+                var selectedDate = moment(cellData.date).format('DD.MM.YYYY');
 
-        var selectedInfo = Object.keys(groupedByDate).map(function (date) {
-            var times = groupedByDate[date];
-            times.sort(function (a, b) {
-                return moment(a, 'HH:mm') - moment(b, 'HH:mm');
+                // Проверяем, есть ли уже данные для этой даты
+                var existingInfo = allSelectedInfo.find(function (info) {
+                    return info.date === selectedDate;
+                });
+
+                if (existingInfo) {
+                    // Если для этой даты уже есть данные, объединяем время
+                    existingInfo.times.push(cellData.time);
+                } else {
+                    allSelectedInfo.push({
+                        date: selectedDate, times: [cellData.time]
+                    });
+                }
             });
 
-            var minTime = times[0];
-            var maxTime = times.length > 1 ? times[times.length - 1] : minTime;
-
-            return {
-                date: date, time: minTime + (maxTime ? ' - ' + maxTime : '')
-            };
+            // Суммируем стоимость для всех ячеек за эту неделю
+            totalCost += parseFloat(weekData.formData.totalPrice || 0);
         });
 
-        var dateTimeText = selectedInfo.map(function (info) {
-            return `Дата: ${moment(info.date).format('DD.MM.YYYY')}, Время: ${info.time}`;
-        }).join('<br>');
+        // Обновляем div с выбранными датами и временем
+        if (allSelectedInfo.length > 0) {
+            var selectedInfoText = allSelectedInfo.map(function (info) {
+                var times = info.times.sort((a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'));
+                var timeRange = times.length > 1 ? `${times[0]} - ${times[times.length - 1]}` : times[0];
+                return `${info.date}: ${timeRange}`;
+            }).join(', ');
 
-        $('#selectedDateTime').html(dateTimeText);
-
-        if (selectedInfo.length > 0) {
-            $('#selectedDate').val(selectedInfo[0].date);
-            $('#selectedTime').val(selectedInfo.map(info => info.time).join(', '));
+            $('#selectedDateTime').html('Дата и время: ' + selectedInfoText);
+        } else {
+            $('#selectedDateTime').html('Дата и время: выберите ячейки');
         }
 
-        var totalCost = selectedCells.reduce(function (total, cell) {
-            var price = parseFloat(cell.find('.price').text().replace('₽', ''));
-            return total + price;
-        }, 0);
-
+        // Обновляем общую стоимость в span
         $('#totalCost').text(totalCost);
         $('#totalPrice').val(totalCost);
+
+        saveSelectedCellsForWeek();
     }
 
 
@@ -347,34 +355,46 @@ $(document).ready(function () {
 
         var dayIndex = cell.data('day-index');
         var time = cell.data('time');
+        var date = cell.data('date');
 
         if (dayIndex !== undefined && time !== undefined) {
+            var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks')).format('YYYY-MM-DD');
+
             if (cell.hasClass('highlight-cell')) {
-                if (isCellBetweenSelected(cell)) {
-                    $('#weekTable td').removeClass('highlight-cell');
-                    selectedCells = [];
-                } else {
-                    cell.removeClass('highlight-cell');
-                    selectedCells = selectedCells.filter(c => c.get(0) !== cell.get(0));
+                cell.removeClass('highlight-cell');
+                selectedCells = selectedCells.filter(c => c.get(0) !== cell.get(0));
+
+                // Удаляем ячейку из объекта selectedCellsByWeek
+                if (selectedCellsByWeek[startOfWeek] && selectedCellsByWeek[startOfWeek].cells) {
+                    selectedCellsByWeek[startOfWeek].cells = selectedCellsByWeek[startOfWeek].cells.filter(function (savedCell) {
+                        return !(savedCell.date === date && savedCell.time === time);
+                    });
+
+                    // Если все ячейки недели удалены, удалим и сам объект недели
+                    if (selectedCellsByWeek[startOfWeek].cells.length === 0) {
+                        delete selectedCellsByWeek[startOfWeek];
+                    }
                 }
             } else {
                 cell.addClass('highlight-cell');
                 selectedCells.push(cell);
+
+                // Если неделя ещё не существует в объекте, создаем её
+                if (!selectedCellsByWeek[startOfWeek]) {
+                    selectedCellsByWeek[startOfWeek] = {cells: [], formData: {}};
+                }
+
+                // Добавляем новую ячейку
+                selectedCellsByWeek[startOfWeek].cells.push({date: date, time: time});
             }
 
-            if (selectedCells.length === 0) {
-                $('#selectedDate').val('');
-                $('#selectedTime').val('');
-            } else {
-                $('#weekTable td').removeClass('disabled-cell');
-            }
-
-
+            // Обновляем данные на экране
             updateSelectedInfo();
         } else {
             console.warn("Cell data is missing 'dayIndex' or 'time'.");
         }
     });
+
 
     $(document).keydown(function (e) {
         if (selectedCells.length > 0) {
@@ -421,6 +441,7 @@ $(document).ready(function () {
 
     $('#prevWeek, #nextWeek, #currentWeek').click(function () {
         saveSelectedCellsForWeek();  // Сохраняем выбранные ячейки для текущей недели
+
 
         if ($(this).attr('id') === 'prevWeek') {
             weekOffset--;

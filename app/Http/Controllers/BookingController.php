@@ -164,15 +164,15 @@ class BookingController extends Controller
                 if ($this->paymentService->cancelPayment($booking->payment_id)) {
                     $booking->minusincome($booking->total_price);
                     $booking->delete();
-                    return redirect('/my_booking')->with('success_delete', 'Бронь отменена.');
+                    return redirect('/my_booking')->with('success', 'Бронь отменена.');
                 } else {
-                    return redirect('/my_booking')->with('success_delete', 'Бронь отменена.');
+                    return redirect('/my_booking')->with('success', 'Бронь отменена.');
                 }
             } else {
-                return redirect('/my_booking')->with('error_delete', 'Бронирование можно отменить только за 24 часа.');
+                return redirect('/my_booking')->with('error', 'Бронирование можно отменить только за 24 часа.');
             }
         } else {
-            return redirect('/my_booking')->with('error_delete', 'Ошибка удаления!');
+            return redirect('/my_booking')->with('error', 'Ошибка удаления!');
         }
     }
 
@@ -227,6 +227,8 @@ class BookingController extends Controller
 
     public function for_partner(Request $request)
     {
+
+        dd($request->all());
         $validated = $request->validate([
             'selectedHall' => 'required',
             'selectedDate' => 'required',

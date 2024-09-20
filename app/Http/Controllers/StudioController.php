@@ -72,9 +72,9 @@ class StudioController extends Controller
 
         if ($studio) {
             $studio->save();
-            return redirect()->back()->with('success_studio', 'Данные изменены.');
+            return redirect()->back()->with('success', 'Данные изменены.');
         } else {
-            return redirect()->back()->with('error_studio', 'Ошибка изменения.');
+            return redirect()->back()->with('error', 'Ошибка изменения.');
         }
 
     }

@@ -54,7 +54,7 @@ class ApplicationController extends Controller
             Session::put('application', $application);
             return redirect('/verify_phone_partner');
         } else {
-            return redirect()->back()->with('error_application', 'Ошибка подачи заявки!');
+            return redirect()->back()->with('error', 'Ошибка подачи заявки!');
         }
     }
 }

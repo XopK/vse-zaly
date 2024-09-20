@@ -48,16 +48,16 @@ class ConfirmEmailController extends Controller
 
                 Session::forget('verification_code');
                 Session::forget('verification_code_expires_at');
-                return redirect('/profile')->with('succes_verify', 'Вы успешно подтвердили почту!');
+                return redirect('/profile')->with('success', 'Вы успешно подтвердили почту!');
             } else {
                 Session::forget('verification_code');
                 Session::forget('verification_code_expires_at');
-                return redirect()->back()->with('error_verify', 'Срок действия кода истек. Запросите новый код.');
+                return redirect()->back()->with('error', 'Срок действия кода истек. Запросите новый код.');
             }
         } else {
             Session::forget('verification_code');
             Session::forget('verification_code_expires_at');
-            return redirect()->back()->with('error_verify', 'Неверный код верификации!');
+            return redirect()->back()->with('error', 'Неверный код верификации!');
         }
     }
 }
