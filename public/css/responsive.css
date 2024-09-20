@@ -2,12 +2,12 @@
 	.page-wrapper{
 		overflow: hidden;
 	}
-	
+
 }
 
 @media only screen and (max-width: 1650px){
 	.header-style-one .header-upper{
-		padding: 0px 20px;
+		padding: 7px 20px;
 	}
 
 	.facts-section .left-bottom-image{
@@ -312,7 +312,7 @@
 	}
 
 	.page-banner .inner-container{
-		padding: 200px 0px 130px;
+		padding: 100px 0px 130px;
 	}
 
 	.rooms-section{
@@ -432,7 +432,7 @@
 	}
 }
 
-@media only screen and (max-width: 991px){	
+@media only screen and (max-width: 991px){
 	.main-header .nav-outer .main-menu,
 	.sticky-header{
 		display: none !important;
@@ -597,7 +597,7 @@
 	}
 
 	.page-banner .inner-container{
-		padding: 200px 0px 130px;
+		padding: 100px 0px 130px;
 		text-align: center;
 	}
 
@@ -664,7 +664,7 @@
 	.filters-section.alternate{
 		padding-top: 10px;
 	}
-	
+
 	.filters-section .form-box{
 		margin-top: 0px;
 	}
@@ -1345,13 +1345,13 @@
 	.featured-section-four .image-box .image, .featured-section-four .image-box .image:nth-child(2), .featured-section-four .image-box .image:nth-child(3){
 		position: relative;
 		display: block;
-		width: 100%; 
+		width: 100%;
 		max-width: none;
 		margin: 0 0 20px;
 	}
 
-	.featured-section-four .image-box .image img, 
-	.featured-section-four .image-box .image:nth-child(2) img, 
+	.featured-section-four .image-box .image img,
+	.featured-section-four .image-box .image:nth-child(2) img,
 	.featured-section-four .image-box .image:nth-child(3) img{
 		width: 100%;
 	}

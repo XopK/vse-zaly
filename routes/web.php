@@ -68,9 +68,11 @@ Route::middleware('role:Партнёр')->group(function () {
 
     Route::delete('/delete_hall/{hall}', [HallController::class, 'delete_hall']);
 
-    Route::post('/booking_studio', [PartnerController::class, 'booking_for_partner']);
+    Route::delete('/delete_hall/price/{id}', [HallController::class, 'delete_price'])->name('hall-price.destroy');
 
-    Route::delete('/delete_hall/price/{id}', [HallController::class, 'delete_price'])->name('hall-price.destroy');;
+    Route::post('/my_studio/update_banner', [StudioController::class, 'update_banner'])->name('update_banner');
+
+    Route::post('/booking/for_partner', [BookingController::class, 'for_partner'])->name('booking.for_partner');
 
 });
 
@@ -110,14 +112,13 @@ Route::middleware('check.auth')->group(function () {
 
     Route::delete('/delete_booking/{booking}', [BookingController::class, 'delete_bookings']);
 
-    Route::post('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
-
     Route::get('/payment/successful', [BookingController::class, 'payment_successful'])->name('payment.successful');
 
     Route::get('/payment/failed', [BookingController::class, 'payment_failed'])->name('payment.failed');
 
 });
 
+Route::post('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
 
 Route::get('/', [IndexController::class, 'index_view']);
 

@@ -323,14 +323,14 @@
                                         <button type="button" class="theme-btn btn-style-one btn-block"
                                                 data-toggle="modal"
                                                 data-target="#warning"><span
-                                                    class="btn-title">Забронировать</span></button>
+                                                class="btn-title">Забронировать</span></button>
                                     </div>
                                 @else
                                     <div class="col-lg-3 mb-3 ">
                                         <button type="button" class="theme-btn btn-style-one btn-block"
                                                 data-toggle="modal"
                                                 data-target="#booking"><span
-                                                    class="btn-title">Забронировать</span></button>
+                                                class="btn-title">Забронировать</span></button>
                                     </div>
                                 @endif
                             @endif
@@ -340,7 +340,7 @@
                                 <div class="col-lg-3 mb-3 ">
                                     <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
                                             data-target="#booking"><span
-                                                class="btn-title">Забронировать</span></button>
+                                            class="btn-title">Забронировать</span></button>
                                 </div>
                             @endif
 
@@ -353,8 +353,8 @@
                                             <g id="Group" fill="none" fill-rule="evenodd"
                                                transform="translate(467 392)">
                                                 <path
-                                                        d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z"
-                                                        id="heart" fill="#AAB8C2"/>
+                                                    d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z"
+                                                    id="heart" fill="#AAB8C2"/>
                                                 <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5"
                                                         r="1.5"/>
 
@@ -404,7 +404,7 @@
                         <div class="col-xl-3" style="padding: 0">
                             <button type="button" class="theme-btn btn-style-one btn-block" data-toggle="modal"
                                     data-target="#logModal"><span
-                                        class="btn-title">Забронировать</span></button>
+                                    class="btn-title">Забронировать</span></button>
                         </div>
                     @endguest
 
@@ -417,11 +417,13 @@
                     <h3>Зал предоставляет:</h3>
                     <div class="text">Правила: {{$hall->rule_hall}}</div>
                     <ul class="info clearfix">
-                        {{-- <li><span class="icon flaticon-tv"></span> Telivision</li> --}}
-                        <li><span class="icon flaticon-wifi"></span> Wi-Fi</li>
-                        <li><span class="icon flaticon-coffee-cup"></span> Кофе</li>
-                        <li><span class="icon flaticon-wine-glass"></span> Мини бар</li>
-                        {{-- <li><span class="icon flaticon-dumbbell"></span> Gymnasium</li> --}}
+                        @forelse($hall->features as $feature)
+                            <li><img class="icon" src="/images/features/{{$feature->photo_feature}}"
+                                     alt="{{$feature->photo_feature}}">{{$feature->title_feature}}
+                            </li>
+                        @empty
+                            <li>Удобства отсутствуют</li>
+                        @endforelse
                     </ul>
                 </div>
             </div>
@@ -434,8 +436,8 @@
                              data-wow-duration="1500ms">
                             <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
                                                      class="lightbox-image"><img
-                                            src="/storage/photo_halls/{{$photo->photo_hall}}"
-                                            alt="{{$photo->photo_hall}}"></a>
+                                        src="/storage/photo_halls/{{$photo->photo_hall}}"
+                                        alt="{{$photo->photo_hall}}"></a>
 
                             </figure>
                         </div>
@@ -486,15 +488,34 @@
     @endif
 @endauth
 <script>
-    document.getElementById('apply').addEventListener('click', function () {
-        // Закрываем первое модальное окно
-        $('#warning').modal('hide');
+    let isWarningConfirmed = false;
 
-        $('#warning').on('hidden.bs.modal', function () {
+    document.getElementById('apply').addEventListener('click', function () {
+        if (!isWarningConfirmed) {
+            isWarningConfirmed = true;  // Устанавливаем флаг после первого нажатия
+            $('#warning').modal('hide');
+        }
+    });
+
+    // Открытие окна бронирования только при первом подтверждении
+    $('#warning').on('hidden.bs.modal', function () {
+        if (isWarningConfirmed) {
             $('#booking').modal('show');
-        });
+        }
+    });
+
+    // Сброс состояния при закрытии модального окна бронирования
+    $('#booking').on('hidden.bs.modal', function () {
+        isWarningConfirmed = false;  // Сбрасываем флаг
+    });
+
+    // При закрытии окна бронирования через кнопку или по клику вне окна
+    $('#booking .close').on('click', function () {
+        $('#booking').modal('hide');
+        isWarningConfirmed = false;  // Сбрасываем флаг
     });
 </script>
+
 <script>
     $(document).ready(function () {
         $('#checkbox').change(function () {

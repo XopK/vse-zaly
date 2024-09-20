@@ -33,13 +33,11 @@ class PaymentService
 
     public function makePayment($amount, $orderId, $description)
     {
-
         $data = [
             'TerminalKey' => $this->terminalKey,
             'Amount' => $amount * 100,
             'OrderId' => $orderId,
             'Description' => $description,
-            'NotificationURL' => route('payment.callback'),
             'SuccessURL' => route('payment.successful'),
             'FailURL' => route('payment.failed'),
         ];

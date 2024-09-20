@@ -98,11 +98,16 @@ body {
 }
 
 .truncate {
-    margin: 0; /* Убираем внешний отступ */
-    -webkit-line-clamp: 1; /* Число отображаемых строк */
-    display: -webkit-box; /* Включаем флексбоксы */
-    -webkit-box-orient: vertical; /* Вертикальная ориентация */
-    overflow: hidden; /* Обрезаем всё за пределами блока */
+    margin: 0;
+    /* Убираем внешний отступ */
+    -webkit-line-clamp: 1;
+    /* Число отображаемых строк */
+    display: -webkit-box;
+    /* Включаем флексбоксы */
+    -webkit-box-orient: vertical;
+    /* Вертикальная ориентация */
+    overflow: hidden;
+    /* Обрезаем всё за пределами блока */
 }
 
 .btn {
@@ -119,4 +124,12 @@ body {
 
 .btn-deny {
     background-color: #c62b31;
+}
+
+@media (max-width: 768px) {
+    .buttons-denay-apply {
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+    }
 }

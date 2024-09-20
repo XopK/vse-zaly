@@ -81,4 +81,5 @@ class AdminController extends Controller
 
         return redirect()->back()->with('error', 'Ошибка!');
     }
+    
 }

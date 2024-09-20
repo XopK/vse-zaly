@@ -17,7 +17,8 @@
     </style>
     <!-- Banner Section -->
     <section class="page-banner">
-        <div class="image-layer" style="background-image:url(/images/background/about_us.jpg);"></div>
+        <div class="image-layer"
+             style="background-image:url('/storage/banner_studio/{{$studio_info->banner_studio}}');"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">

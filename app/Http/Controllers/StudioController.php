@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
+use App\Models\Feature;
 use App\Models\Hall;
 use App\Models\HallPrice;
 use App\Models\Studio;
@@ -100,8 +101,9 @@ class StudioController extends Controller
     {
         $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user')->get();
         $hall_price = HallPrice::where('id_hall', $hall->id)->get();
+        $feature = Feature::all();
 
-        return view('my_hall', ['hall' => $hall, 'bookings' => $booking, 'hall_price' => $hall_price]);
+        return view('my_hall', ['hall' => $hall, 'bookings' => $booking, 'hall_price' => $hall_price, 'allFeatures' => $feature]);
     }
 
     public function getCoordinates(Request $request)
@@ -121,5 +123,27 @@ class StudioController extends Controller
         }
 
         return response()->json(['coordinates' => $coordinatesArray]);
+    }
+
+    public function update_banner(Request $request)
+    {
+        $owner = Auth::user()->studio;
+
+        if ($request->file('banner_studio') != null) {
+            if ($owner->banner_studio != 'default_studio_banner.png') {
+                Storage::delete('public/banner_studio/' . $owner->banner_studio);
+            }
+            $hashBanner = $request->file('banner_studio')->hashName();
+            $request->file('banner_studio')->store('public/banner_studio');
+
+            $owner->banner_studio = $hashBanner;
+            if ($owner->save()) {
+                return redirect()->back()->with('success', 'Баннер успешно обновлен!');
+            } else {
+                return redirect()->back()->with('error', 'Ошибка обновления!');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Выберите фото!');
+        }
     }
 }
