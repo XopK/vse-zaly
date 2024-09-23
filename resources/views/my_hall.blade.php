@@ -358,7 +358,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="lower-box">
                 <div class="col-lg-3 p-0">
                     <button type="submit" data-toggle="modal" data-target="#photoadd"
@@ -402,6 +402,18 @@
 </script>
 <script src="/js/priceHallEdit.js"></script>
 <script>
+    function showAlert(type, message) {
+        const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        $('.alert-container').html(`
+        <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+            <strong>${message}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    `);
+    }
+
     $(document).ready(function () {
         $('.btn-cls').on('click', function () {
             var button = $(this);
@@ -434,6 +446,10 @@
             var backgroundImage = $('.image-layer').css('background-image');
             var newPhoto = button.data('name-photo');
 
+            var currentPreviewButton = $('.btn-set').filter(function () {
+                return $('.image-layer').css('background-image').includes($(this).data('name-photo'));
+            });
+
             $.ajax({
                 url: '/update_preview/' + photoId,
                 type: 'POST',
@@ -443,12 +459,16 @@
                 success: function (response) {
                     if (response.success) {
                         $('.image-layer').css('background-image', 'url(/storage/photo_halls/' + newPhoto + ')');
+                        $('html, body').animate({scrollTop: 0}, 'slow');
+
+
+                        showAlert('success', response.message);
                     } else {
-                        console.log('Ошибка обновления');
+                        showAlert('error', response.message);
                     }
                 },
-                error: function () {
-                    console.log('Ошибка обновления');
+                error: function (jqXHR) {
+                    showAlert('error', 'Ошибка обновления: ' + jqXHR.responseJSON.message);
                 }
             });
         });
@@ -457,7 +477,6 @@
             var id = $(this).data('id');
             var url = '/delete_hall/price/' + id;
             var block = $('#price-block-' + id);
-
 
             $.ajax({
                 url: url, type: 'DELETE', data: {

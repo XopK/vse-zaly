@@ -43,7 +43,7 @@ class PaymentService
         ];
         $data['Token'] = $this->generateToken($data);
         try {
-            $response = Http::post('https://rest-api-test.tinkoff.ru/v2/Init', $data);
+            $response = Http::post('https://securepay.tinkoff.ru/v2/Init', $data);
 
             if ($response->successful()) {
                 $body = $response->json();
@@ -70,7 +70,7 @@ class PaymentService
         $data['Token'] = $this->generateToken($data);
 
         try {
-            $response = Http::post('https://rest-api-test.tinkoff.ru/v2/Cancel', $data);
+            $response = Http::post('https://securepay.tinkoff.ru/v2/Cancel', $data);
             if ($response->successful()) {
                 $body = $response->json();
                 if ($body['Success']) {

@@ -54,7 +54,6 @@ $(document).ready(function () {
     }
 
 
-
     function updateFormWithSelectedCells() {
         var allSelectedInfo = [];
         var totalCost = 0;  // Переменная для общей стоимости
@@ -135,8 +134,7 @@ $(document).ready(function () {
             hall.price_evening = selectedPriceRange.weekday_evening_price;
             hall.price_weekend = selectedPriceRange.weekend_price;
             hall.price_weekend_evening = selectedPriceRange.weekend_evening_price;
-            // Перегенерируем строки с новыми ценами
-            generateTimeRows();
+
         } else {
             console.error('No price range found for this people count.');
         }

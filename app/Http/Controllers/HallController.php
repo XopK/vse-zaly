@@ -287,12 +287,11 @@ class HallController extends Controller
                 'preview_hall' => $newPhoto->photo_hall,
             ]);
             $hall->save();
-            return response()->json(['success' => true]);
 
+            return response()->json(['success' => true, 'message' => 'Превью зала успешно обновлено!']);
         } else {
-            return response()->json(['success' => false], 404);
+            return response()->json(['success' => false, 'Ошибка: превью зала не найдено!'], 404);
         }
-
     }
 
     public function addPhoto(Request $request, $hall)
