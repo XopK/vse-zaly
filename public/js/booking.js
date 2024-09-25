@@ -83,7 +83,7 @@ $(document).ready(function () {
         var selectedPriceRange = hallPrices.find(function (price) {
             return price.id == selectedPriceId;
         });
-        var eveningTime = moment('18:00', 'HH:mm');
+        var eveningTime = moment(hall.time_evening, 'HH:mm');
 
         if (!selectedPriceRange) {
             console.error('No price range found for this selection.');

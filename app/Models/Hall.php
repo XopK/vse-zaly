@@ -20,6 +20,7 @@ class Hall extends Model
         'step_booking',
         'start_time',
         'end_time',
+        'time_evening',
         'count_booking',
         'total_income',
         'view_count',

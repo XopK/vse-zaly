@@ -111,6 +111,7 @@ class HallController extends Controller
             'step_booking' => $request->step_booking,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
+            'time_evening' => $request->time_evening,
         ]);
 
         foreach ($request->features as $feature) {
@@ -213,6 +214,7 @@ class HallController extends Controller
             'step_booking' => $request->step_booking,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
+            'time_evening' => $request->time_evening,
         ]);
 
         $features = $request->input('features', []);

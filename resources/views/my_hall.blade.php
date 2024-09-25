@@ -255,6 +255,11 @@
                                     </button>
                                 </div>
                                 @enderror
+                                <div class="form-group">
+                                    <label>Время вечера</label>
+                                    <input type="time" name="time_evening" class="form-control"
+                                           value="{{$hall->time_evening}}" required>
+                                </div>
                                 <div class="contain-price">
                                     <div class="mb-3">
                                         <div class="send-btn">

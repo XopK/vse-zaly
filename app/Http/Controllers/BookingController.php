@@ -114,7 +114,7 @@ class BookingController extends Controller
 
         // Цикл расчета стоимости бронирования
         $currentDateTime = $startDateTime->copy();
-        $eveningStartTime = $currentDateTime->copy()->setTimeFromTimeString('18:00');
+        $eveningStartTime = $currentDateTime->copy()->setTimeFromTimeString($hall->time_evening);
 
         while ($currentDateTime->lt($endDateTime)) {
             $isWeekend = in_array($currentDateTime->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
