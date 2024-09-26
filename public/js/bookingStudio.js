@@ -169,7 +169,6 @@ $(document).ready(function () {
 
                 cell.attr('data-date', cellDate);
 
-                // Проверка на забронированность
                 var isBooked = bookings.some(function (booking) {
                     var start = moment(booking.booking_start);
                     var end = moment(booking.booking_end);

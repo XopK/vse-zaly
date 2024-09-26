@@ -10236,6 +10236,9 @@ a:hover {
 }
 
 .booked-cell {
+    max-width: 40px;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем содержимое, если оно не помещается */
     background-color: #eaeaea;
     opacity: 0.6;
     color: #000000;
