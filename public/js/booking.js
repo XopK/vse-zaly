@@ -255,6 +255,9 @@ $(document).ready(function () {
         if (cell.hasClass('disabled-past')) {
             return;
         }
+        if (cell.hasClass('booked-cell')) {
+            return;
+        }
 
         var dayIndex = cell.data('day-index');
         var time = cell.data('time');
