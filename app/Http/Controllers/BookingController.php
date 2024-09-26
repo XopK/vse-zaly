@@ -238,52 +238,115 @@ class BookingController extends Controller
             'userBooking' => 'required',
         ]);
 
-        $hallPrice = HallPrice::find($request->idPriceHall);
+        $hall = Hall::findOrFail($request->selectedHall);
+        $hallPrice = HallPrice::findOrFail($request->idPriceHall);
+        $stepBooking = $hall->step_booking * 60; // Шаг бронирования в минутах
+        $timezone = 'Asia/Yekaterinburg'; // Часовой пояс
 
         $dates = explode(', ', $request->selectedDate);
         $times = explode(', ', $request->selectedTime);
 
+        // Проверка совпадения количества дат и временных интервалов
         if (count($dates) != count($times)) {
             return back()->with('error', 'Ошибка при подсчете времени!');
         }
 
+        $totalPriceCalculated = 0;
+
+        // Рассчитываем общую стоимость без записи в базу
         foreach ($dates as $index => $date) {
             try {
-                $formatDate = trim($date); // Удаляем лишние пробелы
-
                 [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
 
-                $startDateTime = Carbon::createFromFormat('d.m.Y H:i', $formatDate . ' ' . $startTime);
-                $endDateTime = Carbon::createFromFormat('d.m.Y H:i', $formatDate . ' ' . $endTime);
+                // Получаем дату начала и конца бронирования
+                $startDateTime = $this->createDateTime($date, $startTime, $timezone);
+                $endDateTime = $this->createDateTime($date, $endTime, $timezone);
 
-                $existingBookingHall = BookingHall::where('id_hall', $request->selectedHall)
-                    ->where(function ($query) use ($startDateTime, $endDateTime) {
-                        $query->where(function ($query) use ($startDateTime, $endDateTime) {
-                            $query->where('booking_start', '<', $endDateTime)
-                                ->where('booking_end', '>', $startDateTime);
-                        });
-                    })->first();
-
-                if (!$existingBookingHall) {
-                    BookingHall::create([
-                        'id_hall' => $request->selectedHall,
-                        'id_user' => $request->userId,
-                        'booking_start' => $startDateTime,
-                        'booking_end' => $endDateTime,
-                        'total_price' => $request->totalPrice,
-                        'min_people' => $hallPrice->min_people,
-                        'max_people' => $hallPrice->max_people,
-                        'payment_id' => 1,
-                    ]);
-                } else {
-                    return back()->with('success', 'Ошибка при создании брони!');
+                // Проверка на пересекающиеся бронирования
+                if ($this->isBookingOverlapping($request->selectedHall, $startDateTime, $endDateTime)) {
+                    return back()->with('error', 'Данная бронь уже занята!');
                 }
+
+                // Рассчитываем стоимость для текущей даты
+                $priceForDay = $this->calculateBookingPrice($startDateTime, $endDateTime, $hall, $hallPrice, $stepBooking);
+                $totalPriceCalculated += $priceForDay;
 
             } catch (\Exception $e) {
                 return back()->with('error', 'Ошибка при обработке даты или времени: ' . $e->getMessage());
             }
         }
 
+        // Проверяем, совпадает ли общая стоимость с введенной пользователем
+        if ($totalPriceCalculated != (float)$request->totalPrice) {
+            return back()->with('error', 'Рассчитанная стоимость (' . $totalPriceCalculated . ') не совпадает с введенной стоимостью (' . $request->totalPrice . '). Проверьте введенные данные.');
+        }
+
+        // После успешной проверки записываем бронирование в базу
+        foreach ($dates as $index => $date) {
+            [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
+
+            $startDateTime = $this->createDateTime($date, $startTime, $timezone);
+            $endDateTime = $this->createDateTime($date, $endTime, $timezone);
+
+            // Создание записи в базе для каждого дня
+            $priceForDay = $this->calculateBookingPrice($startDateTime, $endDateTime, $hall, $hallPrice, $stepBooking);
+
+            BookingHall::create([
+                'id_hall' => $request->selectedHall,
+                'id_user' => $request->userId,
+                'booking_start' => $startDateTime,
+                'booking_end' => $endDateTime,
+                'total_price' => $priceForDay,
+                'min_people' => $hallPrice->min_people,
+                'max_people' => $hallPrice->max_people,
+                'payment_id' => 1,
+            ])->income($priceForDay); // Используем рассчитанную стоимость
+        }
+
         return back()->with('success', 'Бронирование успешно добавлено!');
+    }
+
+    private function createDateTime($date, $time, $timezone)
+    {
+        $dateTime = Carbon::createFromFormat('d.m.Y H:i', "{$date} {$time}", $timezone);
+        if ($dateTime->lt(Carbon::now())) {
+            $dateTime->addDay(); // Добавляем день, если время конца меньше начала
+        }
+        return $dateTime;
+    }
+
+    private function isBookingOverlapping($hallId, $startDateTime, $endDateTime)
+    {
+        return BookingHall::where('id_hall', $hallId)
+            ->where(function ($query) use ($startDateTime, $endDateTime) {
+                $query->where('booking_start', '<', $endDateTime)
+                    ->where('booking_end', '>', $startDateTime);
+            })->exists();
+    }
+
+    private function calculateBookingPrice($startDateTime, $endDateTime, $hall, $hallPrice, $stepBooking)
+    {
+        $currentDateTime = $startDateTime->copy();
+        $eveningStartTime = $startDateTime->copy()->setTimeFromTimeString($hall->time_evening);
+        $totalPrice = 0;
+
+        while ($currentDateTime->lt($endDateTime)) {
+            $isWeekend = in_array($currentDateTime->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
+            $isEvening = $currentDateTime->gte($eveningStartTime);
+
+            $basePrice = $isWeekend
+                ? ($isEvening ? $hallPrice->weekend_evening_price : $hallPrice->weekend_price)
+                : ($isEvening ? $hallPrice->weekday_evening_price : $hallPrice->weekday_price);
+
+            $totalPrice += $basePrice;
+            $currentDateTime->addMinutes($stepBooking);
+
+            // Перенос времени на следующий день, если пересекаем полночь
+            if ($currentDateTime->toDateString() !== $startDateTime->toDateString()) {
+                $eveningStartTime->addDay();
+            }
+        }
+
+        return $totalPrice;
     }
 }
