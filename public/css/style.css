@@ -10237,13 +10237,14 @@ a:hover {
 
 .booked-cell {
     background-color: #eaeaea;
-    /* Красный фон */
     opacity: 0.6;
-    color: white;
-    pointer-events: none;
-    /* Запрет на выбор */
+    color: #000000;
+    text-align: center;
     border: none !important;
+    pointer-events: auto; /* Разрешаем события мыши для tooltips */
+    cursor: default; /* Показываем курсор как текстовый */
 }
+
 
 .booked-cell-studio {
     background-color: #d1d1d1;

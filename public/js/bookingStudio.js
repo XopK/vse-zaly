@@ -69,6 +69,8 @@ $(document).ready(function () {
         $('#weekTable td').removeClass('highlight-cell');
 
         $('#selectedDateTime').text('Дата и время: выберите ячейки');
+        $('#selectedDate').val('');
+        $('#selectedTime').val('');
 
         $('#totalCost').text('0');
         $('#totalPrice').val('0');
@@ -177,32 +179,41 @@ $(document).ready(function () {
                         return false;
                     }
 
-                    return cellDateTime.isBetween(start, end, null, '[)');
+                    var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
+
+                    if (isCellBooked) {
+                        // Добавляем имя человека, забронировавшего ячейку
+                        cell.addClass('booked-cell');
+                        cell.text(booking.user.name); // Добавляем текст с именем забронировавшего
+                        cell.attr('title', `${booking.user.name} ${booking.user.phone}`); // Всплывающая подсказка
+                        cell.attr('data-user-url', booking.user.url);
+                    }
+                    return isCellBooked;
                 });
 
-                // Логика для заблокированных ячеек
-                if (isBooked) {
-                    cell.addClass('booked-cell');
-                } else if (cellDateTime.isBefore(now)) {
-                    cell.addClass('disabled-past');
-                } else {
-                    // Если ячейка не заблокирована, добавляем цену
-                    var isWeekend = (i === 5 || i === 6); // Суббота и Воскресенье
-                    var isEvening = time.isSameOrAfter(eveningTime);
-                    var basePrice;
-
-                    // Определяем фиксированную цену на основе дня недели и времени дня
-                    if (isWeekend && isEvening) {
-                        basePrice = selectedPriceRange.weekend_evening_price;
-                    } else if (isWeekend) {
-                        basePrice = selectedPriceRange.weekend_price;
-                    } else if (isEvening) {
-                        basePrice = selectedPriceRange.weekday_evening_price;
+                if (!isBooked) {
+                    // Логика для ячеек, которые не забронированы
+                    if (cellDateTime.isBefore(now)) {
+                        cell.addClass('disabled-past');
                     } else {
-                        basePrice = selectedPriceRange.weekday_price;
-                    }
+                        // Если ячейка не заблокирована, добавляем цену
+                        var isWeekend = (i === 5 || i === 6); // Суббота и Воскресенье
+                        var isEvening = time.isSameOrAfter(eveningTime);
+                        var basePrice;
 
-                    cell.append('<div class="price">' + basePrice + ' ₽</div>');
+                        // Определяем фиксированную цену на основе дня недели и времени дня
+                        if (isWeekend && isEvening) {
+                            basePrice = selectedPriceRange.weekend_evening_price;
+                        } else if (isWeekend) {
+                            basePrice = selectedPriceRange.weekend_price;
+                        } else if (isEvening) {
+                            basePrice = selectedPriceRange.weekday_evening_price;
+                        } else {
+                            basePrice = selectedPriceRange.weekday_price;
+                        }
+
+                        cell.append('<div class="price">' + basePrice + ' ₽</div>');
+                    }
                 }
 
                 row.append(cell);
@@ -359,7 +370,7 @@ $(document).ready(function () {
             });
         });
     }
-    
+
     function isCellBetweenSelected(cell) {
         if (selectedCells.length < 2) return false;
 
@@ -378,7 +389,16 @@ $(document).ready(function () {
 
     $('#weekTable').on('click', 'td', function () {
         var cell = $(this);
+
         if (cell.hasClass('disabled-past')) {
+            return;
+        }
+
+        if (cell.hasClass('booked-cell')) {
+            var userPageUrl = cell.data('user-url');
+            if (userPageUrl) {
+                window.location.href = userPageUrl; // Перенаправляем на страницу забронировавшего
+            }
             return;
         }
 
@@ -446,7 +466,6 @@ $(document).ready(function () {
             console.warn("Cell data is missing 'dayIndex' or 'time'.");
         }
     });
-
 
     $(document).keydown(function (e) {
         if (selectedCells.length > 0) {
@@ -524,3 +543,10 @@ $(document).ready(function () {
 
     loadWeek(weekOffset);
 });
+
+$(document).tooltip({
+    content: function () {
+        return $(this).attr('title');
+    }
+});
+

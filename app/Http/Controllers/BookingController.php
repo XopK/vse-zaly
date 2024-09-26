@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\PaymentService;
+use Illuminate\Support\Facades\Log;
 
 
 class BookingController extends Controller
@@ -227,27 +228,62 @@ class BookingController extends Controller
 
     public function for_partner(Request $request)
     {
-
-        dd($request->all());
         $validated = $request->validate([
             'selectedHall' => 'required',
             'selectedDate' => 'required',
             'selectedTime' => 'required',
             'totalPrice' => 'required',
             'idPriceHall' => 'required',
+            'userId' => 'required',
+            'userBooking' => 'required',
         ]);
 
-        $user = Auth::user();
         $hallPrice = HallPrice::find($request->idPriceHall);
 
         $dates = explode(', ', $request->selectedDate);
         $times = explode(', ', $request->selectedTime);
 
         if (count($dates) != count($times)) {
-            return back()->withErrors(['selectedDate' => 'Количество дат и временных интервалов не совпадает.']);
+            return back()->with('error', 'Ошибка при подсчете времени!');
         }
 
+        foreach ($dates as $index => $date) {
+            try {
+                $formatDate = trim($date); // Удаляем лишние пробелы
 
+                [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
+
+                $startDateTime = Carbon::createFromFormat('d.m.Y H:i', $formatDate . ' ' . $startTime);
+                $endDateTime = Carbon::createFromFormat('d.m.Y H:i', $formatDate . ' ' . $endTime);
+
+                $existingBookingHall = BookingHall::where('id_hall', $request->selectedHall)
+                    ->where(function ($query) use ($startDateTime, $endDateTime) {
+                        $query->where(function ($query) use ($startDateTime, $endDateTime) {
+                            $query->where('booking_start', '<', $endDateTime)
+                                ->where('booking_end', '>', $startDateTime);
+                        });
+                    })->first();
+
+                if (!$existingBookingHall) {
+                    BookingHall::create([
+                        'id_hall' => $request->selectedHall,
+                        'id_user' => $request->userId,
+                        'booking_start' => $startDateTime,
+                        'booking_end' => $endDateTime,
+                        'total_price' => $request->totalPrice,
+                        'min_people' => $hallPrice->min_people,
+                        'max_people' => $hallPrice->max_people,
+                        'payment_id' => 1,
+                    ]);
+                } else {
+                    return back()->with('success', 'Ошибка при создании брони!');
+                }
+
+            } catch (\Exception $e) {
+                return back()->with('error', 'Ошибка при обработке даты или времени: ' . $e->getMessage());
+            }
+        }
+
+        return back()->with('success', 'Бронирование успешно добавлено!');
     }
-
 }

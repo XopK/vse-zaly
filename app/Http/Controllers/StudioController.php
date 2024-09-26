@@ -100,6 +100,11 @@ class StudioController extends Controller
     public function my_hall_view(Hall $hall)
     {
         $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user')->get();
+
+        foreach ($booking as $b) {
+            $b->user->url = route('user.index', ['user' => $b->user->id]);
+        }
+
         $hall_price = HallPrice::where('id_hall', $hall->id)->get();
         $feature = Feature::all();
 

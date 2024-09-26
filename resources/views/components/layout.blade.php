@@ -7,12 +7,12 @@
     <!-- Stylesheets -->
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
     <!-- Responsive File -->
     <link href="/css/responsive.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
     <link rel="icon" href="/images/favicon.png" type="image/x-icon">
-
 
     <!-- Responsive Settings -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

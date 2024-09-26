@@ -13,7 +13,16 @@
         border-bottom: none;
     }
 
+    .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 1050; /* Выше чем у модальных окон */
+        position: absolute;
+    }
+
 </style>
+
 <div class="modal fade" id="booking" tabindex="-1" role="dialog" aria-labelledby="ModalBooking"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="padding-right: 0">
@@ -74,7 +83,7 @@
                         </div>
 
                         <div class="col-md-6 col-sm-12">
-                            <h5 style="float: right">Стоимость: <span id="totalCost">0</span>₽</h5>
+                            <h5 style="text-align: center">Стоимость: <span id="totalCost">0</span>₽</h5>
                         </div>
 
                         <div class="col-md-6 col-sm-12 text-right ">
@@ -85,6 +94,9 @@
                                 <input type="hidden" name="selectedTime" id="selectedTime">
                                 <input type="hidden" name="totalPrice" id="totalPrice">
                                 <input type="hidden" name="idPriceHall" id="idPriceHall">
+                                <input type="hidden" name="userId" id="userId">
+                                <input type="text" name="userBooking" class="form-control mb-3"
+                                       placeholder="На кого бронируют" id="userBooking" required>
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>
                                 </button>
@@ -100,6 +112,46 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ru.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#userBooking').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "{{ route('search.users') }}",
+                    dataType: 'json',
+                    data: {
+                        query: request.term
+                    },
+                    success: function (data) {
+                        if (data.length === 0) {
+                            response([{label: "Пользователь не найден", value: "", isDisabled: true}]);
+                        } else {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.name + ' (' + item.phone + ')', // Отображаем имя и телефон
+                                    value: item.name + ' (' + item.phone + ')', // Отображаем имя и телефон
+                                    id: item.id // Сохраняем ID для отправки на сервер
+                                };
+                            }));
+                        }
+                    }
+                });
+            },
+            minLength: 2,
+            delay: 300,
+            select: function (event, ui) {
+                // Если выбран "Пользователь не найден", предотвращаем выбор
+                if (ui.item.isDisabled) {
+                    event.preventDefault();  // Не даем выбрать элемент
+                } else {
+                    // Сохраняем ID пользователя в скрытое поле
+                    $('#userId').val(ui.item.id);
+                }
+            }
+        });
+    });
+
+</script>
 <script>
     var bookings = @json($bookings);
     var stepbooking = @json($hall->step_booking);
