@@ -343,7 +343,7 @@
                         <span class="dotted-pattern dotted-pattern-10"></span>
                         <div class="image-box clearfix">
                             <figure class="image wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms"><img
-                                    src="images/index2.jfif" alt="" title="">
+                                    src="images/index2.png" alt="" title="">
                             </figure>
                             <figure class="image wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
                                 <img src="images/index3.png" alt="" title="">
