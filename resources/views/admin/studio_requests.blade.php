@@ -42,15 +42,17 @@
                     <div class="info-req">
                         <div class="hall_info">
                             <h3>Название студии: {{$request->name_studio}}</h3>
-                            <p>Почта: {{$request->email}}</p>
+                            <p>Почта: {{$request->email ? $request->email : $request->user->email}}</p>
                             <p>Адрес студии: {{$request->address}}</p>
-                            <p>Имя: {{$request->name}}</p>
-                            <p>Телефон: {{$request->phone}}</p>
+                            <p>Имя: {{$request->name ? $request->name : $request->user->name}}</p>
+                            <p>Телефон: {{$request->phone ? $request->phone : $request->user->phone}}</p>
                         </div>
                     </div>
                     <div class="buttons-denay-apply">
-                        <a href="/admin/studio_requests/{{$request->id}}?response=apply" class="btn btn-apply">Принять</a>
-                        <a href="/admin/studio_requests/{{$request->id}}?response=deny" class="btn btn-deny">Отклонить</a>
+                        <a href="/admin/studio_requests/{{$request->id}}?response=apply"
+                           class="btn btn-apply">Принять</a>
+                        <a href="/admin/studio_requests/{{$request->id}}?response=deny"
+                           class="btn btn-deny">Отклонить</a>
                     </div>
                 </div>
             @empty

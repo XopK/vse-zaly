@@ -55,13 +55,26 @@ class HallController extends Controller
             'terms_hall' => 'required',
             'step_booking' => 'required|numeric',
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+            'time_evening' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) use ($request) {
+                    if (strtotime($value) <= strtotime($request->start_time)) {
+                        $fail('Время вечернего периода должно быть позже времени открытия.');
+                    } elseif (strtotime($value) >= strtotime($request->end_time)) {
+                        $fail('Время вечернего периода должно быть раньше времени закрытия.');
+                    }
+                },
+            ],
             'max_people.*' => 'required|numeric|min:1',
             'min_people.*' => 'required|numeric|min:1',
             'weekday_price.*' => 'required|numeric|min:0',
             'weekday_evening_price.*' => 'required|numeric|min:0',
             'weekend_price.*' => 'required|numeric|min:0',
             'weekend_evening_price.*' => 'required|numeric|min:0',
+            'photo_hall' => 'required',
+            'photo_hall.*' => 'image|mimes:jpeg,png,jpg,webp|max:10240',
         ], [
             'name_hall.required' => 'Введите название студии.',
             'area_hall.integer' => 'Введите числовые значения.',
@@ -75,24 +88,13 @@ class HallController extends Controller
             'start_time.date_format' => 'Введите верный формат времени.',
             'end_time.required' => 'Введите время закрытия зала.',
             'end_time.date_format' => 'Введите верный формат времени.',
-            'max_people.*.required' => 'Укажите максимальное количество людей.',
-            'max_people.*.numeric' => 'Максимальное количество людей должно быть числом.',
-            'max_people.*.min' => 'Максимальное количество людей должно быть не менее 1.',
-            'min_people.*.required' => 'Укажите минимальное количество людей.',
-            'min_people.*.numeric' => 'Минимальное количество людей должно быть числом.',
-            'min_people.*.min' => 'Минимальное количество людей должно быть не менее 1.',
-            'weekday_price.*.required' => 'Укажите цену на будний день.',
-            'weekday_price.*.numeric' => 'Цена на будний день должна быть числом.',
-            'weekday_price.*.min' => 'Цена на будний день не может быть отрицательной.',
-            'weekday_evening_price.*.required' => 'Укажите вечернюю цену на будний день.',
-            'weekday_evening_price.*.numeric' => 'Вечерняя цена на будний день должна быть числом.',
-            'weekday_evening_price.*.min' => 'Вечерняя цена на будний день не может быть отрицательной.',
-            'weekend_price.*.required' => 'Укажите цену на выходной день.',
-            'weekend_price.*.numeric' => 'Цена на выходной день должна быть числом.',
-            'weekend_price.*.min' => 'Цена на выходной день не может быть отрицательной.',
-            'weekend_evening_price.*.required' => 'Укажите вечернюю цену на выходной день.',
-            'weekend_evening_price.*.numeric' => 'Вечерняя цена на выходной день должна быть числом.',
-            'weekend_evening_price.*.min' => 'Вечерняя цена на выходной день не может быть отрицательной.',
+            'end_time.after' => 'Время закрытия должно быть позже времени открытия.',
+            'time_evening.required' => 'Введите вечернее время зала.',
+            'time_evening.date_format' => 'Введите верный формат времени.',
+            'photo_hall.required' => 'Вы должны загрузить хотя бы одно изображение.',
+            'photo_hall.*.image' => 'Файл должен быть изображением.',
+            'photo_hall.*.mimes' => 'Изображение должно быть одного из следующих форматов: jpeg, png, jpg, webp.',
+            'photo_hall.*.max' => 'Размер изображения не должен превышать 10MB.',
         ]);
 
         $studio = Auth::user()->studio;

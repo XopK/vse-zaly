@@ -15,5 +15,11 @@ class PartnerRequest extends Model
         'address',
         'phone',
         'password',
+        'id_user'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

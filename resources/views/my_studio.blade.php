@@ -219,9 +219,12 @@
     </section>
 
     <!--Facts Section-->
-    <div class="halls">
-        <h2 class="halls">Мои залы</h2>
-    </div>
+    @if(!$halls)
+        <div class="halls">
+            <h2 class="halls">Мои залы</h2>
+        </div>
+    @endif
+
 
     <div class="row clerfix">
         @forelse($halls->chunk(2) as $chunk)

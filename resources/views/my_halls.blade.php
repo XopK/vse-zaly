@@ -65,7 +65,7 @@
                     <div class="col-lg-12 ">
                         <div class="form-group name">
                             <label>Название зала</label>
-                            <input type="text" name="name_hall" class="form-control">
+                            <input type="text" name="name_hall" value="{{old('name_hall')}}" class="form-control">
                         </div>
                         @error('name_hall')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -78,8 +78,9 @@
                     </div>
                     <div class="col-lg-12 ">
                         <div class="form-group number">
-                            <label>Площадь зала</label>
-                            <input type="number" name="area_hall" min="0" class="form-control">
+                            <label>Площадь зала м²</label>
+                            <input type="number" name="area_hall" min="0" value="{{old('area_hall')}}"
+                                   class="form-control">
                         </div>
                         @error('area_hall')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -93,7 +94,8 @@
                     <div class="col-lg-12 ">
                         <div class="form-group number">
                             <label>Расположение зала</label>
-                            <input type="text" name="location_hall" class="form-control"
+                            <input type="text" name="location_hall" value="{{old('location_hall')}}"
+                                   class="form-control"
                                    placeholder="г.Уфа ул.Коммунистическая 46/1">
                         </div>
                         @error('location_hall')
@@ -108,8 +110,9 @@
                     <div class="col-lg-12 ">
                         <div class="form-group subject">
                             <label>Описание зала</label>
-                            <textarea id="description_hall" rows="7" name="description_hall"
-                                      class="form-control"></textarea>
+                            <textarea id="description_hall" rows="7" placeholder="Краткое описание зала"
+                                      name="description_hall"
+                                      class="form-control">{{old('description_hall')}}</textarea>
                         </div>
                         @error('description_hall')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -124,7 +127,7 @@
                         <div class="form-group subject">
                             <label>Правила зала</label>
                             <textarea id="terms_hall" name="terms_hall" class="form-control"
-                                      placeholder="Опишите что нельзя делать людям в зале, пропишите ваши штрафы и т.д."></textarea>
+                                      placeholder="Опишите что нельзя делать людям в зале, пропишите ваши штрафы и т.д.">{{old('terms_hall')}}</textarea>
                         </div>
                         @error('terms_hall')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -163,7 +166,6 @@
                                    class="form-control-range mr-3" min="0.5" max="3" step="0.5"
                                    value="1">
                         </div>
-
                         @error('step_booking')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>{{ $message }}</strong>
@@ -178,7 +180,7 @@
                             <div class="form-group subject">
                                 <label>Время открытия</label>
                                 <input type="time" min="0" name="start_time" class="form-control"
-                                       required>
+                                       value="{{old('start_time')}}">
                             </div>
                             @error('start_time')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -192,7 +194,8 @@
                         <div class="col-lg-6" style="padding-right: 0">
                             <div class="form-group subject">
                                 <label>Время закрытия</label>
-                                <input type="time" min="0" name="end_time" class="form-control" required>
+                                <input type="time" min="0" name="end_time" class="form-control"
+                                       value="{{old('end_time')}}">
                             </div>
                             @error('end_time')
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -207,8 +210,16 @@
                     <div class="col-lg-3">
                         <div class="form-group subject">
                             <label>Время вечера</label>
-                            <input type="time" min="0" name="time_evening" value="18:00:00" class="form-control">
+                            <input type="time" min="0" name="time_evening" value="18:00" class="form-control">
                         </div>
+                        @error('time_evening')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-lg-12 contain-price">
                         <p>Вы указываете цену за шаг брони!!!</p>
@@ -238,19 +249,19 @@
                                 <div class="form-row">
                                     <div class="col-5 col-sm" style="padding-left: 0">
                                         <input type="number" min="0" name="weekday_price[]"
-                                               class="form-control" placeholder="Будни/День">
+                                               class="form-control" placeholder="Будни/день">
                                     </div>
                                     <div class="col-5 col-sm">
                                         <input type="number" min="0" name="weekday_evening_price[]"
-                                               class="form-control" placeholder="Будни/Вечер">
+                                               class="form-control" placeholder="Будни/вечер">
                                     </div>
                                     <div class="col-5 col-sm" style="padding-left: 0">
                                         <input type="number" min="0" name="weekend_price[]"
-                                               class="form-control" placeholder="Выходные/День">
+                                               class="form-control" placeholder="Вых/день">
                                     </div>
                                     <div class="col-5 col-sm">
                                         <input type="number" min="0" name="weekend_evening_price[]"
-                                               class="form-control" placeholder="Выходные/Вечер">
+                                               class="form-control" placeholder="Вых/вечер">
                                     </div>
                                 </div>
                             </div>
@@ -263,6 +274,37 @@
                                 </button>
                             </div>
                         </div>
+                        @php
+                            $fields = [
+                                'max_people',
+                                'min_people',
+                                'weekday_price',
+                                'weekday_evening_price',
+                                'weekend_price',
+                                'weekend_evening_price',
+                            ];
+                            $hasErrors = false;
+                            foreach ($fields as $field) {
+                                if ($errors->has($field)) {
+                                    $hasErrors = true;
+                                    break;
+                                }
+                                for ($i = 0; $i < count(old($field, [])); $i++) {
+                                    if ($errors->has("$field.$i")) {
+                                        $hasErrors = true;
+                                        break 2;
+                                    }
+                                }
+                            }
+                        @endphp
+                        @if ($hasErrors)
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Пожалуйста, исправьте ошибки в заполнение цен.</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="col-lg-6">
@@ -279,6 +321,14 @@
                             </div>
                         </div>
 
+                        @error('photo_hall.*')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
                         @error('photo_hall')
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>{{ $message }}</strong>

@@ -75,7 +75,7 @@ Route::middleware('role:Партнёр')->group(function () {
     Route::post('/booking/for_partner', [BookingController::class, 'for_partner'])->name('booking.for_partner');
 
     Route::get('/search-users', [UserController::class, 'search'])->name('search.users');
-    
+
 });
 
 Route::middleware('check.auth')->group(function () {
@@ -117,6 +117,8 @@ Route::middleware('check.auth')->group(function () {
     Route::get('/payment/successful', [BookingController::class, 'payment_successful'])->name('payment.successful');
 
     Route::get('/payment/failed', [BookingController::class, 'payment_failed'])->name('payment.failed');
+
+    Route::post('/become_partner/request_auth', [ApplicationController::class, 'create_application_auth'])->name('become_partner.request_auth');
 
 });
 

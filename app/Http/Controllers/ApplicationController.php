@@ -7,6 +7,7 @@ use App\Rules\UniqueEmailPartnerRequest;
 use App\Rules\UniquePhonePartnerRequest;
 use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -53,6 +54,38 @@ class ApplicationController extends Controller
         if ($application) {
             Session::put('application', $application);
             return redirect('/verify_phone_partner');
+        } else {
+            return redirect()->back()->with('error', 'Ошибка подачи заявки!');
+        }
+    }
+
+    public function create_application_auth(Request $request)
+    {
+        $validated = $request->validate([
+            'nameStudio' => 'required|min:3',
+            'addressStudio' => 'required|min:3',
+        ], [
+            'nameStudio.required' => 'Введите название студии.',
+            'nameStudio.min' => 'Минимальная длина названии студии - 3 символа.',
+            'addressStudio.required' => 'Введите адрес студии',
+            'addressStudio.min' => 'Минимальная длина адреса - 3 символа',
+        ]);
+
+        $user = Auth::user();
+        $requests = PartnerRequest::where('id_user', $user->id)->exists();
+
+        if ($requests) {
+            return back()->with('error', 'Вы уже подали заявку!');
+        }
+
+        $application = PartnerRequest::create([
+            'id_user' => $user->id,
+            'name_studio' => $request->nameStudio,
+            'address' => $request->addressStudio,
+        ]);
+
+        if ($application) {
+            return redirect('/')->with('success', 'Заявка подана!');
         } else {
             return redirect()->back()->with('error', 'Ошибка подачи заявки!');
         }

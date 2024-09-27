@@ -49,24 +49,30 @@ class AdminController extends Controller
     public function studio_request_response(PartnerRequest $id, Request $request)
     {
         if ($request->response == 'apply') {
-
-            $user = User::create([
-                'name' => $id->name,
-                'phone' => $id->phone,
-                'phone_verfied' => now(),
-                'email' => $id->email,
-                'password' => $id->password,
-                'id_role' => 2,
-            ]);
-
+            if ($id->id_user == null) {
+                $user = User::create([
+                    'name' => $id->name,
+                    'phone' => $id->phone,
+                    'phone_verfied' => now(),
+                    'email' => $id->email,
+                    'password' => $id->password,
+                    'id_role' => 2,
+                ]);
+            }
             $studio = Studio::create([
                 'name_studio' => $id->name_studio,
                 'description_studio' => 'Описание студии',
-                'email_studio' => $id->email,
-                'phone_studio' => $id->phone,
+                'email_studio' => $id->email ? $id->email : $id->user->email,
+                'phone_studio' => $id->phone ? $id->phone : $id->user->phone,
                 'adress_studio' => $id->address,
-                'id_user' => $user->id,
+                'id_user' => $id->id_user,
             ]);
+
+            $owner = User::find($id->id_user);
+
+            $owner->id_role = 2;
+
+            $owner->save();
 
             $id->delete();
 
@@ -81,5 +87,5 @@ class AdminController extends Controller
 
         return redirect()->back()->with('error', 'Ошибка!');
     }
-    
+
 }

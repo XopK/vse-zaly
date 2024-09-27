@@ -181,21 +181,18 @@ $(document).ready(function () {
                     var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
 
                     if (isCellBooked) {
-                        // Добавляем имя человека, забронировавшего ячейку
                         cell.addClass('booked-cell');
-                        cell.text(booking.user.name); // Добавляем текст с именем забронировавшего
-                        cell.attr('title', `${booking.user.name} ${booking.user.phone}`); // Всплывающая подсказка
+                        cell.text(booking.user.name);
+                        cell.attr('title', `${booking.user.name} ${booking.user.phone} (${booking.total_price} ₽)`); // Всплывающая подсказка
                         cell.attr('data-user-url', booking.user.url);
                     }
                     return isCellBooked;
                 });
 
                 if (!isBooked) {
-                    // Логика для ячеек, которые не забронированы
                     if (cellDateTime.isBefore(now)) {
                         cell.addClass('disabled-past');
                     } else {
-                        // Если ячейка не заблокирована, добавляем цену
                         var isWeekend = (i === 5 || i === 6); // Суббота и Воскресенье
                         var isEvening = time.isSameOrAfter(eveningTime);
                         var basePrice;
@@ -238,7 +235,7 @@ $(document).ready(function () {
         updateWeekDisplay(startOfWeek);
         generateTimeRows();
 
-        restoreSelectedCellsForWeek(); // Восстанавливаем выбранные ячейки после генерации строк
+        restoreSelectedCellsForWeek();
     }
 
 
