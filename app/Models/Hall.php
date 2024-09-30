@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Hall extends Model
 {
@@ -25,6 +26,18 @@ class Hall extends Model
         'total_income',
         'view_count',
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($hall) {
+            foreach ($hall->photo_halls as $photo) {
+                if ($photo->photo_hall && Storage::disk('public')->exists($photo->photo_hall)) {
+                    Storage::disk('public')->delete($photo->photo_hall);
+                }
+                $photo->delete();
+            }
+        });
+    }
 
     public function studio()
     {

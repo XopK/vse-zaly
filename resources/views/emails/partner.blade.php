@@ -237,12 +237,12 @@
                                             заявка на
                                             получение статуса
                                             "Партнёр":</p>
-                                        <ul style="padding-left: 20px; margin-top: 10px; margin-bottom: 0; color: white">
-                                            <li>Имя: {{$application->user->name}}</li>
-                                            <li>Телефон: {{$application->user->phone}}</li>
-                                            <li>Email: {{$application->user->email}}</li>
-                                            <li>Компания: {{$application->name_studio}}</li>
-                                            <li>Адрес: {{$application->address}}</li>
+                                        <ul style="padding-left: 20px; margin-top: 10px; margin-bottom: 0; color: #ffffff">
+                                            <li style="color: #ffffff">Имя: {{$application->user->name}}</li>
+                                            <li style="color: #ffffff">Телефон: {{$application->user->phone}}</li>
+                                            <li style="color: #ffffff">Email: {{$application->user->email}}</li>
+                                            <li style="color: #ffffff">Компания: {{$application->name_studio}}</li>
+                                            <li style="color: #ffffff">Адрес: {{$application->address}}</li>
                                         </ul>
                                     </div>
                                 </td>

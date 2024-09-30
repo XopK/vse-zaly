@@ -64,6 +64,9 @@ class ApplicationController extends Controller
 
     public function create_application_auth(Request $request)
     {
+        if (Auth::user()->id_role == 2) {
+            return back()->with('error', 'и зачем?');
+        }
         $validated = $request->validate([
             'nameStudio' => 'required|min:3',
             'addressStudio' => 'required|min:3',
