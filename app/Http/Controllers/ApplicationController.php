@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\sendPartnerRequestes;
 use App\Models\PartnerRequest;
+use App\Models\User;
 use App\Rules\UniqueEmailPartnerRequest;
 use App\Rules\UniquePhonePartnerRequest;
 use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class ApplicationController extends Controller
@@ -73,6 +76,7 @@ class ApplicationController extends Controller
 
         $user = Auth::user();
         $requests = PartnerRequest::where('id_user', $user->id)->exists();
+        $admins = User::where('id_role', 3)->get();
 
         if ($requests) {
             return back()->with('error', 'Вы уже подали заявку!');
@@ -83,6 +87,10 @@ class ApplicationController extends Controller
             'name_studio' => $request->nameStudio,
             'address' => $request->addressStudio,
         ]);
+
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new sendPartnerRequestes($application));
+        }
 
         if ($application) {
             return redirect('/')->with('success', 'Заявка подана!');

@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('bookings:archive')->hourly();
+        $schedule->command('password_resets:delete-old')->hourly();
     }
 
     /**

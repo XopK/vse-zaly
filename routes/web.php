@@ -186,3 +186,7 @@ Route::get('/halls/filter', [HallController::class, 'filter_halls']);
 
 Route::get('/user/{user}', [UserController::class, 'user_profile'])->name('user.index');
 
+Route::get('/test_mail', function () {
+    return view('emails.verify_email');
+});
+

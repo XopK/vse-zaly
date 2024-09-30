@@ -46,7 +46,7 @@
 
             <!-- Slide Item -->
             <div class="slide-item">
-                <div class="image-layer" style="background-image: url(/images/index_carousel3.jpg);"></div>
+                <div class="image-layer" style="background-image: url(/images/index_carousel3.png);"></div>
                 <div class="auto-container">
                     <div class="content-box">
                         <div class="content">

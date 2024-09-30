@@ -51,7 +51,13 @@ class ForgotPasswordController extends Controller
 
     public function showResetForm($token)
     {
-        return view('forgot_password.reset_password', ['token' => $token]);
+        $password = DB::table('password_resets')->where('token', $token)->exists();
+
+        if ($password) {
+            return view('forgot_password.reset_password', ['token' => $token]);
+        } else {
+            return abort(401, 'Недействительный токен!');
+        }
     }
 
     public function resetPassword(Request $request)

@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
       xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-    <title> Сброс пароля! </title>
+    <title> Новая заявка! </title>
     <!--[if !mso]><!-- -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!--<![endif]-->
@@ -95,7 +95,7 @@
 <body style="background-color:#f3f3f5;">
 <div
     style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
-    Сброс пароля!
+    Новая заявка!
 </div>
 <div style="background-color:#f3f3f5;">
     <!--[if mso | IE]>
@@ -177,128 +177,94 @@
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
 
                         <tr>
+
                             <td
-                                class="" width="600px"
+                                class="" style="vertical-align:top;width:600px;"
                             >
-
-                                <table
-                                    align="center" border="0" cellpadding="0" cellspacing="0" class=""
-                                    style="width:600px;" width="600"
-                                >
-                                    <tr>
-                                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
                     <![endif]-->
-                    <div style="margin:0px auto;max-width:600px;">
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="width:100%;">
+                    <div class="mj-column-per-100 mj-outlook-group-fix"
+                         style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
+                               style="vertical-align:top;" width="100%">
                             <tbody>
                             <tr>
-                                <td style="direction:ltr;font-size:0px;padding:0px;text-align:center;">
-                                    <!--[if mso | IE]>
-                                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-
+                                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation"
+                                           style="border-collapse:collapse;border-spacing:0px;">
+                                        <tbody>
                                         <tr>
-
-                                            <td
-                                                class="" style="vertical-align:top;width:600px;"
-                                            >
-                                    <![endif]-->
-                                    <div class="mj-column-per-100 mj-outlook-group-fix"
-                                         style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="vertical-align:top;" width="100%">
-                                            <tbody>
-                                            <tr>
-                                                <td align="center"
-                                                    style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                                    <table border="0" cellpadding="0" cellspacing="0"
-                                                           role="presentation"
-                                                           style="border-collapse:collapse;border-spacing:0px;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td style="width:300px;">
-                                                                <img height="auto"
-                                                                     src="https://vsezaly.ru/images/footer_logo.png"
-                                                                     style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
-                                                                     width="150"/>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-size:0px;word-break:break-word;">
-                                                    <!--[if mso | IE]>
-
-                                                    <table role="presentation" border="0" cellpadding="0"
-                                                           cellspacing="0">
-                                                        <tr>
-                                                            <td height="20" style="vertical-align:top;height:20px;">
-
-                                                    <![endif]-->
-                                                    <div style="height:20px;">  </div>
-                                                    <!--[if mso | IE]>
-
-                                                    </td></tr></table>
-
-                                                    <![endif]-->
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center"
-                                                    style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                                    <div
-                                                        style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:24px;font-weight:400;line-height:30px;text-align:center;color:#ffffff;">
-                                                        <h1 style="margin: 0; font-size: 24px; line-height: normal; font-weight: 400;">
-                                                            Сброс пароля</h1>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="left"
-                                                    style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                                    <div
-                                                        style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:20px;text-align:left;color:#ffffff;">
-                                                        <p style="margin: 0;">Вы запросили сброс пароля для своей
-                                                            учетной записи на сайте vsezaly.ru Для того чтобы
-                                                            установить новый пароль, пожалуйста, перейдите по следующей
-                                                            ссылке: </p>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center" vertical-align="middle"
-                                                    style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                                    <table border="0" cellpadding="0" cellspacing="0"
-                                                           role="presentation"
-                                                           style="border-collapse:separate;line-height:100%;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td align="center" bgcolor="#2e58ff" role="presentation"
-                                                                style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#2e58ff;"
-                                                                valign="middle">
-                                                                <a href="{{$resetLink}}"
-                                                                   style="display: inline-block; background: #808080; color: white; font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 32px; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;"
-                                                                   target="_blank">
-                                                                    <strong>Сбросить пароль</strong>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!--[if mso | IE]>
-                                    </td>
-
-                                    </tr>
-
+                                            <td style="width:300px;">
+                                                <img height="auto" src="https://vsezaly.ru/images/footer_logo.png"
+                                                     style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
+                                                     width="150"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
                                     </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:0px;word-break:break-word;">
+                                    <!--[if mso | IE]>
+
+                                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td height="20" style="vertical-align:top;height:20px;">
+
                                     <![endif]-->
+                                    <div style="height:20px;">  </div>
+                                    <!--[if mso | IE]>
+
+                                    </td></tr></table>
+
+                                    <![endif]-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                    <div
+                                        style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:24px;font-weight:400;line-height:30px;text-align:left;color:#ffffff;">
+                                        <h1 style="margin: 0; font-size: 24px; line-height: normal; font-weight: normal;">
+                                            Новая заявка!</h1>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                    <div
+                                        style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:20px;text-align:left;color:#ffffff;">
+                                        <p style="margin-bottom: 0; font-size: 17px; color: white">Вам пришла новая
+                                            заявка на
+                                            получение статуса
+                                            "Партнёр":</p>
+                                        <ul style="padding-left: 20px; margin-top: 10px; margin-bottom: 0; color: white">
+                                            <li>Имя: {{$application->user->name}}</li>
+                                            <li>Телефон: {{$application->user->phone}}</li>
+                                            <li>Email: {{$application->user->email}}</li>
+                                            <li>Компания: {{$application->name_studio}}</li>
+                                            <li>Адрес: {{$application->address}}</li>
+                                        </ul>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td align="center" vertical-align="middle"
+                                    style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation"
+                                           style="border-collapse:separate;line-height:100%;">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" bgcolor="#2e58ff" role="presentation"
+                                                style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#1b1c1e;"
+                                                valign="middle">
+                                                <a href="{{route('admin.studio_requests')}}"
+                                                   style="display: inline-block; background: #808080; color: white; font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: normal; line-height: 30px; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;"
+                                                   target="_blank"> Проверить </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
                             </tr>
                             </tbody>
@@ -306,75 +272,7 @@
                     </div>
                     <!--[if mso | IE]>
                     </td>
-                    </tr>
-                    </table>
 
-                    </td>
-                    </tr>
-
-                    <tr>
-                        <td
-                            class="" width="600px"
-                        >
-
-                            <table
-                                align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;"
-                                width="600"
-                            >
-                                <tr>
-                                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
-                    <![endif]-->
-                    <div style="margin:0px auto;max-width:600px;">
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="width:100%;">
-                            <tbody>
-                            <tr>
-                                <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">
-                                    <!--[if mso | IE]>
-                                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-
-                                        <tr>
-
-                                            <td
-                                                class="" style="vertical-align:top;width:600px;"
-                                            >
-                                    <![endif]-->
-                                    <div class="mj-column-per-100 mj-outlook-group-fix"
-                                         style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="vertical-align:top;" width="100%">
-                                            <tbody>
-                                            <tr>
-                                                <td align="left"
-                                                    style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                                    <div
-                                                        style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:20px;text-align:left;color:#ffffff;">
-                                                        <p style="margin: 0;">Если это были не вы, то просто
-                                                            проигнорируйте сообщение. </p>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!--[if mso | IE]>
-                                    </td>
-
-                                    </tr>
-
-                                    </table>
-                                    <![endif]-->
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]>
-                    </td>
-                    </tr>
-                    </table>
-
-                    </td>
                     </tr>
 
                     </table>

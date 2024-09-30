@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\notificationPartnerRequest;
 use App\Models\BookingHall;
 use App\Models\Hall;
 use App\Models\PartnerRequest;
@@ -9,6 +10,7 @@ use App\Models\Studio;
 use App\Models\User;
 use App\View\Components\booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -76,11 +78,24 @@ class AdminController extends Controller
 
             $id->delete();
 
+            $to = $id->email ? $id->email : $owner->email;
+
+            Mail::to($to)->send(new notificationPartnerRequest(true));
+
             return redirect()->back()->with('success', 'Заявка была принята!');
         }
 
         if ($request->response == 'deny') {
+
+            if ($id->email == null) {
+                $user_sender = User::find($id->id_user);
+            }
+
             $id->delete();
+
+            $to = $id->email ? $id->email : $user_sender->email;
+
+            Mail::to($to)->send(new notificationPartnerRequest(false));
 
             return redirect()->back()->with('success', 'Заявка была отклонена!');
         }
