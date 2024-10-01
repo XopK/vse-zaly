@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\VerfyEmail;
 use App\Models\BookingHall;
 use App\Models\FavoriteHall;
+use App\Models\ReportUser;
 use App\Models\User;
 use App\Traits\PhoneNormalizerTrait;
 use App\Traits\putSocialLinksTrait;
@@ -242,6 +243,37 @@ class UserController extends Controller
             ->get();
 
         return response()->json($users);
+    }
+
+    public function user_reports(User $user)
+    {
+        $reports = ReportUser::where('id_partner', Auth::user()->id)->get();
+        return view('user_reports', ['user' => $user, 'reports' => $reports]);
+    }
+
+    public function send_report(Request $request)
+    {
+        $request->validate([
+            'id_user' => 'required',
+            'id_partner' => 'required',
+            'reportUser' => 'required',
+        ], [
+            'id_user.required' => 'Отсутствует пользователь',
+            'id_partner.required' => 'Отсутствует пользователь',
+            'reportUser.required' => 'Введите заметку.'
+        ]);
+
+        $report = ReportUser::create([
+            'id_user' => $request->id_user,
+            'report' => $request->reportUser,
+            'id_partner' => $request->id_partner,
+        ]);
+
+        if ($report) {
+            return back()->with('success', 'Заметка оставлена!');
+        } else {
+            return back()->with('error', 'Ошибка!');
+        }
     }
 
 

@@ -242,6 +242,7 @@
                                             <li style="color: #ffffff">Телефон: {{$application->user->phone}}</li>
                                             <li style="color: #ffffff">Email: {{$application->user->email}}</li>
                                             <li style="color: #ffffff">Компания: {{$application->name_studio}}</li>
+                                            <li style="color: #ffffff">Компания: {{$application->studio_activities}}</li>
                                             <li style="color: #ffffff">Адрес: {{$application->address}}</li>
                                         </ul>
                                     </div>

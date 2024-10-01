@@ -120,6 +120,12 @@ Route::middleware('check.auth')->group(function () {
 
     Route::post('/become_partner/request_auth', [ApplicationController::class, 'create_application_auth'])->name('become_partner.request_auth');
 
+    Route::get('/user/{user}', [UserController::class, 'user_profile'])->name('user.index');
+
+    Route::get('/user/reports/{user}', [UserController::class, 'user_reports'])->name('user.reports');
+
+    Route::post('/send_report', [UserController::class, 'send_report'])->name('send_report');
+
 });
 
 Route::post('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
@@ -184,6 +190,6 @@ Route::post('/verify_phone/change', [SmsController::class, 'change_phone']);
 
 Route::get('/halls/filter', [HallController::class, 'filter_halls']);
 
-Route::get('/user/{user}', [UserController::class, 'user_profile'])->name('user.index');
+
 
 

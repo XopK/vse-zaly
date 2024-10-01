@@ -79,4 +79,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(PartnerRequest::class, 'id_user');
     }
+
+    public function reports()
+    {
+        return $this->hasMany(ReportUser::class, 'id_user');
+    }
+
+    public function partner_reports()
+    {
+        return $this->hasMany(ReportUser::class, 'id_partner');
+    }
 }

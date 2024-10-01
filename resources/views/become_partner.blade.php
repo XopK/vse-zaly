@@ -40,7 +40,7 @@
                                     @guest
                                         <div class="form-group">
                                             <label class="font-weight-bold">Почта<span
-                                                        class="text-danger">*</span></label>
+                                                    class="text-danger">*</span></label>
                                             <input type="email" name="emailReq" id="emailReq" class="form-control">
                                         </div>
                                         @error('emailReq')
@@ -53,7 +53,7 @@
                                         @enderror
                                         <div class="form-group">
                                             <label class="font-weight-bold">Имя<span
-                                                        class="text-danger">*</span></label>
+                                                    class="text-danger">*</span></label>
                                             <input type="text" name="nameReq" id="nameReq" class="form-control">
                                         </div>
                                         @error('nameReq')
@@ -67,8 +67,14 @@
                                     @endguest
                                     <div class="form-group">
                                         <label class="font-weight-bold">Название студии<span
-                                                    class="text-danger">*</span></label>
+                                                class="text-danger">*</span></label>
                                         <input type="text" name="nameStudio" id="nameStudio" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Деятельность студии</label>
+                                        <textarea rows="5" name="studioActivities" id="studioActivities"
+                                                  placeholder="Напишите кратко чем занимается ваша студия"
+                                                  class="form-control"></textarea>
                                     </div>
                                     @error('nameStudio')
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -80,7 +86,7 @@
                                     @enderror
                                     <div class="form-group">
                                         <label class="font-weight-bold">Адрес студии<span
-                                                    class="text-danger">*</span></label>
+                                                class="text-danger">*</span></label>
                                         <input type="text" name="addressStudio" id="addressStudio" class="form-control">
                                     </div>
                                     @error('addressStudio')
@@ -109,7 +115,7 @@
 
                                         <div class="form-group">
                                             <label class="font-weight-bold">Пароль<span
-                                                        class="text-danger">*</span></label>
+                                                    class="text-danger">*</span></label>
                                             <input type="password" name="passwordReq" id="passwordReq"
                                                    class="form-control"
                                                    required>
@@ -124,7 +130,7 @@
                                         @enderror
                                         <div class="form-group">
                                             <label class="font-weight-bold">Подтвердите пароль<span
-                                                        class="text-danger">*</span></label>
+                                                    class="text-danger">*</span></label>
                                             <input type="password" name="confirmPasswordReq" id="confirmPasswordReq"
                                                    class="form-control" required>
                                         </div>

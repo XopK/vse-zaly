@@ -203,6 +203,10 @@ class BookingController extends Controller
 
             $booking = BookingHall::where('id', $data['OrderId'])->first();
 
+            if ($booking->payment_id) {
+                return response()->json(['Success' => false, 'Error' => 'Payment already processed'], 400);
+            }
+
             if ($booking) {
                 $booking->payment_id = $data['PaymentId'];
                 $booking->save();
@@ -212,7 +216,6 @@ class BookingController extends Controller
 
                 return response()->json(['Success' => true]);
             } else {
-
                 return response()->json(['Success' => false, 'Error' => 'Booking not found'], 400);
             }
         } else {

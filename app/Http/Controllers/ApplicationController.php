@@ -24,6 +24,7 @@ class ApplicationController extends Controller
             'emailReq' => ['required', 'email', new UniqueEmailPartnerRequest],
             'nameReq' => 'required|regex:/^[а-яёА-ЯЁ\s]+$/u',
             'nameStudio' => 'required|min:3',
+            'studioActivities' => 'nullable',
             'phoneReq' => ['required', 'regex:/^\+7\(\d{3}\)-\d{3}-\d{4}$/', new UniquePhonePartnerRequest],
             'addressStudio' => 'required|min:3',
             'passwordReq' => 'required|min:6',
@@ -50,6 +51,7 @@ class ApplicationController extends Controller
             'name' => $request->nameReq,
             'address' => $request->addressStudio,
             'name_studio' => $request->nameStudio,
+            'studio_activities' => $request->studioActivities,
             'phone' => $this->normalizePhoneNumber($request->phoneReq),
             'password' => Hash::make($request->passwordReq),
         ]);
@@ -70,6 +72,7 @@ class ApplicationController extends Controller
         $validated = $request->validate([
             'nameStudio' => 'required|min:3',
             'addressStudio' => 'required|min:3',
+            'studioActivities' => 'nullable',
         ], [
             'nameStudio.required' => 'Введите название студии.',
             'nameStudio.min' => 'Минимальная длина названии студии - 3 символа.',
@@ -89,6 +92,7 @@ class ApplicationController extends Controller
             'id_user' => $user->id,
             'name_studio' => $request->nameStudio,
             'address' => $request->addressStudio,
+            'studio_activities' => $request->studioActivities,
         ]);
 
         foreach ($admins as $admin) {

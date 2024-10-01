@@ -75,6 +75,22 @@
                             </div>
                         @endif
                         <!-- Detail -->
+                        <div class="detail-clearfix">
+                            <ul>
+                                <li>
+                                    <a href="{{route('user.index', ['user' => $user->id])}}"
+                                       class="{{ Request::is('user/' . $user->id) ? 'active' : '' }}">
+                                        <i class="flaticon-user"></i>Информация о пользователе
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('user.reports', ['user' => $user->id])}}"
+                                       class="{{ Request::is('user/reports/' . $user->id) ? 'active' : '' }}">
+                                        <i class="flaticon-chat"></i>Заметки
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 col-sm-12">

@@ -51,7 +51,7 @@
                 <div class="cd-filter-block">
                     <h5>Цена</h5>
                     <div class="cd-filter-content slider-container">
-                        <label for="price">Максимальная цена (руб):</label>
+                        <label for="price">Минимальная цена (руб):</label>
                         <input type="range" id="price" name="price" min="0" max="5000" step="10" value="0"
                                oninput="document.getElementById('price-value').textContent = this.value;">
                         <span id="price-value" class="slider-value">0</span> <!-- Вывод текущего значения -->
@@ -61,7 +61,7 @@
                 <div class="cd-filter-block">
                     <h5>Площадь</h5>
                     <div class="cd-filter-content slider-container">
-                        <label for="area">Минимальная площадь (м²):</label>
+                        <label for="area">Максимальная площадь (м²):</label>
                         <input type="range" id="area" name="area" min="0" max="150" step="10" value="150"
                                oninput="document.getElementById('area-value').textContent = this.value;">
                         <span id="area-value" class="slider-value">150</span> <!-- Вывод текущего значения -->

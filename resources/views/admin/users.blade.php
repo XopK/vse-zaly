@@ -35,24 +35,26 @@
         <div class="halls-list">
             <h2>Список пользователей</h2>
             @forelse($users as $user)
-                <div class="hall">
-                    <div class="img">
-                        <img src="/storage/users_profile/{{$user->photo_profile}}" alt="{{$user->photo_profile}}">
+                <a href="/user/{{$user->id}}" style="text-decoration: none">
+                    <div class="hall">
+                        <div class="img">
+                            <img src="/storage/users_profile/{{$user->photo_profile}}" alt="{{$user->photo_profile}}">
+                        </div>
+                        <div class="hall_info">
+                            <h3>{{$user->name}}</h3>
+                            <p>Сколько раз бронировал: {{$user->booking->count()}}</p>
+                            <p>Инстаграм: {{$user->instagram ? $user->instagram : 'Отсутствует'}}</p>
+                            <p>Телеграм: {{$user->telegram ? $user->telegram : 'Отсутствует'}}</p>
+                            <p>Вк: {{$user->vk ? $user->vk : 'Отсутствует'}}</p>
+                            <p>Номер телефона: {{$user->phone}}</p>
+                            <p>Почта: {{$user->email}}</p>
+                        </div>
                     </div>
-                    <div class="hall_info">
-                        <h3>{{$user->name}}</h3>
-                        <p>Сколько раз бронировал: {{$user->booking->count()}}</p>
-                        <p>Инстаграм: {{$user->instagram ? $user->instagram : 'Отсутствует'}}</p>
-                        <p>Телеграм: {{$user->telegram ? $user->telegram : 'Отсутствует'}}</p>
-                        <p>Вк: {{$user->vk ? $user->vk : 'Отсутствует'}}</p>
-                        <p>Номер телефона: {{$user->phone}}</p>
-                        <p>Почта: {{$user->email}}</p>
-                    </div>
-                </div>
+                </a>
+
             @empty
             @endforelse
-
-
+            
         </div>
     </div>
 </div>

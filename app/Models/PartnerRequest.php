@@ -12,6 +12,7 @@ class PartnerRequest extends Model
         'email',
         'name',
         'name_studio',
+        'studio_activities',
         'address',
         'phone',
         'password',

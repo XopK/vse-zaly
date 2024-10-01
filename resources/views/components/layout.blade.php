@@ -76,6 +76,7 @@
                                     <li><a href="/become_partner">Стать партнёром</a></li>
                                 @endguest
                             </ul>
+
                         </div>
                     </nav>
                 </div>

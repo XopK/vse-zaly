@@ -42,6 +42,7 @@
                     <div class="info-req">
                         <div class="hall_info">
                             <h3>Название студии: {{$request->name_studio}}</h3>
+                            <p>Деятельность студии: {{$request->studio_activities}}</p>
                             <p>Почта: {{$request->email ? $request->email : $request->user->email}}</p>
                             <p>Адрес студии: {{$request->address}}</p>
                             <p>Имя: {{$request->name ? $request->name : $request->user->name}}</p>

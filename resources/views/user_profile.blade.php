@@ -41,6 +41,7 @@
                         class="p-3 mb-2 bg-light text-dark">{{$user->instagram ? $user->instagram : 'Отсутствуют данные '}}</div>
                 </div>
             </div>
+
         </div>
 
     </div>
