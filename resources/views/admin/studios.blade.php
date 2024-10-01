@@ -35,20 +35,23 @@
         <div class="halls-list">
             <h2>Список студий</h2>
             @forelse($studios as $studio)
-                <div class="hall">
-                    <div class="img">
-                        <img src="/storage/photo_studios/{{$studio->photo_studio}}" alt="{{$studio->photo_studio}}">
-                    </div>
+                <a href="/about_studio/{{$studio->id}}-{{Str::slug($studio->name_studio)}}"
+                   style="text-decoration: none">
+                    <div class="hall">
+                        <div class="img">
+                            <img src="/storage/photo_studios/{{$studio->photo_studio}}" alt="{{$studio->photo_studio}}">
+                        </div>
 
-                    <div class="hall_info">
-                        <h3>Студия: {{$studio->name_studio}}</h3>
-                        <p>владелец: {{$studio->owner->name}}</p>
-                        <p>адрес: {{$studio->adress_studio}}</p>
-                        <p>номер телефона: {{$studio->phone_studio}}</p>
-                        <p>сколько залов: {{$studio->halls->count()}}</p>
-                        <p>сколько раз у студии бронировали: {{ $studio->halls->sum('count_booking') }}</p>
+                        <div class="hall_info">
+                            <h3>Студия: {{$studio->name_studio}}</h3>
+                            <p>владелец: {{$studio->owner->name}}</p>
+                            <p>адрес: {{$studio->adress_studio}}</p>
+                            <p>номер телефона: {{$studio->phone_studio}}</p>
+                            <p>сколько залов: {{$studio->halls->count()}}</p>
+                            <p>сколько раз у студии бронировали: {{ $studio->halls->sum('count_booking') }}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             @empty
 
             @endforelse

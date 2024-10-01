@@ -49,55 +49,54 @@
     </style>
 
     <!-- User page start -->
-    @if (Auth::user()->id_role == 1)
-        <div class="my-address contact-2">
-            <h3 class="heading-3">Мои брони</h3>
-            <ul class="booking-list">
-                @if (session('error_delete'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>{{ session('error_delete') }}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-                @if (session('success_delete'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{ session('success_delete') }}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-                @forelse($bookings_user as $user)
-                    <li>
-                        <a href="/hall/{{$user->hall->id}}-{{Str::slug($user->hall->name_hall)}}">
-                            <div class="booking_photo">
-                                <img src="/storage/photo_halls/{{$user->hall->preview_hall}}"
-                                     alt="{{$user->hall->preview_hall}}" title="{{$user->hall->name_hall}}">
-                            </div>
-                        </a>
-                        <div class="booking_info">
-                            <h4>{{$user->hall->name_hall}}</h4>
-                            <p>Дата бронирования: {{ date('d.m.Y', strtotime($user->booking_start)) }}</p>
-                            <p>Время: {{ date('H:i', strtotime($user->booking_start)) }}
-                                - {{ date('H:i', strtotime($user->booking_end)) }}</p>
-                            <form action="/delete_booking/{{$user->id}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">Отменить бронь</button>
-                            </form>
-                        </div>
-                    </li>
-                @empty
-                    <div class="alert alert-warning" role="alert">
-                        У вас нет броней.
-                    </div>
-                @endforelse
 
-            </ul>
-        </div>
-    @endif
+    <div class="my-address contact-2">
+        <h3 class="heading-3">Мои брони</h3>
+        <ul class="booking-list">
+            @if (session('error_delete'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ session('error_delete') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            @if (session('success_delete'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success_delete') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            @forelse($bookings_user as $user)
+                <li>
+                    <a href="/hall/{{$user->hall->id}}-{{Str::slug($user->hall->name_hall)}}">
+                        <div class="booking_photo">
+                            <img src="/storage/photo_halls/{{$user->hall->preview_hall}}"
+                                 alt="{{$user->hall->preview_hall}}" title="{{$user->hall->name_hall}}">
+                        </div>
+                    </a>
+                    <div class="booking_info">
+                        <h4>{{$user->hall->name_hall}}</h4>
+                        <p>Дата бронирования: {{ date('d.m.Y', strtotime($user->booking_start)) }}</p>
+                        <p>Время: {{ date('H:i', strtotime($user->booking_start)) }}
+                            - {{ date('H:i', strtotime($user->booking_end)) }}</p>
+                        <form action="/delete_booking/{{$user->id}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Отменить бронь</button>
+                        </form>
+                    </div>
+                </li>
+            @empty
+                <div class="alert alert-warning" role="alert">
+                    У вас нет броней.
+                </div>
+            @endforelse
+
+        </ul>
+    </div>
     @if (Auth::user()->id_role == 2)
         <div class="my-address contact-2">
             <h3 class="heading-3">Активные брони{{count($active_bookings) ? ': ' . count($active_bookings) : '' }}</h3>
@@ -133,7 +132,7 @@
                                 - {{ date('H:i', strtotime($active->booking_end)) }}</p>
                             <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($active->created_at)) }}</p>
                             <p><strong><a href="/user/{{$active->user->id}}">{{$active->user->name}}</a> (<a
-                                            href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
+                                        href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
                             </p>
                             <p>
                                 <strong>
@@ -178,7 +177,7 @@
                             - {{ date('H:i', strtotime($archive->booking_end)) }}</p>
                         <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($archive->created_at)) }}</p>
                         <p><strong>{{$archive->user->name}} (<a
-                                        href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
+                                    href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
                         </p>
                         <p>
                             <strong>

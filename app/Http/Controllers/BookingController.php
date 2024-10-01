@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\receiptBooking;
+use App\Mail\receiptBookingforPartner;
 use App\Models\BookingHall;
 use App\Models\Hall;
 use App\Models\HallPrice;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\PaymentService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 
 class BookingController extends Controller
@@ -194,7 +198,6 @@ class BookingController extends Controller
     public function callback(Request $request)
     {
         $data = $request->all();
-        \Log::info($data);
 
         if ($data['Status'] == 'CONFIRMED') {
 
@@ -204,6 +207,8 @@ class BookingController extends Controller
                 $booking->payment_id = $data['PaymentId'];
                 $booking->save();
                 $booking->income($data['Amount'] / 100);
+
+                Mail::to($booking->user->email)->send(new receiptBooking($booking));
 
                 return response()->json(['Success' => true]);
             } else {
@@ -281,7 +286,8 @@ class BookingController extends Controller
             return back()->with('error', 'Рассчитанная стоимость (' . $totalPriceCalculated . ') не совпадает с введенной стоимостью (' . $request->totalPrice . '). Проверьте введенные данные.');
         }
 
-        // После успешной проверки записываем бронирование в базу
+        $bookingDetails = [];
+
         foreach ($dates as $index => $date) {
             [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
 
@@ -291,7 +297,7 @@ class BookingController extends Controller
             // Создание записи в базе для каждого дня
             $priceForDay = $this->calculateBookingPrice($startDateTime, $endDateTime, $hall, $hallPrice, $stepBooking);
 
-            BookingHall::create([
+            $booking = BookingHall::create([
                 'id_hall' => $request->selectedHall,
                 'id_user' => $request->userId,
                 'booking_start' => $startDateTime,
@@ -300,8 +306,26 @@ class BookingController extends Controller
                 'min_people' => $hallPrice->min_people,
                 'max_people' => $hallPrice->max_people,
                 'payment_id' => 1,
-            ])->income($priceForDay); // Используем рассчитанную стоимость
+            ]);
+
+            $booking->income($priceForDay);
+
+            $bookingDetails[] = (object)[
+                'id' => $booking->id,
+                'hall' => Hall::find($request->selectedHall),
+                'user' => User::find($request->userId),
+                'booking_start' => $startDateTime,
+                'booking_end' => $endDateTime,
+                'total_price' => $priceForDay,
+                'created_at' => $booking->created_at,
+                'min_people' => $hallPrice->min_people,
+                'max_people' => $hallPrice->max_people,
+            ];
         }
+
+        $user = User::find($request->userId);
+
+        Mail::to($user->email)->send(new receiptBookingforPartner($bookingDetails));
 
         return back()->with('success', 'Бронирование успешно добавлено!');
     }
