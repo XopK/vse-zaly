@@ -7,6 +7,7 @@ use App\Models\BookingHall;
 use App\Models\FavoriteHall;
 use App\Models\ReportUser;
 use App\Models\User;
+use App\Services\SmsService;
 use App\Traits\PhoneNormalizerTrait;
 use App\Traits\putSocialLinksTrait;
 use Illuminate\Http\Request;
@@ -20,6 +21,13 @@ class UserController extends Controller
 {
     use PhoneNormalizerTrait;
     use putSocialLinksTrait;
+
+    protected $smsService;
+
+    public function __construct(SmsService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
 
     public function update_data(Request $request)
     {
@@ -56,11 +64,30 @@ class UserController extends Controller
             $hashPhoto = $user->photo_profile;
         }
 
+        if ($user->phone != $request->phone) {
+
+            $verificationCode = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            $expiration = now()->addMinutes(15);
+
+            Session::put('verification_code_sms', $verificationCode);
+            Session::put('verification_code_sms_expires_at', $expiration);
+
+            $params = [
+                'number' => ltrim($request->phone, '+'),
+                'text' => "Ваш код подтверждения: $verificationCode",
+            ];
+
+            Session::put('update_phone_user', $request->phone);
+
+            $response = $this->smsService->sendSms($params['number'], $params['text']);
+
+            return view('sms', ['user' => $request]);
+        }
+
         if ($user->email != $request->email) {
             Session::put('new_email', $request->email);
             return redirect(route('view_email'));
         } else {
-
             if ($request->tg || $request->vk || $request->inst) {
                 $socialLinks = $this->putSocialLink($request);
             }

@@ -59,7 +59,7 @@ class AuthController extends Controller
         ]);
 
         if ($user) {
-            Session::put('user', $user);
+
             return redirect('/verify_phone');
         } else {
             return redirect()->back()->with('error', 'Ошибка регистрации');

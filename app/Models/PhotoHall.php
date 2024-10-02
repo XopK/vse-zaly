@@ -18,8 +18,8 @@ class PhotoHall extends Model
     protected static function booted()
     {
         static::deleting(function ($photo) {
-            if ($photo->photo_hall && Storage::disk('public')->exists($photo->photo_hall)) {
-                Storage::disk('public')->delete($photo->photo_hall);
+            if ($photo->photo_hall && Storage::disk('public')->exists('photo_halls/' . $photo->photo_hall)) {
+                Storage::disk('public')->delete('photo_halls/' . $photo->photo_hall);
             }
         });
     }

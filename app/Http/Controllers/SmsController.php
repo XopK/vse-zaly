@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\SmsService;
 use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
@@ -93,6 +94,7 @@ class SmsController extends Controller
             $expiration = Session::get('verification_code_sms_expires_at');
 
             if (now()->lt($expiration)) {
+
                 if (Session::has('user')) {
                     $user = Session::get('user');
                     $user->phone_verfied = now();
@@ -102,6 +104,8 @@ class SmsController extends Controller
 
                     Session::forget('verification_code_sms');
                     Session::forget('verification_code_sms_expires_at');
+                    Session::forget('user');
+
                     return redirect('/')->with('success', 'Успешная регистрация!');
                 } elseif (Session::has('application')) {
 
@@ -110,9 +114,23 @@ class SmsController extends Controller
 
                     Session::forget('verification_code_sms');
                     Session::forget('verification_code_sms_expires_at');
+                    Session::forget('application');
 
                     return redirect('/')->with('success', 'Заявка подана!');
+                } elseif (Session::has('update_phone_user')) {
+
+                    $user_update = Session::get('update_phone_user');
+                    $user = Auth::user();
+                    $user->phone = $user_update;
+                    $user->save();
+
+                    Session::forget('verification_code_sms');
+                    Session::forget('verification_code_sms_expires_at');
+                    Session::forget('update_phone_user');
+
+                    return redirect('/profile')->with('success', 'Номер обновлен');
                 }
+
             } else {
                 Session::forget('verification_code_sms');
                 Session::forget('verification_code_sms_expires_at');

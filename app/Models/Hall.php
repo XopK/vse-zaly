@@ -31,8 +31,8 @@ class Hall extends Model
     {
         static::deleting(function ($hall) {
             foreach ($hall->photo_halls as $photo) {
-                if ($photo->photo_hall && Storage::disk('public')->exists($photo->photo_hall)) {
-                    Storage::disk('public')->delete($photo->photo_hall);
+                if ($photo->photo_hall && Storage::disk('public')->exists('photo_halls/' . $photo->photo_hall)) {
+                    Storage::disk('public')->delete('photo_halls/' . $photo->photo_hall);
                 }
                 $photo->delete();
             }
