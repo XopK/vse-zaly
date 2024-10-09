@@ -7,7 +7,7 @@
     </style>
     <!-- Banner Section -->
     <section class="page-banner">
-        <div class="image-layer" style="background-image:url(images/background/rent.jpg);"></div>
+        <div class="image-layer" style="background-image:url(images/background/rent1.png);"></div>
         <div class="banner-bottom-pattern"></div>
 
         <div class="banner-inner">

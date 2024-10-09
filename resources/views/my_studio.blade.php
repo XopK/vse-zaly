@@ -243,8 +243,8 @@
                             </div>
                             <div class="cap-box">
                                 <div class="cap-inner">
-                                    <div class="price">Площадь <span>40м</span></div>
-                                    <h5>Зал Малый</h5>
+                                    <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
+                                    <h5>{{$hall->name_hall}}</h5>
                                 </div>
                             </div>
                             <div class="hover-box">
