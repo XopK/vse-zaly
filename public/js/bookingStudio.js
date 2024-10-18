@@ -529,7 +529,6 @@ $(document).ready(function () {
         // Собираем все данные из всех недель
 
         if (selectedCells.length === 0) {
-            alert('Пожалуйста, выберите дату и время.');
             return;
         }
 

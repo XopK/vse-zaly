@@ -4,6 +4,7 @@ namespace App\Services;
 
 use http\Client;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class PaymentService
 {
@@ -48,6 +49,7 @@ class PaymentService
             if ($response->successful()) {
                 $body = $response->json();
                 if ($body['Success']) {
+                    Session::put('payment_check', true);
                     return $body['PaymentURL'];
                 } else {
                     return null;
@@ -74,7 +76,6 @@ class PaymentService
             if ($response->successful()) {
                 $body = $response->json();
                 if ($body['Success']) {
-                    \Log::info('Платеж отменен!');
                     return true;
                 } else {
                     return null;

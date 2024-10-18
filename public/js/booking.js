@@ -393,7 +393,6 @@ $(document).ready(function () {
 
     $('#saveChanges').click(function () {
         if (selectedCells.length === 0) {
-            alert('Пожалуйста, выберите дату и время.');
             return;
         }
         $('#bookingForm').submit();

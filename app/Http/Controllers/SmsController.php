@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UnregisteredUser;
 use App\Models\User;
 use App\Services\SmsService;
 use App\Traits\PhoneNormalizerTrait;
@@ -99,6 +100,18 @@ class SmsController extends Controller
                     $user = Session::get('user');
                     $user->phone_verfied = now();
                     $user->save();
+
+                    $unregistered = UnregisteredUser::where('phone', $user->phone)->where('email', $user->email)->first();
+
+                    if ($unregistered) {
+                        $bookingUnregistered = $unregistered->bookings;
+                        foreach ($bookingUnregistered as $bo) {
+                            $bo->id_unregistered_user = null;
+                            $bo->id_user = $user->id;
+                            $bo->save();
+                        }
+                    }
+
 
                     Auth::login($user);
 

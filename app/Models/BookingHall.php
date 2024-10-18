@@ -19,6 +19,7 @@ class BookingHall extends Model
         'is_archive',
         'min_people',
         'max_people',
+        'id_unregistered_user'
     ];
 
     protected $dates = ['booking_start', 'booking_end'];
@@ -74,5 +75,10 @@ class BookingHall extends Model
             $this->is_archive = 1;
             $this->save();
         }
+    }
+
+    public function unregister_user()
+    {
+        return $this->belongsTo(UnregisteredUser::class, 'id_unregistered_user');
     }
 }

@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UnregisteredUser;
 use App\Models\User;
 use App\Traits\PhoneNormalizerTrait;
 use App\Traits\putSocialLinksTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
-use PDO;
 
 class AuthController extends Controller
 {
@@ -59,7 +58,7 @@ class AuthController extends Controller
         ]);
 
         if ($user) {
-
+            Session::put('user', $user);
             return redirect('/verify_phone');
         } else {
             return redirect()->back()->with('error', 'Ошибка регистрации');

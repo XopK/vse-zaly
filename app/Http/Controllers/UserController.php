@@ -251,27 +251,6 @@ class UserController extends Controller
         return view('user_profile', ['user' => $user]);
     }
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-
-        $normalizedPhone = null;
-
-        if (preg_match('/^[\d\s\+\-\(\)]+$/', $query)) {
-            $normalizedPhone = $this->normalizePhoneNumber($query);
-        }
-
-        $users = User::where('name', 'LIKE', "%{$query}%")
-            ->orWhere(function ($query) use ($normalizedPhone) {
-                if ($normalizedPhone) {
-                    $query->where('phone', 'LIKE', "%{$normalizedPhone}%");
-                }
-            })
-            ->get();
-
-        return response()->json($users);
-    }
-
     public function user_reports(User $user)
     {
         $reports = ReportUser::where('id_partner', Auth::user()->id)->get();

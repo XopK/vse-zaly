@@ -7,17 +7,21 @@ use App\Mail\receiptBookingforPartner;
 use App\Models\BookingHall;
 use App\Models\Hall;
 use App\Models\HallPrice;
+use App\Models\UnregisteredUser;
 use App\Models\User;
+use App\Traits\PhoneNormalizerTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\PaymentService;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 
 class BookingController extends Controller
 {
+
+    use PhoneNormalizerTrait;
 
     protected $paymentService;
 
@@ -226,12 +230,21 @@ class BookingController extends Controller
 
     public function payment_successful()
     {
-        return view('payment_successful');
+        if (Session::has('payment_check')) {
+            Session::forget('payment_check');
+            return view('payment_successful');
+        }
+        return redirect('/my_booking');
+
     }
 
     public function payment_failed()
     {
-        return view('payment_failed');
+        if (Session::has('payment_check')) {
+            Session::forget('payment_check');
+            return view('payment_failed');
+        }
+        return redirect('/my_booking');
     }
 
     public function for_partner(Request $request)
@@ -242,14 +255,39 @@ class BookingController extends Controller
             'selectedTime' => 'required',
             'totalPrice' => 'required',
             'idPriceHall' => 'required',
-            'userId' => 'required',
-            'userBooking' => 'required',
+            'userNameBooking' => 'required',
+            'userEmailBooking' => 'required',
+            'userPhoneBooking' => 'required',
+        ], [
+            'selectedDate' => 'Выберите дату!',
+            'selectedTime' => 'Выберите время!',
+            'userNameBooking' => 'Введите имя!',
+            'userEmailBooking' => 'Введите почту!',
+            'userPhoneBooking' => 'Введите номер телефона!',
         ]);
 
         $hall = Hall::findOrFail($request->selectedHall);
         $hallPrice = HallPrice::findOrFail($request->idPriceHall);
         $stepBooking = $hall->step_booking * 60; // Шаг бронирования в минутах
         $timezone = 'Asia/Yekaterinburg'; // Часовой пояс
+        $existingUserForPartner = User::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))->first();
+
+        if (!$existingUserForPartner) {
+
+            $unregisteredUser = UnregisteredUser::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))
+                ->orWhere('email', $request->userEmailBooking)
+                ->first();
+
+            if (!$unregisteredUser) {
+
+                $unregisteredUser = UnregisteredUser::create([
+                    'name' => $request->userNameBooking,
+                    'email' => $request->userEmailBooking,
+                    'phone' => $this->normalizePhoneNumber($request->userPhoneBooking),
+                ]);
+
+            }
+        }
 
         $dates = explode(', ', $request->selectedDate);
         $times = explode(', ', $request->selectedTime);
@@ -300,23 +338,36 @@ class BookingController extends Controller
             // Создание записи в базе для каждого дня
             $priceForDay = $this->calculateBookingPrice($startDateTime, $endDateTime, $hall, $hallPrice, $stepBooking);
 
-            $booking = BookingHall::create([
-                'id_hall' => $request->selectedHall,
-                'id_user' => $request->userId,
-                'booking_start' => $startDateTime,
-                'booking_end' => $endDateTime,
-                'total_price' => $priceForDay,
-                'min_people' => $hallPrice->min_people,
-                'max_people' => $hallPrice->max_people,
-                'payment_id' => 1,
-            ]);
+            if ($existingUserForPartner) {
+                $booking = BookingHall::create([
+                    'id_hall' => $request->selectedHall,
+                    'id_user' => $existingUserForPartner->id,
+                    'booking_start' => $startDateTime,
+                    'booking_end' => $endDateTime,
+                    'total_price' => $priceForDay,
+                    'min_people' => $hallPrice->min_people,
+                    'max_people' => $hallPrice->max_people,
+                    'payment_id' => 1,
+                ]);
+            } else {
+                $booking = BookingHall::create([
+                    'id_hall' => $request->selectedHall,
+                    'id_unregistered_user' => $unregisteredUser->id,
+                    'booking_start' => $startDateTime,
+                    'booking_end' => $endDateTime,
+                    'total_price' => $priceForDay,
+                    'min_people' => $hallPrice->min_people,
+                    'max_people' => $hallPrice->max_people,
+                    'payment_id' => 1,
+                ]);
+            }
 
             $booking->income($priceForDay);
 
             $bookingDetails[] = (object)[
                 'id' => $booking->id,
                 'hall' => Hall::find($request->selectedHall),
-                'user' => User::find($request->userId),
+                'user' => $existingUserForPartner ? $existingUserForPartner : $unregisteredUser,
                 'booking_start' => $startDateTime,
                 'booking_end' => $endDateTime,
                 'total_price' => $priceForDay,
@@ -326,11 +377,15 @@ class BookingController extends Controller
             ];
         }
 
-        $user = User::find($request->userId);
+        $userEmail = $existingUserForPartner ? $existingUserForPartner->email : $unregisteredUser->email;
 
-        Mail::to($user->email)->send(new receiptBookingforPartner($bookingDetails));
+        Mail::to($userEmail)->send(new receiptBookingforPartner($bookingDetails));
 
-        return back()->with('success', 'Бронирование успешно добавлено!');
+        if ($existingUserForPartner) {
+            return back()->with('success', 'Бронирование успешно добавлено!');
+        } else {
+            return redirect('/')->with('success', 'Бронирование успешно добавлено!');
+        }
     }
 
     private function createDateTime($date, $time, $timezone)
