@@ -440,6 +440,22 @@
 </div>
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const textareas = document.querySelectorAll('textarea');
+
+        function autoResize() {
+            this.style.height = 'auto'; // Сброс текущей высоты
+            this.style.height = this.scrollHeight + 'px'; // Установка высоты по содержимому
+        }
+
+        // Применяем функцию для всех textarea
+        textareas.forEach(textarea => {
+            textarea.style.height = textarea.scrollHeight + 'px'; // Установка высоты при загрузке
+            textarea.addEventListener('input', autoResize); // Подстройка при вводе
+        });
+    });
+
     $('#warning').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var hallName = button.data('name'); // Extract hall name from data-* attributes

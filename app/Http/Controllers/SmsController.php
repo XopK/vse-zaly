@@ -112,6 +112,7 @@ class SmsController extends Controller
                         }
                     }
 
+                    $unregistered->delete();
 
                     Auth::login($user);
 

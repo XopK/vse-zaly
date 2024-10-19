@@ -85,7 +85,7 @@
 
                     </div>
                     <div class="text">
-                        <p>{{$hall->description_hall}}</p>
+                        <p>{!! nl2br(e($hall->description_hall)) !!}</p>
                     </div>
                     <div class="text">
                         <p><i class="fa fa-map-marker" aria-hidden="true"
@@ -351,7 +351,7 @@
             <div class="details-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="details-inner">
                     <h3>Зал предоставляет:</h3>
-                    <div class="text">Правила: {{$hall->rule_hall}}</div>
+                    <div class="text">Правила: {!! nl2br(e($hall->rule_hall)) !!}</div>
                     <ul class="info clearfix">
                         @forelse($hall->features as $feature)
                             <li><img class="icon" src="/images/features/{{$feature->photo_feature}}"
@@ -407,6 +407,23 @@
 </script>
 <script src="/js/priceHallEdit.js"></script>
 <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const textareas = document.querySelectorAll('textarea');
+
+        function autoResize() {
+            this.style.height = 'auto'; // Сброс текущей высоты
+            this.style.height = this.scrollHeight + 'px'; // Установка высоты по содержимому
+        }
+
+        // Применяем функцию для всех textarea
+        textareas.forEach(textarea => {
+            textarea.style.height = textarea.scrollHeight + 'px'; // Установка высоты при загрузке
+            textarea.addEventListener('input', autoResize); // Подстройка при вводе
+        });
+    });
+
+
     function showAlert(type, message) {
         const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
         $('.alert-container').html(`

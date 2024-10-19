@@ -182,9 +182,34 @@ $(document).ready(function () {
 
                     if (isCellBooked) {
                         cell.addClass('booked-cell');
-                        cell.text(booking.user.name);
-                        cell.attr('title', `${booking.user.name} ${booking.user.phone} (${booking.total_price} ₽)`); // Всплывающая подсказка
-                        cell.attr('data-user-url', booking.user.url);
+
+                        if (booking.user) {
+                            // Для зарегистрированных пользователей
+                            cell.text(booking.user.name);
+                            cell.attr('title', `${booking.user.name} ${booking.user.phone} (${booking.total_price} ₽)`); // Всплывающая подсказка
+                            cell.attr('data-user-url', booking.user.url);
+                        } else if (booking.unregister_user) {
+                            // Для незарегистрированных пользователей
+                            cell.text(booking.unregister_user.name);
+                            cell.attr('title', `${booking.unregister_user.name} ${booking.unregister_user.phone} (${booking.total_price} ₽)`); // Всплывающая подсказка
+                            cell.removeAttr('data-user-url'); // Не устанавливаем URL для незарегистрированных пользователей
+                            cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
+                        }
+
+                        cell.click(function () {
+                            var warning = $(this).attr('data-warning');
+                            if (warning) {
+                                // Очистка предыдущих предупреждений и добавление нового в контейнер .alert-container
+                                $('.alert-container').html(`
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>${warning}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `);
+                            }
+                        });
                     }
                     return isCellBooked;
                 });

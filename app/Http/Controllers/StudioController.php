@@ -99,10 +99,14 @@ class StudioController extends Controller
 
     public function my_hall_view(Hall $hall)
     {
-        $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user')->get();
+        $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user', 'unregister_user')->get();
 
         foreach ($booking as $b) {
-            $b->user->url = route('user.index', ['user' => $b->user->id]);
+            if ($b->user) {
+                $b->user->url = route('user.index', ['user' => $b->user->id]);
+            } elseif ($b->unregisteredUser) {
+                $b->warning = 'Этот пользователь не зарегистрирован на сайте.';
+            }
         }
 
         $hall_price = HallPrice::where('id_hall', $hall->id)->get();

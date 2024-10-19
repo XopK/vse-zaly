@@ -103,7 +103,7 @@
                 @enderror
                 <div class="form-group">
                     <label class="font-weight-bold">Описание студии <span class="text-danger"></span></label>
-                    <textarea class="form-control" rows="7" name="studio_description" id="studio_description"
+                    <textarea class="form-control" rows="5" name="studio_description" id="studio_description"
                               required>{{ Auth::user()->studio->description_studio }}</textarea>
                 </div>
                 @error('studio_description')
@@ -198,7 +198,7 @@
                         <div class="sec-title">
                             <h2>{{ Auth::user()->studio->name_studio }}</h2>
                         </div>
-                        <div class="text">{{ Auth::user()->studio->description_studio }}</div>
+                        <div class="text">{!! nl2br(e(Auth::user()->studio->description_studio)) !!}</div>
                     </div>
                 </div>
                 <!--Image Column-->
@@ -317,6 +317,22 @@
     </div>
 </div>
 <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const textareas = document.querySelectorAll('textarea');
+
+        function autoResize() {
+            this.style.height = 'auto'; // Сброс текущей высоты
+            this.style.height = this.scrollHeight + 'px'; // Установка высоты по содержимому
+        }
+
+        // Применяем функцию для всех textarea
+        textareas.forEach(textarea => {
+            textarea.style.height = textarea.scrollHeight + 'px'; // Установка высоты при загрузке
+            textarea.addEventListener('input', autoResize); // Подстройка при вводе
+        });
+    });
+
     document.querySelectorAll('.custom-file-input').forEach(function (input) {
         input.addEventListener('change', function (event) {
             var input = event.target;

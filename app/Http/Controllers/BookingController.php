@@ -38,7 +38,11 @@ class BookingController extends Controller
             'selectedTime' => 'required',
             'totalPrice' => 'required',
             'idPriceHall' => 'required',
+        ], [
+            'selectedDate.required' => 'Выберите дату!',
+            'selectedTime.required' => 'Выберите время!',
         ]);
+
 
         $user = Auth::user();
         $hallPrice = HallPrice::find($request->idPriceHall);

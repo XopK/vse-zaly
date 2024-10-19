@@ -308,7 +308,7 @@
                         </div> --}}
                     </div>
                     <div class="text">
-                        <p>{{$hall->description_hall}}</p>
+                        <p>{!! nl2br(e($hall->description_hall)) !!}</p>
                     </div>
                     <div class="text">
                         <p><i class="fa fa-map-marker" aria-hidden="true"
@@ -415,7 +415,7 @@
             <div class="details-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="details-inner">
                     <h3>Зал предоставляет:</h3>
-                    <div class="text">Правила: {{$hall->rule_hall}}</div>
+                    <div class="text">Правила: {!! nl2br(e($hall->rule_hall)) !!}</div>
                     <ul class="info clearfix">
                         @forelse($hall->features as $feature)
                             <li><img class="icon" src="/images/features/{{$feature->photo_feature}}"

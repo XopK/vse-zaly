@@ -46,7 +46,7 @@
                         <div class="sec-title">
                             <h2>{{$studio_info->name_studio}}</h2>
                         </div>
-                        <div class="text">{{$studio_info->description_studio}}</div>
+                        <div class="text">{!! nl2br(e($studio_info->description_studio)) !!}</div>
                     </div>
                 </div>
                 <!--Image Column-->
