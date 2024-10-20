@@ -243,7 +243,7 @@
                             </div>
                             <div class="cap-box">
                                 <div class="cap-inner">
-                                    <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
+                                    <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
                                     <h5>{{$hall->name_hall}}</h5>
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
                                 <div class="hover-inner">
                                     <h4>{{$hall->name_hall}}</h4>
                                     <div class="pricing clearfix">
-                                        <div class="price">Площадь <span>{{$hall->area_hall}}</span></div>
+                                        <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
                                         <div class="rating">
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>

@@ -253,43 +253,52 @@ class BookingController extends Controller
 
     public function for_partner(Request $request)
     {
-        $validated = $request->validate([
-            'selectedHall' => 'required',
-            'selectedDate' => 'required',
-            'selectedTime' => 'required',
-            'totalPrice' => 'required',
-            'idPriceHall' => 'required',
-            'userNameBooking' => 'required',
-            'userEmailBooking' => 'required',
-            'userPhoneBooking' => 'required',
-        ], [
-            'selectedDate' => 'Выберите дату!',
-            'selectedTime' => 'Выберите время!',
-            'userNameBooking' => 'Введите имя!',
-            'userEmailBooking' => 'Введите почту!',
-            'userPhoneBooking' => 'Введите номер телефона!',
-        ]);
+
+        $existingUserForPartner = null;
+
+        if (!$request->closeForBooking) {
+            $validated = $request->validate([
+                'selectedHall' => 'required',
+                'selectedDate' => 'required',
+                'selectedTime' => 'required',
+                'totalPrice' => 'required',
+                'idPriceHall' => 'required',
+                'userNameBooking' => 'required',
+                'userEmailBooking' => 'required',
+                'userPhoneBooking' => 'required',
+            ], [
+                'selectedDate' => 'Выберите дату!',
+                'selectedTime' => 'Выберите время!',
+                'userNameBooking' => 'Введите имя!',
+                'userEmailBooking' => 'Введите почту!',
+                'userPhoneBooking' => 'Введите номер телефона!',
+            ]);
+
+            $existingUserForPartner = User::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))->first();
+        }
 
         $hall = Hall::findOrFail($request->selectedHall);
         $hallPrice = HallPrice::findOrFail($request->idPriceHall);
         $stepBooking = $hall->step_booking * 60; // Шаг бронирования в минутах
         $timezone = 'Asia/Yekaterinburg'; // Часовой пояс
-        $existingUserForPartner = User::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))->first();
 
-        if (!$existingUserForPartner) {
 
-            $unregisteredUser = UnregisteredUser::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))
-                ->orWhere('email', $request->userEmailBooking)
-                ->first();
+        if (!$request->closeForBooking) {
+            if (!$existingUserForPartner) {
 
-            if (!$unregisteredUser) {
+                $unregisteredUser = UnregisteredUser::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))
+                    ->where('email', $request->userEmailBooking)
+                    ->first();
 
-                $unregisteredUser = UnregisteredUser::create([
-                    'name' => $request->userNameBooking,
-                    'email' => $request->userEmailBooking,
-                    'phone' => $this->normalizePhoneNumber($request->userPhoneBooking),
-                ]);
+                if (!$unregisteredUser) {
 
+                    $unregisteredUser = UnregisteredUser::create([
+                        'name' => $request->userNameBooking,
+                        'email' => $request->userEmailBooking,
+                        'phone' => $this->normalizePhoneNumber($request->userPhoneBooking),
+                    ]);
+
+                }
             }
         }
 
@@ -354,42 +363,62 @@ class BookingController extends Controller
                     'payment_id' => 1,
                 ]);
             } else {
-                $booking = BookingHall::create([
-                    'id_hall' => $request->selectedHall,
-                    'id_unregistered_user' => $unregisteredUser->id,
+                if ($request->closeForBooking) {
+                    $booking = BookingHall::create([
+                        'id_hall' => $request->selectedHall,
+                        'id_user' => Auth::user()->id,
+                        'booking_start' => $startDateTime,
+                        'booking_end' => $endDateTime,
+                        'total_price' => $priceForDay,
+                        'min_people' => $hallPrice->min_people,
+                        'max_people' => $hallPrice->max_people,
+                        'payment_id' => 1,
+                    ]);
+                } else {
+                    $booking = BookingHall::create([
+                        'id_hall' => $request->selectedHall,
+                        'id_unregistered_user' => $unregisteredUser->id,
+                        'booking_start' => $startDateTime,
+                        'booking_end' => $endDateTime,
+                        'total_price' => $priceForDay,
+                        'min_people' => $hallPrice->min_people,
+                        'max_people' => $hallPrice->max_people,
+                        'payment_id' => 1,
+                    ]);
+                }
+            }
+
+
+            if (!$request->closeForBooking) {
+                $booking->income($priceForDay);
+            } else {
+                $booking->hall->decrement('count_booking');
+            }
+
+            if (!$request->closeForBooking) {
+                $bookingDetails[] = (object)[
+                    'id' => $booking->id,
+                    'hall' => Hall::find($request->selectedHall),
+                    'user' => $existingUserForPartner ? $existingUserForPartner : $unregisteredUser,
                     'booking_start' => $startDateTime,
                     'booking_end' => $endDateTime,
                     'total_price' => $priceForDay,
+                    'created_at' => $booking->created_at,
                     'min_people' => $hallPrice->min_people,
                     'max_people' => $hallPrice->max_people,
-                    'payment_id' => 1,
-                ]);
+                ];
             }
 
-            $booking->income($priceForDay);
-
-            $bookingDetails[] = (object)[
-                'id' => $booking->id,
-                'hall' => Hall::find($request->selectedHall),
-                'user' => $existingUserForPartner ? $existingUserForPartner : $unregisteredUser,
-                'booking_start' => $startDateTime,
-                'booking_end' => $endDateTime,
-                'total_price' => $priceForDay,
-                'created_at' => $booking->created_at,
-                'min_people' => $hallPrice->min_people,
-                'max_people' => $hallPrice->max_people,
-            ];
         }
 
-        $userEmail = $existingUserForPartner ? $existingUserForPartner->email : $unregisteredUser->email;
+        if (!$request->closeForBooking) {
+            $userEmail = $existingUserForPartner ? $existingUserForPartner->email : $unregisteredUser->email;
 
-        Mail::to($userEmail)->send(new receiptBookingforPartner($bookingDetails));
-
-        if ($existingUserForPartner) {
-            return back()->with('success', 'Бронирование успешно добавлено!');
-        } else {
-            return redirect('/')->with('success', 'Бронирование успешно добавлено!');
+            Mail::to($userEmail)->send(new receiptBookingforPartner($bookingDetails));
         }
+
+        return back()->with('success', 'Бронирование успешно добавлено!');
+
     }
 
     private function createDateTime($date, $time, $timezone)

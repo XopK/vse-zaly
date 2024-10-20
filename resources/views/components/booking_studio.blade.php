@@ -64,8 +64,8 @@
                         <div id="selectedDateTime">Дата и время: выберите ячейки</div>
                     </div>
                 </div>
-
             </div>
+
             <div class="modal-footer">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-between">
@@ -100,6 +100,12 @@
                                        placeholder="Почта" id="userEmailBooking">
                                 <input type="text" name="userPhoneBooking" class="form-control mb-3"
                                        placeholder="+7(___)-___-____" id="userPhoneBooking">
+
+                                <div class="form-check mb-3" style="float: left">
+                                    <input type="checkbox" class="form-check-input" id="closeForBooking"
+                                           name="closeForBooking">
+                                    <label class="form-check-label" for="closeForBooking">Закрыть бронь</label>
+                                </div>
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>
                                 </button>
