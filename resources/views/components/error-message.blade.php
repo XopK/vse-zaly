@@ -16,19 +16,24 @@
             </button>
         </div>
     @endif
-        @if (request()->is('my_hall/*') || request()->is('hall/*'))
-            @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li><strong>{{ $error }}</strong></li>
-                        @endforeach
-                    </ul>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
+    @if (request()->is('my_hall/*') || request()->is('hall/*'))
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li><strong>{{ $error }}</strong></li>
+                    @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('#booking').modal('show'); // Открываем модальное окно при наличии ошибок
+                });
+            </script>
         @endif
+    @endif
 
 </div>

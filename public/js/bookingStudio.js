@@ -83,6 +83,7 @@ $(document).ready(function () {
             console.error('No price range found for this people count.');
         }
 
+
         // Перегенерируем строки времени для отображения новых цен
         generateTimeRows();
 

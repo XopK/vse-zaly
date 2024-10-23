@@ -32,6 +32,8 @@ class BookingController extends Controller
 
     public function create_booking(Request $request)
     {
+
+        dd($request->all());
         $validated = $request->validate([
             'selectedHall' => 'required',
             'selectedDate' => 'required',
@@ -81,6 +83,10 @@ class BookingController extends Controller
             ]);
 
             $paymentUrl = $this->payment_bookings($request, $bookingHall);
+
+            $bookingHall->link_payment = $paymentUrl;
+            $bookingHall->save();
+
             if ($paymentUrl) {
                 return redirect()->away($paymentUrl);
             } else {
@@ -217,6 +223,7 @@ class BookingController extends Controller
 
             if ($booking) {
                 $booking->payment_id = $data['PaymentId'];
+                $booking->link_payment = null;
                 $booking->save();
                 $booking->income($data['Amount'] / 100);
 

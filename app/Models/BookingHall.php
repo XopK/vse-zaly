@@ -20,15 +20,18 @@ class BookingHall extends Model
         'min_people',
         'max_people',
         'id_unregistered_user',
-        'is_available'
+        'is_available',
+        'link_payment'
     ];
 
     protected $dates = ['booking_start', 'booking_end'];
 
     protected static function booted()
     {
-        static::created(function ($booking) {
-            $booking->hall->increment('count_booking');
+        static::updated(function ($booking) {
+            if ($booking->isDirty('payment_id')) {
+                $booking->hall->increment('count_booking');
+            }
         });
 
         static::deleted(function ($booking) {

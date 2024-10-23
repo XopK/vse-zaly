@@ -5,7 +5,6 @@ $(document).ready(function () {
     generateTimeRows();
 
     $('#peopleCount').change(function () {
-
         var selectedId = $(this).find('option:selected').val();
         $('#idPriceHall').val(selectedId);
 
@@ -21,41 +20,67 @@ $(document).ready(function () {
             hall.price_evening = selectedPriceRange.weekday_evening_price;
             hall.price_weekend = selectedPriceRange.weekend_price;
             hall.price_weekend_evening = selectedPriceRange.weekend_evening_price;
-
-            // Обновляем цены только в выбранных ячейках
-            updateSelectedCellPrices(selectedPriceRange);
         } else {
             console.error('No price range found for this people count.');
         }
 
-    });
-
-    function updateSelectedCellPrices(selectedPriceRange) {
-        var eveningTime = moment(hall.time_evening, 'HH:mm');
-
-        selectedCells.forEach(function (cell) {
-            var dayIndex = cell.data('day-index');
-            var time = moment(cell.data('time'), 'HH:mm');
-            var isWeekend = (dayIndex === 5 || dayIndex === 6);
-            var isEvening = time.isSameOrAfter(eveningTime);
-            var basePrice;
-
-            // Определяем цену на основе дня недели и времени дня
-            if (isWeekend && isEvening) {
-                basePrice = selectedPriceRange.weekend_evening_price;
-            } else if (isWeekend) {
-                basePrice = selectedPriceRange.weekend_price;
-            } else if (isEvening) {
-                basePrice = selectedPriceRange.weekday_evening_price;
-            } else {
-                basePrice = selectedPriceRange.weekday_price;
-            }
-
-            cell.find('.price').text(basePrice + ' ₽');
+        // Сохраняем выбранные ячейки перед перегенерацией
+        var previouslySelectedCells = selectedCells.map(function (cell) {
+            return {
+                dayIndex: cell.data('day-index'), time: cell.data('time')
+            };
         });
 
+        // Перегенерация строк с новыми ценами
+        generateTimeRows();
+
+        // Восстанавливаем выделенные ячейки
+        selectedCells = [];
+        previouslySelectedCells.forEach(function (savedCell) {
+            var cellToSelect = $('#weekTable td[data-day-index="' + savedCell.dayIndex + '"][data-time="' + savedCell.time + '"]');
+            if (cellToSelect.length > 0) {
+                cellToSelect.addClass('highlight-cell');
+                selectedCells.push(cellToSelect);
+            }
+        });
+
+        // Применяем логику блокировки столбцов
+        if (selectedCells.length > 0) {
+            var selectedRows = selectedCells.map(c => c.closest('tr').index());
+            var minRowIndex = Math.min(...selectedRows);
+            var maxRowIndex = Math.max(...selectedRows);
+
+            $('#weekTable td').each(function () {
+                var currentColIndex = $(this).data('day-index');
+                var currentRowIndex = $(this).closest('tr').index();
+                var isInSelectedColumn = selectedCells.some(c => c.data('day-index') === currentColIndex);
+
+                if (!isInSelectedColumn) {
+                    $(this).addClass('disabled-cell');
+                } else {
+                    var cellDateTime = getStartOfWeek(moment().add(weekOffset, 'weeks'))
+                        .add(currentColIndex, 'days')
+                        .hour(parseInt($(this).data('time')));
+
+                    if (currentRowIndex >= minRowIndex - 1 && currentRowIndex <= maxRowIndex + 1) {
+                        if (!$(this).hasClass('disabled-past') && cellDateTime.isSameOrAfter(moment())) {
+                            $(this).removeClass('disabled-cell');
+                        }
+                    } else {
+                        $(this).addClass('disabled-cell');
+                    }
+                }
+            });
+        } else {
+            $('#weekTable td').removeClass('disabled-cell');
+            $('#selectedDate').val('');
+            $('#selectedTime').val('');
+        }
+
+        // Обновляем итоговую информацию и пересчитываем стоимость
         updateSelectedInfo();
-    }
+    });
+
 
     moment.locale('ru');
     var weekOffset = 0;

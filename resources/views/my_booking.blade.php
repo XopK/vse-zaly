@@ -82,11 +82,17 @@
                         <p>Дата бронирования: {{ date('d.m.Y', strtotime($user->booking_start)) }}</p>
                         <p>Время: {{ date('H:i', strtotime($user->booking_start)) }}
                             - {{ date('H:i', strtotime($user->booking_end)) }}</p>
-                        <form action="/delete_booking/{{$user->id}}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Отменить бронь</button>
-                        </form>
+                        @if($user->payment_id)
+                            <form action="/delete_booking/{{$user->id}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Отменить бронь</button>
+                            </form>
+                        @endif
+                        @if($user->link_payment)
+                            <a href="{{$user->link_payment}}" class="theme-btn btn-style-one mt-3"><span
+                                    class="btn-title">Продолжить оплату</span></a>
+                        @endif
                     </div>
                 </li>
             @empty
@@ -133,7 +139,7 @@
                             <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($active->created_at)) }}</p>
                             @if($active->user)
                                 <p><strong><a href="/user/{{$active->user->id}}">{{$active->user->name}}</a> (<a
-                                                href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
+                                            href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
                                 </p>
                                 <p>
                                     <strong>
@@ -150,7 +156,7 @@
                                 </p>
                             @elseif($active->unregister_user)
                                 <p><strong>{{$active->unregister_user->name}}(<a
-                                                href="tel:{{$active->unregister_user->phone}}">{{$active->unregister_user->phone}}</a>)</strong>
+                                            href="tel:{{$active->unregister_user->phone}}">{{$active->unregister_user->phone}}</a>)</strong>
                                 </p>
                                 <p>
                                     <strong>
@@ -196,7 +202,7 @@
                         <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($archive->created_at)) }}</p>
                         @if($archive->user)
                             <p><strong><a href="/user/{{$archive->user->id}}">{{$archive->user->name}}</a> (<a
-                                            href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
+                                        href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
                             </p>
                             <p>
                                 <strong>
@@ -213,7 +219,7 @@
                             </p>
                         @elseif($archive->unregister_user)
                             <p><strong>{{$archive->unregister_user->name}}(<a
-                                            href="tel:{{$archive->unregister_user->phone}}">{{$archive->unregister_user->phone}}</a>)</strong>
+                                        href="tel:{{$archive->unregister_user->phone}}">{{$archive->unregister_user->phone}}</a>)</strong>
                             </p>
                             <p>
                                 <strong>

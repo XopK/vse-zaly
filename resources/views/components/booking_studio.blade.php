@@ -100,7 +100,6 @@
                                        placeholder="Почта" id="userEmailBooking">
                                 <input type="text" name="userPhoneBooking" class="form-control mb-3"
                                        placeholder="+7(___)-___-____" id="userPhoneBooking">
-
                                 <div class="form-check mb-3" style="float: left">
                                     <input type="checkbox" class="form-check-input" id="closeForBooking"
                                            name="closeForBooking">
