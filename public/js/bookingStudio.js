@@ -41,6 +41,10 @@ $(document).ready(function () {
                     cell.addClass('highlight-cell');
                     selectedCells.push(cell);
                 }
+
+                // Обновляем цену ячеек после смены количества человек
+                var newPrice = cell.find('.price').text().replace('₽', '').trim();
+                cellData.price = parseFloat(newPrice); // Обновляем цену для ячейки
             });
 
             $('#selectedDate').val(weekData.formData.selectedDate);
@@ -53,29 +57,13 @@ $(document).ready(function () {
         updateSelectedInfo();
     }
 
+
     var initialIdPrice = $('#peopleCount').find('option:selected').val();
     $('#idPriceHall').val(initialIdPrice);
 
     generateTimeRows();
 
     $('#peopleCount').change(function () {
-        // Очищаем форму
-        clearBookingForm();
-
-        selectedCells = [];
-        selectedCellsByWeek = {};
-
-        // Убираем подсветку со всех ячеек
-        $('#weekTable td').removeClass('highlight-cell');
-
-        $('#selectedDateTime').text('Дата и время: выберите ячейки');
-        $('#selectedDate').val('');
-        $('#selectedTime').val('');
-
-        $('#totalCost').text('0');
-        $('#totalPrice').val('0');
-
-        // Получаем выбранное количество людей и обновляем цены
         var selectedId = $(this).find('option:selected').val();
         $('#idPriceHall').val(selectedId);
 
@@ -87,7 +75,6 @@ $(document).ready(function () {
         });
 
         if (selectedPriceRange) {
-            // Обновляем цены для данного количества людей
             hall.price_weekday = selectedPriceRange.weekday_price;
             hall.price_evening = selectedPriceRange.weekday_evening_price;
             hall.price_weekend = selectedPriceRange.weekend_price;
@@ -96,7 +83,14 @@ $(document).ready(function () {
             console.error('No price range found for this people count.');
         }
 
+        // Перегенерируем строки времени для отображения новых цен
         generateTimeRows();
+
+        // Восстанавливаем выделенные ячейки и обновляем их цены
+        restoreSelectedCellsForWeek();
+
+        // Обновляем информацию о выделенных ячейках и пересчитываем итоговую стоимость
+        updateSelectedInfo();
     });
 
 
@@ -172,6 +166,16 @@ $(document).ready(function () {
                 var isBooked = bookings.some(function (booking) {
                     var start = moment(booking.booking_start);
                     var end = moment(booking.booking_end);
+
+                    if (!booking.is_available) {
+                        var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
+
+                        if (isCellBooked) {
+                            cell.addClass('booked-cell');
+                            cell.text('Закрыто'); // Устанавливаем текст "Закрыто"
+                            return true;
+                        }
+                    }
 
                     // Если текущее время является концом брони, не закрашиваем ячейку
                     if (cellDateTime.isSame(end)) {

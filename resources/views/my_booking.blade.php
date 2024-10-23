@@ -131,20 +131,38 @@
                             <p>Время бронирования: {{ date('H:i', strtotime($active->booking_start)) }}
                                 - {{ date('H:i', strtotime($active->booking_end)) }}</p>
                             <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($active->created_at)) }}</p>
-                            <p><strong><a href="/user/{{$active->user->id}}">{{$active->user->name}}</a> (<a
-                                        href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
-                            </p>
-                            <p>
-                                <strong>
-                                    @if($active->user->email_verified_at)
-                                        <a href="mailto:{{ $active->user->email}}">
-                                            {{$active->user->email}}
-                                        </a>
-                                    @else
-                                        Почта не подтверждена!
-                                    @endif
-                                </strong>
-                            </p>
+                            @if($active->user)
+                                <p><strong><a href="/user/{{$active->user->id}}">{{$active->user->name}}</a> (<a
+                                                href="tel:{{$active->user->phone}}">{{$active->user->phone}}</a>)</strong>
+                                </p>
+                                <p>
+                                    <strong>
+                                        @if($active->user->email_verified_at)
+                                            <a href="mailto:{{ $active->user->email}}">
+                                                {{$active->user->email}}
+                                            </a>
+                                        @else
+                                            <a href="mailto:{{ $active->user->email}}">
+                                                {{$active->user->email}} (почта не подтверждена!)
+                                            </a>
+                                        @endif
+                                    </strong>
+                                </p>
+                            @elseif($active->unregister_user)
+                                <p><strong>{{$active->unregister_user->name}}(<a
+                                                href="tel:{{$active->unregister_user->phone}}">{{$active->unregister_user->phone}}</a>)</strong>
+                                </p>
+                                <p>
+                                    <strong>
+                                        @if($active->unregister_user->email)
+                                            <a href="mailto:{{ $active->unregister_user->email }}">{{ $active->unregister_user->email }}</a>
+                                        @else
+                                            Почта не указана!
+                                        @endif
+                                    </strong>
+                                </p>
+                            @endif
+
                             <form action="/delete_booking/{{$active->id}}" method="post">
                                 @csrf
                                 @method('DELETE')
@@ -176,20 +194,37 @@
                         <p>Время бронирования: {{ date('H:i', strtotime($archive->booking_start)) }}
                             - {{ date('H:i', strtotime($archive->booking_end)) }}</p>
                         <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($archive->created_at)) }}</p>
-                        <p><strong>{{$archive->user->name}} (<a
-                                    href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
-                        </p>
-                        <p>
-                            <strong>
-                                @if($archive->user->email_verified_at)
-                                    <a href="mailto:{{$archive->user->email}}">
-                                        {{$archive->user->email}}
-                                    </a>
-                                @else
-                                    Почта не подтверждена!
-                                @endif
-                            </strong>
-                        </p>
+                        @if($archive->user)
+                            <p><strong><a href="/user/{{$archive->user->id}}">{{$archive->user->name}}</a> (<a
+                                            href="tel:{{$archive->user->phone}}">{{$archive->user->phone}}</a>)</strong>
+                            </p>
+                            <p>
+                                <strong>
+                                    @if($archive->user->email_verified_at)
+                                        <a href="mailto:{{ $archive->user->email}}">
+                                            {{$archive->user->email}}
+                                        </a>
+                                    @else
+                                        <a href="mailto:{{ $archive->user->email}}">
+                                            {{$archive->user->email}} (почта не подтверждена!)
+                                        </a>
+                                    @endif
+                                </strong>
+                            </p>
+                        @elseif($archive->unregister_user)
+                            <p><strong>{{$archive->unregister_user->name}}(<a
+                                            href="tel:{{$archive->unregister_user->phone}}">{{$archive->unregister_user->phone}}</a>)</strong>
+                            </p>
+                            <p>
+                                <strong>
+                                    @if($archive->unregister_user->email)
+                                        <a href="mailto:{{ $archive->unregister_user->email }}">{{ $archive->unregister_user->email }}</a>
+                                    @else
+                                        Почта не указана!
+                                    @endif
+                                </strong>
+                            </p>
+                        @endif
                     </div>
                 </li>
             @empty

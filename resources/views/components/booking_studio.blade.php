@@ -104,7 +104,7 @@
                                 <div class="form-check mb-3" style="float: left">
                                     <input type="checkbox" class="form-check-input" id="closeForBooking"
                                            name="closeForBooking">
-                                    <label class="form-check-label" for="closeForBooking">Закрыть бронь</label>
+                                    <label class="form-check-label" for="closeForBooking">Закрыть на ремонт</label>
                                 </div>
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>

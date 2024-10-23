@@ -204,7 +204,7 @@ class UserController extends Controller
 
         $booking_halls = BookingHall::whereHas('hall.studio', function ($query) use ($userId) {
             $query->where('id_user', $userId);
-        })->with('hall.studio', 'user')->get();
+        })->where('is_available', true)->with('hall.studio', 'user', 'unregister_user')->get();
 
         $activeBookings = $booking_halls->where('is_archive', 0);
         $archivedBookings = $booking_halls->where('is_archive', 1);

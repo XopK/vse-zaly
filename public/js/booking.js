@@ -5,8 +5,6 @@ $(document).ready(function () {
     generateTimeRows();
 
     $('#peopleCount').change(function () {
-        clearBookingForm();
-        selectedCells = [];
 
         var selectedId = $(this).find('option:selected').val();
         $('#idPriceHall').val(selectedId);
@@ -19,20 +17,45 @@ $(document).ready(function () {
         });
 
         if (selectedPriceRange) {
-            // Обновляем цены для данного количества людей
             hall.price_weekday = selectedPriceRange.weekday_price;
             hall.price_evening = selectedPriceRange.weekday_evening_price;
             hall.price_weekend = selectedPriceRange.weekend_price;
             hall.price_weekend_evening = selectedPriceRange.weekend_evening_price;
-            // Перегенерируем строки с новыми ценами
-            generateTimeRows();
+
+            // Обновляем цены только в выбранных ячейках
+            updateSelectedCellPrices(selectedPriceRange);
         } else {
             console.error('No price range found for this people count.');
         }
 
-        $('#weekTable td').removeClass('highlight-cell');
-        generateTimeRows();
     });
+
+    function updateSelectedCellPrices(selectedPriceRange) {
+        var eveningTime = moment(hall.time_evening, 'HH:mm');
+
+        selectedCells.forEach(function (cell) {
+            var dayIndex = cell.data('day-index');
+            var time = moment(cell.data('time'), 'HH:mm');
+            var isWeekend = (dayIndex === 5 || dayIndex === 6);
+            var isEvening = time.isSameOrAfter(eveningTime);
+            var basePrice;
+
+            // Определяем цену на основе дня недели и времени дня
+            if (isWeekend && isEvening) {
+                basePrice = selectedPriceRange.weekend_evening_price;
+            } else if (isWeekend) {
+                basePrice = selectedPriceRange.weekend_price;
+            } else if (isEvening) {
+                basePrice = selectedPriceRange.weekday_evening_price;
+            } else {
+                basePrice = selectedPriceRange.weekday_price;
+            }
+
+            cell.find('.price').text(basePrice + ' ₽');
+        });
+
+        updateSelectedInfo();
+    }
 
     moment.locale('ru');
     var weekOffset = 0;
@@ -90,7 +113,6 @@ $(document).ready(function () {
             return;
         }
 
-        // Получаем выбранное количество человек
         var peopleCount = parseInt($('#peopleCount').val());
 
         // Генерация временных строк с учетом шага
@@ -107,6 +129,10 @@ $(document).ready(function () {
                 var isBooked = bookings.some(function (booking) {
                     var start = moment(booking.booking_start);
                     var end = moment(booking.booking_end);
+
+                    if (!booking.is_available) {
+                        return cellDateTime.isBetween(start, end, null, '[)');
+                    }
 
                     // Если текущее время является концом брони, не закрашиваем ячейку
                     if (cellDateTime.isSame(end)) {

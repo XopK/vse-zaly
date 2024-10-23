@@ -19,7 +19,8 @@ class BookingHall extends Model
         'is_archive',
         'min_people',
         'max_people',
-        'id_unregistered_user'
+        'id_unregistered_user',
+        'is_available'
     ];
 
     protected $dates = ['booking_start', 'booking_end'];

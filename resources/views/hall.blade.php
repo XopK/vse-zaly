@@ -5,7 +5,7 @@
         svg {
             cursor: pointer;
             overflow: visible;
-            
+
 
             #heart {
                 transform-origin: center;
