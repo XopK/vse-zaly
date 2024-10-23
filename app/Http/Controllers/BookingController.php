@@ -32,8 +32,6 @@ class BookingController extends Controller
 
     public function create_booking(Request $request)
     {
-
-        dd($request->all());
         $validated = $request->validate([
             'selectedHall' => 'required',
             'selectedDate' => 'required',
