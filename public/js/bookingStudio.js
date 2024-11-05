@@ -172,7 +172,7 @@ $(document).ready(function () {
                         var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
 
                         if (isCellBooked) {
-                            cell.addClass('booked-cell');
+                            cell.addClass('closed-cell');
                             cell.text('Закрыто'); // Устанавливаем текст "Закрыто"
                             return true;
                         }
@@ -413,6 +413,10 @@ $(document).ready(function () {
         return rowIndex > minRowIndex && rowIndex < maxRowIndex;
     }
 
+    var selectionTimeout;
+    var selectionDelay = 1000;
+    var selectedCellsData = [];
+
     $('#weekTable').on('click', 'td', function () {
         var cell = $(this);
 
@@ -425,6 +429,67 @@ $(document).ready(function () {
             if (userPageUrl) {
                 window.location.href = userPageUrl; // Перенаправляем на страницу забронировавшего
             }
+            return;
+        }
+
+        if (cell.hasClass('closed-cell')) {
+            cell.removeClass('closed-cell');
+            cell.empty();
+
+            // Добавляем цену в ячейку после разблокировки
+            var date = cell.data('date');
+            var time = cell.data('time');
+
+            selectedCellsData.push({date: date, time: time});
+            clearTimeout(selectionTimeout);
+
+            selectionTimeout = setTimeout(function () {
+                $.ajax({
+                    url: '/booking/unlock', // Укажите URL для обработки на сервере
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({cells: selectedCellsData, hall_id: hall.id}),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        console.log(response.message);
+                        selectedCellsData = [];
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Ошибка:", jqXHR.responseJSON.error);
+                    }
+                });
+            }, selectionDelay);
+
+
+            // Определение цены для текущей ячейки
+            var selectedPriceId = $('#peopleCount').val();
+            var selectedPriceRange = hallPrices.find(function (price) {
+                return price.id == selectedPriceId;
+            });
+
+            if (selectedPriceRange) {
+                var isWeekend = moment(date).day() === 6 || moment(date).day() === 0;
+                var eveningTime = moment(hall.time_evening, 'HH:mm');
+                var isEvening = moment(time, 'HH:mm').isSameOrAfter(eveningTime);
+                var price;
+
+                if (isWeekend && isEvening) {
+                    price = selectedPriceRange.weekend_evening_price;
+                } else if (isWeekend) {
+                    price = selectedPriceRange.weekend_price;
+                } else if (isEvening) {
+                    price = selectedPriceRange.weekday_evening_price;
+                } else {
+                    price = selectedPriceRange.weekday_price;
+                }
+
+                cell.append('<div class="price">' + price + ' ₽</div>'); // Добавляем цену
+            } else {
+                console.error("Selected price range not found.");
+            }
+
             return;
         }
 
@@ -537,6 +602,7 @@ $(document).ready(function () {
 
 
     $('#prevWeek, #nextWeek, #currentWeek').click(function () {
+
         saveSelectedCellsForWeek();  // Сохраняем выбранные ячейки для текущей недели
 
 
@@ -554,15 +620,52 @@ $(document).ready(function () {
 
 
     $('#saveChanges').click(function () {
+        event.preventDefault();
+
         saveSelectedCellsForWeek();  // Сохраняем выбранные ячейки для текущей недели перед отправкой
 
-        // Собираем все данные из всех недель
-
         if (selectedCells.length === 0) {
+            alert('Нет выбранных данных для отправки');
             return;
         }
 
-        $('#bookingForm').submit();  // Отправляем форму
+        var formData = $('#bookingForm').serialize();
+
+
+        $.ajax({
+            url: '/booking/for_partner', // Укажите URL для обработки данных на сервере
+            method: 'POST', data: formData, // Отправляем сериализованные данные формы
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Добавление CSRF-токена для безопасности
+            }, success: function (response) {
+
+                const userName = $('#userNameBooking').val(); // Имя пользователя
+                const userPhone = $('#userPhoneBooking').val(); // Номер телефона
+                const totalPrice = $('#totalPrice').val(); // Общая стоимость
+
+                // Помечаем все выбранные ячейки как забронированные, добавляем имя, всплывающую подсказку
+                selectedCells.forEach(function (cell) {
+                    cell.removeClass('highlight-cell'); // Убираем подсветку выбранной ячейки
+                    cell.addClass('booked-cell');       // Добавляем класс забронированной ячейки
+                    cell.text(userName);                // Отображаем имя в ячейке
+                    cell.attr('title', `${userName} ${userPhone} (${totalPrice} ₽)`); // Устанавливаем всплывающую подсказку
+                });
+
+                // Очищаем форму после успешной отправки
+                $('#bookingForm').trigger('reset'); // Сбрасываем все поля формы
+                $('#selectedDateTime').text('Дата и время: выберите ячейки'); // Сбрасываем текст отображения выбранных дат и времени
+                $('#totalCost').text('0'); // Сбрасываем отображаемую общую стоимость
+                $('#totalPrice').val(''); // Очищаем скрытое поле с общей стоимостью
+
+                // Сбрасываем внутренние данные о выбранных ячейках
+                selectedCells = [];
+                selectedCellsByWeek = {};
+
+            }, error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Ошибка при отправке данных:', jqXHR.responseText);
+                alert('Ошибка при отправке данных. Попробуйте еще раз.');
+            }
+        });
     });
 
 

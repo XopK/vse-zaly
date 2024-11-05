@@ -74,6 +74,8 @@ Route::middleware('role:Партнёр')->group(function () {
 
     Route::post('/booking/for_partner', [BookingController::class, 'for_partner'])->name('booking.for_partner');
 
+    Route::post('/booking/unlock', [BookingController::class, 'unlock'])->name('booking.unlock');
+
 });
 
 Route::middleware('check.auth')->group(function () {

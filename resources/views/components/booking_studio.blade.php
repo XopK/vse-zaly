@@ -87,7 +87,7 @@
                         </div>
 
                         <div class="col-md-6 col-sm-12 text-right ">
-                            <form action="/booking/for_partner" method="post" id="bookingForm">
+                            <form method="post" id="bookingForm">
                                 @csrf
                                 <input type="hidden" name="selectedHall" value="{{$hall->id}}">
                                 <input type="hidden" name="selectedDate" id="selectedDate">

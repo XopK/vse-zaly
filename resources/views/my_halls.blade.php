@@ -36,6 +36,55 @@
             }
         }
     </style>
+    <!--Rooms Section-->
+    <section class="rooms-section">
+        <div class="auto-container">
+            <h3>Ваши залы</h3>
+            <div class="row clearfix">
+                @forelse($halls as $hall)
+                    <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+                         data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><a
+                                        href="/my_hall/{{ $hall->id }}-{{ Str::slug($hall->name_hall) }}"><img
+                                            src="/storage/photo_halls/{{ $hall->preview_hall }}"
+                                            alt="{{ $hall->preview_hall }}" title="{{ $hall->name_hall }}"></a>
+                                </figure>
+                            </div>
+                            <div class="lower-box">
+                                <h4>{{ $hall->name_hall }}</h4>
+                                <div class="pricing clearfix">
+                                    <div class="price">Площадь <span>{{ $hall->area_hall }} м²</span></div>
+
+                                </div>
+
+                                <div class="text text-truncate">{{ $hall->description_hall }}</div>
+                                <div class="link-box mb-3"><a
+                                        href="/my_hall/{{ $hall->id }}-{{ Str::slug($hall->name_hall) }}"
+                                        class="theme-btn btn-style-three"><span class="btn-title">Редактировать
+                                            зал</span></a></div>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-danger" style="width: 100%; padding: 15px 0"
+                                            data-toggle="modal" data-target="#warning" data-id="{{ $hall->id }}"
+                                            data-name="{{ $hall->name_hall }}">
+                                        Удалить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="alert alert-warning" role="alert" style="width: 100%">
+                        <strong>Залы отсутствуют!</strong><br>
+                        К сожалению, у вас нет доступных залов. Пожалуйста, добавьте новый зал или свяжитесь с
+                        администрацией для получения помощи.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
     <div class="hall_add">
 
         <div class="my-address contact-2">
@@ -347,57 +396,7 @@
                 </div>
             </form>
         </div>
-
     </div>
-
-    <!--Rooms Section-->
-    <section class="rooms-section" style="margin-top: 20px">
-        <div class="auto-container">
-            <h3>Ваши залы</h3>
-            <div class="row clearfix">
-                @forelse($halls as $hall)
-                    <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
-                         data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><a
-                                        href="/my_hall/{{ $hall->id }}-{{ Str::slug($hall->name_hall) }}"><img
-                                            src="/storage/photo_halls/{{ $hall->preview_hall }}"
-                                            alt="{{ $hall->preview_hall }}" title="{{ $hall->name_hall }}"></a>
-                                </figure>
-                            </div>
-                            <div class="lower-box">
-                                <h4>{{ $hall->name_hall }}</h4>
-                                <div class="pricing clearfix">
-                                    <div class="price">Площадь <span>{{ $hall->area_hall }} м²</span></div>
-
-                                </div>
-
-                                <div class="text text-truncate">{{ $hall->description_hall }}</div>
-                                <div class="link-box mb-3"><a
-                                        href="/my_hall/{{ $hall->id }}-{{ Str::slug($hall->name_hall) }}"
-                                        class="theme-btn btn-style-three"><span class="btn-title">Редактировать
-                                            зал</span></a></div>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn btn-danger" style="width: 100%; padding: 15px 0"
-                                            data-toggle="modal" data-target="#warning" data-id="{{ $hall->id }}"
-                                            data-name="{{ $hall->name_hall }}">
-                                        Удалить
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="alert alert-warning" role="alert" style="width: 100%">
-                        <strong>Залы отсутствуют!</strong><br>
-                        К сожалению, у вас нет доступных залов. Пожалуйста, добавьте новый зал или свяжитесь с
-                        администрацией для получения помощи.
-                    </div>
-                @endforelse
-            </div>
-        </div>
-    </section>
 </x-layout>
 <script src="/js/rangeStep.js"></script>
 <script>

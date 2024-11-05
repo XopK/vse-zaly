@@ -258,77 +258,75 @@ class BookingController extends Controller
 
     public function for_partner(Request $request)
     {
-        if ($request->closeForBooking) {
+        try {
+            if ($request->closeForBooking) {
 
-            $request->validate([
+                $request->validate([
+                    'selectedDate' => 'required',
+                    'selectedTime' => 'required',
+                ], [
+                    'selectedDate' => 'Выберите дату!',
+                    'selectedTime' => 'Выберите время!',
+                ]);
+
+                $dates = explode(', ', $request->selectedDate);
+                $times = explode(', ', $request->selectedTime);
+
+                return response()->json(['success' => 'Зал закрыт для бронирования.'], 200);
+            }
+
+            $validated = $request->validate([
+                'selectedHall' => 'required',
                 'selectedDate' => 'required',
                 'selectedTime' => 'required',
+                'totalPrice' => 'required',
+                'idPriceHall' => 'required',
+                'userNameBooking' => 'required',
+                'userEmailBooking' => 'required',
+                'userPhoneBooking' => 'required',
             ], [
                 'selectedDate' => 'Выберите дату!',
                 'selectedTime' => 'Выберите время!',
+                'userNameBooking' => 'Введите имя!',
+                'userEmailBooking' => 'Введите почту!',
+                'userPhoneBooking' => 'Введите номер телефона!',
             ]);
+
+            $existingUserForPartner = User::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))->first();
+            $hall = Hall::findOrFail($request->selectedHall);
+            $hallPrice = HallPrice::findOrFail($request->idPriceHall);
+            $stepBooking = $hall->step_booking * 60; // Шаг бронирования в минутах
+            $timezone = 'Asia/Yekaterinburg'; // Часовой пояс
+
+            if (!$existingUserForPartner) {
+
+                $unregisteredUser = UnregisteredUser::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))
+                    ->where('email', $request->userEmailBooking)
+                    ->first();
+
+                if (!$unregisteredUser) {
+
+                    $unregisteredUser = UnregisteredUser::create([
+                        'name' => $request->userNameBooking,
+                        'email' => $request->userEmailBooking,
+                        'phone' => $this->normalizePhoneNumber($request->userPhoneBooking),
+                    ]);
+
+                }
+            }
 
             $dates = explode(', ', $request->selectedDate);
             $times = explode(', ', $request->selectedTime);
 
-            // Закрываем зал для бронирования на ремонт
-            return $this->closeBooking($request->selectedHall, $dates, $times);
-        }
-
-        $validated = $request->validate([
-            'selectedHall' => 'required',
-            'selectedDate' => 'required',
-            'selectedTime' => 'required',
-            'totalPrice' => 'required',
-            'idPriceHall' => 'required',
-            'userNameBooking' => 'required',
-            'userEmailBooking' => 'required',
-            'userPhoneBooking' => 'required',
-        ], [
-            'selectedDate' => 'Выберите дату!',
-            'selectedTime' => 'Выберите время!',
-            'userNameBooking' => 'Введите имя!',
-            'userEmailBooking' => 'Введите почту!',
-            'userPhoneBooking' => 'Введите номер телефона!',
-        ]);
-
-        $existingUserForPartner = User::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))->first();
-
-        $hall = Hall::findOrFail($request->selectedHall);
-        $hallPrice = HallPrice::findOrFail($request->idPriceHall);
-        $stepBooking = $hall->step_booking * 60; // Шаг бронирования в минутах
-        $timezone = 'Asia/Yekaterinburg'; // Часовой пояс
-
-        if (!$existingUserForPartner) {
-
-            $unregisteredUser = UnregisteredUser::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))
-                ->where('email', $request->userEmailBooking)
-                ->first();
-
-            if (!$unregisteredUser) {
-
-                $unregisteredUser = UnregisteredUser::create([
-                    'name' => $request->userNameBooking,
-                    'email' => $request->userEmailBooking,
-                    'phone' => $this->normalizePhoneNumber($request->userPhoneBooking),
-                ]);
-
+            // Проверка совпадения количества дат и временных интервалов
+            if (count($dates) != count($times)) {
+                return response()->json(['error' => 'Ошибка при подсчете времени!'], 400);
             }
-        }
 
-        $dates = explode(', ', $request->selectedDate);
-        $times = explode(', ', $request->selectedTime);
+            $totalPriceCalculated = 0;
 
-        // Проверка совпадения количества дат и временных интервалов
-        if (count($dates) != count($times)) {
-            return back()->with('error', 'Ошибка при подсчете времени!');
-        }
-
-        $totalPriceCalculated = 0;
-
-        // Рассчитываем общую стоимость без записи в базу
-        foreach ($dates as $index => $date) {
-            try {
+            // Рассчитываем общую стоимость без записи в базу
+            foreach ($dates as $index => $date) {
                 [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
 
                 // Получаем дату начала и конца бронирования
@@ -337,86 +335,87 @@ class BookingController extends Controller
 
                 // Проверка на пересекающиеся бронирования
                 if ($this->isBookingOverlapping($request->selectedHall, $startDateTime, $endDateTime)) {
-                    return back()->with('error', 'Данная бронь уже занята!');
+                    return response()->json(['error' => 'Данная бронь уже занята!'], 400);
                 }
 
                 // Рассчитываем стоимость для текущей даты
                 $priceForDay = $this->calculateBookingPrice($startDateTime, $endDateTime, $hall, $hallPrice, $stepBooking);
                 $totalPriceCalculated += $priceForDay;
 
-            } catch (\Exception $e) {
-                return back()->with('error', 'Ошибка при обработке даты или времени: ' . $e->getMessage());
             }
-        }
 
-        // Проверяем, совпадает ли общая стоимость с введенной пользователем
-        if ($totalPriceCalculated != (float)$request->totalPrice) {
-            return back()->with('error', 'Рассчитанная стоимость (' . $totalPriceCalculated . ') не совпадает с введенной стоимостью (' . $request->totalPrice . '). Проверьте введенные данные.');
-        }
+            // Проверяем, совпадает ли общая стоимость с введенной пользователем
+            if ($totalPriceCalculated != (float)$request->totalPrice) {
+                return response()->json([
+                    'error' => 'Рассчитанная стоимость (' . $totalPriceCalculated . ') не совпадает с введенной стоимостью (' . $request->totalPrice . '). Проверьте введенные данные.'
+                ], 400);
+            }
 
-        $bookingDetails = [];
+            $bookingDetails = [];
 
-        foreach ($dates as $index => $date) {
-            [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
+            foreach ($dates as $index => $date) {
+                [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
 
-            $startDateTime = $this->createDateTime($date, $startTime, $timezone);
-            $endDateTime = $this->createDateTime($date, $endTime, $timezone);
+                $startDateTime = $this->createDateTime($date, $startTime, $timezone);
+                $endDateTime = $this->createDateTime($date, $endTime, $timezone);
 
-            // Создание записи в базе для каждого дня
-            $priceForDay = $this->calculateBookingPrice($startDateTime, $endDateTime, $hall, $hallPrice, $stepBooking);
+                // Создание записи в базе для каждого дня
+                $priceForDay = $this->calculateBookingPrice($startDateTime, $endDateTime, $hall, $hallPrice, $stepBooking);
 
-            if ($existingUserForPartner) {
+                if ($existingUserForPartner) {
 
-                $booking = BookingHall::create([
-                    'id_hall' => $request->selectedHall,
-                    'id_user' => $existingUserForPartner->id,
+                    $booking = BookingHall::create([
+                        'id_hall' => $request->selectedHall,
+                        'id_user' => $existingUserForPartner->id,
+                        'booking_start' => $startDateTime,
+                        'booking_end' => $endDateTime,
+                        'total_price' => $priceForDay,
+                        'min_people' => $hallPrice->min_people,
+                        'max_people' => $hallPrice->max_people,
+                        'payment_id' => 1,
+                    ]);
+
+                } else {
+
+                    $booking = BookingHall::create([
+                        'id_hall' => $request->selectedHall,
+                        'id_unregistered_user' => $unregisteredUser->id,
+                        'booking_start' => $startDateTime,
+                        'booking_end' => $endDateTime,
+                        'total_price' => $priceForDay,
+                        'min_people' => $hallPrice->min_people,
+                        'max_people' => $hallPrice->max_people,
+                        'payment_id' => 1,
+                    ]);
+
+                }
+
+                $booking->income($priceForDay);
+
+
+                $bookingDetails[] = (object)[
+                    'id' => $booking->id,
+                    'hall' => Hall::find($request->selectedHall),
+                    'user' => $existingUserForPartner ? $existingUserForPartner : $unregisteredUser,
                     'booking_start' => $startDateTime,
                     'booking_end' => $endDateTime,
                     'total_price' => $priceForDay,
+                    'created_at' => $booking->created_at,
                     'min_people' => $hallPrice->min_people,
                     'max_people' => $hallPrice->max_people,
-                    'payment_id' => 1,
-                ]);
+                ];
 
-            } else {
-
-                $booking = BookingHall::create([
-                    'id_hall' => $request->selectedHall,
-                    'id_unregistered_user' => $unregisteredUser->id,
-                    'booking_start' => $startDateTime,
-                    'booking_end' => $endDateTime,
-                    'total_price' => $priceForDay,
-                    'min_people' => $hallPrice->min_people,
-                    'max_people' => $hallPrice->max_people,
-                    'payment_id' => 1,
-                ]);
 
             }
 
-            $booking->income($priceForDay);
+            $userEmail = $existingUserForPartner ? $existingUserForPartner->email : $unregisteredUser->email;
 
+            Mail::to($userEmail)->send(new receiptBookingforPartner($bookingDetails));
 
-            $bookingDetails[] = (object)[
-                'id' => $booking->id,
-                'hall' => Hall::find($request->selectedHall),
-                'user' => $existingUserForPartner ? $existingUserForPartner : $unregisteredUser,
-                'booking_start' => $startDateTime,
-                'booking_end' => $endDateTime,
-                'total_price' => $priceForDay,
-                'created_at' => $booking->created_at,
-                'min_people' => $hallPrice->min_people,
-                'max_people' => $hallPrice->max_people,
-            ];
-
-
+            return response()->json(['success' => 'Бронирование успешно добавлено!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Произошла ошибка: ' . $e->getMessage()], 500);
         }
-
-        $userEmail = $existingUserForPartner ? $existingUserForPartner->email : $unregisteredUser->email;
-
-        Mail::to($userEmail)->send(new receiptBookingforPartner($bookingDetails));
-
-        return back()->with('success', 'Бронирование успешно добавлено!');
-
     }
 
     private function closeBooking($hallId, $dates, $times)
@@ -487,4 +486,97 @@ class BookingController extends Controller
 
         return $totalPrice;
     }
+
+    public function unlock(Request $request)
+    {
+        $data = $request->validate([
+            'cells' => 'required|array|min:1',
+            'cells.*.date' => 'required|date',
+            'cells.*.time' => 'required|date_format:H:i',
+            'hall_id' => 'required|integer'
+        ]);
+
+        $hall = Hall::findOrFail($data['hall_id']);
+        $bookingStepInMinutes = (int)round($hall->step_booking * 60); // Преобразуем шаг в целое число минут
+
+        $unlockedCells = [];
+        $errors = [];
+
+        foreach ($data['cells'] as $cell) {
+            $unlockTime = Carbon::parse("{$cell['date']} {$cell['time']}");
+
+            $booking = BookingHall::where('id_hall', $data['hall_id'])
+                ->where('booking_start', '<=', $unlockTime)
+                ->where('booking_end', '>', $unlockTime)
+                ->first();
+
+            if ($booking) {
+                $bookingStart = Carbon::parse($booking->booking_start);
+                $bookingEnd = Carbon::parse($booking->booking_end);
+
+                $remainingDuration = $bookingStart->diffInMinutes($bookingEnd);
+
+                try {
+                    if ($remainingDuration == $bookingStepInMinutes) {
+                        // Удаляем запись, если остается только одна ячейка
+                        \Log::info('Условие для удаления выполнено, запись с ID: ' . $booking->id . ' удаляется');
+                        $booking->delete();
+                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
+                    } elseif ($unlockTime->eq($bookingStart)) {
+                        // Разблокировка первой ячейки
+                        $booking->booking_start = $unlockTime->addMinutes($bookingStepInMinutes);
+                        $booking->save();
+                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
+                    } elseif ($unlockTime->copy()->addMinutes($bookingStepInMinutes)->eq($bookingEnd)) {
+                        // Разблокировка последней ячейки
+                        $booking->booking_end = $unlockTime;
+                        $booking->save();
+                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
+                    } else {
+                        // Разблокировка ячейки в середине диапазона, разделение записи
+                        BookingHall::create([
+                            'id_hall' => $booking->id_hall,
+                            'booking_start' => $bookingStart,
+                            'booking_end' => $unlockTime,
+                            'payment_id' => $booking->payment_id,
+                            'is_available' => 0
+                        ]);
+
+                        $booking->booking_start = $unlockTime->addMinutes($bookingStepInMinutes);
+                        $booking->save();
+                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
+                    }
+
+                    // Проверка на "пустую" запись после всех обновлений
+                    if ($booking->booking_start == $booking->booking_end) {
+                        $booking->delete();
+                        \Log::info('Запись удалена из-за совпадения start и end.');
+                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
+                    }
+                } catch (\Exception $e) {
+                    \Log::error('Ошибка при обработке ячейки: ' . $e->getMessage());
+                    $errors[] = [
+                        'date' => $cell['date'],
+                        'time' => $cell['time'],
+                        'error' => $e->getMessage()
+                    ];
+                }
+            } else {
+                // Если бронирование не найдено, добавляем в ошибки
+                $errors[] = [
+                    'date' => $cell['date'],
+                    'time' => $cell['time'],
+                    'error' => 'Бронирование не найдено'
+                ];
+            }
+        }
+
+        return response()->json([
+            'message' => count($unlockedCells) > 0 ? 'Выбранные ячейки успешно разблокированы' : 'Не удалось разблокировать ячейки',
+            'unlockedCells' => $unlockedCells,
+            'errors' => $errors
+        ], count($unlockedCells) > 0 ? 200 : 404);
+    }
+
+
 }
