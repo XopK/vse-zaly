@@ -34,6 +34,13 @@
                 </button>
             </div>
             <div class="modal-body" style="padding-top: 0">
+
+                <div id="loadingOverlay"
+                     style="display: none">
+                    <!-- Иконка загрузки -->
+                    <div class="spinner"></div>
+                </div>
+
                 <div class="table-responsive">
                     <div class="sticky-col" style="padding: 15px 0 15px 5px">
                         <button class="btn btn-book" id="prevWeek">&lt;</button>

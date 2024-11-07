@@ -187,7 +187,6 @@ $(document).ready(function () {
 
                     if (isCellBooked) {
                         cell.addClass('booked-cell');
-
                         if (booking.user) {
                             // Для зарегистрированных пользователей
                             cell.text(booking.user.name);
@@ -200,21 +199,6 @@ $(document).ready(function () {
                             cell.removeAttr('data-user-url'); // Не устанавливаем URL для незарегистрированных пользователей
                             cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
                         }
-
-                        cell.click(function () {
-                            var warning = $(this).attr('data-warning');
-                            if (warning) {
-                                // Очистка предыдущих предупреждений и добавление нового в контейнер .alert-container
-                                $('.alert-container').html(`
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>${warning}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `);
-                            }
-                        });
                     }
                     return isCellBooked;
                 });
@@ -419,6 +403,18 @@ $(document).ready(function () {
 
     $('#weekTable').on('click', 'td', function () {
         var cell = $(this);
+        var warning = cell.attr('data-warning');
+
+        if (warning) {
+            $('.alert-container').html(`
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>${warning}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `);
+        }
 
         if (cell.hasClass('disabled-past')) {
             return;
@@ -632,24 +628,72 @@ $(document).ready(function () {
         var formData = $('#bookingForm').serialize();
 
 
+        function showAlert(message, type = 'success') {
+            // Создаем HTML-разметку для сообщения
+            const alertHtml = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+            <strong>${message}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    `;
+            // Вставляем сообщение в контейнер
+            $('.alert-container').html(alertHtml);
+
+            setTimeout(() => {
+                $('.alert-container .alert').alert('close');
+            }, 10000);
+        }
+
+
         $.ajax({
             url: '/booking/for_partner', // Укажите URL для обработки данных на сервере
             method: 'POST', data: formData, // Отправляем сериализованные данные формы
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Добавление CSRF-токена для безопасности
-            }, success: function (response) {
+            },
 
-                const userName = $('#userNameBooking').val(); // Имя пользователя
-                const userPhone = $('#userPhoneBooking').val(); // Номер телефона
-                const totalPrice = $('#totalPrice').val(); // Общая стоимость
+            beforeSend: function () {
+                $('#loadingOverlay').show();
+                $('.modal').animate({scrollTop: 0}, 'slow');
+            },
 
-                // Помечаем все выбранные ячейки как забронированные, добавляем имя, всплывающую подсказку
-                selectedCells.forEach(function (cell) {
-                    cell.removeClass('highlight-cell'); // Убираем подсветку выбранной ячейки
-                    cell.addClass('booked-cell');       // Добавляем класс забронированной ячейки
-                    cell.text(userName);                // Отображаем имя в ячейке
-                    cell.attr('title', `${userName} ${userPhone} (${totalPrice} ₽)`); // Устанавливаем всплывающую подсказку
-                });
+            success: function (response) {
+
+                if (response.booking) {
+                    const userName = $('#userNameBooking').val(); // Имя пользователя
+                    const userPhone = response.phoneUser; // Номер телефона
+                    const totalPrice = $('#totalPrice').val(); // Общая стоимость
+                    const isUnregistered = response.unregister;
+                    const urlUser = isUnregistered ? null : response.urlUser;  // URL для зарегистрированных
+
+                    // Помечаем все выбранные ячейки как забронированные, добавляем имя, всплывающую подсказку
+                    selectedCells.forEach(function (cell) {
+                        cell.removeClass('highlight-cell'); // Убираем подсветку выбранной ячейки
+                        cell.addClass('booked-cell');       // Добавляем класс забронированной ячейки
+                        cell.text(userName);                // Отображаем имя в ячейке
+                        cell.attr('title', `${userName} ${userPhone} (${totalPrice} ₽)`); // Устанавливаем всплывающую подсказку
+
+                        if (isUnregistered) {
+                            cell.removeAttr('data-user-url');
+                            cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
+                        } else {
+                            cell.attr('data-user-url', urlUser);
+                        }
+
+                    });
+                    showAlert('Бронирование успешно добавлено!', 'success');
+                }
+
+                if (response.close) {
+                    selectedCells.forEach(function (cell) {
+                        cell.removeClass('highlight-cell');
+                        cell.addClass('closed-cell');
+                        cell.text('Закрыто');
+                    });
+                    showAlert('Ячейка успешно закрыта!', 'warning');
+                }
 
                 // Очищаем форму после успешной отправки
                 $('#bookingForm').trigger('reset'); // Сбрасываем все поля формы
@@ -663,7 +707,12 @@ $(document).ready(function () {
 
             }, error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Ошибка при отправке данных:', jqXHR.responseText);
-                alert('Ошибка при отправке данных. Попробуйте еще раз.');
+                showAlert('Произошла ошибка при отправке данных.', 'danger');
+                $('#loadingOverlay').hide(); // Скрываем оверлей в случае ошибки
+            },
+
+            complete: function () {
+                $('#loadingOverlay').hide(); // Скрываем оверлей
             }
         });
     });

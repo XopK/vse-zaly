@@ -272,7 +272,11 @@ class BookingController extends Controller
                 $dates = explode(', ', $request->selectedDate);
                 $times = explode(', ', $request->selectedTime);
 
-                return response()->json(['success' => 'Зал закрыт для бронирования.'], 200);
+                if ($this->closeBooking($request->selectedHall, $dates, $times)) {
+                    return response()->json(['success' => 'Зал закрыт для бронирования.', 'close' => true], 200);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Произошла ошибка при закрытии зала.']);
+                }
             }
 
             $validated = $request->validate([
@@ -297,28 +301,30 @@ class BookingController extends Controller
             $hallPrice = HallPrice::findOrFail($request->idPriceHall);
             $stepBooking = $hall->step_booking * 60; // Шаг бронирования в минутах
             $timezone = 'Asia/Yekaterinburg'; // Часовой пояс
+            $userUnregister = false;
+            $urlUser = null;
 
             if (!$existingUserForPartner) {
 
                 $unregisteredUser = UnregisteredUser::where('phone', $this->normalizePhoneNumber($request->userPhoneBooking))
-                    ->where('email', $request->userEmailBooking)
+                    ->orWhere('email', $request->userEmailBooking)
                     ->first();
 
                 if (!$unregisteredUser) {
-
                     $unregisteredUser = UnregisteredUser::create([
                         'name' => $request->userNameBooking,
                         'email' => $request->userEmailBooking,
                         'phone' => $this->normalizePhoneNumber($request->userPhoneBooking),
                     ]);
-
                 }
+
+                $userUnregister = true;
             }
 
             $dates = explode(', ', $request->selectedDate);
             $times = explode(', ', $request->selectedTime);
 
-            // Проверка совпадения количества дат и временных интервалов
+
             if (count($dates) != count($times)) {
                 return response()->json(['error' => 'Ошибка при подсчете времени!'], 400);
             }
@@ -408,11 +414,17 @@ class BookingController extends Controller
 
             }
 
-            $userEmail = $existingUserForPartner ? $existingUserForPartner->email : $unregisteredUser->email;
+            if (!$userUnregister) {
+                $urlUser = route('user.index', ['user' => $existingUserForPartner]);
+            }
 
+            $phoneUser = $this->normalizePhoneNumber($request->userPhoneBooking);
+
+            $userEmail = $existingUserForPartner ? $existingUserForPartner->email : $unregisteredUser->email;
             Mail::to($userEmail)->send(new receiptBookingforPartner($bookingDetails));
 
-            return response()->json(['success' => 'Бронирование успешно добавлено!'], 200);
+            return response()->json(['success' => 'Бронирование успешно добавлено!', 'urlUser' => $urlUser, 'phoneUser' => $phoneUser, 'booking' => true, 'unregister' => $userUnregister], 200);
+
         } catch (\Exception $e) {
             return response()->json(['error' => 'Произошла ошибка: ' . $e->getMessage()], 500);
         }
@@ -422,24 +434,31 @@ class BookingController extends Controller
     {
         $timezone = 'Asia/Yekaterinburg';
 
-        foreach ($dates as $index => $date) {
-            [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
-
-            $startDateTime = $this->createDateTime($date, $startTime, $timezone);
-            $endDateTime = $this->createDateTime($date, $endTime, $timezone);
-
-            $booking = BookingHall::create([
-                'id_hall' => $hallId,
-                'booking_start' => $startDateTime,
-                'booking_end' => $endDateTime,
-                'payment_id' => 2,
-                'is_available' => 0
-            ]);
-
-            $booking->hall->decrement('count_booking');
+        if (count($dates) !== count($times)) {
+            return false;
         }
 
-        return back()->with('success', 'Зал успешно закрыт для ремонта.');
+        try {
+            foreach ($dates as $index => $date) {
+                [$startTime, $endTime] = array_map('trim', explode(' - ', $times[$index]));
+
+                $startDateTime = $this->createDateTime($date, $startTime, $timezone);
+                $endDateTime = $this->createDateTime($date, $endTime, $timezone);
+
+                $booking = BookingHall::create([
+                    'id_hall' => $hallId,
+                    'booking_start' => $startDateTime,
+                    'booking_end' => $endDateTime,
+                    'payment_id' => 2,
+                    'is_available' => 0
+                ]);
+
+                $booking->hall->decrement('count_booking');
+            }
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
 
