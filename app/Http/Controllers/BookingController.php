@@ -167,23 +167,23 @@ class BookingController extends Controller
     {
         $user = Auth::user();
         $isCurrentUser = BookingHall::where('id_user', $user->id)->where('id', $booking->id)->exists();
+        $isPartner = $user->id_role == 2;
 
-        if ($user->id_role == 2) {
-            $isCurrentUser = true;
-        }
-
-        if ($isCurrentUser) {
+        if ($isCurrentUser || $isPartner) {
             $nowTime = Carbon::now();
             $startBooking = Carbon::parse($booking->booking_start);
 
-            if ($nowTime->diffInHours($startBooking, false) >= 24) {
-
-                if ($this->paymentService->cancelPayment($booking->payment_id)) {
+            if ($isPartner || $nowTime->diffInHours($startBooking, false) >= 24) {
+                if ($booking->id_unregistered_user) {
+                    $booking->minusincome($booking->total_price);
+                    $booking->delete();
+                    return redirect('/my_booking')->with('success', 'Бронь отменена.');
+                } elseif ($this->paymentService->cancelPayment($booking->payment_id)) {
                     $booking->minusincome($booking->total_price);
                     $booking->delete();
                     return redirect('/my_booking')->with('success', 'Бронь отменена.');
                 } else {
-                    return redirect('/my_booking')->with('success', 'Бронь отменена.');
+                    return redirect('/my_booking')->with('error', 'Ошибка при отмене платежа.');
                 }
             } else {
                 return redirect('/my_booking')->with('error', 'Бронирование можно отменить только за 24 часа.');
@@ -262,6 +262,7 @@ class BookingController extends Controller
             if ($request->closeForBooking) {
 
                 $request->validate([
+                    'selectedHall' => 'required',
                     'selectedDate' => 'required',
                     'selectedTime' => 'required',
                 ], [
@@ -275,7 +276,7 @@ class BookingController extends Controller
                 if ($this->closeBooking($request->selectedHall, $dates, $times)) {
                     return response()->json(['success' => 'Зал закрыт для бронирования.', 'close' => true], 200);
                 } else {
-                    return response()->json(['success' => false, 'message' => 'Произошла ошибка при закрытии зала.']);
+                    return response()->json(['success' => false, 'message' => 'Произошла ошибка при закрытии зала.', 'close' => false], 400);
                 }
             }
 
@@ -397,6 +398,7 @@ class BookingController extends Controller
                 }
 
                 $booking->income($priceForDay);
+                $booking->hall->increment('count_booking');
 
 
                 $bookingDetails[] = (object)[
@@ -453,7 +455,6 @@ class BookingController extends Controller
                     'is_available' => 0
                 ]);
 
-                $booking->hall->decrement('count_booking');
             }
             return true;
         } catch (\Exception $e) {

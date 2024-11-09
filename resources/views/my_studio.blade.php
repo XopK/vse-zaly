@@ -343,5 +343,7 @@
     });
 </script>
 <script>
-    $("#phone_studio").mask("+7(999)-999-9999");
+    $("#phone_studio").click(function () {
+        $(this).setCursorPosition(3);
+    }).mask("+7(999)-999-9999");
 </script>

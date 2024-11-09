@@ -101,7 +101,7 @@ class SmsController extends Controller
                     $user->phone_verfied = now();
                     $user->save();
 
-                    $unregistered = UnregisteredUser::where('phone', $user->phone)->where('email', $user->email)->first();
+                    $unregistered = UnregisteredUser::where('phone', $user->phone)->orWhere('email', $user->email)->first();
 
                     if ($unregistered) {
                         $bookingUnregistered = $unregistered->bookings;
@@ -110,9 +110,10 @@ class SmsController extends Controller
                             $bo->id_user = $user->id;
                             $bo->save();
                         }
-                    }
 
-                    $unregistered->delete();
+                        $unregistered->delete();
+                        
+                    }
 
                     Auth::login($user);
 

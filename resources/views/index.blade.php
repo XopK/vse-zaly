@@ -283,16 +283,16 @@
                                     <div class="hover-box">
                                         <div class="hover-inner">
                                             <h4>Студия {{$studio->name_studio}}</h4>
-                                            <div class="pricing clearfix">
+                                            {{--<div class="pricing clearfix">
                                                 <div class="price"><span>Оценка студии</span></div>
-                                                <div class="rating">
+                                                --}}{{--<div class="rating">
                                                     <span class="fa fa-star"></span>
                                                     <span class="fa fa-star"></span>
                                                     <span class="fa fa-star"></span>
                                                     <span class="fa fa-star"></span>
                                                     <span class="fa fa-star"></span>
-                                                </div>
-                                            </div>
+                                                </div>--}}{{--
+                                            </div>--}}
                                             <div class="text text-truncate"
                                                  style="max-width: 300px;">{{$studio->description_studio}}</div>
                                             <div class="link-box"><a

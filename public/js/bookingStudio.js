@@ -402,6 +402,7 @@ $(document).ready(function () {
     var selectedCellsData = [];
 
     $('#weekTable').on('click', 'td', function () {
+
         var cell = $(this);
         var warning = cell.attr('data-warning');
 
@@ -650,7 +651,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/booking/for_partner', // Укажите URL для обработки данных на сервере
             method: 'POST', data: formData, // Отправляем сериализованные данные формы
-            headers: {
+            cache: false, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Добавление CSRF-токена для безопасности
             },
 
@@ -685,7 +686,7 @@ $(document).ready(function () {
                     });
                     showAlert('Бронирование успешно добавлено!', 'success');
                 }
-
+                console.log(response);
                 if (response.close) {
                     selectedCells.forEach(function (cell) {
                         cell.removeClass('highlight-cell');
@@ -726,4 +727,6 @@ $(document).tooltip({
         return $(this).attr('title');
     }
 });
+
+
 

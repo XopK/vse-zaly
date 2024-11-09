@@ -117,8 +117,8 @@
                                 </button>
                             </form>
                         </div>
-
                     </div>
+
                 </div>
             </div>
 
@@ -126,7 +126,9 @@
     </div>
 </div>
 <script>
-    $("#userPhoneBooking").mask("+7(999)-999-9999");
+    $("#userPhoneBooking").click(function () {
+        $(this).setCursorPosition(3);
+    }).mask("+7(999)-999-9999");
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ru.min.js"></script>
