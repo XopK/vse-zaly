@@ -10198,6 +10198,26 @@ a:hover {
     color: white;
 }
 
+.btn-unblock {
+
+    background-color: #689dc1;
+    color: white;
+}
+
+.btn-unblock:hover {
+    color: white;
+}
+
+.btn-unblock:focus {
+    box-shadow: none;
+    color: #ffffff;
+}
+
+.btn-unblock.active {
+    background-color: #c64444;
+    color: white;
+}
+
 .btn-book:focus {
     box-shadow: none;
     color: #ffffff;
@@ -10468,4 +10488,11 @@ td .price {
     justify-content: center;
     align-items: center;
 }
+
+.modal-darken {
+    filter: brightness(80%) contrast(90%);
+    transition: filter 0.3s ease;
+}
+
+
 

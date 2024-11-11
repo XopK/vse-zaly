@@ -114,6 +114,8 @@ Route::middleware('check.auth')->group(function () {
 
     Route::delete('/delete_booking/{booking}', [BookingController::class, 'delete_bookings']);
 
+    Route::delete('/delete_booking_partner/{booking}', [BookingController::class, 'delete_bookings_for_partner']);
+
     Route::get('/payment/successful', [BookingController::class, 'payment_successful'])->name('payment.successful');
 
     Route::get('/payment/failed', [BookingController::class, 'payment_failed'])->name('payment.failed');

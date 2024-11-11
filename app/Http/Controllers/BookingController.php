@@ -178,7 +178,7 @@ class BookingController extends Controller
                     $booking->minusincome($booking->total_price);
                     $booking->delete();
                     return redirect('/my_booking')->with('success', 'Бронь отменена.');
-                } elseif ($this->paymentService->cancelPayment($booking->payment_id)) {
+                } elseif ($isPartner || $this->paymentService->cancelPayment($booking->payment_id)) {
                     $booking->minusincome($booking->total_price);
                     $booking->delete();
                     return redirect('/my_booking')->with('success', 'Бронь отменена.');
@@ -190,6 +190,36 @@ class BookingController extends Controller
             }
         } else {
             return redirect('/my_booking')->with('error', 'Ошибка удаления!');
+        }
+    }
+
+    public function delete_bookings_for_partner(BookingHall $booking)
+    {
+        $user = Auth::user();
+        $isCurrentUser = BookingHall::where('id_user', $user->id)->where('id', $booking->id)->exists();
+        $isPartner = $user->id_role == 2;
+
+        if ($isCurrentUser || $isPartner) {
+            $nowTime = Carbon::now();
+            $startBooking = Carbon::parse($booking->booking_start);
+
+            if ($isPartner || $nowTime->diffInHours($startBooking, false) >= 24) {
+                if ($booking->id_unregistered_user) {
+                    $booking->minusincome($booking->total_price);
+                    $booking->delete();
+                    return response()->json(['success' => 'Бронь отменена.'], 200);
+                } elseif ($isPartner || $this->paymentService->cancelPayment($booking->payment_id)) {
+                    $booking->minusincome($booking->total_price);
+                    $booking->delete();
+                    return response()->json(['success' => 'Бронь отменена.'], 200);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Ошибка при отмене платежа.'], 400);
+                }
+            } else {
+                return response()->json(['success' => false, 'message' => 'Бронирование можно отменить только за 24 часа.'], 400);
+            }
+        } else {
+            return response()->json(['success' => false, 'message' => 'Ошибка удаления!'], 400);
         }
     }
 
@@ -425,7 +455,13 @@ class BookingController extends Controller
             $userEmail = $existingUserForPartner ? $existingUserForPartner->email : $unregisteredUser->email;
             Mail::to($userEmail)->send(new receiptBookingforPartner($bookingDetails));
 
-            return response()->json(['success' => 'Бронирование успешно добавлено!', 'urlUser' => $urlUser, 'phoneUser' => $phoneUser, 'booking' => true, 'unregister' => $userUnregister], 200);
+            return response()->json(['success' => 'Бронирование успешно добавлено!',
+                'urlUser' => $urlUser,
+                'phoneUser' => $phoneUser,
+                'booking' => true,
+                'unregister' => $userUnregister,
+                'bookingDetails' => $bookingDetails,
+            ], 200);
 
         } catch (\Exception $e) {
             return response()->json(['error' => 'Произошла ошибка: ' . $e->getMessage()], 500);

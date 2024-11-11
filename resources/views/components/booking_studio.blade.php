@@ -42,11 +42,18 @@
                 </div>
 
                 <div class="table-responsive">
-                    <div class="sticky-col" style="padding: 15px 0 15px 5px">
-                        <button class="btn btn-book" id="prevWeek">&lt;</button>
-                        <button class="btn btn-book" id="currentWeek">Сегодня</button>
-                        <button class="btn btn-book" id="nextWeek">&gt;</button>
+                    <div class="sticky-col d-flex justify-content-between">
+                        <div style="padding: 15px 0 15px 5px">
+                            <button class="btn btn-book" id="prevWeek">&lt;</button>
+                            <button class="btn btn-book" id="currentWeek">Сегодня</button>
+                            <button class="btn btn-book" id="nextWeek">&gt;</button>
+                        </div>
+                        <div style="padding: 15px 5px 15px 5px">
+                            <button class="btn btn-unblock" id="unlockBooking">Режим брони</button>
+                        </div>
                     </div>
+
+
                     <table class="table" id="weekTable">
                         <thead>
                         <tr>
@@ -125,6 +132,27 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите удалить это бронирование?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Подтвердить удаление</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $("#userPhoneBooking").click(function () {
         $(this).setCursorPosition(3);

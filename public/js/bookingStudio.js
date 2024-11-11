@@ -1,5 +1,59 @@
 $(document).ready(function () {
     var selectedCellsByWeek = {}; // Хранение выделенных ячеек по неделям
+    var isUnlockMode = false;
+
+    $('#unlockBooking').click(function () {
+        isUnlockMode = !isUnlockMode; // Переключение значения
+        $(this).toggleClass('active'); // Добавляем или убираем класс 'active'
+
+        if (isUnlockMode) {
+            $(this).text('Режим отмены');
+        } else {
+            $(this).text('Режим брони');
+        }
+    });
+
+    $('#weekTable').on('click', 'td.booked-cell', function () {
+        if (isUnlockMode) {
+            var cell = $(this);
+            var bookingId = cell.data('booking-id');
+            var start = cell.data('start');
+            var end = cell.data('end');
+            var date = cell.data('date');
+            var formattedDate = moment(date).format('DD.MM.YYYY');
+
+            $('#deleteModal .modal-body').text(`Вы уверены, что хотите удалить бронирование ${formattedDate} ${start} - ${end}`);
+            $('#deleteModal').modal('show');
+
+            $('#booking .modal-content').addClass('modal-darken');
+
+            $('#confirmDelete').off('click').on('click', function () {
+                $.ajax({
+                    url: '/delete_booking_partner/' + bookingId, // Correct URL with bookingId
+                    method: 'DELETE', // Use DELETE method
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+                    }, success: function (response) {
+                        showAlert('success', 'Бронь отменена!');
+
+                        $('[data-booking-id="' + bookingId + '"]').removeClass('booked-cell').empty();
+                        
+                        generateTimeRows();
+
+                        restoreSelectedCellsForWeek();
+                        $('#deleteModal').modal('hide');
+                    }, error: function (xhr, status, error) {
+                        showAlert('danger', 'Ошибка брони!');
+                    }
+                });
+            });
+        }
+    });
+
+    $('#deleteModal').on('hidden.bs.modal', function () {
+        $('#booking .modal-content').removeClass('modal-darken');
+    });
+
 
     function saveSelectedCellsForWeek() {
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks')).format('YYYY-MM-DD');
@@ -28,7 +82,6 @@ $(document).ready(function () {
             totalPrice: $('#totalPrice').val()
         };
     }
-
 
     function restoreSelectedCellsForWeek() {
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks')).format('YYYY-MM-DD');
@@ -186,7 +239,17 @@ $(document).ready(function () {
                     var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
 
                     if (isCellBooked) {
+                        var bookingStart = moment(booking.booking_start);
+                        var bookingEnd = moment(booking.booking_end);
+
+                        var formattedStart = bookingStart.format('HH:mm');
+                        var formattedEnd = bookingEnd.format('HH:mm');
+
                         cell.addClass('booked-cell');
+                        cell.attr('data-booking-id', booking.id);
+                        cell.attr('data-start', formattedStart);
+                        cell.attr('data-end', formattedEnd);
+
                         if (booking.user) {
                             // Для зарегистрированных пользователей
                             cell.text(booking.user.name);
@@ -402,6 +465,10 @@ $(document).ready(function () {
     var selectedCellsData = [];
 
     $('#weekTable').on('click', 'td', function () {
+
+        if (isUnlockMode) {
+            return;
+        }
 
         var cell = $(this);
         var warning = cell.attr('data-warning');
@@ -663,27 +730,48 @@ $(document).ready(function () {
             success: function (response) {
 
                 if (response.booking) {
-                    const userName = $('#userNameBooking').val(); // Имя пользователя
-                    const userPhone = response.phoneUser; // Номер телефона
-                    const totalPrice = $('#totalPrice').val(); // Общая стоимость
+                    const bookingDetails = response.bookingDetails;
+                    const userName = $('#userNameBooking').val();
+                    const userPhone = response.phoneUser;
+                    const totalPrice = $('#totalPrice').val();
                     const isUnregistered = response.unregister;
-                    const urlUser = isUnregistered ? null : response.urlUser;  // URL для зарегистрированных
+                    const urlUser = isUnregistered ? null : response.urlUser;
 
-                    // Помечаем все выбранные ячейки как забронированные, добавляем имя, всплывающую подсказку
-                    selectedCells.forEach(function (cell) {
-                        cell.removeClass('highlight-cell'); // Убираем подсветку выбранной ячейки
-                        cell.addClass('booked-cell');       // Добавляем класс забронированной ячейки
-                        cell.text(userName);                // Отображаем имя в ячейке
-                        cell.attr('title', `${userName} ${userPhone} (${totalPrice} ₽)`); // Устанавливаем всплывающую подсказку
+                    // Обходим массив бронирований из ответа
+                    bookingDetails.forEach(function (booking) {
+                        const bookingId = booking.id;
+                        const bookingStart = moment(booking.booking_start);
+                        const bookingEnd = moment(booking.booking_end);
 
-                        if (isUnregistered) {
-                            cell.removeAttr('data-user-url');
-                            cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
-                        } else {
-                            cell.attr('data-user-url', urlUser);
-                        }
+                        const formattedStart = bookingStart.format('HH:mm');
+                        const formattedEnd = bookingEnd.format('HH:mm');
 
+                        selectedCells.forEach(function (cell) {
+                            const cellDate = cell.data('date');
+                            const cellTime = cell.data('time');
+                            const cellDateTime = moment(`${cellDate} ${cellTime}`, 'YYYY-MM-DD HH:mm');
+
+                            // Проверяем, попадает ли ячейка в диапазон бронирования
+                            if (cellDateTime.isBetween(bookingStart, bookingEnd, null, '[)')) {
+                                cell.removeClass('highlight-cell');
+                                cell.addClass('booked-cell');
+                                cell.text(userName);
+                                cell.attr('title', `${userName} ${userPhone} (${totalPrice} ₽)`);
+                                cell.attr('data-booking-id', bookingId);  // Присваиваем id текущего бронирования
+
+                                cell.attr('data-start', formattedStart);
+                                cell.attr('data-end', formattedEnd);
+
+                                if (isUnregistered) {
+                                    cell.removeAttr('data-user-url');
+                                    cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
+                                } else {
+                                    cell.attr('data-user-url', urlUser);
+                                }
+                            }
+                        });
                     });
+
                     showAlert('Бронирование успешно добавлено!', 'success');
                 }
                 console.log(response);
