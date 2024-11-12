@@ -4,6 +4,24 @@ $(document).ready(function () {
 
     generateTimeRows();
 
+    function showAlert(message, type = 'success') {
+        // Создаем HTML-разметку для сообщения
+        const alertHtml = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+            <strong>${message}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    `;
+        // Вставляем сообщение в контейнер
+        $('.alert-container').html(alertHtml);
+
+        setTimeout(() => {
+            $('.alert-container .alert').alert('close');
+        }, 10000);
+    }
+
     $('#peopleCount').change(function () {
         var selectedId = $(this).find('option:selected').val();
         $('#idPriceHall').val(selectedId);
@@ -209,7 +227,7 @@ $(document).ready(function () {
 
         // Ограничение: если начало недели больше, чем две недели от текущей даты, не переключаемся
         if (startOfWeek.isAfter(twoWeeksLater)) {
-            alert('Нельзя выбрать дату более чем на две недели вперёд.');
+            showAlert('Нельзя выбрать дату более чем на две недели вперёд!', 'warning')
             return;
         }
 
@@ -427,7 +445,7 @@ $(document).ready(function () {
 
         // Ограничение: если начало недели больше, чем две недели от текущей даты, не переключаемся
         if (startOfWeek.isAfter(twoWeeksLater)) {
-            alert('Нельзя выбрать дату более чем на две недели вперёд.');
+            showAlert('Нельзя выбрать дату более чем на две недели вперёд', 'warning')
             weekOffset--;  // Отменяем изменение
             return;
         }

@@ -429,6 +429,7 @@ class BookingController extends Controller
 
                 $booking->income($priceForDay);
                 $booking->hall->increment('count_booking');
+                $address = $booking->hall->address_hall;
 
 
                 $bookingDetails[] = (object)[
@@ -438,6 +439,7 @@ class BookingController extends Controller
                     'booking_start' => $startDateTime,
                     'booking_end' => $endDateTime,
                     'total_price' => $priceForDay,
+                    'address' => $address,
                     'created_at' => $booking->created_at,
                     'min_people' => $hallPrice->min_people,
                     'max_people' => $hallPrice->max_people,

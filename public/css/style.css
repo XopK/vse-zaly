@@ -10251,7 +10251,7 @@ a:hover {
 .disabled-past {
     background-color: #eaeaea;
     pointer-events: none;
-    border: none !important;
+    border: 1px solid;
     opacity: 0.6;
 }
 
@@ -10263,7 +10263,7 @@ a:hover {
     opacity: 0.6;
     color: #000000;
     text-align: center;
-    border: none !important;
+    border: 1px solid;
     pointer-events: auto; /* Разрешаем события мыши для tooltips */
     cursor: default; /* Показываем курсор как текстовый */
 }
@@ -10276,7 +10276,7 @@ a:hover {
     opacity: 0.6;
     color: #000000;
     text-align: center;
-    border: none !important;
+    border: 1px solid;
     pointer-events: auto; /* Разрешаем события мыши для tooltips */
     cursor: default; /* Показываем курсор как текстовый */
 }
@@ -10493,6 +10493,8 @@ td .price {
     filter: brightness(80%) contrast(90%);
     transition: filter 0.3s ease;
 }
+
+
 
 
 

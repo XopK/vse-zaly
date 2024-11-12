@@ -3,9 +3,7 @@
     .table td, .table th {
         padding: .50rem;
         vertical-align: top;
-        border: 1px solid #d0d2d8;
-        border-bottom-color: #b1b1b1;
-        border-top-color: #b1b1b1;
+        border: 2px solid #d0d2d8;
     }
 
     .table thead th {

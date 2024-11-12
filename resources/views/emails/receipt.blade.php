@@ -98,10 +98,7 @@
 </head>
 
 <body style="background-color:#f3f3f5;">
-<div
-    style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
-    Чек бронирования
-</div>
+
 <div style="background-color:#f3f3f5;">
     <!--[if mso | IE]>
     <table
@@ -293,7 +290,8 @@
                                                     style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                                     <div
                                                         style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:20px;text-align:left;color:#ffffff;">
-                                                        <p style="margin: 0;">Здравствуйте, {{$booking->user->name}}!<br/>
+                                                        <p style="margin: 0;">Здравствуйте, {{$booking->user->name}}
+                                                            !<br/>
                                                             Благодарим вас за покупку. Пожалуйста, ознакомьтесь с
                                                             описанием вашего заказа ниже. </p>
                                                     </div>
@@ -377,21 +375,25 @@
                                                                     {{-- сам заказ --}}
                                                                     <tr>
                                                                         <td style="color: #ccc; font-size: 15px; line-height: 22px; font-weight: 400; word-break: break-word; width: 50%; padding-top: 10px;"
-                                                                            width="50%"> {{$booking->hall->name_hall}}
+                                                                            width="50%">
+                                                                            {{$booking->hall->name_hall}}
                                                                             ({{$booking->hall->area_hall}}м²)
+                                                                            <br>
+                                                                            {{$booking->hall->address}} <!-- Add address here -->
                                                                         </td>
                                                                         <td style="color: #ccc; font-size: 15px; line-height: 22px; font-weight: 400; word-break: break-word; text-align: right; padding-top: 10px; width: 30%;"
-                                                                            width="30%"
-                                                                            align="right">{{ date('d.m.Y', strtotime($booking->booking_start)) }}
+                                                                            width="30%" align="right">
+                                                                            {{ date('d.m.Y', strtotime($booking->booking_start)) }}
                                                                             <br>
                                                                             {{ date('H:i', strtotime($booking->booking_start)) }}
                                                                             - {{ date('H:i', strtotime($booking->booking_end)) }}
                                                                         </td>
                                                                         <td style="color: #ccc; font-size: 15px; line-height: 22px; font-weight: 400; word-break: break-word; text-align: right; padding-top: 10px; width: 20%;"
-                                                                            width="20%"
-                                                                            align="right">{{$booking->total_price}}₽
+                                                                            width="20%" align="right">
+                                                                            {{$booking->total_price}}₽
                                                                         </td>
                                                                     </tr>
+
                                                                     {{-- конец заказа --}}
                                                                     <tr>
                                                                         <td style="color: #ccc; font-size: 15px; line-height: 22px; font-weight: 400; word-break: break-word; border-bottom-width: 1px; border-bottom-color: #555; border-bottom-style: solid; padding-top: 10px;"></td>

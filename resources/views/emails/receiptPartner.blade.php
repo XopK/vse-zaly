@@ -98,10 +98,7 @@
 </head>
 
 <body style="background-color:#f3f3f5;">
-<div
-    style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
-    Чек бронирования
-</div>
+
 <div style="background-color:#f3f3f5;">
     <!--[if mso | IE]>
     <table
@@ -378,19 +375,22 @@
                                                                     @foreach($bookings as $booking)
                                                                         <tr>
                                                                             <td style="color: #ccc; font-size: 15px; line-height: 22px; font-weight: 400; word-break: break-word; width: 50%; padding-top: 10px;"
-                                                                                width="50%"> {{$booking->hall->name_hall}}
+                                                                                width="50%">
+                                                                                {{$booking->hall->name_hall}}
                                                                                 ({{$booking->hall->area_hall}}м²)
+                                                                                <br>
+                                                                                {{$booking->address}}  <!-- Assuming the address is part of the hall object -->
                                                                             </td>
                                                                             <td style="color: #ccc; font-size: 15px; line-height: 22px; font-weight: 400; word-break: break-word; text-align: right; padding-top: 10px; width: 30%;"
-                                                                                width="30%"
-                                                                                align="right">{{ date('d.m.Y', strtotime($booking->booking_start)) }}
+                                                                                width="30%" align="right">
+                                                                                {{ date('d.m.Y', strtotime($booking->booking_start)) }}
                                                                                 <br>
                                                                                 {{ date('H:i', strtotime($booking->booking_start)) }}
                                                                                 - {{ date('H:i', strtotime($booking->booking_end)) }}
                                                                             </td>
                                                                             <td style="color: #ccc; font-size: 15px; line-height: 22px; font-weight: 400; word-break: break-word; text-align: right; padding-top: 10px; width: 20%;"
-                                                                                width="20%"
-                                                                                align="right">{{$booking->total_price}}₽
+                                                                                width="20%" align="right">
+                                                                                {{$booking->total_price}}₽
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach

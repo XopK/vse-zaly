@@ -93,10 +93,7 @@
 </head>
 
 <body style="background-color:#f3f3f5;">
-<div
-    style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
-    Новая заявка!
-</div>
+
 <div style="background-color:#f3f3f5;">
     <!--[if mso | IE]>
     <table
