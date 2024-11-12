@@ -379,7 +379,7 @@
                                                                             {{$booking->hall->name_hall}}
                                                                             ({{$booking->hall->area_hall}}м²)
                                                                             <br>
-                                                                            {{$booking->hall->address}} <!-- Add address here -->
+                                                                            {{$booking->hall->address_hall}} <!-- Add address here -->
                                                                         </td>
                                                                         <td style="color: #ccc; font-size: 15px; line-height: 22px; font-weight: 400; word-break: break-word; text-align: right; padding-top: 10px; width: 30%;"
                                                                             width="30%" align="right">
