@@ -576,8 +576,7 @@ class BookingController extends Controller
 
                 try {
                     if ($remainingDuration == $bookingStepInMinutes) {
-                        // Удаляем запись, если остается только одна ячейка
-                        \Log::info('Условие для удаления выполнено, запись с ID: ' . $booking->id . ' удаляется');
+                        $booking->disableEvents = true;
                         $booking->delete();
                         $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
                     } elseif ($unlockTime->eq($bookingStart)) {
@@ -605,14 +604,12 @@ class BookingController extends Controller
                         $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
                     }
 
-                    // Проверка на "пустую" запись после всех обновлений
                     if ($booking->booking_start == $booking->booking_end) {
+                        $booking->disableEvents = true;
                         $booking->delete();
-                        \Log::info('Запись удалена из-за совпадения start и end.');
                         $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
                     }
                 } catch (\Exception $e) {
-                    \Log::error('Ошибка при обработке ячейки: ' . $e->getMessage());
                     $errors[] = [
                         'date' => $cell['date'],
                         'time' => $cell['time'],
@@ -620,7 +617,6 @@ class BookingController extends Controller
                     ];
                 }
             } else {
-                // Если бронирование не найдено, добавляем в ошибки
                 $errors[] = [
                     'date' => $cell['date'],
                     'time' => $cell['time'],
@@ -635,6 +631,5 @@ class BookingController extends Controller
             'errors' => $errors
         ], count($unlockedCells) > 0 ? 200 : 404);
     }
-
 
 }

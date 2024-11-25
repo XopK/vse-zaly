@@ -35,7 +35,9 @@ class BookingHall extends Model
         });
 
         static::deleted(function ($booking) {
-            $booking->hall->decrement('count_booking');
+            if (!$booking->disableEvents) {
+                $booking->hall->decrement('count_booking');
+            }
         });
     }
 

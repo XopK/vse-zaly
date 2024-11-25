@@ -461,8 +461,8 @@
         </div>
     </section>
 </x-layout>
-<x-booking :hall="$hall" :bookings="$bookings" :hallPrice="$hallPrice"></x-booking>
 @auth
+    <x-booking :hall="$hall" :bookings="$bookings" :hallPrice="$hallPrice"></x-booking>
     @if(Auth::user()->id_role == 2)
         <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">

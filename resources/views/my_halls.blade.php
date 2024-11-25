@@ -86,12 +86,8 @@
     </section>
 
     <div class="hall_add">
-
         <div class="my-address contact-2">
-            <h3 class="heading-3">Добавить новый зал</h3>
-            <form action="/">
-
-            </form>
+            <h3 class="heading-3" id="addHall">Добавить новый зал</h3>
             <form action="{{ route('create_hall') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if (session('error_create'))
@@ -271,7 +267,8 @@
                         @enderror
                     </div>
                     <div class="col-lg-12 contain-price">
-                        <p>Вы указываете цену за шаг брони!!!</p>
+                        <p>Пожалуйста, укажите стоимость для выбранного шага бронирования! Например, за 30 минут, если
+                            шаг бронирования составляет 30 минут.</p>
                         <!-- Блок, который будет клонироваться -->
                         <div class="form-row align-items-center mb-4" id="price-block">
                             <!-- Часть с количеством людей -->
@@ -439,7 +436,6 @@
 </div>
 
 <script>
-
     document.addEventListener('DOMContentLoaded', function () {
         const textareas = document.querySelectorAll('textarea');
 

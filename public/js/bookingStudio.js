@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var selectedCellsByWeek = {}; // Хранение выделенных ячеек по неделям
+    var bookedCellsByWeek = {};
     var isUnlockMode = false;
 
     $('#unlockBooking').click(function () {
@@ -36,45 +37,11 @@ $(document).ready(function () {
                     }, success: function (response) {
                         showAlert('success', 'Бронь отменена!');
 
-                        // Очищаем все ячейки с этим bookingId
-                        $('#weekTable td').filter(function () {
-                            return $(this).data('booking-id') === bookingId;
-                        }).each(function () {
-                            var cell = $(this);
-                            var date = cell.data('date');
-                            var time = cell.data('time');
-
-                            cell.removeClass('booked-cell')
-                                .removeAttr('data-booking-id data-start data-end title data-warning')
-                                .text('');
-
-                            // Восстанавливаем цену для текущей ячейки
-                            var selectedPriceId = $('#peopleCount').val();
-                            var selectedPriceRange = hallPrices.find(function (price) {
-                                return price.id == selectedPriceId;
-                            });
-
-                            if (selectedPriceRange) {
-                                var isWeekend = moment(date).day() === 6 || moment(date).day() === 0;
-                                var eveningTime = moment(hall.time_evening, 'HH:mm');
-                                var isEvening = moment(time, 'HH:mm').isSameOrAfter(eveningTime);
-                                var price;
-
-                                if (isWeekend && isEvening) {
-                                    price = selectedPriceRange.weekend_evening_price;
-                                } else if (isWeekend) {
-                                    price = selectedPriceRange.weekend_price;
-                                } else if (isEvening) {
-                                    price = selectedPriceRange.weekday_evening_price;
-                                } else {
-                                    price = selectedPriceRange.weekday_price;
-                                }
-
-                                cell.append('<div class="price">' + price + ' ₽</div>'); // Добавляем цену
-                            } else {
-                                console.error("Selected price range not found.");
-                            }
+                        bookings = bookings.filter(function (booking) {
+                            return booking.id !== bookingId;
                         });
+
+                        generateTimeRows();
 
                         $('#deleteModal').modal('hide');
                     }, error: function (xhr, status, error) {
@@ -114,8 +81,15 @@ $(document).ready(function () {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (response) {
-                        console.log(response.message);
                         selectedCellsData = [];
+
+                        bookings = bookings.filter(function (booking) {
+                            // Удаляем запись из bookings, если время попадает в интервал booking_start - booking_end
+                            var start = moment(booking.booking_start);
+                            var end = moment(booking.booking_end);
+                            var cellDateTime = moment(`${date} ${time}`, 'YYYY-MM-DD HH:mm');
+                            return !cellDateTime.isBetween(start, end, null, '[)');
+                        });
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error("Ошибка:", jqXHR.responseJSON.error);
@@ -285,6 +259,8 @@ $(document).ready(function () {
     function generateTimeRows() {
         var tbody = $('#weekTable tbody');
         tbody.empty();
+
+        console.log(bookings)
 
         var now = moment();
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
@@ -769,6 +745,8 @@ $(document).ready(function () {
                     const isUnregistered = response.unregister;
                     const urlUser = isUnregistered ? null : response.urlUser;
 
+                    console.log('ответ', bookingDetails);
+
                     // Обходим массив бронирований из ответа
                     bookingDetails.forEach(function (booking) {
                         const bookingId = booking.id;
@@ -777,6 +755,22 @@ $(document).ready(function () {
 
                         const formattedStart = bookingStart.format('HH:mm');
                         const formattedEnd = bookingEnd.format('HH:mm');
+
+                        if (!isUnregistered) {
+                            booking.user.url = urlUser;
+                        } else {
+                            booking.unregister_user = {
+                                name: booking.user ? booking.user.name : "Имя не указано",
+                                phone: booking.user ? booking.user.phone : "Телефон не указан",
+                                email: booking.user ? booking.user.email : "Email не указан",
+                            };
+
+                            delete booking.user;
+                        }
+
+                        if (booking.is_available === undefined) {
+                            booking.is_available = true;
+                        }
 
                         selectedCells.forEach(function (cell) {
                             const cellDate = cell.data('date');
@@ -802,13 +796,23 @@ $(document).ready(function () {
                                 }
                             }
                         });
+                        bookings.push(booking);
                     });
 
                     showAlert('Бронирование успешно добавлено!', 'success');
                 }
-                console.log(response);
                 if (response.close) {
                     selectedCells.forEach(function (cell) {
+                        const date = cell.data('date');
+                        const time = cell.data('time');
+                        const startTime = `${date} ${time}`;
+                        const endTime = `${date} ${moment(time, 'HH:mm').add(stepbooking, 'hours').format('HH:mm')}`;
+
+                        // Добавляем запись в bookings
+                        bookings.push({
+                            booking_start: startTime, booking_end: endTime, is_available: 0, payment_id: 2
+                        });
+
                         cell.removeClass('highlight-cell');
                         cell.addClass('closed-cell');
                         cell.text('Закрыто');
@@ -825,6 +829,7 @@ $(document).ready(function () {
                 // Сбрасываем внутренние данные о выбранных ячейках
                 selectedCells = [];
                 selectedCellsByWeek = {};
+                generateTimeRows();
 
             }, error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Ошибка при отправке данных:', jqXHR.responseText);
