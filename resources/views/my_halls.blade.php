@@ -87,8 +87,8 @@
 
     <div class="hall_add">
         <div class="my-address contact-2">
-            <h3 class="heading-3" id="addHall">Добавить новый зал</h3>
-            <form action="{{ route('create_hall') }}" method="POST" enctype="multipart/form-data">
+            <h3 class="heading-3">Добавить новый зал</h3>
+            <form id="addHall" action="{{ route('create_hall') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if (session('error_create'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -183,14 +183,16 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="col-lg-12 ">
+                    <div class="col-lg-12">
                         <div class="form-group subject">
                             <h5>Удобства зала</h5>
                             <div class="form-check">
                                 @forelse($features as $feature)
                                     <div class="feature-item my-3">
                                         <input name="features[]" class="form-check-input" type="checkbox"
-                                               value="{{ $feature->id }}" id="defaultCheck{{ $loop->index }}">
+                                               value="{{ $feature->id }}"
+                                               id="defaultCheck{{ $loop->index }}"
+                                               @if(in_array($feature->id, old('features', []))) checked @endif>
                                         <label class="form-check-label" for="defaultCheck{{ $loop->index }}">
                                             {{ $feature->title_feature }}
                                             <img src="/images/features/{{ $feature->photo_feature }}"
@@ -203,6 +205,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-5 col-12">
                         <div class="form-group subject">
                             <label>Шаг бронирования: <span id="step_booking_display" class="font-weight-bold">1
@@ -434,6 +437,20 @@
         </div>
     </div>
 </div>
+
+@if ($errors->any())
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const firstErrorElement = document.querySelector('#addHall');
+            if (firstErrorElement) {
+                firstErrorElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    </script>
+@endif
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

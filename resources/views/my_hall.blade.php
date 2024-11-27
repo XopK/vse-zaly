@@ -41,6 +41,24 @@
                 right: 5px;
             }
         }
+
+        /* Изменение стилей tooltip */
+        .ui-tooltip {
+            text-align: center;
+            font-size: 16px; /* Размер шрифта */
+            border-radius: 5px; /* Скругление углов */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+        }
+
+        /* Изменение стрелки у tooltip */
+        .ui-tooltip-arrow {
+            border-top-color: #333 !important; /* Цвет стрелки */
+        }
+
+        .custom-tooltip {
+            padding: 20px;
+        }
+
     </style>
     <head>
         <link rel="stylesheet"

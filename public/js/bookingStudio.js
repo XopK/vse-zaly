@@ -334,7 +334,7 @@ $(document).ready(function () {
                         } else if (booking.unregister_user) {
                             // Для незарегистрированных пользователей
                             cell.text(booking.unregister_user.name);
-                            cell.attr('title', `${booking.unregister_user.name} ${booking.unregister_user.phone} (${booking.total_price} ₽)`); // Всплывающая подсказка
+                            cell.attr('title', `${booking.unregister_user.name} ${booking.unregister_user.phone}<br>(${booking.total_price}₽ ${formattedStart}-${formattedEnd})`); // Всплывающая подсказка
                             cell.removeAttr('data-user-url'); // Не устанавливаем URL для незарегистрированных пользователей
                             cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
                         }
@@ -850,7 +850,7 @@ $(document).ready(function () {
 $(document).tooltip({
     content: function () {
         return $(this).attr('title');
-    }
+    }, tooltipClass: 'custom-tooltip',
 });
 
 
