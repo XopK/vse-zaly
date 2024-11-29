@@ -10263,7 +10263,6 @@ a:hover {
     opacity: 0.6;
     color: #000000;
     text-align: center;
-    border: 1px solid;
     pointer-events: auto; /* Разрешаем события мыши для tooltips */
     cursor: default; /* Показываем курсор как текстовый */
 }

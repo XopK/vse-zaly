@@ -226,10 +226,9 @@ class BookingController extends Controller
     public function payment_bookings($request, $bookingHall)
     {
         $hall = Hall::where('id', $request->selectedHall)->first();
-
         $amount = $request->totalPrice;
         $orderId = $bookingHall->id;
-        $description = $hall->name_hall . ' ' . '(' . $hall->area_hall . 'кв. м' . ')';
+        $description = $hall->name_hall . ' ' . '(' . $hall->area_hall . ' кв. м' . ') | Дата: ' . $request->selectedDate . ' | Время: ' . $request->selectedTime;
 
         $paymentUrl = $this->paymentService->makePayment($amount, $orderId, $description);
 

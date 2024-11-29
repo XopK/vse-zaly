@@ -27,7 +27,7 @@
                     <h5>Поиск</h5>
 
                     <div class="cd-filter-content">
-                        <input type="search" name="search" placeholder="Напишите зал или студию">
+                        <input type="search" name="search" placeholder="Напишите зал">
                     </div> <!-- cd-filter-content -->
                 </div> <!-- cd-filter-block -->
 

@@ -260,8 +260,6 @@ $(document).ready(function () {
         var tbody = $('#weekTable tbody');
         tbody.empty();
 
-        console.log(bookings)
-
         var now = moment();
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
 
@@ -280,7 +278,15 @@ $(document).ready(function () {
             return;
         }
 
-        // Генерация временных строк с учетом шага
+        function getColorForBookingId(bookingId) {
+            // Генерация цвета на основе остатка от деления
+            var hue = (bookingId * 137) % 360; // Используем число 137, чтобы создать больше разнообразия
+            var saturation = 50 + (bookingId % 50); // Сатурация от 50 до 99
+            var lightness = 40 + (bookingId % 40); // Светлота от 40 до 80
+
+            return `hsl(${hue}, ${saturation}%, ${lightness}%)`; // Формируем цвет в HSL
+        }
+
         for (var time = startTime.clone(); time.isBefore(endTime); time.add(stepMinutes, 'minutes')) {
             var timeLabel = time.format('HH:mm');
             var row = $('<tr></tr>');
@@ -303,6 +309,10 @@ $(document).ready(function () {
                         if (isCellBooked) {
                             cell.addClass('closed-cell');
                             cell.text('Закрыто'); // Устанавливаем текст "Закрыто"
+
+                            if (cellDateTime.isSame(end)) {
+                                end.add(stepMinutes, 'minutes'); // Добавляем шаг времени для конца интервала
+                            }
                             return true;
                         }
                     }
@@ -329,7 +339,7 @@ $(document).ready(function () {
                         if (booking.user) {
                             // Для зарегистрированных пользователей
                             cell.text(booking.user.name);
-                            cell.attr('title', `${booking.user.name} ${booking.user.phone} (${booking.total_price} ₽)`); // Всплывающая подсказка
+                            cell.attr('title', `${booking.user.name} ${booking.user.phone}<br>(${booking.total_price}₽ ${formattedStart}-${formattedEnd})`);
                             cell.attr('data-user-url', booking.user.url);
                         } else if (booking.unregister_user) {
                             // Для незарегистрированных пользователей
@@ -338,6 +348,10 @@ $(document).ready(function () {
                             cell.removeAttr('data-user-url'); // Не устанавливаем URL для незарегистрированных пользователей
                             cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
                         }
+                        var color = getColorForBookingId(booking.id);
+                        cell.css({
+                            'background-color': color, 'border': `1px solid ${color}`, // Рамка вокруг ячейки
+                        });
                     }
                     return isCellBooked;
                 });
@@ -364,6 +378,7 @@ $(document).ready(function () {
                         cell.append('<div class="price">' + basePrice + ' ₽</div>');
                     }
                 }
+
 
                 row.append(cell);
             }
