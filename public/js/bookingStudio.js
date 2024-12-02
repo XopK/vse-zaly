@@ -14,6 +14,10 @@ $(document).ready(function () {
         }
     });
 
+    $('#closeForBooking').on('change', function () {
+        updateSelectedInfo();  // Вызовем функцию для обновления данных
+    });
+
     $('#weekTable').on('click', 'td.booked-cell', function () {
         if (isUnlockMode) {
             var cell = $(this);
@@ -260,7 +264,6 @@ $(document).ready(function () {
         var tbody = $('#weekTable tbody');
         tbody.empty();
 
-        console.log(bookings);
         var now = moment();
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
 
@@ -295,27 +298,17 @@ $(document).ready(function () {
                     var start = moment(booking.booking_start);
                     var end = moment(booking.booking_end);
 
-                    if (!booking.is_available) {
-                        var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
-
+                    if (booking.is_available == 0) {
+                        var isCellBooked = cellDateTime.isBetween(start, end, null, '[]');
                         if (isCellBooked) {
                             cell.addClass('closed-cell');
-                            cell.text('Закрыто'); // Устанавливаем текст "Закрыто"
+                            cell.text('Закрыто'); // Текст "Закрыто" для заблокированных ячеек
 
-                            if (cellDateTime.isSame(end)) {
-                                end.add(stepMinutes, 'minutes'); // Добавляем шаг времени для конца интервала
-                            }
-                            return true;
+                            return true; // Прерываем дальнейшую проверку для заблокированного интервала
                         }
                     }
 
-                    // Если текущее время является концом брони, не закрашиваем ячейку
-                    if (cellDateTime.isSame(end)) {
-                        return false;
-                    }
-
                     var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
-
                     if (isCellBooked) {
 
                         var peopleCount = booking.min_people;  // В данном случае мы работаем с min_people, но можно использовать любое поле
@@ -326,9 +319,6 @@ $(document).ready(function () {
                         if (bookingPriceRange && bookingPriceRange.color) {
                             cell.css('background-color', bookingPriceRange.color);
                         }
-
-                        var minPeople = booking.min_people || null;
-                        var maxPeople = booking.max_people || null;
 
                         var bookingStart = moment(booking.booking_start);
                         var bookingEnd = moment(booking.booking_end);
@@ -413,6 +403,7 @@ $(document).ready(function () {
         var allSelectedInfo = [];
         var totalCost = 0;  // Переменная для общей стоимости
         var bookingStep = stepbooking * 60; // Шаг бронирования в минутах, например 30 минут
+        var isHallClosed = $('#closeForBooking').prop('checked');
 
         // Проходим по всем неделям и собираем данные
         Object.keys(selectedCellsByWeek).forEach(function (weekKey) {
@@ -452,7 +443,14 @@ $(document).ready(function () {
 
                 // Рассчитываем время окончания для каждого выбранного времени с учетом шага бронирования
                 var startTime = moment(times[0], 'HH:mm');
-                var endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем 1 час и шаг бронирования
+                var endTime;
+                if (isHallClosed) {
+                    // Если зал закрыт, не прибавляем шаг бронирования
+                    endTime = moment(times[times.length - 1], 'HH:mm'); // Без добавления шага бронирования
+                } else {
+                    // Если зал открыт для бронирования, добавляем шаг бронирования
+                    endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем шаг бронирования
+                }
 
                 return `${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`;
             }).join(', ');
@@ -464,8 +462,18 @@ $(document).ready(function () {
             // Обновляем div с информацией для пользователя
             var selectedInfoText = allSelectedInfo.map(function (info) {
                 var times = info.times.sort((a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'));
+
                 var startTime = moment(times[0], 'HH:mm');
-                var endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем 1 час и шаг бронирования
+                var endTime;
+
+                if (isHallClosed) {
+                    // Если зал закрыт, не прибавляем шаг бронирования
+                    endTime = moment(times[times.length - 1], 'HH:mm'); // Без добавления шага бронирования
+                } else {
+                    // Если зал открыт для бронирования, добавляем шаг бронирования
+                    endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем шаг бронирования
+                }
+
                 return `${info.date}: ${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`;
             }).join(', ');
 
@@ -658,38 +666,6 @@ $(document).ready(function () {
         }
     });
 
-    $(document).keydown(function (e) {
-        if (selectedCells.length > 0) {
-            var cell = selectedCells[0];
-            var colIndex = cell.data('day-index');
-            var rowIndex = cell.closest('tr').index();
-            var newCell;
-
-            switch (e.key) {
-                case "ArrowUp":
-                    newCell = cell.closest('tr').prev().children().eq(colIndex);
-                    break;
-                case "ArrowDown":
-                    newCell = cell.closest('tr').next().children().eq(colIndex);
-                    break;
-                case "ArrowLeft":
-                    newCell = cell.closest('table').find('tbody tr').eq(rowIndex).children().eq(colIndex - 1);
-                    break;
-                case "ArrowRight":
-                    newCell = cell.closest('table').find('tbody tr').eq(rowIndex).children().eq(colIndex + 1);
-                    break;
-            }
-
-            if (newCell && newCell.length > 0 && !newCell.hasClass('disabled-past')) {
-                cell.removeClass('highlight-cell');
-                newCell.addClass('highlight-cell');
-                selectedCells = [newCell];
-                updateSelectedInfo();
-            }
-        }
-    });
-
-
     $('#prevWeek, #nextWeek, #currentWeek').click(function () {
 
         saveSelectedCellsForWeek();  // Сохраняем выбранные ячейки для текущей недели
@@ -819,17 +795,12 @@ $(document).ready(function () {
                     showAlert('Бронирование успешно добавлено!', 'success');
                 }
                 if (response.close) {
+
+                    response.bookingsСlose.forEach(function (closedBook) {
+                        bookings.push(closedBook);
+                    });
+
                     selectedCells.forEach(function (cell) {
-                        const date = cell.data('date');
-                        const time = cell.data('time');
-                        const startTime = `${date} ${time}`;
-                        const endTime = `${date} ${moment(time, 'HH:mm').add(stepbooking, 'hours').format('HH:mm')}`;
-
-                        // Добавляем запись в bookings
-                        bookings.push({
-                            booking_start: startTime, booking_end: endTime, is_available: 0, payment_id: 2
-                        });
-
                         cell.removeClass('highlight-cell');
                         cell.addClass('closed-cell');
                         cell.text('Закрыто');

@@ -302,10 +302,20 @@ class BookingController extends Controller
                 $dates = explode(', ', $request->selectedDate);
                 $times = explode(', ', $request->selectedTime);
 
-                if ($this->closeBooking($request->selectedHall, $dates, $times)) {
-                    return response()->json(['success' => 'Зал закрыт для бронирования.', 'close' => true], 200);
+                $bookings = $this->closeBooking($request->selectedHall, $dates, $times);
+
+                if ($bookings !== false) {
+                    return response()->json([
+                        'success' => 'Зал закрыт для бронирования.',
+                        'bookingsСlose' => $bookings,
+                        'close' => true
+                    ], 200);
                 } else {
-                    return response()->json(['success' => false, 'message' => 'Произошла ошибка при закрытии зала.', 'close' => false], 400);
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Произошла ошибка при закрытии зала.',
+                        'close' => false
+                    ], 400);
                 }
             }
 
@@ -472,6 +482,7 @@ class BookingController extends Controller
     private function closeBooking($hallId, $dates, $times)
     {
         $timezone = 'Asia/Yekaterinburg';
+        $bookings = [];
 
         if (count($dates) !== count($times)) {
             return false;
@@ -492,8 +503,10 @@ class BookingController extends Controller
                     'is_available' => 0
                 ]);
 
+                $bookings[] = $booking;
+
             }
-            return true;
+            return $bookings;
         } catch (\Exception $e) {
             return false;
         }
