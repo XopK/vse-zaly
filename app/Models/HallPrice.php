@@ -17,6 +17,7 @@ class HallPrice extends Model
         'weekday_evening_price',
         'weekend_price',
         'weekend_evening_price',
+        'color'
     ];
 
     public function hall()

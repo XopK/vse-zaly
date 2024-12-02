@@ -345,12 +345,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class=" mt-4">
+                                                <input type="color" name="color[]"
+                                                       class="form-control custom-input" value="{{$price->color}}">
+                                            </div>
                                             @if($key > 0)
                                                 <button type="button" class="close px-2 delete-price"
                                                         data-id="{{$price->id}}"
                                                         aria-label="Close"><span aria-hidden="true">&times;</span>
                                                 </button>
                                             @endif
+
                                         </div>
                                     @endforeach
 

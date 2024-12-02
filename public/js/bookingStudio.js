@@ -260,6 +260,7 @@ $(document).ready(function () {
         var tbody = $('#weekTable tbody');
         tbody.empty();
 
+        console.log(bookings);
         var now = moment();
         var startOfWeek = getStartOfWeek(moment().add(weekOffset, 'weeks'));
 
@@ -276,15 +277,6 @@ $(document).ready(function () {
         if (!selectedPriceRange) {
             console.error('No price range found for this selection.');
             return;
-        }
-
-        function getColorForBookingId(bookingId) {
-            // Генерация цвета на основе остатка от деления
-            var hue = (bookingId * 137) % 360; // Используем число 137, чтобы создать больше разнообразия
-            var saturation = 50 + (bookingId % 50); // Сатурация от 50 до 99
-            var lightness = 40 + (bookingId % 40); // Светлота от 40 до 80
-
-            return `hsl(${hue}, ${saturation}%, ${lightness}%)`; // Формируем цвет в HSL
         }
 
         for (var time = startTime.clone(); time.isBefore(endTime); time.add(stepMinutes, 'minutes')) {
@@ -325,6 +317,19 @@ $(document).ready(function () {
                     var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
 
                     if (isCellBooked) {
+
+                        var peopleCount = booking.min_people;  // В данном случае мы работаем с min_people, но можно использовать любое поле
+                        var bookingPriceRange = hallPrices.find(function (priceRange) {
+                            return peopleCount >= priceRange.min_people && peopleCount <= priceRange.max_people;
+                        });
+
+                        if (bookingPriceRange && bookingPriceRange.color) {
+                            cell.css('background-color', bookingPriceRange.color);
+                        }
+
+                        var minPeople = booking.min_people || null;
+                        var maxPeople = booking.max_people || null;
+
                         var bookingStart = moment(booking.booking_start);
                         var bookingEnd = moment(booking.booking_end);
 
@@ -348,10 +353,7 @@ $(document).ready(function () {
                             cell.removeAttr('data-user-url'); // Не устанавливаем URL для незарегистрированных пользователей
                             cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
                         }
-                        var color = getColorForBookingId(booking.id);
-                        cell.css({
-                            'background-color': color, 'border': `1px solid ${color}`, // Рамка вокруг ячейки
-                        });
+
                     }
                     return isCellBooked;
                 });

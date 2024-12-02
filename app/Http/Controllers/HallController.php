@@ -47,6 +47,7 @@ class HallController extends Controller
 
     public function create_halls(Request $request)
     {
+
         $validated = $request->validate([
             'name_hall' => 'required',
             'area_hall' => 'required|integer',
@@ -131,7 +132,8 @@ class HallController extends Controller
                 'weekday_price' => $request->weekday_price[$index],
                 'weekday_evening_price' => $request->weekday_evening_price[$index],
                 'weekend_price' => $request->weekend_price[$index],
-                'weekend_evening_price' => $request->weekend_evening_price[$index]
+                'weekend_evening_price' => $request->weekend_evening_price[$index],
+                'color' => $request->color[$index]
             ]);
         }
 
@@ -175,6 +177,7 @@ class HallController extends Controller
             'weekday_evening_price.*' => 'required|numeric|min:0',
             'weekend_price.*' => 'required|numeric|min:0',
             'weekend_evening_price.*' => 'required|numeric|min:0',
+            'color.*' => 'required|string',
         ], [
             'hall_name.required' => 'Введите название зала.',
             'hall_area.required' => 'Введите площадь зала.',
@@ -237,6 +240,7 @@ class HallController extends Controller
                         'weekday_evening_price' => $request->weekday_evening_price[$index],
                         'weekend_price' => $request->weekend_price[$index],
                         'weekend_evening_price' => $request->weekend_evening_price[$index],
+                        'color' => $request->color[$index],
                     ]);
                     $prices->save();
                 }
@@ -249,6 +253,7 @@ class HallController extends Controller
                     'weekday_evening_price' => $request->weekday_evening_price[$index],
                     'weekend_price' => $request->weekend_price[$index],
                     'weekend_evening_price' => $request->weekend_evening_price[$index],
+                    'color' => $request->color[$index],
                 ]);
             }
         }

@@ -314,6 +314,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="px-2">
+                                <input type="color" id="color-picker" name="color[]"
+                                       class="form-control custom-input" value="#ff0000">
+                            </div>
                         </div>
                         <div id="cloned-blocks"></div>
                         <div class="mb-3">
@@ -331,6 +335,7 @@
                                 'weekday_evening_price',
                                 'weekend_price',
                                 'weekend_evening_price',
+                                'color'
                             ];
                             $hasErrors = false;
                             foreach ($fields as $field) {
