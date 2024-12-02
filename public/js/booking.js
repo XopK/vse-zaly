@@ -174,7 +174,7 @@ $(document).ready(function () {
                     var end = moment(booking.booking_end);
 
                     if (!booking.is_available) {
-                        return cellDateTime.isBetween(start, end, null, '[)');
+                        return cellDateTime.isBetween(start, end, null, '[]');
                     }
 
                     // Если текущее время является концом брони, не закрашиваем ячейку
@@ -383,36 +383,6 @@ $(document).ready(function () {
         }
     });
 
-    $(document).keydown(function (e) {
-        if (selectedCells.length > 0) {
-            var cell = selectedCells[0];
-            var colIndex = cell.data('day-index');
-            var rowIndex = cell.closest('tr').index();
-            var newCell;
-
-            switch (e.key) {
-                case "ArrowUp":
-                    newCell = cell.closest('tr').prev().children().eq(colIndex);
-                    break;
-                case "ArrowDown":
-                    newCell = cell.closest('tr').next().children().eq(colIndex);
-                    break;
-                case "ArrowLeft":
-                    newCell = cell.closest('table').find('tbody tr').eq(rowIndex).children().eq(colIndex - 1);
-                    break;
-                case "ArrowRight":
-                    newCell = cell.closest('table').find('tbody tr').eq(rowIndex).children().eq(colIndex + 1);
-                    break;
-            }
-
-            if (newCell && newCell.length > 0 && !newCell.hasClass('disabled-past')) {
-                cell.removeClass('highlight-cell');
-                newCell.addClass('highlight-cell');
-                selectedCells = [newCell];
-                updateSelectedInfo();
-            }
-        }
-    });
 
     function clearBookingForm() {
         $('#totalCost').text('0');
