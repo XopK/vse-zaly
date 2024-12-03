@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
       xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-    <title> Новая заявка! </title>
+    <title> Отмена брони </title>
     <!--[if !mso]><!-- -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!--<![endif]-->
@@ -93,7 +93,6 @@
 </head>
 
 <body style="background-color:#f3f3f5;">
-
 <div style="background-color:#f3f3f5;">
     <!--[if mso | IE]>
     <table
@@ -222,50 +221,37 @@
                                     <div
                                         style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:24px;font-weight:400;line-height:30px;text-align:left;color:#ffffff;">
                                         <h1 style="margin: 0; font-size: 24px; line-height: normal; font-weight: normal;">
-                                            Новая заявка!</h1>
+                                            Отмена брони</h1>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                <td align="center" style="padding: 10px 25px;">
                                     <div
-                                        style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:20px;text-align:left;color:#ffffff;">
-                                        <p style="margin-bottom: 0; font-size: 17px; color: white">Вам пришла новая
-                                            заявка на
-                                            получение статуса
-                                            "Партнёр":</p>
-                                        <ul style="padding-left: 20px; margin-top: 10px; margin-bottom: 0; color: #ffffff">
-                                            <li style="color: #ffffff">Имя: {{$application->user->name}}</li>
-                                            <li style="color: #ffffff">Телефон: {{$application->user->phone}}</li>
-                                            <li style="color: #ffffff">Email: {{$application->user->email}}</li>
-                                            <li style="color: #ffffff">Компания: {{$application->name_studio}}</li>
-                                            <li style="color: #ffffff">
-                                                Деятельность: {{$application->studio_activities}}</li>
-                                            <li style="color: #ffffff">Адрес: {{$application->address}}</li>
-                                        </ul>
+                                        style="background-color: #333333; border-radius: 5px; padding: 20px; text-align: center;">
+                                        <div
+                                            style="font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; color: #ffffff;">
+                                            <p style="margin-bottom: 10px; font-size: 17px;">
+                                                Пользователь {{$booking->user ? $booking->user->name : $booking->unregister_user->name}}
+                                                отменил бронь в зале:</p>
+                                            <div
+                                                style="font-size: 24px; font-weight: bold; color: #d81a67;">
+                                            </div>
+                                            <p style="margin-top: 15px; font-size: 25px;">
+                                                <strong>{{$booking->hall->name_hall}}
+                                                    ({{$booking->hall->area_hall}}м²)</strong></p>
+                                            <p style="margin-top: 15px; font-size: 17px;">
+                                                Дата: {{ date('d.m.Y', strtotime($booking->booking_start)) }}</p>
+                                            <p style="margin-top: 15px; font-size: 17px;">
+                                                Время: {{ date('H:i', strtotime($booking->booking_start)) }}
+                                                - {{ date('H:i', strtotime($booking->booking_end)) }}</p>
+                                            <p style="margin-top: 15px; font-size: 17px;">
+                                                Стоимость: {{$booking->total_price}}₽</p>
+                                        </div>
                                     </div>
                                 </td>
+                            </tr>
 
-                            </tr>
-                            <tr>
-                                <td align="center" vertical-align="middle"
-                                    style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                           style="border-collapse:separate;line-height:100%;">
-                                        <tbody>
-                                        <tr>
-                                            <td align="center" bgcolor="#2e58ff" role="presentation"
-                                                style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#1b1c1e;"
-                                                valign="middle">
-                                                <a href="{{route('admin.studio_requests')}}"
-                                                   style="display: inline-block; background: #808080; color: white; font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: normal; line-height: 30px; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;"
-                                                   target="_blank"> Проверить </a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

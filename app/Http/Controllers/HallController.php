@@ -354,7 +354,7 @@ class HallController extends Controller
             $query->whereDoesntHave('booking_halls', function ($bookingQuery) use ($selectedDate, $selectedTime) {
                 $bookingQuery->whereDate('booking_start', $selectedDate)
                     ->whereTime('booking_start', '<=', $selectedTime)
-                    ->whereTime('booking_end', '>=', $selectedTime);
+                    ->whereTime('booking_end', '>', $selectedTime);
             });
         }
 

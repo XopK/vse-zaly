@@ -40,9 +40,9 @@
             <div class="inner-container clearfix">
                 <!--Logo-->
                 <div class="logo-box">
-                    <div class="logo"><a href="/" title="Аренда залов в Уфе"><img src="/images/logo.png"
-                                                                                  alt="Аренда залов в Уфе" class="logo1"
-                                                                                  title="Аренда залов в Уфе"></a></div>
+                    <div class="logo"><a href="/"><img src="/images/logo.png"
+                                                       alt="Аренда залов в Уфе"
+                                                       class="logo1"></a></div>
                 </div>
                 <div class="nav-outer clearfix">
                     <!--Mobile Navigation Toggler-->
@@ -90,8 +90,7 @@
         <div class="mobile-menu">
             <div class="close-btn"><span class="icon flaticon-targeting-cross"></span></div>
             <div class="menu-backdrop"></div>
-            <div class="nav-logo"><a href="/"><img src="/images/footer_logo.png" alt="logo"
-                                                   title=""></a></div>
+            <div class="nav-logo"><a href="/"><img src="/images/footer_logo.png" alt="logo"></a></div>
             <nav class="menu-box">
                 <div class="menu-outer">
 

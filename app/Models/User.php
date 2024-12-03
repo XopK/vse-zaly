@@ -89,4 +89,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ReportUser::class, 'id_partner');
     }
+
+    public function cancelledBookings()
+    {
+        return $this->hasMany(CancelledBookingHall::class, 'id_user');
+    }
 }

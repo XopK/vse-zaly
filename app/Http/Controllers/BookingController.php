@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\cancellBooking;
+use App\Mail\cancellBookingforPartner;
 use App\Mail\receiptBooking;
 use App\Mail\receiptBookingforPartner;
 use App\Models\BookingHall;
+use App\Models\CancelledBookingHall;
 use App\Models\Hall;
 use App\Models\HallPrice;
 use App\Models\UnregisteredUser;
@@ -166,20 +169,54 @@ class BookingController extends Controller
     public function delete_bookings(BookingHall $booking)
     {
         $user = Auth::user();
-        $isCurrentUser = BookingHall::where('id_user', $user->id)->where('id', $booking->id)->exists();
+        $isCurrentUser = $booking->id_user == $user->id;
         $isPartner = $user->id_role == 2;
+
+        // Загружаем необходимые данные с жадной загрузкой
+        $booking = BookingHall::with('hall.studio.owner', 'user', 'unregister_user')->find($booking->id);
+
+        if (!$booking) {
+            return redirect('/my_booking')->with('error', 'Бронь не найдена.');
+        }
 
         if ($isCurrentUser || $isPartner) {
             $nowTime = Carbon::now();
             $startBooking = Carbon::parse($booking->booking_start);
 
             if ($isPartner || $nowTime->diffInHours($startBooking, false) >= 24) {
+
+                $cancelledBooking = CancelledBookingHall::create([
+                    'id_hall' => $booking->id_hall,
+                    'id_user' => $booking->id_user,
+                    'booking_start' => $booking->booking_start,
+                    'booking_end' => $booking->booking_end,
+                    'total_price' => $booking->total_price,
+                    'payment_id' => $booking->payment_id,
+                    'is_archive' => $booking->is_archive,
+                    'min_people' => $booking->min_people,
+                    'max_people' => $booking->max_people,
+                    'id_unregistered_user' => $booking->id_unregistered_user,
+                ]);
+
+                // Проверяем, отмененная ли бронь для незарегистрированного пользователя
                 if ($booking->id_unregistered_user) {
                     $booking->minusincome($booking->total_price);
+                    if ($booking->unregister_user && $booking->unregister_user->email) {
+                        Mail::to($booking->unregister_user->email)->send(new cancellBooking($booking));
+                    }
+                    if ($booking->hall->studio->owner && $booking->hall->studio->owner->email) {
+                        Mail::to($booking->hall->studio->owner->email)->send(new cancellBookingforPartner($booking));
+                    }
                     $booking->delete();
                     return redirect('/my_booking')->with('success', 'Бронь отменена.');
-                } elseif ($isPartner || $this->paymentService->cancelPayment($booking->payment_id)) {
+                } elseif ($isPartner || $this->paymentService->cancelPayment($booking->payment_id) || $booking->payment_id == 1) {
                     $booking->minusincome($booking->total_price);
+                    if ($booking->user && $booking->user->email) {
+                        Mail::to($booking->user->email)->send(new cancellBooking($booking));
+                    }
+                    if ($booking->hall->studio->owner && $booking->hall->studio->owner->email) {
+                        Mail::to($booking->hall->studio->owner->email)->send(new cancellBookingforPartner($booking));
+                    }
                     $booking->delete();
                     return redirect('/my_booking')->with('success', 'Бронь отменена.');
                 } else {
@@ -193,6 +230,7 @@ class BookingController extends Controller
         }
     }
 
+
     public function delete_bookings_for_partner(BookingHall $booking)
     {
         $user = Auth::user();
@@ -204,14 +242,34 @@ class BookingController extends Controller
             $startBooking = Carbon::parse($booking->booking_start);
 
             if ($isPartner || $nowTime->diffInHours($startBooking, false) >= 24) {
+
+                $cancelledBooking = CancelledBookingHall::create([
+                    'id_hall' => $booking->id_hall,
+                    'id_user' => $booking->id_user,
+                    'booking_start' => $booking->booking_start,
+                    'booking_end' => $booking->booking_end,
+                    'total_price' => $booking->total_price,
+                    'payment_id' => $booking->payment_id,
+                    'is_archive' => $booking->is_archive,
+                    'min_people' => $booking->min_people,
+                    'max_people' => $booking->max_people,
+                    'id_unregistered_user' => $booking->id_unregistered_user,
+                ]);
+
                 if ($booking->id_unregistered_user) {
+
                     $booking->minusincome($booking->total_price);
+                    Mail::to($booking->unregister_user->email)->send(new cancellBooking($booking));
                     $booking->delete();
                     return response()->json(['success' => 'Бронь отменена.'], 200);
+
                 } elseif ($isPartner || $this->paymentService->cancelPayment($booking->payment_id)) {
+
                     $booking->minusincome($booking->total_price);
+                    Mail::to($booking->user->email)->send(new cancellBooking($booking));
                     $booking->delete();
                     return response()->json(['success' => 'Бронь отменена.'], 200);
+
                 } else {
                     return response()->json(['success' => false, 'message' => 'Ошибка при отмене платежа.'], 400);
                 }

@@ -76,6 +76,8 @@ Route::middleware('role:Партнёр')->group(function () {
 
     Route::post('/booking/unlock', [BookingController::class, 'unlock'])->name('booking.unlock');
 
+    Route::get('/cancelledBookings', [StudioController::class, 'cancelledBookings'])->name('cancelledBookings');
+
 });
 
 Route::middleware('check.auth')->group(function () {
@@ -135,7 +137,7 @@ Route::post('/payment/callback', [BookingController::class, 'callback'])->name('
 Route::get('/', [IndexController::class, 'index_view']);
 
 Route::get('/test', function () {
-    return view('test');
+    return view('emails.canclledbookingUser');
 });
 
 Route::get('/about', [IndexController::class, 'about_view']);

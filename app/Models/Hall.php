@@ -68,4 +68,9 @@ class Hall extends Model
     {
         return $this->belongsToMany(Feature::class, 'feature_halls', 'id_hall', 'id_feature');
     }
+
+    public function cancelled()
+    {
+        return $this->hasMany(CancelledBookingHall::class, 'id_hall');
+    }
 }

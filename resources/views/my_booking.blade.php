@@ -125,14 +125,12 @@
                 @endif
                 @forelse($active_bookings as $active)
                     <li>
-                        <a href="/hall/{{$active->hall->id}}-{{Str::slug($active->hall->name_hall)}}">
-                            <div class="booking_photo">
-                                <img src="/storage/photo_halls/{{$active->hall->preview_hall}}"
-                                     alt="{{$active->hall->preview_hall}}" title="{{$active->hall->name_hall}}">
-                            </div>
-                        </a>
+
+
                         <div class="booking_info">
-                            <h4>{{$active->hall->name_hall}}</h4>
+                            <a href="/hall/{{$active->hall->id}}-{{Str::slug($active->hall->name_hall)}}">
+                                <h4>{{$active->hall->name_hall}}</h4>
+                            </a>
                             <p>Дата бронирования: {{ date('d.m.Y', strtotime($active->booking_start)) }}</p>
                             <p>Время бронирования: {{ date('H:i', strtotime($active->booking_start)) }}
                                 - {{ date('H:i', strtotime($active->booking_end)) }}</p>
@@ -188,14 +186,10 @@
         <ul class="booking-list">
             @forelse($archived_bookings as $archive)
                 <li>
-                    <a href="/hall/{{$archive->hall->id}}-{{Str::slug($archive->hall->name_hall)}}">
-                        <div class="booking_photo">
-                            <img src="/storage/photo_halls/{{$archive->hall->preview_hall}}"
-                                 alt="{{$archive->hall->preview_hall}}" title="{{$archive->hall->name_hall}}">
-                        </div>
-                    </a>
                     <div class="booking_info">
-                        <h4>{{$archive->hall->name_hall}}</h4>
+                        <a href="/hall/{{$archive->hall->id}}-{{Str::slug($archive->hall->name_hall)}}">
+                            <h4>{{$archive->hall->name_hall}}</h4>
+                        </a>
                         <p>Дата бронирования: {{ date('d.m.Y', strtotime($archive->booking_start)) }}</p>
                         <p>Время бронирования: {{ date('H:i', strtotime($archive->booking_start)) }}
                             - {{ date('H:i', strtotime($archive->booking_end)) }}</p>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookingHall;
+use App\Models\CancelledBookingHall;
 use App\Models\Feature;
 use App\Models\Hall;
 use App\Models\HallPrice;
@@ -154,5 +155,15 @@ class StudioController extends Controller
         } else {
             return redirect()->back()->with('error', 'Выберите фото!');
         }
+    }
+
+    public function cancelledBookings()
+    {
+
+        $cancelled = CancelledBookingHall::with('user', 'hall', 'unregisteredUser')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('cancelledBooking', ['cancelled' => $cancelled]);
     }
 }

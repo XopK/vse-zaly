@@ -101,6 +101,12 @@
                                             <i class="flaticon-room"></i>Мои залы
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="/cancelledBookings"
+                                           class="{{ Request::is('cancelledBookings') ? 'active' : '' }}">
+                                            <i class="flaticon-cancel"></i>Отмененные брони
+                                        </a>
+                                    </li>
                                 @endif
                                 <li>
                                     <a href="{{ Auth::user()->email_verified_at ? '/change_password' : '/email_confirm' }}"
