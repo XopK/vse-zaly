@@ -20,6 +20,10 @@ class RoleMiddleware
             return $next($request);
         }
 
+        if (Auth::check() && Auth::user()->role->title_role == 'Партнёр') {
+            return $next($request);
+        }
+
         abort(403, 'Нет доступа!');
     }
 }

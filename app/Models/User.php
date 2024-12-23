@@ -94,4 +94,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CancelledBookingHall::class, 'id_user');
     }
+
+    public function staff()
+    {
+        return $this->hasOne(StudioStaff::class, 'user_id');
+    }
 }

@@ -136,10 +136,6 @@ Route::post('/payment/callback', [BookingController::class, 'callback'])->name('
 
 Route::get('/', [IndexController::class, 'index_view']);
 
-Route::get('/test', function () {
-    return view('emails.canclledbookingUser');
-});
-
 Route::get('/about', [IndexController::class, 'about_view']);
 
 Route::get('/terms', function () {
@@ -194,6 +190,9 @@ Route::post('/verify_phone/change', [SmsController::class, 'change_phone']);
 
 Route::get('/halls/filter', [HallController::class, 'filter_halls']);
 
+Route::get('/bookings-list', [StudioController::class, 'bookings_list'])->middleware('role:Сотрудник студии');
+
+Route::get('/bookings_get/{hall}', [StudioController::class, 'bookings_get'])->middleware('role:Сотрудник студии');
 
 
 

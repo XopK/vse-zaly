@@ -70,6 +70,10 @@
                                         <li><a href="/my_halls">Мои залы</a></li>
                                     @endif
 
+                                    @if(Auth::user()->id_role == 4 || Auth::user()->id_role == 2)
+                                        <li><a href="/bookings-list">Список бронирований</a></li>
+                                    @endif
+
                                 @endauth
                                 @guest
                                     <li><a data-toggle="modal" data-target="#logModal">Авторизация</a>

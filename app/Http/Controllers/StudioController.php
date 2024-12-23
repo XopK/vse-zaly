@@ -166,4 +166,41 @@ class StudioController extends Controller
 
         return view('cancelledBooking', ['cancelled' => $cancelled]);
     }
+
+    public function bookings_list()
+    {
+        $user = Auth::user();
+
+        if ($user->studio) {
+            $halls = Hall::where('id_studio', $user->studio->id)->get();
+        } elseif ($user->staff) {
+            $halls = Hall::where('id_studio', $user->staff->studio_id)->get();
+        }
+
+        return view('bookings_list', ['halls' => $halls]);
+    }
+
+    public function bookings_get(Hall $hall)
+    {
+
+        $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user', 'unregister_user')->get();
+
+        foreach ($booking as $b) {
+            if ($b->user) {
+                $b->user->url = route('user.index', ['user' => $b->user->id]);
+            } elseif ($b->unregisteredUser) {
+                $b->warning = 'Этот пользователь не зарегистрирован на сайте.';
+            }
+        }
+
+        $hall_price = HallPrice::where('id_hall', $hall->id)->get();
+
+        return response()->json([
+            'success' => true,
+            'bookings' => $booking,
+            'hall' => $hall,
+            'hall_price' => $hall_price,
+        ]);
+
+    }
 }

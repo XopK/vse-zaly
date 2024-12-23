@@ -164,7 +164,6 @@
     var stepbooking = @json($hall->step_booking);
     var hall = @json($hall);
     var hallPrices = @json($hallPrice);
-
 </script>
 <script src="/js/bookingStudio.js"></script>
 
