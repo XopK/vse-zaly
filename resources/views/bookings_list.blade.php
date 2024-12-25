@@ -41,4 +41,4 @@
         </div>
     </section>
 </x-layout>
-<x-booking_staff/>
+<x-booking_staff></x-booking_staff>

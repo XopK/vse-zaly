@@ -70,7 +70,7 @@
                                         <li><a href="/my_halls">Мои залы</a></li>
                                     @endif
 
-                                    @if(Auth::user()->id_role == 4 || Auth::user()->id_role == 2)
+                                    @if(Auth::user()->id_role == 4)
                                         <li><a href="/bookings-list">Список бронирований</a></li>
                                     @endif
 

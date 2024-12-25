@@ -171,6 +171,7 @@ class BookingController extends Controller
         $user = Auth::user();
         $isCurrentUser = $booking->id_user == $user->id;
         $isPartner = $user->id_role == 2;
+        $isStaff = $user->id_role == 4;
 
         // Загружаем необходимые данные с жадной загрузкой
         $booking = BookingHall::with('hall.studio.owner', 'user', 'unregister_user')->find($booking->id);
@@ -179,11 +180,11 @@ class BookingController extends Controller
             return redirect('/my_booking')->with('error', 'Бронь не найдена.');
         }
 
-        if ($isCurrentUser || $isPartner) {
+        if ($isCurrentUser || $isPartner || $isStaff) {
             $nowTime = Carbon::now();
             $startBooking = Carbon::parse($booking->booking_start);
 
-            if ($isPartner || $nowTime->diffInHours($startBooking, false) >= 24) {
+            if ($isStaff || $isPartner || $nowTime->diffInHours($startBooking, false) >= 24) {
 
                 $cancelledBooking = CancelledBookingHall::create([
                     'id_hall' => $booking->id_hall,
@@ -209,7 +210,7 @@ class BookingController extends Controller
                     }
                     $booking->delete();
                     return redirect('/my_booking')->with('success', 'Бронь отменена.');
-                } elseif ($isPartner || $this->paymentService->cancelPayment($booking->payment_id) || $booking->payment_id == 1) {
+                } elseif ($isStaff || $isPartner || $this->paymentService->cancelPayment($booking->payment_id) || $booking->payment_id == 1) {
                     $booking->minusincome($booking->total_price);
                     if ($booking->user && $booking->user->email) {
                         Mail::to($booking->user->email)->send(new cancellBooking($booking));
@@ -236,12 +237,13 @@ class BookingController extends Controller
         $user = Auth::user();
         $isCurrentUser = BookingHall::where('id_user', $user->id)->where('id', $booking->id)->exists();
         $isPartner = $user->id_role == 2;
+        $isStaff = $user->id_role == 4;
 
-        if ($isCurrentUser || $isPartner) {
+        if ($isCurrentUser || $isPartner || $isStaff) {
             $nowTime = Carbon::now();
             $startBooking = Carbon::parse($booking->booking_start);
 
-            if ($isPartner || $nowTime->diffInHours($startBooking, false) >= 24) {
+            if ($isStaff || $isPartner || $nowTime->diffInHours($startBooking, false) >= 24) {
 
                 $cancelledBooking = CancelledBookingHall::create([
                     'id_hall' => $booking->id_hall,
@@ -263,7 +265,7 @@ class BookingController extends Controller
                     $booking->delete();
                     return response()->json(['success' => 'Бронь отменена.'], 200);
 
-                } elseif ($isPartner || $this->paymentService->cancelPayment($booking->payment_id)) {
+                } elseif ($isStaff || $isPartner || $this->paymentService->cancelPayment($booking->payment_id)) {
 
                     $booking->minusincome($booking->total_price);
                     Mail::to($booking->user->email)->send(new cancellBooking($booking));

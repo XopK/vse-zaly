@@ -190,9 +190,18 @@ Route::post('/verify_phone/change', [SmsController::class, 'change_phone']);
 
 Route::get('/halls/filter', [HallController::class, 'filter_halls']);
 
-Route::get('/bookings-list', [StudioController::class, 'bookings_list'])->middleware('role:Сотрудник студии');
 
-Route::get('/bookings_get/{hall}', [StudioController::class, 'bookings_get'])->middleware('role:Сотрудник студии');
+Route::middleware('role:Сотрудник студии')->group(function () {
+
+    Route::post('/booking/for_partner', [BookingController::class, 'for_partner'])->name('booking.for_partner');
+
+    Route::get('/bookings_get/{hall}', [StudioController::class, 'bookings_get']);
+
+    Route::get('/bookings-list', [StudioController::class, 'bookings_list']);
+
+    Route::post('/booking/unlock', [BookingController::class, 'unlock'])->name('booking.unlock');
+
+});
 
 
 
