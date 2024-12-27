@@ -10493,6 +10493,50 @@ td .price {
     transition: filter 0.3s ease;
 }
 
+.filter-image-box {
+    aspect-ratio: 16 / 9; /* Соотношение сторон */
+    overflow: hidden; /* Скрывает излишки изображения */
+}
+
+.filter-image-box .image-filter img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обрезка изображения с сохранением пропорций */
+}
+
+.no-select {
+    user-select: none; /* Отключает выделение текста */
+    cursor: pointer; /* Сохраняет стиль курсора для интерактивности */
+}
+
+/* Контейнер для обеспечения соотношения сторон */
+.aspect-ratio-box {
+    position: relative;
+    width: 100%; /* Занимает всю ширину родительского контейнера */
+    padding-top: 56.25%; /* Соотношение сторон 16:9 */
+    overflow: hidden; /* Скрывает лишние части изображения */
+}
+
+/* Вложенное содержимое для корректного позиционирования изображения */
+.image-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Изображения внутри контейнера */
+.image-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Масштабирование с сохранением пропорций */
+    display: block; /* Убирает нежелательные отступы */
+}
+
+
+
+
 
 
 

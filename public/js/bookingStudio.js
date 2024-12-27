@@ -3,6 +3,16 @@ $(document).ready(function () {
     var bookedCellsByWeek = {};
     var isUnlockMode = false;
 
+    $('#closeForBooking').on('change', function () {
+        if ($(this).is(':checked')) {
+            $('#reasonInputContainer').hide().removeClass('d-none').fadeIn(300); // Плавное появление
+        } else {
+            $('#reasonInputContainer').fadeOut(300, function () {
+                $(this).addClass('d-none'); // Плавное исчезновение
+            });
+        }
+    });
+
     $('#unlockBooking').click(function () {
         isUnlockMode = !isUnlockMode; // Переключение значения
         $(this).toggleClass('active'); // Добавляем или убираем класс 'active'
@@ -33,6 +43,12 @@ $(document).ready(function () {
             $('#booking .modal-content').addClass('modal-darken');
 
             $('#confirmDelete').off('click').on('click', function () {
+                var button = $(this);
+                var spinner = button.find('.spinner-border');
+
+                spinner.removeClass('d-none');
+                button.prop('disabled', true);
+
                 $.ajax({
                     url: '/delete_booking_partner/' + bookingId, // Correct URL with bookingId
                     method: 'DELETE', // Use DELETE method
@@ -48,8 +64,14 @@ $(document).ready(function () {
                         generateTimeRows();
 
                         $('#deleteModal').modal('hide');
+                        spinner.addClass('d-none');
+                        button.prop('disabled', false);
+
                     }, error: function (xhr, status, error) {
                         showAlert('danger', 'Ошибка отмены!');
+
+                        spinner.addClass('d-none');
+                        button.prop('disabled', false);
                     }
                 });
             });
@@ -475,9 +497,9 @@ $(document).ready(function () {
                 }
 
                 return `${info.date}: ${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`;
-            }).join(', ');
+            }).join('<br>'); // Используем <br> для разрыва строки
 
-            $('#selectedDateTime').html('Дата и время: ' + selectedInfoText);
+            $('#selectedDateTime').html('Дата и время:<br>' + selectedInfoText);
         } else {
             $('#selectedDate').val('');
             $('#selectedTime').val('');
@@ -696,7 +718,6 @@ $(document).ready(function () {
 
         var formData = $('#bookingForm').serialize();
 
-
         function showAlert(message, type = 'success') {
             // Создаем HTML-разметку для сообщения
             const alertHtml = `
@@ -805,6 +826,11 @@ $(document).ready(function () {
                         cell.addClass('closed-cell');
                         cell.text('Закрыто');
                     });
+
+                    $('#reasonInputContainer').fadeOut(300, function () {
+                        $(this).addClass('d-none'); // Плавное исчезновение
+                    });
+
                     showAlert('Ячейка успешно закрыта!', 'warning');
                 }
 
@@ -813,6 +839,7 @@ $(document).ready(function () {
                 $('#selectedDateTime').text('Дата и время: выберите ячейки'); // Сбрасываем текст отображения выбранных дат и времени
                 $('#totalCost').text('0'); // Сбрасываем отображаемую общую стоимость
                 $('#totalPrice').val(''); // Очищаем скрытое поле с общей стоимостью
+
 
                 // Сбрасываем внутренние данные о выбранных ячейках
                 selectedCells = [];

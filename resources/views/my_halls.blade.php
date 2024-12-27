@@ -37,7 +37,7 @@
         }
     </style>
     <!--Rooms Section-->
-    <section class="rooms-section">
+    <section class="rooms-section" style="padding: 60px 0">
         <div class="auto-container">
             <h3>Ваши залы</h3>
             <div class="row clearfix">
@@ -45,8 +45,8 @@
                     <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
                          data-wow-duration="1500ms">
                         <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><a
+                            <div class="image-box image-container aspect-ratio-box">
+                                <figure class="image image-content"><a
                                         href="/my_hall/{{ $hall->id }}-{{ Str::slug($hall->name_hall) }}"><img
                                             src="/storage/photo_halls/{{ $hall->preview_hall }}"
                                             alt="{{ $hall->preview_hall }}" title="{{ $hall->name_hall }}"></a>

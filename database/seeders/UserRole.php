@@ -17,6 +17,7 @@ class UserRole extends Seeder
             ['title_role' => 'Пользователь'],
             ['title_role' => 'Партнёр'],
             ['title_role' => 'Администратор'],
+            ['title_role' => 'Сотрудник студии']
         ]);
     }
 }

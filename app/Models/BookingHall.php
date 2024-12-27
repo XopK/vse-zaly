@@ -21,7 +21,8 @@ class BookingHall extends Model
         'max_people',
         'id_unregistered_user',
         'is_available',
-        'link_payment'
+        'link_payment',
+        'reason_close'
     ];
 
     protected $dates = ['booking_start', 'booking_end'];

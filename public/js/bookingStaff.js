@@ -9,6 +9,16 @@ $(document).ready(function () {
     var selectedCells = [];
     var isUnlockMode = false;
 
+    $('#closeForBooking').on('change', function () {
+        if ($(this).is(':checked')) {
+            $('#reasonInputContainer').hide().removeClass('d-none').fadeIn(300); // Плавное появление
+        } else {
+            $('#reasonInputContainer').fadeOut(300, function () {
+                $(this).addClass('d-none'); // Плавное исчезновение
+            });
+        }
+    });
+
     function showAlert(message, type = 'success') {
         // Создаем HTML-разметку для сообщения
         const alertHtml = `
@@ -38,7 +48,7 @@ $(document).ready(function () {
 
         weekOffset = 0;
         loadWeek(weekOffset);
-        
+
         $.ajax({
             url: '/bookings_get/' + hallId, method: 'GET', beforeSend: function () {
                 // Скрываем таблицу с анимацией перед обновлением
@@ -123,11 +133,15 @@ $(document).ready(function () {
             $('#booking .modal-content').addClass('modal-darken');
 
             $('#confirmDelete').off('click').on('click', function () {
+                var button = $(this);
+                var spinner = button.find('.spinner-border');
+
+                spinner.removeClass('d-none');
+                button.prop('disabled', true);
+
                 $.ajax({
-                    url: '/delete_booking_partner/' + bookingId, // Correct URL with bookingId
-                    method: 'DELETE', // Use DELETE method
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+                    url: '/delete_booking_partner/' + bookingId, method: 'DELETE', data: {
+                        _token: $('meta[name="csrf-token"]').attr('content')
                     }, success: function (response) {
                         showAlert('Бронь отменена!', 'success');
 
@@ -138,8 +152,13 @@ $(document).ready(function () {
                         generateTimeRows();
 
                         $('#deleteModal').modal('hide');
+                        spinner.addClass('d-none');
+                        button.prop('disabled', false);
                     }, error: function (xhr, status, error) {
                         showAlert('Ошибка отмены!', 'danger');
+
+                        spinner.addClass('d-none');
+                        button.prop('disabled', false);
                     }
                 });
             });
@@ -178,7 +197,7 @@ $(document).ready(function () {
                         selectedCellsData = [];
 
                         bookings = bookings.filter(function (booking) {
-                            // Удаляем запись из bookings, если время попадает в интервал booking_start - booking_end
+
                             var start = moment(booking.booking_start);
                             var end = moment(booking.booking_end);
                             var cellDateTime = moment(`${date} ${time}`, 'YYYY-MM-DD HH:mm');
@@ -538,6 +557,7 @@ $(document).ready(function () {
             $('#selectedTime').val(allTimes);
 
             // Обновляем div с информацией для пользователя
+            // Обновляем div с информацией для пользователя
             var selectedInfoText = allSelectedInfo.map(function (info) {
                 var times = info.times.sort((a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'));
 
@@ -553,9 +573,10 @@ $(document).ready(function () {
                 }
 
                 return `${info.date}: ${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`;
-            }).join(', ');
+            }).join('<br>'); // Используем <br> для разрыва строки
 
-            $('#selectedDateTime').html('Дата и время: ' + selectedInfoText);
+            $('#selectedDateTime').html('Дата и время:<br>' + selectedInfoText);
+
         } else {
             $('#selectedDate').val('');
             $('#selectedTime').val('');
@@ -864,6 +885,11 @@ $(document).ready(function () {
                         cell.addClass('closed-cell');
                         cell.text('Закрыто');
                     });
+
+                    $('#reasonInputContainer').fadeOut(300, function () {
+                        $(this).addClass('d-none'); // Плавное исчезновение
+                    });
+
                     showAlert('Ячейка успешно закрыта!', 'warning');
                 }
 

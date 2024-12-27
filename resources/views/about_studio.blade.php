@@ -58,7 +58,6 @@
                                     src="/storage/photo_studios/{{$studio_info->photo_studio}}"
                                     alt="{{$studio_info->photo_studio}}" title="{{$studio_info->name_studio}}">
                             </figure>
-
                         </div>
                     </div>
                 </div>
@@ -72,8 +71,9 @@
             <div class="room-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
                  data-wow-duration="1500ms">
                 <div class="inner-box">
-                    <div class="image-box">
-                        <figure class="image"><a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"><img
+                    <div class="image-box image-container aspect-ratio-box">
+                        <figure class="image image-content"><a
+                                href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"><img
                                     src="/storage/photo_halls/{{$hall->preview_hall}}" alt="{{$hall->preview_hall}}"
                                     title="{{$hall->name_hall}}"></a>
                         </figure>

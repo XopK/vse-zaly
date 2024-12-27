@@ -354,15 +354,17 @@ class BookingController extends Controller
                     'selectedHall' => 'required',
                     'selectedDate' => 'required',
                     'selectedTime' => 'required',
+                    'reasonInput' => 'required',
                 ], [
-                    'selectedDate' => 'Выберите дату!',
-                    'selectedTime' => 'Выберите время!',
+                    'selectedDate.required' => 'Выберите дату!',
+                    'selectedTime.required' => 'Выберите время!',
+                    'reasonInput.required' => 'Введите причину!'
                 ]);
 
                 $dates = explode(', ', $request->selectedDate);
                 $times = explode(', ', $request->selectedTime);
 
-                $bookings = $this->closeBooking($request->selectedHall, $dates, $times);
+                $bookings = $this->closeBooking($request->selectedHall, $dates, $times, $request->reasonInput);
 
                 if ($bookings !== false) {
                     return response()->json([
@@ -539,8 +541,9 @@ class BookingController extends Controller
         }
     }
 
-    private function closeBooking($hallId, $dates, $times)
+    private function closeBooking($hallId, $dates, $times, $reason)
     {
+
         $timezone = 'Asia/Yekaterinburg';
         $bookings = [];
 
@@ -560,8 +563,11 @@ class BookingController extends Controller
                     'booking_start' => $startDateTime,
                     'booking_end' => $endDateTime,
                     'payment_id' => 2,
-                    'is_available' => 0
+                    'is_available' => 0,
+                    'reason_close' => $reason,
                 ]);
+
+                logger()->info('Booking created:', ['booking' => $booking]);
 
                 $bookings[] = $booking;
 

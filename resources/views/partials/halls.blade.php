@@ -7,8 +7,8 @@
          data-studio="{{ Str::slug($hall->studio->name_studio) }}"
          data-address="{{ strtolower($hall->address_hall) }}">
         <div class="inner-box">
-            <div class="image-box">
-                <figure class="image">
+            <div class="image-box filter-image-box">
+                <figure class="image image-filter">
                     <a href="/hall/{{$hall->id}}-{{Str::slug($hall->name_hall)}}"><img
                             src="/storage/photo_halls/{{$hall->preview_hall}}"
                             alt="{{$hall->preview_hall}}"

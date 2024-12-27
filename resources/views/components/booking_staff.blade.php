@@ -109,8 +109,12 @@
                                 <div class="form-check mb-3" style="float: left">
                                     <input type="checkbox" class="form-check-input" id="closeForBooking"
                                            name="closeForBooking">
-                                    <label class="form-check-label" for="closeForBooking">Отметить как недоступный для
-                                        бронирования</label>
+                                    <label class="form-check-label no-select" for="closeForBooking">Отметить как
+                                        недоступный для бронирования</label>
+                                </div>
+                                <div class="form-group mb-3 d-none" id="reasonInputContainer">
+                                    <input type="text" class="form-control" id="reasonInput" name="reasonInput"
+                                           placeholder="Введите причину закрытия">
                                 </div>
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>
@@ -140,7 +144,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">Подтвердить удаление</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    Подтвердить удаление
+                </button>
             </div>
         </div>
     </div>
