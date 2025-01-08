@@ -78,6 +78,14 @@ Route::middleware('role:Партнёр')->group(function () {
 
     Route::get('/cancelledBookings', [StudioController::class, 'cancelledBookings'])->name('cancelledBookings');
 
+    Route::get('/list_employee', [StudioController::class, 'list_employee'])->name('list_employee');
+
+    Route::get('/search-users', [StudioController::class, 'search_users'])->name('search_users');
+
+    Route::post('/add_studio_staff', [StudioController::class, 'add_studio_staff'])->name('add_studio_staff');
+
+    Route::patch('/remove-studio-staff', [StudioController::class, 'remove_studio_staff'])->name('remove_studio_staff');
+
 });
 
 Route::middleware('check.auth')->group(function () {

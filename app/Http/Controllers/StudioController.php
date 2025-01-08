@@ -8,6 +8,8 @@ use App\Models\Feature;
 use App\Models\Hall;
 use App\Models\HallPrice;
 use App\Models\Studio;
+use App\Models\StudioStaff;
+use App\Models\User;
 use App\Traits\PhoneNormalizerTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -202,5 +204,79 @@ class StudioController extends Controller
             'hall_price' => $hall_price,
         ]);
 
+    }
+
+    public function list_employee()
+    {
+        $listEmployees = StudioStaff::where('studio_id', Auth::user()->studio->id)->paginate(10);
+        return view('list-employee', ['employees' => $listEmployees]);
+    }
+
+    public function search_users(Request $request)
+    {
+        $query = $request->input('query');
+
+        $staffUserIds = StudioStaff::pluck('user_id')->toArray();
+
+        $users = User::where(function ($queryBuilder) use ($query) {
+            $queryBuilder->where('name', 'LIKE', "%{$query}%")
+                ->orWhere('email', 'LIKE', "%{$query}%")
+                ->orWhere('phone', 'LIKE', "%{$this->normalizePhoneNumber($query)}%");
+        })
+            ->whereNotIn('id', $staffUserIds) // Исключаем сотрудников
+            ->whereNotIn('id_role', ['3', '2']) // Исключаем владельца студии и администратора
+            ->limit(10)
+            ->get(['id', 'name', 'email', 'phone']); // Выбираем только нужные поля
+
+        return response()->json($users);
+    }
+
+    public function add_studio_staff(Request $request)
+    {
+        $user = Auth::user();
+        $employee = User::find($request->user_id);
+
+        if (!$user->studio) {
+            return redirect()->back()->with('error', 'У вас нет доступа к этой студии!');
+        }
+
+        if (!$employee) {
+            return redirect()->back()->with('error', 'Пользователь не найден.');
+        }
+
+        if ($employee->id_role == 4) {
+            return redirect()->back()->with('error', 'Этот пользователь уже сотрудник студии!');
+        }
+
+        StudioStaff::create([
+            'user_id' => $employee->id,
+            'studio_id' => $user->studio->id,
+        ]);
+
+        $employee->id_role = 4;
+        $employee->save();
+
+        return redirect()->back()->with('success', 'Сотрудник добавлен!');
+
+    }
+
+    public function remove_studio_staff(Request $request)
+    {
+
+        if (!$request->user_id || !$employee = User::find($request->user_id)) {
+            return response()->json(['success' => false, 'message' => 'Сотрудник не найден.']);
+        }
+
+        $staff = StudioStaff::where('user_id', $employee->id)->first();
+        if ($staff) {
+            $staff->delete();
+
+            $employee->id_role = 1;
+            $employee->save();
+
+            return response()->json(['success' => true, 'message' => 'Сотрудник успешно удалён!']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Пользователь не является сотрудником.']);
     }
 }

@@ -68,6 +68,7 @@
                                     @if (Auth::user()->id_role == 2)
                                         <li><a href="/my_studio">Моя студия</a></li>
                                         <li><a href="/my_halls">Мои залы</a></li>
+                                        <li><a href="/list_employee">Сотрудники студии</a></li>
                                     @endif
 
                                     @if(Auth::user()->id_role == 4)

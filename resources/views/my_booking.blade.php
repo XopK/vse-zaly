@@ -27,6 +27,7 @@
             max-width: 240px;
             max-height: 270px;
             padding-right: 20px;
+
         }
 
         .booking_info button {
