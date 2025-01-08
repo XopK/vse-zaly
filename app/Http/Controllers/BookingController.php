@@ -354,11 +354,10 @@ class BookingController extends Controller
                     'selectedHall' => 'required',
                     'selectedDate' => 'required',
                     'selectedTime' => 'required',
-                    'reasonInput' => 'required',
+                    'reasonInput' => 'nullable',
                 ], [
                     'selectedDate.required' => 'Выберите дату!',
                     'selectedTime.required' => 'Выберите время!',
-                    'reasonInput.required' => 'Введите причину!'
                 ]);
 
                 $dates = explode(', ', $request->selectedDate);
@@ -543,7 +542,6 @@ class BookingController extends Controller
 
     private function closeBooking($hallId, $dates, $times, $reason)
     {
-
         $timezone = 'Asia/Yekaterinburg';
         $bookings = [];
 

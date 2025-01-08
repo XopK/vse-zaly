@@ -132,6 +132,7 @@ class SmsController extends Controller
                     Session::forget('application');
 
                     return redirect('/')->with('success', 'Заявка подана!');
+
                 } elseif (Session::has('update_phone_user')) {
 
                     $user_update = Session::get('update_phone_user');

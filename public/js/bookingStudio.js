@@ -325,6 +325,7 @@ $(document).ready(function () {
                         if (isCellBooked) {
                             cell.addClass('closed-cell');
                             cell.text('Закрыто'); // Текст "Закрыто" для заблокированных ячеек
+                            cell.attr('title', `Причина: ${booking.reason_close}`);
 
                             return true; // Прерываем дальнейшую проверку для заблокированного интервала
                         }

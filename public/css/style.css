@@ -10534,6 +10534,15 @@ td .price {
     display: block; /* Убирает нежелательные отступы */
 }
 
+.custom-tooltip {
+    padding: 10px !important;
+    background-color: #ffffff !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+    color: #333 !important;
+    font-size: 16px !important;
+}
+
 
 
 

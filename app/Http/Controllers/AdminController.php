@@ -67,10 +67,10 @@ class AdminController extends Controller
                 'email_studio' => $id->email ? $id->email : $id->user->email,
                 'phone_studio' => $id->phone ? $id->phone : $id->user->phone,
                 'adress_studio' => $id->address,
-                'id_user' => $id->id_user,
+                'id_user' => $id->id_user ? $id->id_user : $user->id,
             ]);
 
-            $owner = User::find($id->id_user);
+            $owner = User::find($id->id_user ? $id->id_user : $user->id);
 
             $owner->id_role = 2;
 
