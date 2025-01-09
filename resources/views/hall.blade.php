@@ -296,7 +296,13 @@
             <div class="upper-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
 
                 <div class="upper-inner">
-                    <h2>{{$hall->name_hall}}</h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>{{$hall->name_hall}}</h2>
+                        <h5>Студия: <a
+                                href="/about_studio/{{$hall->studio->id}}-{{Str::slug($hall->studio->name_studio)}}"
+                                target="_blank">{{ $hall->studio->name_studio }}</a></h5>
+                    </div>
+
                     <div class="pricing clearfix">
                         <div class="price">Площадь <span>{{$hall->area_hall}} м²</span></div>
                         {{-- <div class="rating">
@@ -407,8 +413,6 @@
                                     class="btn-title">Забронировать</span></button>
                         </div>
                     @endguest
-
-
                 </div>
             </div>
 

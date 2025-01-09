@@ -9,7 +9,7 @@
                         <div class="inner-box">
                             <div class="image-box image-container aspect-ratio-box">
                                 <figure class="image image-content"><a
-                                        href="/my_hall/{{ $hall->id }}-{{ Str::slug($hall->name_hall) }}"><img
+                                        href="/hall/{{ $hall->id }}-{{ Str::slug($hall->name_hall) }}"><img
                                             src="/storage/photo_halls/{{ $hall->preview_hall }}"
                                             alt="{{ $hall->preview_hall }}"></a>
                                 </figure>

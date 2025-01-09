@@ -449,7 +449,6 @@ $(document).ready(function () {
                         date: selectedDate, times: [cellData.time]
                     });
                 }
-
                 // Суммируем стоимость для всех ячеек за эту неделю
                 totalCost += parseFloat(cellData.price || 0); // Используем сохраненную цену
             });

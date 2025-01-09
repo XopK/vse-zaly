@@ -64,7 +64,7 @@ class UserController extends Controller
             $hashPhoto = $user->photo_profile;
         }
 
-        if ($user->phone != $request->phone) {
+        if ($user->phone != $this->normalizePhoneNumber($request->phone)) {
 
             $verificationCode = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
             $expiration = now()->addMinutes(15);

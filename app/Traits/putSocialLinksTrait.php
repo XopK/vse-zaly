@@ -22,6 +22,10 @@ trait putSocialLinksTrait
             if ($value === null || $value === '') {
                 // Если значение null
             } else {
+                if ($key === 'tg') {
+
+                    $value = ltrim($value, '@');
+                }
 
                 if (strpos($value, $baseLink) === 0) {
                     // Значение уже начинается с базовой ссылки

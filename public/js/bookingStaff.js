@@ -486,7 +486,7 @@ $(document).ready(function () {
         var twoWeeksLater = moment().add(6, 'weeks').endOf('isoWeek');
 
         if (startOfWeek.isAfter(twoWeeksLater)) {
-            showAlert('danger', 'Нельзя выбрать дату более чем на шесть недель вперёд!');
+            showAlert('Нельзя выбрать дату более чем на шесть недель вперёд!', 'danger');
             return;
         }
 

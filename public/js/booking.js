@@ -187,6 +187,9 @@ $(document).ready(function () {
 
                 // Логика для заблокированных ячеек
                 if (isBooked) {
+                    cell.text('Забронировано').css({
+                        'font-size': '15px', 'user-select': 'none',
+                    });
                     cell.addClass('booked-cell');
                 } else if (cellDateTime.isBefore(now)) {
                     cell.addClass('disabled-past');
