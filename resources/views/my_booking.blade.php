@@ -91,8 +91,16 @@
                             </form>
                         @endif
                         @if($user->link_payment)
-                            <a href="{{$user->link_payment}}" class="theme-btn btn-style-one mt-3"><span
-                                    class="btn-title">Продолжить оплату</span></a>
+                            <div class="d-flex" style="gap: 10px">
+                                <button onclick="window.location.href='{{$user->link_payment}}';">Продолжить оплату
+                                </button>
+                                <form action="/cancel_booking_user" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id_booking" value="{{$user->id}}">
+                                    <button type="submit">Отменить резерв</button>
+                                </form>
+                            </div>
                         @endif
                     </div>
                 </li>

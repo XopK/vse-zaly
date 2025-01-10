@@ -102,7 +102,7 @@ class StudioController extends Controller
 
     public function my_hall_view(Hall $hall)
     {
-        $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user', 'unregister_user')->get();
+        $booking = BookingHall::where('id_hall', $hall->id)->with('user', 'unregister_user')->get();
 
         foreach ($booking as $b) {
             if ($b->user) {
@@ -185,7 +185,7 @@ class StudioController extends Controller
     public function bookings_get(Hall $hall)
     {
 
-        $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->with('user', 'unregister_user')->get();
+        $booking = BookingHall::where('id_hall', $hall->id)->with('user', 'unregister_user')->get();
 
         foreach ($booking as $b) {
             if ($b->user) {

@@ -26,7 +26,7 @@ class HallController extends Controller
 
     public function hall_view(Hall $hall)
     {
-        $booking = BookingHall::where('id_hall', $hall->id)->whereNotNull('payment_id')->get();
+        $booking = BookingHall::where('id_hall', $hall->id) ->get();
         $hallPrice = HallPrice::where('id_hall', $hall->id)->get();
 
         $sessionKey = 'hall_view_' . $hall->id;

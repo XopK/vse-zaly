@@ -138,6 +138,8 @@ Route::middleware('check.auth')->group(function () {
 
     Route::post('/send_report', [UserController::class, 'send_report'])->name('send_report');
 
+    Route::delete('/cancel_booking_user', [UserController::class, 'cancel_booking_user'])->name('cancel_booking_user');
+
 });
 
 Route::post('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');

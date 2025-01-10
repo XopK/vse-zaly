@@ -430,14 +430,27 @@ $(document).ready(function () {
                         cell.attr('data-end', formattedEnd);
 
                         if (booking.user) {
-                            // Для зарегистрированных пользователей
+                            let userInfo = `${booking.user.name} ${booking.user.phone}<br>(${booking.total_price}₽ ${formattedStart}-${formattedEnd})`;
+
+                            // Проверяем, оплачен ли заказ
+                            if (booking.payment_id == null) {
+                                userInfo += `<br><strong>Зарезервирован</strong>`;  // Добавляем информацию о неоплаченном заказе
+                            }
+
                             cell.text(booking.user.name);
-                            cell.attr('title', `${booking.user.name} ${booking.user.phone}<br>(${booking.total_price}₽ ${formattedStart}-${formattedEnd})`);
+                            cell.attr('title', userInfo);
                             cell.attr('data-user-url', booking.user.url);
                         } else if (booking.unregister_user) {
                             // Для незарегистрированных пользователей
+                            let userInfo = `${booking.unregister_user.name} ${booking.unregister_user.phone}<br>(${booking.total_price}₽ ${formattedStart}-${formattedEnd})`;
+
+                            // Проверяем, оплачен ли заказ
+                            if (booking.payment_id == null) {
+                                userInfo += `<br><strong>Зарезервирован</strong>`;  // Добавляем информацию о неоплаченном заказе
+                            }
+
                             cell.text(booking.unregister_user.name);
-                            cell.attr('title', `${booking.unregister_user.name} ${booking.unregister_user.phone}<br>(${booking.total_price}₽ ${formattedStart}-${formattedEnd})`); // Всплывающая подсказка
+                            cell.attr('title', userInfo); // Всплывающая подсказка
                             cell.removeAttr('data-user-url'); // Не устанавливаем URL для незарегистрированных пользователей
                             cell.attr('data-warning', 'Этот пользователь не зарегистрирован на сайте.');
                         }

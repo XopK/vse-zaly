@@ -282,5 +282,14 @@ class UserController extends Controller
         }
     }
 
+    public function cancel_booking_user(Request $request)
+    {
+        $booking = BookingHall::where('id', $request->id_booking)->first();
+        $booking->disableEvents = true;
+
+        $booking->delete();
+
+        return back()->with('success', 'Резерв отменен!');
+    }
 
 }

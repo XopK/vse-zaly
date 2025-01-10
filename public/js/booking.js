@@ -177,6 +177,10 @@ $(document).ready(function () {
                         return cellDateTime.isBetween(start, end, null, '[]');
                     }
 
+                    if (booking.payment_id === null) {
+                        return cellDateTime.isBetween(start, end, null, '[)');
+                    }
+
                     // Если текущее время является концом брони, не закрашиваем ячейку
                     if (cellDateTime.isSame(end)) {
                         return false;
@@ -187,10 +191,24 @@ $(document).ready(function () {
 
                 // Логика для заблокированных ячеек
                 if (isBooked) {
-                    cell.text('Забронировано').css({
-                        'font-size': '15px', 'user-select': 'none',
-                    });
-                    cell.addClass('booked-cell');
+
+                    var reservedBooking = bookings.find(function (booking) {
+                        var start = moment(booking.booking_start);
+                        var end = moment(booking.booking_end);
+                        return booking.payment_id === null && cellDateTime.isBetween(start, end, null, '[]');
+                    })
+
+                    if (reservedBooking) {
+                        cell.text('Зарезервировано').css({
+                            'font-size': '14px', 'user-select': 'none',
+                        });
+                        cell.addClass('booked-cell');
+                    } else {
+                        cell.text('Забронировано').css({
+                            'font-size': '14px', 'user-select': 'none',
+                        });
+                        cell.addClass('booked-cell');
+                    }
                 } else if (cellDateTime.isBefore(now)) {
                     cell.addClass('disabled-past');
                 } else {
