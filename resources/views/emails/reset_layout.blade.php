@@ -416,7 +416,7 @@
                                 <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                     <div
                                         style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:20px;text-align:center;color:#93999f;">
-                                        © 2024 Все залы - Все права защищены
+                                        © 2025 Все залы - Все права защищены
                                         <br/> Сайт: <a class="footer-link" href="https://vsezaly.ru"
                                                        style="color: #2e58ff; text-decoration: none;">vsezaly.ru</a>
                                     </div>

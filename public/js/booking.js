@@ -195,7 +195,7 @@ $(document).ready(function () {
                     var reservedBooking = bookings.find(function (booking) {
                         var start = moment(booking.booking_start);
                         var end = moment(booking.booking_end);
-                        return booking.payment_id === null && cellDateTime.isBetween(start, end, null, '[]');
+                        return booking.status_payment === 'NEW' && cellDateTime.isBetween(start, end, null, '[]');
                     })
 
                     if (reservedBooking) {

@@ -102,7 +102,7 @@
                 </div>
             </nav>
             <div class="nav-bottom">
-                <div class="copyright">Все залы &copy; 2024 Все права защищены</div>
+                <div class="copyright">Все залы &copy; 2025 Все права защищены</div>
                 <!--Social Links-->
                 <div class="social-links">
                     <ul class="clearfix">
@@ -213,7 +213,7 @@
         <div class="footer-bottom">
             <div class="auto-container">
                 <div class="inner clearfix">
-                    <div class="copyright">&copy; 2024 Все залы - Все права защищены</div>
+                    <div class="copyright">&copy; 2025 Все залы - Все права защищены</div>
                     <div class="bottom-links">
                         <a href="/terms">Пользовательское соглашение</a> &ensp;|&ensp; <a href="#">Политика
                             конфиденциальности</a>

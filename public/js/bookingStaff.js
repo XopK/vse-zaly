@@ -445,7 +445,7 @@ $(document).ready(function () {
                             let userInfo = `${booking.unregister_user.name} ${booking.unregister_user.phone}<br>(${booking.total_price}₽ ${formattedStart}-${formattedEnd})`;
 
                             // Проверяем, оплачен ли заказ
-                            if (booking.payment_id == null) {
+                            if (booking.status_payment === 'NEW') {
                                 userInfo += `<br><strong>Зарезервирован</strong>`;  // Добавляем информацию о неоплаченном заказе
                             }
 

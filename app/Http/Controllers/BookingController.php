@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\PaymentService;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 
 class BookingController extends Controller
@@ -85,11 +86,12 @@ class BookingController extends Controller
 
             $paymentUrl = $this->payment_bookings($request, $bookingHall);
 
-            $bookingHall->link_payment = $paymentUrl;
+            $bookingHall->link_payment = $paymentUrl['PaymentURL'];
+            $bookingHall->status_payment = $paymentUrl['Status'];
             $bookingHall->save();
 
             if ($paymentUrl) {
-                return redirect()->away($paymentUrl);
+                return redirect()->away($paymentUrl['PaymentURL']);
             } else {
                 return back()->with('error', 'Ошибка бронирования!');
             }
@@ -173,7 +175,6 @@ class BookingController extends Controller
         $isPartner = $user->id_role == 2;
         $isStaff = $user->id_role == 4;
 
-        // Загружаем необходимые данные с жадной загрузкой
         $booking = BookingHall::with('hall.studio.owner', 'user', 'unregister_user')->find($booking->id);
 
         if (!$booking) {
@@ -300,31 +301,39 @@ class BookingController extends Controller
     {
         $data = $request->all();
 
-        if ($data['Status'] == 'CONFIRMED') {
+        $checkStatus = $this->paymentService->getStatusPayment($data['PaymentId']);
 
-            $booking = BookingHall::where('id', $data['OrderId'])->first();
-
-            if ($booking->payment_id) {
-                return response()->json(['Success' => false, 'Error' => 'Payment already processed'], 400);
-            }
-
-            if ($booking) {
-                $booking->payment_id = $data['PaymentId'];
-                $booking->link_payment = null;
-                $booking->save();
-                $booking->income($data['Amount'] / 100);
-
-                Mail::to($booking->user->email)->send(new receiptBooking($booking));
-
-                return response()->json(['Success' => true]);
-            } else {
-                return response()->json(['Success' => false, 'Error' => 'Booking not found'], 400);
-            }
-        } else {
-
-            return response()->json(['Success' => false, 'Error' => 'Invalid status'], 400);
+        if (!$checkStatus) {
+            return response()->json(['Success' => false, 'Error' => 'Не удалось получить статус платежа'], 500);
         }
+
+        $booking = BookingHall::where('id', $data['OrderId'])->first();
+
+        if (!$booking) {
+            return response()->json(['Success' => false, 'Error' => 'Бронь не найдена'], 404);
+        }
+
+        if ($booking->payment_id) {
+            return response()->json(['Success' => false, 'Error' => 'Платеж уже обработан'], 400);
+        }
+
+        $booking->payment_id = $data['PaymentId'];
+        $booking->status_payment = $checkStatus;
+        $booking->save();
+
+        if ($checkStatus == 'AUTHORIZED') {
+            $booking->link_payment = null;
+            $booking->save();
+            $booking->income($data['Amount'] / 100);
+
+            Mail::to($booking->user->email)->send(new receiptBooking($booking));
+
+            return response()->json(['Success' => true]);
+        }
+
+        return response()->json(['Success' => false, 'Error' => 'Неизвестный статус'], 400);
     }
+
 
     public function payment_successful()
     {
@@ -479,6 +488,7 @@ class BookingController extends Controller
                         'total_price' => $priceForDay,
                         'min_people' => $hallPrice->min_people,
                         'max_people' => $hallPrice->max_people,
+                        'status_payment' => 'MANUAL_BOOKING',
                         'payment_id' => 1,
                     ]);
 

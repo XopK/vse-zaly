@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('bookings:archive')->hourly();
         $schedule->command('password_resets:delete-old')->hourly();
+        $schedule->command('payment:confirm')->everyThirtyMinutes();
     }
 
     /**

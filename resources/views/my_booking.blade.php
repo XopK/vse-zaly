@@ -83,14 +83,14 @@
                         <p>Дата бронирования: {{ date('d.m.Y', strtotime($user->booking_start)) }}</p>
                         <p>Время: {{ date('H:i', strtotime($user->booking_start)) }}
                             - {{ date('H:i', strtotime($user->booking_end)) }}</p>
-                        @if($user->payment_id)
+                        @if($user->status_payment == 'AUTHORIZED' || $user->status_payment == 'MANUAL_BOOKING' || $user->status_payment == null)
                             <form action="/delete_booking/{{$user->id}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit">Отменить бронь</button>
                             </form>
                         @endif
-                        @if($user->link_payment)
+                        @if($user->status_payment == 'NEW')
                             <div class="d-flex" style="gap: 10px">
                                 <button onclick="window.location.href='{{$user->link_payment}}';">Продолжить оплату
                                 </button>
