@@ -502,6 +502,7 @@ class BookingController extends Controller
                         'total_price' => $priceForDay,
                         'min_people' => $hallPrice->min_people,
                         'max_people' => $hallPrice->max_people,
+                        'status_payment' => 'MANUAL_BOOKING',
                         'payment_id' => 1,
                     ]);
 

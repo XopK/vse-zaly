@@ -104,8 +104,16 @@ class SmsController extends Controller
                     $unregistered = UnregisteredUser::where('phone', $user->phone)->orWhere('email', $user->email)->first();
 
                     if ($unregistered) {
+
                         $bookingUnregistered = $unregistered->bookings;
                         foreach ($bookingUnregistered as $bo) {
+                            $bo->id_unregistered_user = null;
+                            $bo->id_user = $user->id;
+                            $bo->save();
+                        }
+
+                        $cancelledBooking = $unregistered->canceledBookings;
+                        foreach ($cancelledBooking as $bo) {
                             $bo->id_unregistered_user = null;
                             $bo->id_user = $user->id;
                             $bo->save();

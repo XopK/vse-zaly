@@ -17,7 +17,7 @@ class GeocodingService
     public function getCoordinates(string $address)
     {
         $response = Http::withHeaders([
-            'Referer' => 'https://vsezaly.com/',
+            'Referer' => 'https://vsezaly.ru/',
         ])->get('https://geocode-maps.yandex.ru/1.x/', [
             'apikey' => $this->apiKey,
             'geocode' => $address,

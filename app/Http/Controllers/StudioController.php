@@ -164,6 +164,10 @@ class StudioController extends Controller
 
         $cancelled = CancelledBookingHall::with('user', 'hall', 'unregisteredUser')
             ->orderBy('created_at', 'desc')
+            ->where(function ($query) {
+                $query->whereNotNull('id_user')
+                    ->orWhereNotNull('id_unregistered_user');
+            })
             ->get();
 
         return view('cancelledBooking', ['cancelled' => $cancelled]);

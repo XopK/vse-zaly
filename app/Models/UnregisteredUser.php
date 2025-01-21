@@ -20,4 +20,9 @@ class UnregisteredUser extends Model
     {
         return $this->hasMany(BookingHall::class, 'id_unregistered_user');
     }
+
+    public function canceledBookings()
+    {
+        return $this->hasMany(CancelledBookingHall::class, 'id_unregistered_user');
+    }
 }

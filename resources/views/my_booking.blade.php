@@ -83,7 +83,7 @@
                         <p>Дата бронирования: {{ date('d.m.Y', strtotime($user->booking_start)) }}</p>
                         <p>Время: {{ date('H:i', strtotime($user->booking_start)) }}
                             - {{ date('H:i', strtotime($user->booking_end)) }}</p>
-                        @if($user->status_payment == 'AUTHORIZED' || $user->status_payment == 'MANUAL_BOOKING' || $user->status_payment == null)
+                        @if($user->status_payment == 'AUTHORIZED' || $user->status_payment == 'MANUAL_BOOKING')
                             <form action="/delete_booking/{{$user->id}}" method="post">
                                 @csrf
                                 @method('DELETE')
