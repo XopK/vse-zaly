@@ -49,6 +49,11 @@ class Hall extends Model
         return $this->hasMany(PhotoHall::class, 'id_hall');
     }
 
+    public function videos()
+    {
+        return $this->hasMany(VideoHall::class, 'id_hall');
+    }
+
     public function booking_halls()
     {
         return $this->hasMany(BookingHall::class, 'id_hall');

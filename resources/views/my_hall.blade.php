@@ -388,11 +388,19 @@
             </div>
 
             <div class="lower-box">
-                <div class="col-lg-3 p-0">
-                    <button type="submit" data-toggle="modal" data-target="#photoadd"
-                            class="theme-btn btn-style-one btn-block mb-3"><span
-                            class="btn-title">Добавить фотографии +</span></button>
+                <div class="d-flex align-items-center" style="gap: 10px">
+                    <div class="col-lg-3 p-0">
+                        <button type="submit" data-toggle="modal" data-target="#photoadd"
+                                class="theme-btn btn-style-one btn-block mb-3"><span
+                                class="btn-title">Добавить фотографии +</span></button>
+                    </div>
+                    <div class="col-lg-3 p-0">
+                        <button type="submit" data-toggle="modal" data-target="#videoadd"
+                                class="theme-btn btn-style-one btn-block mb-3"><span
+                                class="btn-title">Добавить видео +</span></button>
+                    </div>
                 </div>
+
                 <div class="row clearfix">
                     @forelse($hall->photo_halls as $photo)
                         <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
@@ -417,6 +425,27 @@
                         </div>
                     @empty
                     @endforelse
+
+                    @forelse($hall->videos as $video)
+                        <div class="image-block video-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp"
+                             data-wow-delay="0ms"
+                             data-wow-duration="1500ms">
+                            <figure class="image">
+                                <a data-fancybox href="/storage/video_halls/{{ $video->video }}">
+                                    <img class="video-thumbnail"
+                                         data-video-src="/storage/video_halls/{{ $video->video }}"
+                                         src="">
+                                </a>
+
+                                <button type="button" title="Удалить" class="close btn-cls-video" aria-label="Close"
+                                        style="background-color: red; width: 40px; height: 40px; color: white; border-radius: 50%; position: absolute; right: 5px; top: 5px; padding-bottom: 3px"
+                                        data-video-id="{{ $video->id }}">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </figure>
+                        </div>
+                    @empty
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -424,6 +453,35 @@
 
 </x-layout>
 <x-booking_studio :hall="$hall" :bookings="$bookings" :hall_price="$hall_price"></x-booking_studio>
+<script>
+    $(document).ready(function () {
+        $('.video-thumbnail').each(function () {
+            const $this = $(this); // Текущий элемент <img>
+            const videoSrc = $this.data('video-src'); // Путь к видео
+            const video = document.createElement('video'); // Создаем элемент <video>
+            video.src = videoSrc;
+
+            // Устанавливаем обработчик для загрузки данных видео
+            video.addEventListener('loadeddata', function () {
+                video.currentTime = 1; // Берем кадр с 1 секунды
+            });
+
+            // Устанавливаем обработчик для получения кадра
+            video.addEventListener('seeked', function () {
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+
+                const context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Генерируем превью из canvas
+                const thumbnail = canvas.toDataURL('image/png');
+                $this.attr('src', thumbnail); // Устанавливаем превью как src для <img>
+            });
+        });
+    });
+</script>
 <script src="/js/rangeStep.js"></script>
 <script>
     let blockCount = {{ count($hall_price) }};
@@ -483,6 +541,31 @@
                     console.log('Ошибка при удалении записи.');
                 }
             });
+        });
+
+        $('.btn-cls-video').on('click', function () {
+            var button = $(this);
+            var recordId = button.data('video-id');
+            var videoBlock = button.closest('.video-block');
+
+            $.ajax({
+                url: '/delete_video/' + recordId,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        videoBlock.remove();
+                    } else {
+                        console.log('Ошибка при удалении записи.');
+                    }
+                },
+                error: function () {
+                    console.log('Ошибка при удалении записи.');
+                }
+            });
+
         });
 
         $('.btn-set').on('click', function () {
@@ -587,8 +670,67 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="videoadd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавление видео</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="/my_hall/{{$hall->id}}/add_video">
+                    @csrf
+                    <div class="col-lg-12 ">
+                        <div class="form-group photo">
+                            <label>Видео зала</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input-video" name="video_hall[]"
+                                           accept="video/*"
+                                           id="inputGroupFile02" aria-describedby="inputGroupFileAddon01" multiple>
+                                    <label class="custom-file-label" for="inputGroupFile02">Выберите
+                                        файл/ы</label>
+                                </div>
+                            </div>
+                        </div>
+                        @error('photo_hall')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="send-btn">
+                            <button type="submit" class="theme-btn btn-style-one"><span
+                                    class="btn-title">Добавить</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     document.querySelector('.custom-file-input').addEventListener('change', function (event) {
+        var input = event.target;
+        var label = input.nextElementSibling;
+
+        if (input.files.length > 0) {
+            var fileNames = Array.from(input.files).map(file => file.name).join(', ');
+            label.textContent = fileNames;
+        } else {
+            label.textContent = 'Выбрать файл';
+        }
+    });
+
+
+    document.querySelector('.custom-file-input-video').addEventListener('change', function (event) {
         var input = event.target;
         var label = input.nextElementSibling;
 

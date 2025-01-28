@@ -9,10 +9,12 @@ use App\Models\Hall;
 use App\Models\HallPrice;
 use App\Models\PhotoHall;
 use App\Models\Studio;
+use App\Models\VideoHall;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class HallController extends Controller
 {
@@ -26,7 +28,12 @@ class HallController extends Controller
 
     public function hall_view(Hall $hall)
     {
-        $booking = BookingHall::where('id_hall', $hall->id) ->get();
+        $today = Carbon::now()->subWeekdays(1);
+        $twoWeeksFromNow = Carbon::now()->addWeeks(3);
+
+        $booking = BookingHall::where('id_hall', $hall->id)
+            ->whereBetween('booking_start', [$today, $twoWeeksFromNow])
+            ->get();
         $hallPrice = HallPrice::where('id_hall', $hall->id)->get();
 
         $sessionKey = 'hall_view_' . $hall->id;
@@ -76,6 +83,8 @@ class HallController extends Controller
             'weekend_evening_price.*' => 'required|numeric|min:0',
             'photo_hall' => 'required',
             'photo_hall.*' => 'image|mimes:jpeg,png,jpg,webp|max:10240',
+            'video_hall' => 'nullable',
+            'video_hall.*' => 'file|mimes:mp4,mpeg,qt|max:102400',
         ], [
             'name_hall.required' => 'Введите название студии.',
             'area_hall.integer' => 'Введите числовые значения.',
@@ -96,6 +105,10 @@ class HallController extends Controller
             'photo_hall.*.image' => 'Файл должен быть изображением.',
             'photo_hall.*.mimes' => 'Изображение должно быть одного из следующих форматов: jpeg, png, jpg, webp.',
             'photo_hall.*.max' => 'Размер изображения не должен превышать 10MB.',
+            'video_hall.*.file' => 'Каждый загружаемый файл должен быть корректным файлом.',
+            'video_hall.*.mimes' => 'Каждый файл должен быть в одном из следующих форматов: MP4, MPEG или QuickTime.',
+            'video_hall.*.max' => 'Размер каждого файла не должен превышать 100 МБ.',
+
         ]);
 
         $studio = Auth::user()->studio;
@@ -150,6 +163,18 @@ class HallController extends Controller
                 'id_hall' => $hall->id,
                 'photo_hall' => $hashPhoto,
             ]);
+        }
+
+        if ($request->hasFile('video_hall')) {
+            foreach ($request->file('video_hall') as $video) {
+                $hashVideo = $video->hashName();
+                $storeVideo = $video->store('public/video_halls');
+
+                $videoHalls = VideoHall::create([
+                    'id_hall' => $hall->id,
+                    'video' => $hashVideo,
+                ]);
+            }
         }
 
         if ($hall) {
@@ -286,6 +311,21 @@ class HallController extends Controller
 
     }
 
+    public function delete_video($video)
+    {
+        $delete = VideoHall::find($video);
+        $hall = $delete->halls;
+
+        if ($delete) {
+            Storage::delete('public/video_halls/' . $delete->video);
+            $delete->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false], 404);
+        }
+
+    }
+
     public function update_preview($photo)
     {
         $newPhoto = PhotoHall::find($photo);
@@ -327,6 +367,32 @@ class HallController extends Controller
             return redirect()->back()->with('error', 'Ошибка добавления');
         }
 
+    }
+
+    public function addVideo(Request $request, $hall)
+    {
+        $request->validate([
+            'video_hall' => 'required'
+        ], [
+            'video_hall.required' => 'Выберите хотя бы одно видео'
+        ]);
+
+        foreach ($request->video_hall as $video) {
+            $hashVideo = $video->hashName();
+            $storeVideo = $video->store('public/video_halls');
+
+            $check = VideoHall::create([
+                'id_hall' => $hall,
+                'video' => $hashVideo,
+            ]);
+
+            if ($check) {
+                return redirect()->back()->with('success', 'Видео добавлено!');
+            } else {
+                return redirect()->back()->with('error', 'Ошибка добавления');
+            }
+
+        }
     }
 
     public function all_halls()

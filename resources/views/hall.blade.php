@@ -268,6 +268,8 @@
         label {
             cursor: pointer;
         }
+
+
     </style>
     <!-- Banner Section -->
     <section class="page-banner ext-banner">
@@ -435,7 +437,6 @@
             <div class="lower-box">
                 <div class="row clearfix">
                     @forelse($hall->photo_halls as $photo)
-
                         <div class="image-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
                              data-wow-duration="1500ms">
                             <figure class="image"><a href="/storage/photo_halls/{{$photo->photo_hall}}"
@@ -447,8 +448,24 @@
                         </div>
                     @empty
                     @endforelse
+                    @forelse($hall->videos as $video)
+                        <div class="image-block video-block col-lg-6 col-md-6 col-sm-12 wow fadeInUp"
+                             data-wow-delay="0ms"
+                             data-wow-duration="1500ms">
+                            <figure class="image">
+                                <a data-fancybox="gallery" href="/storage/video_halls/{{ $video->video }}">
+                                    <img class="video-thumbnail"
+                                         data-video-src="/storage/video_halls/{{ $video->video }}"
+                                         src="">
+
+                                </a>
+                            </figure>
+                        </div>
+                    @empty
+                    @endforelse
                 </div>
             </div>
+
             <div class="centered" style="margin-top: 50px;">
                 <h2>Адрес</h2>
                 <div class="sec-title d-flex" style="position: relative;">
@@ -463,10 +480,10 @@
                 </div>
             </div>
 
-            {{--<div class="reviews">
+            <div class="reviews">
                 <h2 style="text-align: center">Отзывы</h2>
 
-            </div>--}}
+            </div>
         </div>
     </section>
 </x-layout>
@@ -496,6 +513,37 @@
         </div>
     @endif
 @endauth
+
+<script>
+    $(document).ready(function () {
+        $('.video-thumbnail').each(function () {
+            const $this = $(this); // Текущий элемент <img>
+            const videoSrc = $this.data('video-src'); // Путь к видео
+            const video = document.createElement('video'); // Создаем элемент <video>
+            video.src = videoSrc;
+
+            // Устанавливаем обработчик для загрузки данных видео
+            video.addEventListener('loadeddata', function () {
+                video.currentTime = 1; // Берем кадр с 1 секунды
+            });
+
+            // Устанавливаем обработчик для получения кадра
+            video.addEventListener('seeked', function () {
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+
+                const context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Генерируем превью из canvas
+                const thumbnail = canvas.toDataURL('image/png');
+                $this.attr('src', thumbnail); // Устанавливаем превью как src для <img>
+            });
+        });
+    });
+</script>
+
 <script>
     let isWarningConfirmed = false;
 

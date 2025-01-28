@@ -392,6 +392,39 @@
                         </div>
                         @enderror
                     </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group photo">
+                            <label>Видео зала</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input-video" name="video_hall[]"
+                                           accept="video/*" id="inputGroupFile02"
+                                           aria-describedby="inputGroupFileAddon02" multiple>
+                                    <label class="custom-file-label" for="inputGroupFile02">Выберите видеофайлы</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        @error('video_hall.*')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                        @error('video_hall')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @enderror
+                    </div>
+
+
                     <div class="col-lg-12">
                         <div class="send-btn">
                             <button type="submit" class="theme-btn btn-style-one"><span
@@ -413,7 +446,19 @@
             var fileNames = Array.from(input.files).map(file => file.name).join(', ');
             label.textContent = fileNames;
         } else {
-            label.textContent = 'Выбрать файл';
+            label.textContent = 'Выберите файл/ы';
+        }
+    });
+
+    document.querySelector('.custom-file-input-video').addEventListener('change', function (event) {
+        var input = event.target;
+        var label = input.nextElementSibling;
+
+        if (input.files.length > 0) {
+            var fileNames = Array.from(input.files).map(file => file.name).join(', ');
+            label.textContent = fileNames;
+        } else {
+            label.textContent = 'Выберите видеофайлы';
         }
     });
 </script>

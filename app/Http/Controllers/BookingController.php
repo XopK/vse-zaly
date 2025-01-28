@@ -207,7 +207,7 @@ class BookingController extends Controller
                         Mail::to($booking->unregister_user->email)->send(new cancellBooking($booking));
                     }
                     if ($booking->hall->studio->owner && $booking->hall->studio->owner->email) {
-                        Mail::to($booking->hall->studio->owner->email)->send(new cancellBookingforPartner($booking));
+                        Mail::to($booking->hall->studio->email_studio)->send(new cancellBookingforPartner($booking));
                     }
                     $booking->delete();
                     return redirect('/my_booking')->with('success', 'Бронь отменена.');
@@ -217,7 +217,7 @@ class BookingController extends Controller
                         Mail::to($booking->user->email)->send(new cancellBooking($booking));
                     }
                     if ($booking->hall->studio->owner && $booking->hall->studio->owner->email) {
-                        Mail::to($booking->hall->studio->owner->email)->send(new cancellBookingforPartner($booking));
+                        Mail::to($booking->hall->studio->email_studio)->send(new cancellBookingforPartner($booking));
                     }
                     $booking->delete();
                     return redirect('/my_booking')->with('success', 'Бронь отменена.');

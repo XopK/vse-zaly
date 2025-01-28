@@ -62,9 +62,13 @@ Route::middleware('role:Партнёр')->group(function () {
 
     Route::delete('/delete_photo/{photo}', [HallController::class, 'delete_photo']);
 
+    Route::delete('/delete_video/{video}', [HallController::class, 'delete_video']);
+
     Route::post('/update_preview/{photo}', [HallController::class, 'update_preview']);
 
     Route::post('/my_hall/{hall}/add_photo', [HallController::class, 'addPhoto']);
+
+    Route::post('/my_hall/{hall}/add_video', [HallController::class, 'addVideo']);
 
     Route::delete('/delete_hall/{hall}', [HallController::class, 'delete_hall']);
 
