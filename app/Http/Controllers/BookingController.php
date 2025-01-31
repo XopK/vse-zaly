@@ -641,8 +641,16 @@ class BookingController extends Controller
             'hall_id' => 'required|integer'
         ]);
 
-        $hall = Hall::findOrFail($data['hall_id']);
-        $bookingStepInMinutes = (int)round($hall->step_booking * 60); // Преобразуем шаг в целое число минут
+        try {
+            $hall = Hall::findOrFail($data['hall_id']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Зал не найден',
+                'errors' => ['hall_id' => 'Зал с указанным ID не существует']
+            ], 404);
+        }
+
+        $bookingStepInMinutes = (int)round($hall->step_booking * 60);
 
         $unlockedCells = [];
         $errors = [];
@@ -652,62 +660,61 @@ class BookingController extends Controller
 
             $booking = BookingHall::where('id_hall', $data['hall_id'])
                 ->where('booking_start', '<=', $unlockTime)
-                ->where('booking_end', '>', $unlockTime)
+                ->where('booking_end', '>=', $unlockTime)
                 ->first();
 
-            if ($booking) {
-                $bookingStart = Carbon::parse($booking->booking_start);
-                $bookingEnd = Carbon::parse($booking->booking_end);
-
-                $remainingDuration = $bookingStart->diffInMinutes($bookingEnd);
-
-                try {
-                    if ($remainingDuration == $bookingStepInMinutes) {
-                        $booking->disableEvents = true;
-                        $booking->delete();
-                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
-                    } elseif ($unlockTime->eq($bookingStart)) {
-                        // Разблокировка первой ячейки
-                        $booking->booking_start = $unlockTime->addMinutes($bookingStepInMinutes);
-                        $booking->save();
-                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
-                    } elseif ($unlockTime->copy()->addMinutes($bookingStepInMinutes)->eq($bookingEnd)) {
-                        // Разблокировка последней ячейки
-                        $booking->booking_end = $unlockTime;
-                        $booking->save();
-                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
-                    } else {
-                        // Разблокировка ячейки в середине диапазона, разделение записи
-                        BookingHall::create([
-                            'id_hall' => $booking->id_hall,
-                            'booking_start' => $bookingStart,
-                            'booking_end' => $unlockTime,
-                            'payment_id' => $booking->payment_id,
-                            'is_available' => 0
-                        ]);
-
-                        $booking->booking_start = $unlockTime->addMinutes($bookingStepInMinutes);
-                        $booking->save();
-                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
-                    }
-
-                    if ($booking->booking_start == $booking->booking_end) {
-                        $booking->disableEvents = true;
-                        $booking->delete();
-                        $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
-                    }
-                } catch (\Exception $e) {
-                    $errors[] = [
-                        'date' => $cell['date'],
-                        'time' => $cell['time'],
-                        'error' => $e->getMessage()
-                    ];
-                }
-            } else {
+            if (!$booking) {
                 $errors[] = [
                     'date' => $cell['date'],
                     'time' => $cell['time'],
                     'error' => 'Бронирование не найдено'
+                ];
+                continue;
+            }
+
+            $bookingStart = Carbon::parse($booking->booking_start);
+            $bookingEnd = Carbon::parse($booking->booking_end);
+
+            $remainingDuration = $bookingStart->diffInMinutes($bookingEnd);
+
+            try {
+                if ($remainingDuration == $bookingStepInMinutes) {
+                    $booking->disableEvents = true;
+                    $booking->delete();
+                } elseif ($unlockTime->eq($bookingStart)) {
+                    // Если разблокируем начало бронирования, сдвигаем начало
+                    $booking->booking_start = $unlockTime->addMinutes($bookingStepInMinutes);
+                    $booking->save();
+                } elseif ($unlockTime->eq($bookingEnd)) {
+                    // Если разблокируем конец бронирования, сдвигаем конец
+                    $booking->booking_end = $unlockTime->subMinutes($bookingStepInMinutes);
+                    $booking->save();
+                } else {
+
+                    BookingHall::create([
+                        'id_hall' => $booking->id_hall,
+                        'booking_start' => $bookingStart,
+                        'booking_end' => $unlockTime,
+                        'payment_id' => $booking->payment_id,
+                        'reason_close' => $booking->reason_close,
+                        'is_available' => 0
+                    ]);
+
+                    $booking->booking_start = $unlockTime->addMinutes($bookingStepInMinutes);
+                    $booking->save();
+                }
+
+                if ($booking->booking_start > $booking->booking_end) {
+                    $booking->disableEvents = true;
+                    $booking->delete();
+                }
+
+                $unlockedCells[] = ['date' => $cell['date'], 'time' => $cell['time']];
+            } catch (\Exception $e) {
+                $errors[] = [
+                    'date' => $cell['date'],
+                    'time' => $cell['time'],
+                    'error' => $e->getMessage()
                 ];
             }
         }

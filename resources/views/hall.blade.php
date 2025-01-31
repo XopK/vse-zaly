@@ -480,10 +480,10 @@
                 </div>
             </div>
 
-            <div class="reviews">
+            {{--<div class="reviews">
                 <h2 style="text-align: center">Отзывы</h2>
 
-            </div>
+            </div>--}}
         </div>
     </section>
 </x-layout>

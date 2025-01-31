@@ -109,13 +109,14 @@ $(document).ready(function () {
                     success: function (response) {
                         selectedCellsData = [];
 
+
                         bookings = bookings.filter(function (booking) {
-                            // Удаляем запись из bookings, если время попадает в интервал booking_start - booking_end
                             var start = moment(booking.booking_start);
                             var end = moment(booking.booking_end);
                             var cellDateTime = moment(`${date} ${time}`, 'YYYY-MM-DD HH:mm');
                             return !cellDateTime.isBetween(start, end, null, '[)');
                         });
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error("Ошибка:", jqXHR.responseJSON.error);
