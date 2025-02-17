@@ -423,10 +423,10 @@ $(document).ready(function () {
         $('#weekTable td').removeClass('highlight-cell');
 
         var startOfWeek = getStartOfWeek(moment().add(offset, 'weeks'));
-        var twoWeeksLater = moment().add(6, 'weeks').endOf('isoWeek');
+        var twoWeeksLater = moment().add(8, 'weeks').endOf('isoWeek');
 
         if (startOfWeek.isAfter(twoWeeksLater)) {
-            showAlert('danger', 'Нельзя выбрать дату более чем на шесть недель вперёд!');
+            showAlert('danger', 'Нельзя выбрать дату более чем на восемь недель вперёд!');
             return;
         }
 
@@ -511,8 +511,10 @@ $(document).ready(function () {
                     endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем шаг бронирования
                 }
 
-                return `${info.date}: ${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`;
-            }).join('<br>'); // Используем <br> для разрыва строки
+                var dayOfWeek = moment(info.date, 'DD.MM.YYYY').format('dddd');
+
+                return `${info.date}: ${startTime.format('HH:mm')} - ${endTime.format('HH:mm')} (${dayOfWeek})`;
+            }).join('<br>');
 
             $('#selectedDateTime').html('Дата и время:<br>' + selectedInfoText);
         } else {
