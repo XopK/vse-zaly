@@ -35,7 +35,7 @@
                 <div class="cd-filter-block">
                     <h5>Дата и время</h5>
                     <div class="cd-filter-content">
-                        <input class="date mb-3" type="date" id="date" name="date">
+                        <input class="date mb-3" type="date" id="date" name="date" value="{{ now()->toDateString() }}">
                         <select class="filter" name="time" id="timeThis">
                             <option value="">Любое время</option>
                             @for($hour = 6; $hour <= 23; $hour++)
@@ -51,20 +51,31 @@
                 <div class="cd-filter-block">
                     <h5>Цена</h5>
                     <div class="cd-filter-content slider-container">
-                        <label for="price">Минимальная цена (руб):</label>
-                        <input type="range" id="price" name="price" min="0" max="5000" step="10" value="0"
-                               oninput="document.getElementById('price-value').textContent = this.value;">
-                        <span id="price-value" class="slider-value">0</span> <!-- Вывод текущего значения -->
+                        <label for="min-price">Минимальная цена (руб):</label>
+                        <input type="range" id="min-price" name="min-price" min="0" max="5000" step="10" value="0"
+                               oninput="document.getElementById('min-price-value').textContent = this.value;">
+                        <span id="min-price-value" class="slider-value">0</span> <!-- Вывод текущего значения -->
+
+                        <label for="max-price">Максимальная цена (руб):</label>
+                        <input type="range" id="max-price" name="max-price" min="0" max="5000" step="10" value="5000"
+                               oninput="document.getElementById('max-price-value').textContent = this.value;">
+                        <span id="max-price-value" class="slider-value">5000</span> <!-- Вывод текущего значения -->
                     </div> <!-- cd-filter-content -->
                 </div><!-- cd-filter-block -->
+
 
                 <div class="cd-filter-block">
                     <h5>Площадь</h5>
                     <div class="cd-filter-content slider-container">
+                        <label for="area">Минимальная площадь (м²):</label>
+                        <input type="range" id="min-area" name="min-area" min="0" max="150" step="10" value="0"
+                               oninput="document.getElementById('min-area-value').textContent = this.value;">
+                        <span id="min-area-value" class="slider-value">0</span>
+
                         <label for="area">Максимальная площадь (м²):</label>
-                        <input type="range" id="area" name="area" min="0" max="150" step="10" value="150"
-                               oninput="document.getElementById('area-value').textContent = this.value;">
-                        <span id="area-value" class="slider-value">150</span> <!-- Вывод текущего значения -->
+                        <input type="range" id="max-area" name="max-area" min="0" max="150" step="10" value="150"
+                               oninput="document.getElementById('max-area-value').textContent = this.value;">
+                        <span id="max-area-value" class="slider-value">150</span> <!-- Вывод текущего значения -->
                     </div> <!-- cd-filter-content -->
                 </div> <!-- cd-filter-block -->
 

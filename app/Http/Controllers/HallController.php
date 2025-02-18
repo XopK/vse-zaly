@@ -424,18 +424,47 @@ class HallController extends Controller
             });
         }
 
-        if ($request->filled('price')) {
-            $price = $request->input('price');
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $minPrice = $request->input('min_price');
+            $maxPrice = $request->input('max_price');
 
-            // Фильтруем залы по максимальной цене в связанных записях
-            $query->whereHas('hall_price', function ($subQuery) use ($price) {
-                $subQuery->whereRaw('GREATEST(weekday_price, weekday_evening_price, weekend_price, weekend_evening_price) >= ?', [$price]);
+            // Фильтруем по минимальной и максимальной цене
+            $query->whereHas('hall_price', function ($subQuery) use ($minPrice, $maxPrice) {
+                $subQuery->whereRaw('GREATEST(weekday_price, weekday_evening_price, weekend_price, weekend_evening_price) BETWEEN ? AND ?', [$minPrice, $maxPrice]);
+            });
+        } elseif ($request->filled('min_price')) {
+            $minPrice = $request->input('min_price');
+
+            // Фильтруем по минимальной цене
+            $query->whereHas('hall_price', function ($subQuery) use ($minPrice) {
+                $subQuery->whereRaw('GREATEST(weekday_price, weekday_evening_price, weekend_price, weekend_evening_price) >= ?', [$minPrice]);
+            });
+        } elseif ($request->filled('max_price')) {
+            $maxPrice = $request->input('max_price');
+
+            // Фильтруем по максимальной цене
+            $query->whereHas('hall_price', function ($subQuery) use ($maxPrice) {
+                $subQuery->whereRaw('GREATEST(weekday_price, weekday_evening_price, weekend_price, weekend_evening_price) <= ?', [$maxPrice]);
             });
         }
 
 
-        if ($request->filled('area')) {
-            $query->where('area_hall', '<=', $request->input('area'));
+        if ($request->filled('min_area') && $request->filled('max_area')) {
+            $minArea = $request->input('min_area');
+            $maxArea = $request->input('max_area');
+
+            // Фильтруем по диапазону площади
+            $query->whereBetween('area_hall', [$minArea, $maxArea]);
+        } elseif ($request->filled('min_area')) {
+            $minArea = $request->input('min_area');
+
+            // Фильтруем по минимальной площади
+            $query->where('area_hall', '>=', $minArea);
+        } elseif ($request->filled('max_area')) {
+            $maxArea = $request->input('max_area');
+
+            // Фильтруем по максимальной площади
+            $query->where('area_hall', '<=', $maxArea);
         }
 
         if ($request->filled('studio')) {

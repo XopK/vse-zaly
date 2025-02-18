@@ -10,8 +10,10 @@ $(document).ready(function () {
             search: $('input[type="search"]').val().trim(),
             date: $('#date').val(),
             time: $('#timeThis').val(),
-            price: $('#price').val(),
-            area: $('#area').val(),
+            min_price: $('#min-price').val(),
+            max_price: $('#max-price').val(),
+            min_area: $('#min-area').val(),
+            max_area: $('#max-area').val(),
             studio: $('#selectThis').val(),
             sort: $('.cd-filters .filter .selected').parent().data('filter'),
             page: page // Добавляем номер страницы
@@ -25,13 +27,9 @@ $(document).ready(function () {
         previousFilters = filters;
 
         $.ajax({
-            url: "/halls/filter",
-            method: "GET",
-            data: filters,
-            beforeSend: function () {
+            url: "/halls/filter", method: "GET", data: filters, beforeSend: function () {
                 $('#halls-container').fadeOut(300);
-            },
-            success: function (response) {
+            }, success: function (response) {
 
                 if (response.html !== previousContent) {
                     previousContent = response.html; // Обновляем предыдущий контент
@@ -53,11 +51,43 @@ $(document).ready(function () {
                 } else {
                     $('#halls-container').fadeIn(300); // Простой fadeIn без анимации
                 }
-            },
-            error: function (xhr) {
+            }, error: function (xhr) {
                 $('#halls-container').fadeIn(300); // В случае ошибки показываем старые данные
             }
         });
+    }
+
+    function updatePriceValues() {
+        let minPrice = parseInt($('#min-price').val());
+        let maxPrice = parseInt($('#max-price').val());
+
+        // Если минимальная цена больше максимальной, сдвигаем максимальную цену
+        if (minPrice > maxPrice) {
+            $('#max-price').val(minPrice); // Автоматически сдвигаем максимальную цену
+            $('#max-price-value').text(minPrice); // Обновляем значение ползунка
+        } else if (maxPrice < minPrice) {
+            $('#min-price').val(maxPrice);
+            $('#min-price-value').text(maxPrice);
+        }
+
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(fetchServerFilteredHalls, typingInterval);
+    }
+
+    function updateAreaValues() {
+        let minArea = parseInt($('#min-area').val());
+        let maxArea = parseInt($('#max-area').val());
+
+        if (minArea > maxArea) {
+            $('#max-area').val(minArea);
+            $('#max-area-value').text(minArea);
+        } else if (maxArea < minArea) {
+            $('#min-area').val(maxArea);
+            $('#min-area-value').text(maxArea);
+        }
+
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(fetchServerFilteredHalls, typingInterval);
     }
 
     // Обработчики событий для текстовых полей
@@ -67,9 +97,9 @@ $(document).ready(function () {
     });
 
     // Обработчики событий для фильтров типа range
-    $('#price, #area').on('change', function () {
-        fetchServerFilteredHalls();
-    });
+    $('#min-price, #max-price').on('change', updatePriceValues);
+
+    $('#min-area, #max-area').on('change', updateAreaValues);
 
     // Обработчики событий для выпадающих списков и даты
     $('#selectThis, #date, #timeThis').on('change', function () {

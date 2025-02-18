@@ -373,8 +373,8 @@
 
             <div class="details-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                 <div class="details-inner">
-                    <h3>Зал предоставляет:</h3>
                     <div class="text">Правила: {!! nl2br(e($hall->rule_hall)) !!}</div>
+                    <h4>Зал предоставляет:</h4>
                     <ul class="info clearfix">
                         @forelse($hall->features as $feature)
                             <li><img class="icon" src="/images/features/{{$feature->photo_feature}}"
