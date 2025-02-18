@@ -42,6 +42,8 @@ Route::middleware('role:Администратор')->group(function () {
 
     Route::get('/admin/studio_requests/{id}', [AdminController::class, 'studio_request_response'])->name('admin.studio_request_details');
 
+    Route::get('/user/bookings/{user}', [AdminController::class, 'user_booking'])->name('user_booking');
+
 });
 
 Route::middleware('role:Партнёр')->group(function () {

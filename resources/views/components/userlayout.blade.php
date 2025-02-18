@@ -89,6 +89,14 @@
                                         <i class="flaticon-chat"></i>Заметки
                                     </a>
                                 </li>
+                                @if(Auth::user()->id_role == 3)
+                                    <li>
+                                        <a href="{{route('user_booking', ['user' => $user->id])}}"
+                                           class="{{ Request::is('user/bookings/' . $user->id) ? 'active' : '' }}">
+                                            <i class="flaticon-calendar"></i>Бронирования
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>

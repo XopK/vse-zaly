@@ -36,8 +36,15 @@ class AdminController extends Controller
 
     public function booking()
     {
-        $bookings = BookingHall::whereNotNull('payment_id')->get();
+        $bookings = BookingHall::where('is_available', 1)->get();
         return view('admin.booking', ['bookings' => $bookings]);
+    }
+
+    public function user_booking(User $user)
+    {
+        $bookings = BookingHall::where('id_user', $user->id)->get();
+
+        return view('admin.user_bookings', ['user' => $user, 'bookings' => $bookings]);
     }
 
     public function studio_requests()
