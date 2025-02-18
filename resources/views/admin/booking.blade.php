@@ -39,12 +39,14 @@
             <h2>Список бронирований</h2>
             @forelse($bookings as $booking)
                 <div class="hall">
-                    <div class="img">
-                        <img src="/storage/photo_halls/{{$booking->hall->preview_hall}}"
-                             alt="{{$booking->hall->preview_hall}}">
-                    </div>
+                    @if($booking->hall)
+                        <div class="img">
+                            <img src="/storage/photo_halls/{{$booking->hall->preview_hall}}"
+                                 alt="{{$booking->hall->preview_hall}}">
+                        </div>
+                    @endif
                     <div class="hall_info">
-                        <h3>Зал: {{$booking->hall->name_hall}}</h3>
+                        <h3>Зал: {{$booking->hall->name_hall ?? 'Информация отсутствует'}}</h3>
                         <p>Дата бронирования: {{ date('d.m.Y', strtotime($booking->booking_start)) }}</p>
                         <p>Время бронирования: {{ date('H:i', strtotime($booking->booking_start)) }}
                             - {{ date('H:i', strtotime($booking->booking_end)) }}</p>
