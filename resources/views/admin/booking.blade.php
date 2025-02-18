@@ -51,22 +51,36 @@
                         <p>Время бронирования: {{ date('H:i', strtotime($booking->booking_start)) }}
                             - {{ date('H:i', strtotime($booking->booking_end)) }}</p>
                         <p>Создание бронирования: {{ date('d.m.Y H:i', strtotime($booking->created_at)) }}</p>
-                        <p><a style="text-decoration: none; color: black"
-                              href="/user/{{$booking->user->id}}">{{$booking->user->name}}</a> (<a
-                                style="text-decoration: none; color: black"
-                                href="tel:{{$booking->user->phone}}">{{$booking->user->phone}}</a>)
-                        </p>
-                        <p>
+                        @if($booking->user)
+                            <p><a style="text-decoration: none; color: black"
+                                  href="/user/{{$booking->user->id}}">{{$booking->user->name}}</a> (<a
+                                    style="text-decoration: none; color: black"
+                                    href="tel:{{$booking->user->phone}}">{{$booking->user->phone}}</a>)
+                            </p>
+                            <p>
 
-                            @if($booking->user->email_verified_at)
-                                <a style="text-decoration: none; color: black" href="mailto:{{ $booking->user->email}}">
-                                    {{$booking->user->email}}
-                                </a>
-                            @else
-                                Почта не подтверждена!
-                            @endif
+                                @if($booking->user->email_verified_at)
+                                    <a style="text-decoration: none; color: black"
+                                       href="mailto:{{ $booking->user->email}}">
+                                        {{$booking->user->email}}
+                                    </a>
+                                @else
+                                    Почта не подтверждена!
+                                @endif
 
-                        </p>
+                            </p>
+                        @elseif($booking->unregister_user)
+                            <p>{{$booking->unregister_user->name}}(<a
+                                    style="text-decoration: none; color: black"
+                                    href="tel:{{$booking->unregister_user->phone}}">{{$booking->unregister_user->phone}}</a>
+                                ) (Пользователь не зарегистрирован!)</p>
+
+                            <p><a style="text-decoration: none; color: black"
+                                  href="mailto:{{ $booking->unregister_user->email}}">
+                                    {{$booking->unregister_user->email}}
+                                </a></p>
+                        @endif
+
                     </div>
                 </div>
             @empty
