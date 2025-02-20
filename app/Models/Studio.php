@@ -14,6 +14,7 @@ class Studio extends Model
         'description_studio',
         'photo_studio',
         'banner_studio',
+        'url_offer',
         'email_studio',
         'phone_studio',
         'adress_studio',

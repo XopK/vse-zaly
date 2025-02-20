@@ -11,6 +11,7 @@
         border-bottom: none;
     }
 
+
 </style>
 <div class="modal fade" id="booking" tabindex="-1" role="dialog" aria-labelledby="ModalBooking"
      aria-hidden="true">
@@ -69,11 +70,22 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @if($hall->studio->url_offer)
+                                <div class="form-check mt-3">
+                                    <input type="checkbox" class="form-check-input" id="offerConditions">
+                                    <label class="form-check-label" for="offerConditions">
+                                        Я согласен с <a href="{{ url($hall->studio->url_offer) }}" target="_blank">условиями
+                                            оферты</a>
+                                    </label>
+                                </div>
+                            @endif
                         </div>
+
 
                         <div class="col-md-6 col-sm-12">
                             <h5 style="float: right">Стоимость: <span id="totalCost">0</span>₽</h5>
                         </div>
+
 
                         <div class="col-md-6 col-sm-12 text-right ">
                             <form action="/booking" method="post" id="bookingForm">
@@ -83,6 +95,7 @@
                                 <input type="hidden" name="selectedTime" id="selectedTime">
                                 <input type="hidden" name="totalPrice" id="totalPrice">
                                 <input type="hidden" name="idPriceHall" id="idPriceHall">
+
                                 <button type="submit" id="saveChanges" class="theme-btn btn-style-one btn-block">
                                     <span class="btn-title">Забронировать</span>
                                 </button>
@@ -103,6 +116,8 @@
     var stepbooking = @json($hall->step_booking);
     var hall = @json($hall);
     var hallPrices = @json($hallPrice);
+    let offerAccess = @json($hall->studio->url_offer ? true : false);
 </script>
 <script src="/js/booking.js"></script>
+
 

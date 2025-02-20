@@ -175,6 +175,26 @@
                 </div>
                 @enderror
 
+                <div class="form-group photo">
+                    <label class="font-weight-bold">Условия оферты</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="offer"
+                                   id="inputGroupFile02" aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="inputGroupFile02">Выберите
+                                файл</label>
+                        </div>
+                    </div>
+                </div>
+                @error('offer')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
+
                 <div class="form-group">
                     <button type="submit" class="theme-btn btn-style-one btn-block"><span
                             class="btn-title">Изменить</span></button>

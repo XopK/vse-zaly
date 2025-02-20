@@ -4,6 +4,7 @@ $(document).ready(function () {
 
     generateTimeRows();
 
+
     function showAlert(message, type = 'success') {
         // Создаем HTML-разметку для сообщения
         const alertHtml = `
@@ -299,13 +300,14 @@ $(document).ready(function () {
 
             var selectedDay = startOfWeek.clone().add(dayIndex, 'days');
             var selectedDate = selectedDay.format('DD.MM.YYYY');
+            var dayOfWeek = moment(selectedDate, 'DD.MM.YYYY').format('dddd');
 
             return {
                 date: selectedDate, time: minTime + (maxTime ? ' - ' + maxTime : ''), cells: cells
             };
         });
 
-        var dateTimeText = selectedInfo.map(info => `Дата: ${info.date}, Время: ${info.time}`).join('<br>');
+        var dateTimeText = selectedInfo.map(info => `Дата: ${info.date}, Время: ${info.time} (${moment(info.date, 'DD.MM.YYYY').format('dddd')})`).join('<br>');
         $('#selectedDateTime').html(dateTimeText);
 
         if (selectedInfo.length > 0) {
@@ -452,11 +454,25 @@ $(document).ready(function () {
     });
 
     $('#saveChanges').click(function () {
+        if (!offerAccess) {
+            event.preventDefault();
+        }
+
+        if (offerAccess && !$('#offerConditions').prop('checked')) {
+            showAlert('Пожалуйста, согласитесь с условиями оферты.', 'danger');
+            return;
+        }
+
         if (selectedCells.length === 0) {
             return;
         }
+
         $('#bookingForm').submit();
     });
 
     loadWeek(weekOffset);
+
 });
+
+
+

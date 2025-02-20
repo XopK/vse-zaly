@@ -269,6 +269,27 @@
             cursor: pointer;
         }
 
+        /* Адаптивный стиль для видео в плеере */
+        .fancybox-slide--iframe iframe,
+        .fancybox-slide--video video {
+            width: 80% !important;
+            height: auto !important; /* Высота подстраивается пропорционально */
+            z-index: 9999;
+        }
+
+        /* Если видео в обычном контейнере, то сделаем его адаптивным */
+        .video-block video {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        /* Для обеспечения хорошего масштаба на мобильных устройствах */
+        @media (max-width: 768px) {
+            .video-block {
+                width: 100% !important;
+            }
+        }
+
 
     </style>
     <!-- Banner Section -->
@@ -457,10 +478,10 @@
                                     <img class="video-thumbnail"
                                          data-video-src="/storage/video_halls/{{ $video->video }}"
                                          src="">
-
                                 </a>
                             </figure>
                         </div>
+
                     @empty
                     @endforelse
                 </div>

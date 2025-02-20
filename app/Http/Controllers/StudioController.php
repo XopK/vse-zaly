@@ -41,6 +41,7 @@ class StudioController extends Controller
             'email_studio' => 'required|email|unique:studios,email_studio,' . $studio->id,
             'phone_studio' => 'required|unique:studios,phone_studio,' . $studio->id,
             'adress_studio' => 'required',
+            'offer' => 'nullable|mimes:pdf',
         ], [
             'studio_name.required' => 'Введите название студии.',
             'studio_name.min' => 'Минимальная длина названии студии - 3 символа.',
@@ -53,6 +54,7 @@ class StudioController extends Controller
             'phone_studio.required' => 'Введите номер телефона студии.',
             'phone_studio.unique' => 'Этот номер уже занят',
             'adress_studio.required' => 'Введите адрес студии',
+            'offer.mimes' => 'Допустимые файлы: pdf',
         ]);
 
         if ($request->file('studio_photo') != null) {
@@ -64,6 +66,26 @@ class StudioController extends Controller
             $hashPhoto = $studio->photo_studio;
         }
 
+        if ($request->file('offer') != null) {
+            $file = $request->file('offer');
+            $fileName = $file->hashName();
+            $filePath = $file->store('public/offers');
+
+            $urlOffer = Storage::url($filePath);
+
+            if ($studio->url_offer) {
+                $oldFilePath = str_replace('/storage', 'public', $studio->url_offer);
+
+                if (Storage::exists($oldFilePath)) {
+                    Storage::delete($oldFilePath);
+                }
+            }
+
+        } else {
+            $urlOffer = $studio->url_offer;
+        }
+
+
         $studio->fill([
             'name_studio' => $request->studio_name,
             'description_studio' => $request->studio_description,
@@ -71,6 +93,7 @@ class StudioController extends Controller
             'email_studio' => $request->email_studio,
             'phone_studio' => $this->normalizePhoneNumber($request->phone_studio),
             'adress_studio' => $request->adress_studio,
+            'url_offer' => $urlOffer,
         ]);
 
         if ($studio) {
