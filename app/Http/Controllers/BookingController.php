@@ -650,7 +650,7 @@ class BookingController extends Controller
             ], 404);
         }
 
-        $bookingStepInMinutes = (int)round($hall->step_booking * 60);
+        $bookingStepInMinutes = $hall->step_booking * 60;
 
         $unlockedCells = [];
         $errors = [];
@@ -659,6 +659,7 @@ class BookingController extends Controller
             $unlockTime = Carbon::parse("{$cell['date']} {$cell['time']}");
 
             $booking = BookingHall::where('id_hall', $data['hall_id'])
+                ->whereNull('status_payment')
                 ->where('booking_start', '<=', $unlockTime)
                 ->where('booking_end', '>=', $unlockTime)
                 ->first();

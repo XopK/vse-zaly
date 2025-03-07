@@ -10,7 +10,7 @@
         vertical-align: top;
         border-bottom: none;
     }
-
+    
 
 </style>
 <div class="modal fade" id="booking" tabindex="-1" role="dialog" aria-labelledby="ModalBooking"
@@ -25,6 +25,7 @@
             </div>
             <div class="modal-body" style="padding-top: 0">
                 <div class="table-responsive">
+
                     <div class="sticky-col" style="padding: 15px 0 15px 5px">
                         <button class="btn btn-book" id="prevWeek">&lt;</button>
                         <button class="btn btn-book" id="currentWeek">Сегодня</button>
@@ -54,7 +55,6 @@
                         <div id="selectedDateTime">Дата и время: выберите ячейки</div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <div class="container-fluid">

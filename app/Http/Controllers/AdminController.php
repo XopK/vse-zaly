@@ -22,27 +22,27 @@ class AdminController extends Controller
 
     public function users()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at', 'desc')->get();
 
         return view('admin.users', ['users' => $users]);
     }
 
     public function studios()
     {
-        $studios = Studio::all();
+        $studios = Studio::orderBy('created_at', 'desc')->get();
 
         return view('admin.studios', ['studios' => $studios]);
     }
 
     public function booking()
     {
-        $bookings = BookingHall::where('is_available', 1)->get();
+        $bookings = BookingHall::where('is_available', 1)->orderBy('created_at', 'desc')->get();
         return view('admin.booking', ['bookings' => $bookings]);
     }
 
     public function user_booking(User $user)
     {
-        $bookings = BookingHall::where('id_user', $user->id)->get();
+        $bookings = BookingHall::where('id_user', $user->id)->orderBy('created_at', 'desc')->get();
 
         return view('admin.user_bookings', ['user' => $user, 'bookings' => $bookings]);
     }
