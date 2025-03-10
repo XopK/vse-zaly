@@ -266,18 +266,11 @@ class BookingController extends Controller
                     $booking->delete();
                     return response()->json(['success' => 'Бронь отменена.'], 200);
 
-                } elseif ($isStaff || $isPartner) {
-                    if ($this->paymentService->cancelPayment($booking->payment_id)) {
-                        $booking->minusincome($booking->total_price);
-                        Mail::to($booking->user->email)->send(new cancellBooking($booking));
-                        $booking->delete();
-                        return response()->json(['success' => 'Бронь отменена.'], 200);
-                    } else {
-                        $booking->minusincome($booking->total_price);
-                        Mail::to($booking->user->email)->send(new cancellBooking($booking));
-                        $booking->delete();
-                        return response()->json(['success' => 'Бронь отменена.'], 200);
-                    }
+                } elseif ($isStaff || $isPartner || $this->paymentService->cancelPayment($booking->payment_id)) {
+                    $booking->minusincome($booking->total_price);
+                    Mail::to($booking->user->email)->send(new cancellBooking($booking));
+                    $booking->delete();
+                    return response()->json(['success' => 'Бронь отменена.'], 200);
                 } else {
                     return response()->json(['success' => false, 'message' => 'Ошибка при отмене платежа.'], 400);
                 }
