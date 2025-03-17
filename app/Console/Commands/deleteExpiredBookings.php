@@ -29,7 +29,7 @@ class deleteExpiredBookings extends Command
     {
         $bookings = BookingHall::where('status_payment', 'NEW')
             ->whereNotNull('link_payment')
-            ->where('created_at', '<=', Carbon::now()->subMinutes(10))
+            ->where('created_at', '<=', Carbon::now()->subMinutes(5))
             ->get();
 
         $bookings->each(function ($booking) {

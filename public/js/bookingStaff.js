@@ -555,13 +555,8 @@ $(document).ready(function () {
                 // Рассчитываем время окончания для каждого выбранного времени с учетом шага бронирования
                 var startTime = moment(times[0], 'HH:mm');
                 var endTime;
-                if (isHallClosed) {
-                    // Если зал закрыт, не прибавляем шаг бронирования
-                    endTime = moment(times[times.length - 1], 'HH:mm'); // Без добавления шага бронирования
-                } else {
-                    // Если зал открыт для бронирования, добавляем шаг бронирования
-                    endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем шаг бронирования
-                }
+
+                endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем шаг бронирования
 
                 return `${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`;
             }).join(', ');
@@ -577,14 +572,8 @@ $(document).ready(function () {
 
                 var startTime = moment(times[0], 'HH:mm');
                 var endTime;
-
-                if (isHallClosed) {
-                    // Если зал закрыт, не прибавляем шаг бронирования
-                    endTime = moment(times[times.length - 1], 'HH:mm'); // Без добавления шага бронирования
-                } else {
-                    // Если зал открыт для бронирования, добавляем шаг бронирования
-                    endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем шаг бронирования
-                }
+                
+                endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем шаг бронирования
 
                 return `${info.date}: ${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`;
             }).join('<br>'); // Используем <br> для разрыва строки
