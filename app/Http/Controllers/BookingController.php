@@ -551,6 +551,7 @@ class BookingController extends Controller
 
     private function closeBooking($hallId, $dates, $times, $reason)
     {
+
         $timezone = 'Asia/Yekaterinburg';
         $bookings = [];
 

@@ -322,7 +322,7 @@ $(document).ready(function () {
                     var end = moment(booking.booking_end);
 
                     if (booking.is_available == 0) {
-                        var isCellBooked = cellDateTime.isBetween(start, end, null, '[]');
+                        var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
                         if (isCellBooked) {
                             cell.addClass('closed-cell');
                             cell.text('Закрыто'); // Текст "Закрыто" для заблокированных ячеек

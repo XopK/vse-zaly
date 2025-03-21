@@ -396,7 +396,7 @@ $(document).ready(function () {
                     var end = moment(booking.booking_end);
 
                     if (booking.is_available == 0) {
-                        var isCellBooked = cellDateTime.isBetween(start, end, null, '[]');
+                        var isCellBooked = cellDateTime.isBetween(start, end, null, '[)');
                         if (isCellBooked) {
                             cell.addClass('closed-cell');
                             cell.text('Закрыто'); // Текст "Закрыто" для заблокированных ячеек
@@ -572,7 +572,7 @@ $(document).ready(function () {
 
                 var startTime = moment(times[0], 'HH:mm');
                 var endTime;
-                
+
                 endTime = moment(times[times.length - 1], 'HH:mm').add(bookingStep, 'minutes'); // Добавляем шаг бронирования
 
                 return `${info.date}: ${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`;

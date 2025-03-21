@@ -67,7 +67,7 @@ class PaymentService
             'Description' => $description,
             'SuccessURL' => route('payment.successful'),
             'FailURL' => route('payment.failed'),
-            'RedirectDueDate' => Carbon::now()->addMinutes(10)->format('Y-m-d\TH:i:s+05:00'),
+            'RedirectDueDate' => Carbon::now()->addMinutes(5)->format('Y-m-d\TH:i:s+05:00'),
         ];
         $data['Token'] = $this->generateToken($data);
         try {
