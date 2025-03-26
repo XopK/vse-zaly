@@ -28,7 +28,12 @@
 <div class="page-wrapper text-center p-5 rounded mt-0">
     <h1 class="text-danger display-1">401</h1>
     <p class="text-muted fs-5">Доступ запрещен. Попробуйте войти в аккаунт</p>
-    <a href="{{ url()->previous() }}" class="theme-btn btn-style-one"><span
+    @php
+        $previousUrl = url()->previous();
+        $currentUrl = url()->current();
+        $redirectUrl = $previousUrl === $currentUrl ? url('/') : $previousUrl;
+    @endphp
+    <a href="{{ $redirectUrl }}" class="theme-btn btn-style-one"><span
             class="btn-title">Назад</span></a>
 </div>
 

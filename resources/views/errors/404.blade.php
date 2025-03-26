@@ -28,7 +28,12 @@
 <div class="page-wrapper text-center p-5 rounded mt-0">
     <h1 class="text-warning display-1">404</h1>
     <p class="text-muted fs-5">Страница не найдена. Попробуйте вернуться назад или на главную страницу.</p>
-    <a href="{{ url()->previous() }}" class="theme-btn btn-style-one"><span
+    @php
+        $previousUrl = url()->previous();
+        $currentUrl = url()->current();
+        $redirectUrl = $previousUrl === $currentUrl ? url('/') : $previousUrl;
+    @endphp
+    <a href="{{ $redirectUrl }}" class="theme-btn btn-style-one"><span
             class="btn-title">Назад</span></a>
 </div>
 
